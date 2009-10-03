@@ -5,19 +5,20 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace com\example\ioc\interfaces;
 
 /**
- * Abstract base implementation of a constructor argument.
+ * Base interface for an ioc container implementation.
  *
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-abstract class ConstructorArgument implements Argument
+interface Container
 {
-    public function configure( ObjectFactory $factory )
-    {
-        $factory->registerConstructorArgument( $this );
-    }
+    function registerSingleton( $lookupKey, $className, array $args = array() );
+
+    function registerPrototype( $lookupKey, $className, array $args = array() );
+
+    function lookup( $lookupKey );
 }

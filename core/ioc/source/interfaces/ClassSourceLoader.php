@@ -5,18 +5,23 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace com\example\ioc\interfaces;
 
 /**
- * Base interface for all types of inject values.
+ * Base interface for a class source file loader.
  *
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-interface Argument
+interface ClassSourceLoader
 {
-    function getValue( Container $container );
-
-    function configure( ObjectFactory $factory );
+    /**
+     * Ensures that the source for the given class name is present.
+     *
+     * @param string $className Name of the class to load.
+     *
+     * @return boolean
+     */
+    function load( $className );
 }

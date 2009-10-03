@@ -7,6 +7,9 @@
 
 namespace com\example\ioc;
 
+use com\example\ioc\interfaces\Container;
+use com\example\ioc\interfaces\BaseObjectFactory;
+
 /**
  * Prototype based object factory that will create a new instance of the
  * corresponding class for each request.

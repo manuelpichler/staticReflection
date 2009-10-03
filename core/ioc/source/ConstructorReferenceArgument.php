@@ -7,6 +7,9 @@
 
 namespace com\example\ioc;
 
+use com\example\ioc\interfaces\Container;
+use com\example\ioc\interfaces\BaseConstructorArgument;
+
 /**
  * Constructor argument implementation that will return a object reference from
  * the ioc container.
@@ -15,7 +18,7 @@ namespace com\example\ioc;
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class ConstructorReferenceArgument extends ConstructorArgument
+class ConstructorReferenceArgument extends BaseConstructorArgument
 {
     private $_lookupKey = null;
 

@@ -7,6 +7,8 @@
 
 namespace com\example\ioc;
 
+use \com\example\ioc\interfaces\BaseClassSourceLoader;
+
 /**
  * Class source loader implementation that relies on PHP's autoload functionallity.
  *

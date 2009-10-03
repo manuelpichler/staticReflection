@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace com\example\ioc\interfaces;
 
 /**
  * Abstract base implementation of the object factory interface.
@@ -40,7 +40,7 @@ abstract class BaseObjectFactory implements ObjectFactory
         }
     }
 
-    public function registerConstructorArgument(ConstructorArgument $argument)
+    public function registerConstructorArgument( Argument $argument )
     {
         $this->_constructorArguments[] = $argument;
     }

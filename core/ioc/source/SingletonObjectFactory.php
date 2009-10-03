@@ -7,6 +7,9 @@
 
 namespace com\example\ioc;
 
+use com\example\ioc\interfaces\Container;
+use com\example\ioc\interfaces\BaseObjectFactory;
+
 /**
  * Object factory implementation that acts as a singleton for an unique instance
  * of the corresponding class.

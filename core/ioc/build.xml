@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ioc" default="build" basedir=".">
+
+    <property name="basedir" value="${project.basedir}" />
+
+    <target name="build" depends="prepare,test,deliv" />
+
+    <target name="clean">
+        <delete dir="${basedir}/build" includeemptydirs="true" />
+    </target>
+
+    <target name="prepare" depends="clean">
+        <mkdir dir="${basedir}/build/coverage" />
+
+        <tstamp>
+            <format property="build.tstamp" pattern="%Y%m%d%H%M%S" />
+        </tstamp>
+    </target>
+
+    <target name="test" depends="prepare">
+        <exec dir="${basedir}/test"
+              passthru="true"
+              checkreturn="true"
+              command="phpunit --coverage-html ${basedir}/build/coverage
+                               AllTests.php" />
+    </target>
+
+    <target name="deliv" depends="test,tag">
+
+    </target>
+
+    <target name="tag">
+        <echo msg="svn copy . http://example.com/RQA-build${build.tstamp}" />
+    </target>
+
+</project>

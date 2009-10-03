@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace com\example\ioc\interfaces;
 
 /**
  * Abstract base class for a class source file loader.
@@ -29,7 +29,7 @@ abstract class BaseClassSourceLoader implements ClassSourceLoader
     {
         if ( self::$_loader === null )
         {
-            self::$_loader = new AutoloadClassSourceLoader();
+            self::$_loader = new \com\example\ioc\AutoloadClassSourceLoader();
         }
         return self::$_loader;
     }

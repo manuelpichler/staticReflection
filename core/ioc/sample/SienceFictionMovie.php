@@ -1,8 +1,6 @@
 <?php
 
-namespace com\example\ioc;
-
-require_once 'Movie.php';
+namespace com\example\ioc\sample;
 
 class SienceFictionMovie extends Movie
 {

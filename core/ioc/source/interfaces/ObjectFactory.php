@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace com\example\ioc\interfaces;
 
 /**
  * Base interface for all object factory implementations.
@@ -16,7 +16,7 @@ namespace com\example\ioc;
  */
 interface ObjectFactory
 {
-    function registerConstructorArgument(ConstructorArgument $argument);
+    function registerConstructorArgument( Argument $argument );
 
     function create( Container $container );
 }

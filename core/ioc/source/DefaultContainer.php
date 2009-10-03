@@ -7,8 +7,9 @@
  
 namespace com\example\ioc;
 
-require_once 'Movie.php';
-require_once 'SienceFictionMovie.php';
+use com\example\ioc\interfaces\Container;
+use com\example\ioc\interfaces\ClassSourceLoader;
+use \com\example\ioc\interfaces\BaseClassSourceLoader;
 
 /**
  * The primary dependency injection container.
@@ -17,7 +18,7 @@ require_once 'SienceFictionMovie.php';
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class Container
+class DefaultContainer implements Container
 {
     /**
      * @var ClassSourceLoader
@@ -50,7 +51,7 @@ class Container
     private function _tryFindFactoryAndConfigure( $lookupKey )
     {
         $factory = $this->_tryFindFactory( $lookupKey );
-        $factory->setClassSourceLoader( $this->getClassSourceLoader() );
+        $factory->setClassSourceLoader( $this->_getClassSourceLoader() );
         return $factory;
     }
 
@@ -73,7 +74,7 @@ class Container
      *
      * @return ClassSourceLoader
      */
-    public function getClassSourceLoader()
+    private function _getClassSourceLoader()
     {
         if ( $this->_classSourceLoader === null )
         {
@@ -81,50 +82,10 @@ class Container
         }
         return $this->_classSourceLoader;
     }
-}
 
-final class ClassLoader
-{
-    const TYPE = __CLASS__;
 
-    private static $_namespaceMap = array();
-
-    public static function registerNamespace( $namespace, $directory )
+    public function setClassSourceLoader( ClassSourceLoader $sourceLoader )
     {
-        self::$_namespaceMap[trim( $namespace, '\\' )] = $directory;
-    }
-
-    public static function autoload( $className )
-    {
-        foreach ( self::$_namespaceMap as $namespace => $directory )
-        {
-            if ( strpos( $className, $namespace ) === 0 ) {
-                return self::_load( $className, $namespace, $directory );
-            }
-        }
-        return false;
-    }
-
-    private static function _load( $className, $namespace, $directory )
-    {
-        include self::_createPathname( $className, $namespace, $directory );
-    }
-
-    private static function _createPathname( $className, $namespace, $directory )
-    {
-        $fileName = substr( $className, strlen( $namespace ) + 1 );
-        $fileName = strtr( $fileName, '\\', '/' );
-
-        return $directory . '/' . $fileName . '.php' ;
+        $this->_classSourceLoader = $sourceLoader;
     }
 }
-
-ClassLoader::registerNamespace( 'com\example\ioc', dirname( __FILE__ ) );
-
-spl_autoload_register( array( ClassLoader::TYPE, 'autoload' ) );
-
-$container = new Container();
-$container->registerSingleton( Movie::TYPE, SienceFictionMovie::TYPE, array( new ConstructorReferenceArgument( SienceFictionMovie::TYPE ) ) );
-$container->registerPrototype( SienceFictionMovie::TYPE, SienceFictionMovie::TYPE );
-
-$container->lookup( Movie::TYPE );

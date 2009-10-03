@@ -1,6 +1,6 @@
 <?php
 
-namespace com\example\ioc;
+namespace com\example\ioc\sample;
 
 abstract class Movie
 {

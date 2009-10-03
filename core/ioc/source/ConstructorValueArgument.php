@@ -7,6 +7,9 @@
 
 namespace com\example\ioc;
 
+use com\example\ioc\interfaces\Container;
+use com\example\ioc\interfaces\BaseConstructorArgument;
+
 /**
  * Constructor argument implementation that will return a simple value.
  *
@@ -14,7 +17,7 @@ namespace com\example\ioc;
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class ConstructorValueArgument extends ConstructorArgument
+class ConstructorValueArgument extends BaseConstructorArgument
 {
     private $_value = null;
 
