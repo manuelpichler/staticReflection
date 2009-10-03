@@ -7,22 +7,19 @@
 
 namespace com\example\ioc;
 
-require_once 'BaseContainerTest.php';
-
 /**
- * Test case for the default container implementation.
+ * Simple test class
  *
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class DefaultContainerTest extends BaseContainerTest
+class CtorCycle
 {
-    /**
-     * @return Container
-     */
-    protected function createContainer()
+    const TYPE = __CLASS__;
+
+    public function __construct( CtorCycle $cycle )
     {
-        return new DefaultContainer();
+        
     }
 }

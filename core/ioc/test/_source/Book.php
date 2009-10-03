@@ -7,22 +7,32 @@
 
 namespace com\example\ioc;
 
-require_once 'BaseContainerTest.php';
-
 /**
- * Test case for the default container implementation.
+ * Simple test class
  *
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class DefaultContainerTest extends BaseContainerTest
+class Book
 {
+    const TYPE = __CLASS__;
+
     /**
-     * @return Container
+     * @var Author
      */
-    protected function createContainer()
+    private $_author = null;
+
+    public function __construct( Author $author = null )
     {
-        return new DefaultContainer();
+        $this->_author = $author;
+    }
+
+    /**
+     * @return Author
+     */
+    public function getAuthor()
+    {
+        return $this->_author;
     }
 }

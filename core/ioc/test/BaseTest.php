@@ -20,10 +20,24 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
 
     public static function autoload( $className )
     {
-        include sprintf(
-            '%s/../source/%s.php',
-            dirname( __FILE__ ),
-            strtr( substr( $className, 16 ), '\\', '/' )
-        );
+        if ( strpos( $className, __NAMESPACE__ ) !== 0 )
+        {
+            return;
+        }
+
+        $filename = sprintf( '%s.php', strtr( substr( $className, 16 ), '\\', '/' ) );
+        $pathname = sprintf( '%s/../source/%s', dirname( __FILE__ ), $filename );
+
+        if ( file_exists( $pathname ) === false )
+        {
+            $pathname = sprintf( '%s/_source/%s', dirname( __FILE__ ), $filename );
+        }
+        if ( file_exists( $pathname ) === false )
+        {
+            return false;
+        }
+
+        include $pathname;
+        return true;
     }
 }

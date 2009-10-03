@@ -10,6 +10,7 @@
     </target>
 
     <target name="prepare" depends="clean">
+        <mkdir dir="${basedir}/build/logs" />
         <mkdir dir="${basedir}/build/coverage" />
 
         <tstamp>
@@ -17,12 +18,17 @@
         </tstamp>
     </target>
 
-    <target name="test" depends="prepare">
+    <target name="test" depends="prepare,unittest" />
+
+    <target name="unittest">
         <exec dir="${basedir}/test"
-              passthru="true"
               checkreturn="true"
-              command="phpunit --coverage-html ${basedir}/build/coverage
-                               AllTests.php" />
+              passthru="true"
+              command="phpunit 
+                       --coverage-html   ${basedir}/build/coverage
+                       --coverage-clover ${basedir}/build/logs/clover.xml
+                       --log-junit       ${basedir}/build/logs/junit.xml
+                       AllTests.php" />
     </target>
 
     <target name="deliv" depends="test,tag">
