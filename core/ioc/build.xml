@@ -59,7 +59,7 @@
                      collapseAttributes="true" />
 
         <property name="repository" value="${info.entry.repository.root}" />
-        <property name="revision" value="${info.entry.revision}" />
+        <property name="revision" value="${info.entry.commit.revision}" />
 
         <tstamp>
             <format property="build.year" pattern="yyyy" />
