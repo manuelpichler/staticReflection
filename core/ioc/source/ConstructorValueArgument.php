@@ -19,13 +19,24 @@ use com\example\ioc\interfaces\BaseConstructorArgument;
  */
 class ConstructorValueArgument extends BaseConstructorArgument
 {
+    /**
+     * @var mixed
+     */
     private $_value = null;
 
+    /**
+     * @param mixed $value
+     */
     public function __construct( $value )
     {
         $this->_value = $value;
     }
 
+    /**
+     * @param Container $container
+     *
+     * @return mixed
+     */
     public function getValue( Container $container )
     {
         return $this->_value;
