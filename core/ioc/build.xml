@@ -1,70 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="inversion-of-control-container" default="build" basedir=".">
+<project name="ioc" default="build" basedir=".">
 
+    <!--
+        Import common build targets
+    -->
     <import file="${basedir}/../../setup/build.common.xml" />
 
-    <property name="builddir" value="${basedir}/build" />
+    <!--
+        Main build
+    -->
+    <target name="build" depends="test" description="Primary build: Inversion of Control Container" />
 
-    <target name="build" depends="test" />
-
-    <target name="clean">
-        <delete dir="${builddir}" includeemptydirs="true" />
-    </target>
-
-    <target name="prepare" depends="clean">
-        <mkdir dir="${builddir}/logs" />
-        <mkdir dir="${builddir}/coverage" />
-
-
-    </target>
-
-    <target name="test" depends="prepare,lint,unittest" />
-
-    <target name="lint">
-        <apply executable="php" failonerror="true">
-        <arg value="-l" />
-        <fileset dir="${basedir}/source">
-            <include name="**/*.php" />
-        </fileset>
-        </apply>
-    </target>
-
-    <target name="unittest">
-        <exec dir="${basedir}/test"
-              failonerror="true"
-              executable="phpunit">
-            <arg line="--coverage-html   ${basedir}/build/coverage" />
-            <arg line="--coverage-clover ${basedir}/build/logs/clover.xml" />
-            <arg line="--log-junit       ${basedir}/build/logs/junit.xml" />
-            <arg line="AllTests.php" />
-        </exec>
-    </target>
-
-    <target name="dist" depends="test,tag">
-
-    </target>
-
-    <target name="tag" depends="init">
-        <echo message="svn copy . ${repository}/tags/${build.year}-kw${build.week}-qa-build-rev${revision}" />
-    </target>
-
-    <target name="init">
-        <exec executable="svn" dir="${basedir}" output="${builddir}/~svn-info.xml">
-            <arg line="info" />
-            <arg line="--xml" />
-        </exec>
-
-        <xmlproperty file="${builddir}/~svn-info.xml"
-                     keepRoot="true"
-                     collapseAttributes="true" />
-
-        <property name="repository" value="${info.entry.repository.root}" />
-        <property name="revision" value="${info.entry.commit.revision}" />
-
-        <tstamp>
-            <format property="build.year" pattern="yyyy" />
-            <format property="build.week" pattern="w" />
-        </tstamp>
-    </target>
+    
 
 </project>
