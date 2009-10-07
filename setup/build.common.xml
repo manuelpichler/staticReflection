@@ -9,7 +9,13 @@
         <delete dir="${builddir}" includeemptydirs="true" />
     </target>
 
-    <target name="prepare" depends="clean">
+    <target name="update">
+        <exec dir="${basedir}" executable="svn">
+            <arg line="up" />
+        </exec>
+    </target>
+
+    <target name="prepare" depends="clean,update">
         <mkdir dir="${builddir}/logs" />
         <mkdir dir="${builddir}/coverage" />
     </target>
