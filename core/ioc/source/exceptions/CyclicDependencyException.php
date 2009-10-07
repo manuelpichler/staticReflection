@@ -5,23 +5,19 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc\interfaces;
+namespace com\example\ioc\exceptions;
 
 /**
- * Base interface for a class source file loader.
+ * Exception that will be thrown when a cyclic dependency was found.
  *
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-interface ClassSourceLoader
+class CyclicDependencyException extends Exception
 {
-    /**
-     * Ensures that the source for the given class name is present.
-     *
-     * @param string $className Name of the class to load.
-     *
-     * @return boolean
-     */
-    function load( $className );
+    public function __construct()
+    {
+        parent::__construct( 'Cyclic dependency detected.' );
+    }
 }

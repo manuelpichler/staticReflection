@@ -9,7 +9,13 @@ namespace com\example\ioc;
 
 require_once 'PHPUnit/Framework.php';
 
+require_once 'ArgumentValidatorFactoryTest.php';
+require_once 'ReflectionArgumentValidatorTest.php';
 require_once 'DefaultContainerTest.php';
+require_once 'ReflectionPropertyInjectionTest.php';
+require_once 'ReflectionSetterInjectionTest.php';
+require_once 'ObjectFactoryFactoryTest.php';
+require_once 'ObjectBuilderFactoryTest.php';
 
 /**
  * Main test suite.
@@ -31,7 +37,13 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../source/' )
         );
 
+        $this->addTestSuite( 'com\example\ioc\ArgumentValidatorFactoryTest' );
+        $this->addTestSuite( 'com\example\ioc\ReflectionArgumentValidatorTest' );
         $this->addTestSuite( 'com\example\ioc\DefaultContainerTest' );
+        $this->addTestSuite( 'com\example\ioc\ReflectionPropertyInjectionTest' );
+        $this->addTestSuite( 'com\example\ioc\ReflectionSetterInjectionTest' );
+        $this->addTestSuite( 'com\example\ioc\ObjectBuilderFactoryTest' );
+        $this->addTestSuite( 'com\example\ioc\ObjectFactoryFactoryTest' );
     }
 
     /**

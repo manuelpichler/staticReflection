@@ -20,6 +20,11 @@ use com\example\ioc\interfaces\BaseObjectFactory;
  */
 class PrototypeObjectFactory extends BaseObjectFactory
 {
+    /**
+     * @param Container $container
+     *
+     * @return stdClass
+     */
     public function create( Container $container )
     {
         return $this->createObject( $container );

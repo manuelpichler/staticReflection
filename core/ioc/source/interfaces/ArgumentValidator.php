@@ -8,21 +8,21 @@
 namespace com\example\ioc\interfaces;
 
 /**
- * Abstract base implementation of a constructor argument.
+ * Base interface for an argument validator.
  *
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-abstract class BaseConstructorArgument implements Argument
+interface ArgumentValidator
 {
     /**
-     * @param ObjectFactory $factory
+     * @param string       $methodName
+     * @param array(mixed) $arguments
      *
      * @return void
+     * @throws ArgumentNotFoundException When a mandatory argument does not exist.
+     * @throws ArgumentTypeException When an invalid argument type was given.
      */
-    public function configure( ObjectFactory $factory )
-    {
-        $factory->registerConstructorArgument( $this );
-    }
+    function validate( $methodName, array $arguments );
 }

@@ -8,21 +8,20 @@
 namespace com\example\ioc\interfaces;
 
 /**
- * Abstract base implementation of a constructor argument.
+ * Base interface of a property injection.
  *
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-abstract class BaseConstructorArgument implements Argument
+interface Injection
 {
     /**
-     * @param ObjectFactory $factory
+     * Injects the argument value into a propery of the context object.
+     *
+     * @param array(Argument) $arguments
      *
      * @return void
      */
-    public function configure( ObjectFactory $factory )
-    {
-        $factory->registerConstructorArgument( $this );
-    }
+    function inject( array $arguments );
 }

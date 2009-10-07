@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="ioc" default="build" basedir=".">
+<project name="inversion-of-control-container" default="build" basedir=".">
+
+    <!--<import file="${basedir}/../../setup/build.common.xml" />-->
 
     <property name="basedir" value="${project.basedir}" />
 
@@ -14,21 +16,22 @@
         <mkdir dir="${basedir}/build/coverage" />
 
         <tstamp>
-            <format property="build.tstamp" pattern="%Y%m%d%H%M%S" />
+            <format property="build.tstamp" pattern="yyyymmddhhmmss" />
         </tstamp>
     </target>
 
     <target name="test" depends="prepare,unittest" />
 
     <target name="unittest">
+        
         <exec dir="${basedir}/test"
-              checkreturn="true"
-              passthru="true"
-              command="phpunit 
-                       --coverage-html   ${basedir}/build/coverage
-                       --coverage-clover ${basedir}/build/logs/clover.xml
-                       --log-junit       ${basedir}/build/logs/junit.xml
-                       AllTests.php" />
+              failonerror="true"
+              executable="phpunit">
+            <arg line="--coverage-html   ${basedir}/build/coverage" />
+            <arg line="--coverage-clover ${basedir}/build/logs/clover.xml" />
+            <arg line="--log-junit       ${basedir}/build/logs/junit.xml" />
+            <arg line="AllTests.php" />
+        </exec>
     </target>
 
     <target name="deliv" depends="test,tag">
@@ -36,7 +39,7 @@
     </target>
 
     <target name="tag">
-        <echo msg="svn copy . http://example.com/RQA-build${build.tstamp}" />
+        <echo message="svn copy . http://example.com/RQA-build${build.tstamp}" />
     </target>
 
 </project>

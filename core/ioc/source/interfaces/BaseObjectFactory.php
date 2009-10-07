@@ -7,6 +7,9 @@
 
 namespace com\example\ioc\interfaces;
 
+use com\example\ioc\ObjectBuilderFactory;
+use com\example\ioc\exceptions\ClassNotFoundException;
+
 /**
  * Abstract base implementation of the object factory interface.
  *
@@ -17,75 +20,63 @@ namespace com\example\ioc\interfaces;
 abstract class BaseObjectFactory implements ObjectFactory
 {
     /**
-     * @var string
+     * @var ObjectBuilder
      */
-    private $_className = null;
-    /**
-     * @var ClassSourceLoader
-     */
-    private $_classSourceLoader = null;
+    private $_objectBuilder = null;
 
     /**
-     * @var array(Argument)
+     * @var SourceLoader
      */
-    private $_constructorArguments = array();
+    private $_sourceLoader = null;
 
-    public function __construct( $className, array $arguments )
+    public function __construct( $className, array $arguments, SourceLoader $sourceLoader )
     {
-        $this->_className = $className;
+        $this->_className    = $className;
+        $this->_sourceLoader = $sourceLoader;
 
+        $this->_objectBuilder = ObjectBuilderFactory::get()->create( $className );
+        
         foreach ( $arguments as $argument )
         {
             $argument->configure( $this );
         }
     }
 
+    /**
+     * @param PropertyArgument $argument
+     *
+     * @return void
+     */
+    public function registerPropertyArgument( PropertyArgument $argument )
+    {
+        $this->_objectBuilder->addPropertyArgument( $argument );
+    }
+
+    /**
+     * @param Argument $argument
+     *
+     * @return void
+     */
     public function registerConstructorArgument( Argument $argument )
     {
-        $this->_constructorArguments[] = $argument;
+        $this->_objectBuilder->addConstructorArgument( $argument );
     }
 
-    public function setClassSourceLoader( ClassSourceLoader $classSourceLoader )
-    {
-        $this->_classSourceLoader = $classSourceLoader;
-    }
-
+    /**
+     * @return stdClass
+     */
     protected function createObject( Container $container )
     {
-        $object = $this->_createObject( $container );
-
-        return $object;
+        $this->_testClassExists();
+        return $this->_objectBuilder->build( $container );
     }
 
-    private function _createObject( Container $container )
+    private function _testClassExists()
     {
-        $reflection = $this->_createReflectionClass( $container );
-
-        if ( $reflection->getConstructor() === null )
+        if ( $this->_sourceLoader->load( $this->_className ) )
         {
-            return $reflection->newInstance();
+            return;
         }
-        return $reflection->newInstanceArgs(
-            $this->_getConstructorArguments( $container )
-        );
-    }
-
-    private function _createReflectionClass( Container $container )
-    {
-        if ( $this->_classSourceLoader->load( $this->_className ) )
-        {
-            return new \ReflectionClass( $this->_className );
-        }
-        throw new LogicException( 'Cannot locate source file for class: ' . $this->_className );
-    }
-
-    private function _getConstructorArguments( Container $container )
-    {
-        $arguments = array();
-        foreach ( $this->_constructorArguments as $constructorArgument )
-        {
-            $arguments[] = $constructorArgument->getValue($container);
-        }
-        return $arguments;
+        throw new ClassNotFoundException( $this->_className );
     }
 }

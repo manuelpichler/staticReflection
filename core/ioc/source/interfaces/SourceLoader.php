@@ -5,18 +5,16 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
-
-use \com\example\ioc\interfaces\BaseClassSourceLoader;
+namespace com\example\ioc\interfaces;
 
 /**
- * Class source loader implementation that relies on PHP's autoload functionallity.
+ * Base interface for a class source file loader.
  *
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class AutoloadClassSourceLoader extends BaseClassSourceLoader
+interface SourceLoader
 {
     /**
      * Ensures that the source for the given class name is present.
@@ -25,8 +23,5 @@ class AutoloadClassSourceLoader extends BaseClassSourceLoader
      *
      * @return boolean
      */
-    public function load( $className )
-    {
-        return class_exists( $className, true );
-    }
+    function load( $className );
 }

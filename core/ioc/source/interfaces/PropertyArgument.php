@@ -8,21 +8,16 @@
 namespace com\example\ioc\interfaces;
 
 /**
- * Abstract base implementation of a constructor argument.
+ * Base interface for a property argument.
  *
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-abstract class BaseConstructorArgument implements Argument
+interface PropertyArgument extends Argument
 {
     /**
-     * @param ObjectFactory $factory
-     *
-     * @return void
+     * @return string
      */
-    public function configure( ObjectFactory $factory )
-    {
-        $factory->registerConstructorArgument( $this );
-    }
+    function getName();
 }

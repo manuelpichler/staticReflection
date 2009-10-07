@@ -20,8 +20,16 @@ use com\example\ioc\interfaces\BaseObjectFactory;
  */
 class SingletonObjectFactory extends BaseObjectFactory
 {
+    /**
+     * @var stdClass
+     */
     private $_instance = null;
 
+    /**
+     * @param Container $container
+     *
+     * @return stdClass
+     */
     public function create( Container $container )
     {
         if ( $this->_instance === null )

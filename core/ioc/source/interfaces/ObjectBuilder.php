@@ -8,32 +8,34 @@
 namespace com\example\ioc\interfaces;
 
 /**
- * Base interface for all object factory implementations.
+ * Base interface for an object builder implementation.
  *
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-interface ObjectFactory
+interface ObjectBuilder
 {
+    /**
+     * Builds a concrete object instance.
+     *
+     * @param Container $container
+     *
+     * @return stdClass
+     */
+    function build( Container $container );
+
     /**
      * @param Argument $argument
      *
      * @return void
      */
-    function registerConstructorArgument( Argument $argument );
+    function addConstructorArgument( Argument $argument );
 
     /**
      * @param PropertyArgument $argument
      *
      * @return void
      */
-    function registerPropertyArgument( PropertyArgument $argument );
-
-    /**
-     * @param Container $container
-     *
-     * @return stdClass
-     */
-    function create( Container $container );
+    function addPropertyArgument( PropertyArgument $argument );
 }

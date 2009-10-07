@@ -8,38 +8,40 @@
 namespace com\example\ioc;
 
 use com\example\ioc\interfaces\Container;
-use com\example\ioc\interfaces\BaseConstructorArgument;
+use com\example\ioc\interfaces\BasePropertyArgument;
 
 /**
- * Constructor argument implementation that will return a object reference from
- * the ioc container.
+ * Property argument that injects a simple scalar or object value.
  *
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class ConstructorReferenceArgument extends BaseConstructorArgument
+class PropertyValueArgument extends BasePropertyArgument
 {
     /**
-     * @var string
+     * @var mixed
      */
-    private $_lookupKey = null;
+    private $_value = null;
 
     /**
-     * @param string $lookupKey
+     * @param string $propertyName
+     * @param mixed  $propertyValue
      */
-    public function __construct( $lookupKey )
+    public function __construct( $propertyName, $propertyValue )
     {
-        $this->_lookupKey = $lookupKey;
+        parent::__construct( $propertyName );
+
+        $this->_value = $propertyValue;
     }
 
     /**
      * @param Container $container
      *
-     * @return stdClass
+     * @return mixed
      */
     public function getValue( Container $container )
     {
-        return $container->lookup( $this->_lookupKey );
+        return $this->_value;
     }
 }

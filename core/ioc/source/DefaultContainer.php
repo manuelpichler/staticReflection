@@ -9,8 +9,8 @@ namespace com\example\ioc;
 
 use com\example\ioc\interfaces\Container;
 use com\example\ioc\interfaces\ObjectFactory;
-use com\example\ioc\interfaces\ClassSourceLoader;
-use \com\example\ioc\interfaces\BaseClassSourceLoader;
+use com\example\ioc\interfaces\SourceLoader;
+use \com\example\ioc\interfaces\BaseSourceLoader;
 
 /**
  * The primary dependency injection container.
@@ -21,11 +21,6 @@ use \com\example\ioc\interfaces\BaseClassSourceLoader;
  */
 class DefaultContainer implements Container
 {
-    /**
-     * @var ClassSourceLoader
-     */
-    private $_classSourceLoader = null;
-
     /**
      * @var ArrayObject
      */
@@ -47,7 +42,11 @@ class DefaultContainer implements Container
      */
     public function registerSingleton( $lookupKey, $className, array $args = array() )
     {
-        $this->_register( $lookupKey, new SingletonObjectFactory( $className, $args ) );
+        $factory = $this->getObjectFactoryFactory();
+        $this->_register(
+            $lookupKey,
+            $factory->createSingleton( $className, $args )
+        );
     }
 
     /**
@@ -55,7 +54,11 @@ class DefaultContainer implements Container
      */
     public function registerPrototype( $lookupKey, $className, array $args = array() )
     {
-        $this->_register( $lookupKey, new PrototypeObjectFactory( $className, $args ) );
+        $factory = $this->getObjectFactoryFactory();
+        $this->_register(
+            $lookupKey,
+            $factory->createPrototype( $className, $args )
+        );
     }
 
     /**
@@ -82,7 +85,6 @@ class DefaultContainer implements Container
     {
         $factory = $this->_tryFindFactory( $lookupKey );
         $factory = $this->_checkCyclicDependency( $factory );
-        $factory->setClassSourceLoader( $this->_getClassSourceLoader() );
         
         return $factory;
     }
@@ -106,7 +108,7 @@ class DefaultContainer implements Container
     {
         if ( $this->_factoryStorage->contains( $factory ) )
         {
-            throw new \LogicException( 'Cyclic dependency detected.' );
+            throw new exceptions\CyclicDependencyException();
         }
         return $factory;
     }
@@ -123,23 +125,8 @@ class DefaultContainer implements Container
         return $object;
     }
 
-    /**
-     * @return ClassSourceLoader
-     */
-    private function _getClassSourceLoader()
+    protected function getObjectFactoryFactory()
     {
-        if ( $this->_classSourceLoader === null )
-        {
-            return BaseClassSourceLoader::get();
-        }
-        return $this->_classSourceLoader;
-    }
-
-    /**
-     * @return void
-     */
-    public function setClassSourceLoader( ClassSourceLoader $sourceLoader )
-    {
-        $this->_classSourceLoader = $sourceLoader;
+        return ObjectFactoryFactory::get();
     }
 }
