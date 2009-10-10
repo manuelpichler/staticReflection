@@ -5,12 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\aop;
-
-use com\example\aop\interfaces\PointcutMatcher;
-use com\example\aop\pointcut\PointcutNotMatcher;
-use com\example\aop\pointcut\PointcutNamedMatcher;
-use com\example\aop\pointcut\PointcutExecutionMatcher;
+namespace com\example\aop\pointcut;
 
 require_once 'BaseTest.php';
 
@@ -21,8 +16,28 @@ require_once 'BaseTest.php';
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class PointcutExpressionParserTest extends BaseTest
+class PointcutExpressionParserTest extends \com\example\aop\BaseTest
 {
+    /**
+     * @return void
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        PointcutMatcherFactory::set( new PointcutMatcherFactory() );
+    }
+
+    /**
+     * @return void
+     */
+    protected function tearDown()
+    {
+        PointcutMatcherFactory::set( null );
+
+        parent::setUp();
+    }
+
     /**
      * @return void
      * @group aop
@@ -48,6 +63,17 @@ class PointcutExpressionParserTest extends BaseTest
     /**
      * @return void
      * @group aop
+     * @expectedException com\example\aop\exceptions\InvalidPointcutExpressionException
+     */
+    public function testParseThrowsExceptionForInvalidExecutionDesignatorExpression()
+    {
+        $parser = new PointcutExpressionParser();
+        $parser->parse( 'execution(Foo::bar)' );
+    }
+
+    /**
+     * @return void
+     * @group aop
      */
     public function testParseMethodReturnsInstanceOfTypePointcutMatcher()
     {
@@ -68,6 +94,32 @@ class PointcutExpressionParserTest extends BaseTest
         $this->assertType(
             PointcutNotMatcher::TYPE,
             $parser->parse( '!execution(Foo::bar())' )
+        );
+    }
+
+    /**
+     * @return void
+     * @group aop
+     */
+    public function testParseReturnsInstanceOfTypePointcutAndMatcher()
+    {
+        $parser = new PointcutExpressionParser();
+        $this->assertType(
+            PointcutAndMatcher::TYPE,
+            $parser->parse( 'Foo::bar() && Bar::baz()' )
+        );
+    }
+
+    /**
+     * @return void
+     * @group aop
+     */
+    public function testParseReturnsInstanceOfTypePointcutOrMatcher()
+    {
+        $parser = new PointcutExpressionParser();
+        $this->assertType(
+            PointcutOrMatcher::TYPE,
+            $parser->parse( 'Foo::bar() || Bar::baz()' )
         );
     }
 

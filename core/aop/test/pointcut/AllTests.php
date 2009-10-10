@@ -5,11 +5,11 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\aop;
+namespace com\example\aop\pointcut;
 
 require_once 'PHPUnit/Framework.php';
 
-require_once 'pointcut/AllTests.php';
+require_once 'PointcutExpressionParserTest.php';
 
 /**
  * Main test suite.
@@ -25,13 +25,13 @@ class AllTests extends \PHPUnit_Framework_TestSuite
      */
     public function __construct()
     {
-        $this->setName( 'de::buzz2ee::aop::AllTests' );
+        $this->setName( 'de::buzz2ee::aop::pointcut::AllTests' );
 
         \PHPUnit_Util_Filter::addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../source/' )
+            realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
-        $this->addTest( pointcut\AllTests::suite() );
+        $this->addTestSuite( '\com\example\aop\pointcut\PointcutExpressionParserTest' );
     }
 
     /**
