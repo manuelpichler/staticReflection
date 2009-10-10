@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
 /**
  * Factory that creates an {@link ObjectBuilder} instance.

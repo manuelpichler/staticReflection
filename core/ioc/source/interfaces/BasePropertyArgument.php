@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc\interfaces;
+namespace de\buzz2ee\ioc\interfaces;
 
 /**
  * Abstract base implementation of a property argument.

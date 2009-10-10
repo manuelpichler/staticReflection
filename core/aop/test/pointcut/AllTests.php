@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\aop\pointcut;
+namespace de\buzz2ee\aop\pointcut;
 
 require_once 'PHPUnit/Framework.php';
 
@@ -31,7 +31,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
-        $this->addTestSuite( '\com\example\aop\pointcut\PointcutExpressionParserTest' );
+        $this->addTestSuite( '\de\buzz2ee\aop\pointcut\PointcutExpressionParserTest' );
     }
 
     /**

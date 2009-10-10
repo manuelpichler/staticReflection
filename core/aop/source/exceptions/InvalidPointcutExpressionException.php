@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\aop\exceptions;
+namespace de\buzz2ee\aop\exceptions;
 
 /**
  * This type of exception will be thrown when an invalid pointcut expression

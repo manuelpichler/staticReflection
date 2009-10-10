@@ -5,10 +5,10 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
-use com\example\ioc\interfaces\Container;
-use com\example\ioc\interfaces\BaseObjectFactory;
+use de\buzz2ee\ioc\interfaces\Container;
+use de\buzz2ee\ioc\interfaces\BaseObjectFactory;
 
 /**
  * Prototype based object factory that will create a new instance of the

@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\aop\exceptions;
+namespace de\buzz2ee\aop\exceptions;
 
 /**
  * Base exception class for AOP package.

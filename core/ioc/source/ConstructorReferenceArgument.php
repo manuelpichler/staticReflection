@@ -5,10 +5,10 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
-use com\example\ioc\interfaces\Container;
-use com\example\ioc\interfaces\BaseConstructorArgument;
+use de\buzz2ee\ioc\interfaces\Container;
+use de\buzz2ee\ioc\interfaces\BaseConstructorArgument;
 
 /**
  * Constructor argument implementation that will return a object reference from

@@ -1,7 +1,7 @@
 <?php
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
-use com\example\ioc\interfaces\SourceLoader;
+use de\buzz2ee\ioc\interfaces\SourceLoader;
 
 class ObjectFactoryFactory
 {

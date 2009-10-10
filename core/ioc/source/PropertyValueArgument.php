@@ -5,10 +5,10 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
-use com\example\ioc\interfaces\Container;
-use com\example\ioc\interfaces\BasePropertyArgument;
+use de\buzz2ee\ioc\interfaces\Container;
+use de\buzz2ee\ioc\interfaces\BasePropertyArgument;
 
 /**
  * Property argument that injects a simple scalar or object value.

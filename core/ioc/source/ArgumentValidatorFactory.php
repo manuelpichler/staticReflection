@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
 /**
  * @author  Manuel Pichler <mapi@pdepend.org>

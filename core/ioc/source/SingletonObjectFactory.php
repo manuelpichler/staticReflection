@@ -5,10 +5,10 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
-use com\example\ioc\interfaces\Container;
-use com\example\ioc\interfaces\BaseObjectFactory;
+use de\buzz2ee\ioc\interfaces\Container;
+use de\buzz2ee\ioc\interfaces\BaseObjectFactory;
 
 /**
  * Object factory implementation that acts as a singleton for an unique instance

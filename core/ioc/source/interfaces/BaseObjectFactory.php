@@ -5,10 +5,10 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc\interfaces;
+namespace de\buzz2ee\ioc\interfaces;
 
-use com\example\ioc\ObjectBuilderFactory;
-use com\example\ioc\exceptions\ClassNotFoundException;
+use de\buzz2ee\ioc\ObjectBuilderFactory;
+use de\buzz2ee\ioc\exceptions\ClassNotFoundException;
 
 /**
  * Abstract base implementation of the object factory interface.

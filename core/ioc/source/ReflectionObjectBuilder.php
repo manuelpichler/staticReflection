@@ -1,11 +1,11 @@
 <?php
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
-use \com\example\ioc\interfaces\Argument;
-use \com\example\ioc\interfaces\Container;
-use \com\example\ioc\interfaces\ObjectBuilder;
-use \com\example\ioc\interfaces\PropertyArgument;
+use \de\buzz2ee\ioc\interfaces\Argument;
+use \de\buzz2ee\ioc\interfaces\Container;
+use \de\buzz2ee\ioc\interfaces\ObjectBuilder;
+use \de\buzz2ee\ioc\interfaces\PropertyArgument;
 
 class ReflectionObjectBuilder implements ObjectBuilder
 {

@@ -5,7 +5,7 @@
  * try to provide similar functionallities.
  */
 
-namespace com\example\aop\pointcut;
+namespace de\buzz2ee\aop\pointcut;
 
 /**
  * Or binary matcher.

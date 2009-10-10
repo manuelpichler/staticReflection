@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
 require_once 'PHPUnit/Framework.php';
 
@@ -37,13 +37,13 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../source/' )
         );
 
-        $this->addTestSuite( 'com\example\ioc\ArgumentValidatorFactoryTest' );
-        $this->addTestSuite( 'com\example\ioc\ReflectionArgumentValidatorTest' );
-        $this->addTestSuite( 'com\example\ioc\DefaultContainerTest' );
-        $this->addTestSuite( 'com\example\ioc\ReflectionPropertyInjectionTest' );
-        $this->addTestSuite( 'com\example\ioc\ReflectionSetterInjectionTest' );
-        $this->addTestSuite( 'com\example\ioc\ObjectBuilderFactoryTest' );
-        $this->addTestSuite( 'com\example\ioc\ObjectFactoryFactoryTest' );
+        $this->addTestSuite( 'de\buzz2ee\ioc\ArgumentValidatorFactoryTest' );
+        $this->addTestSuite( 'de\buzz2ee\ioc\ReflectionArgumentValidatorTest' );
+        $this->addTestSuite( 'de\buzz2ee\ioc\DefaultContainerTest' );
+        $this->addTestSuite( 'de\buzz2ee\ioc\ReflectionPropertyInjectionTest' );
+        $this->addTestSuite( 'de\buzz2ee\ioc\ReflectionSetterInjectionTest' );
+        $this->addTestSuite( 'de\buzz2ee\ioc\ObjectBuilderFactoryTest' );
+        $this->addTestSuite( 'de\buzz2ee\ioc\ObjectFactoryFactoryTest' );
     }
 
     /**

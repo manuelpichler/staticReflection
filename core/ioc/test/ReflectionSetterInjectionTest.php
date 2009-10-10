@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
 require_once 'BaseTest.php';
 
@@ -51,7 +51,7 @@ class ReflectionSetterInjectionTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\ArgumentNotFoundException
+     * @expectedException de\buzz2ee\ioc\exceptions\ArgumentNotFoundException
      */
     public function testInjectThrowsExceptionForMissingArgument()
     {
@@ -62,7 +62,7 @@ class ReflectionSetterInjectionTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\ArgumentTypeException
+     * @expectedException de\buzz2ee\ioc\exceptions\ArgumentTypeException
      */
     public function testInjectThrowsExceptionForTypeArgument()
     {

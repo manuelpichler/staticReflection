@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc\exceptions;
+namespace de\buzz2ee\ioc\exceptions;
 
 /**
  * Abstract base exception.

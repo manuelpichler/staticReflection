@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc\interfaces;
+namespace de\buzz2ee\ioc\interfaces;
 
 /**
  * Base interface for all object factory implementations.

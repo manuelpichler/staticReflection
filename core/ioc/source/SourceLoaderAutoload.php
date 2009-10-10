@@ -5,9 +5,9 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
-use \com\example\ioc\interfaces\SourceLoader;
+use \de\buzz2ee\ioc\interfaces\SourceLoader;
 
 /**
  * Class source loader implementation that relies on PHP's autoload functionallity.

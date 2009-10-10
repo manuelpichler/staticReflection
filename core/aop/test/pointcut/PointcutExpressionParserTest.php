@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\aop\pointcut;
+namespace de\buzz2ee\aop\pointcut;
 
 require_once 'BaseTest.php';
 
@@ -16,7 +16,7 @@ require_once 'BaseTest.php';
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class PointcutExpressionParserTest extends \com\example\aop\BaseTest
+class PointcutExpressionParserTest extends \de\buzz2ee\aop\BaseTest
 {
     /**
      * @return void
@@ -41,7 +41,7 @@ class PointcutExpressionParserTest extends \com\example\aop\BaseTest
     /**
      * @return void
      * @group aop
-     * @expectedException com\example\aop\exceptions\InvalidPointcutExpressionException
+     * @expectedException de\buzz2ee\aop\exceptions\InvalidPointcutExpressionException
      */
     public function testParseMethodThrowsExceptionForEmptyExpression()
     {
@@ -52,7 +52,7 @@ class PointcutExpressionParserTest extends \com\example\aop\BaseTest
     /**
      * @return void
      * @group aop
-     * @expectedException com\example\aop\exceptions\InvalidPointcutExpressionException
+     * @expectedException de\buzz2ee\aop\exceptions\InvalidPointcutExpressionException
      */
     public function testParseMethodThrowsExceptionForSingleNotModifier()
     {
@@ -63,7 +63,7 @@ class PointcutExpressionParserTest extends \com\example\aop\BaseTest
     /**
      * @return void
      * @group aop
-     * @expectedException com\example\aop\exceptions\InvalidPointcutExpressionException
+     * @expectedException de\buzz2ee\aop\exceptions\InvalidPointcutExpressionException
      */
     public function testParseThrowsExceptionForInvalidExecutionDesignatorExpression()
     {
@@ -79,7 +79,7 @@ class PointcutExpressionParserTest extends \com\example\aop\BaseTest
     {
         $parser = new PointcutExpressionParser();
         $this->assertType(
-            '\com\example\aop\interfaces\PointcutMatcher',
+            '\de\buzz2ee\aop\interfaces\PointcutMatcher',
             $parser->parse( 'execution(* *::foo()) || !execution(* Foo::bar())' )
         );
     }

@@ -5,12 +5,12 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
-use com\example\ioc\interfaces\Argument;
-use com\example\ioc\interfaces\Container;
-use com\example\ioc\interfaces\BaseInjection;
-use com\example\ioc\exceptions\MethodNotFoundException;
+use de\buzz2ee\ioc\interfaces\Argument;
+use de\buzz2ee\ioc\interfaces\Container;
+use de\buzz2ee\ioc\interfaces\BaseInjection;
+use de\buzz2ee\ioc\exceptions\MethodNotFoundException;
 
 /**
  * Injection implementation that uses setter methods on an object

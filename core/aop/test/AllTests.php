@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\aop;
+namespace de\buzz2ee\aop;
 
 require_once 'PHPUnit/Framework.php';
 

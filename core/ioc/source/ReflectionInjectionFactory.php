@@ -5,9 +5,9 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
-use com\example\ioc\exceptions\PropertyNotFoundException;
+use de\buzz2ee\ioc\exceptions\PropertyNotFoundException;
 
 /**
  * This factory can be used to create argument validating injection objects.

@@ -5,12 +5,12 @@
  * to provide similar functionallities.
  */
  
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
-use com\example\ioc\interfaces\Container;
-use com\example\ioc\interfaces\ObjectFactory;
-use com\example\ioc\interfaces\SourceLoader;
-use \com\example\ioc\interfaces\BaseSourceLoader;
+use de\buzz2ee\ioc\interfaces\Container;
+use de\buzz2ee\ioc\interfaces\ObjectFactory;
+use de\buzz2ee\ioc\interfaces\SourceLoader;
+use \de\buzz2ee\ioc\interfaces\BaseSourceLoader;
 
 /**
  * The primary dependency injection container.

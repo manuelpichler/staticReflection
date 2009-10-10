@@ -5,9 +5,9 @@
  * try to provide similar functionallities.
  */
 
-namespace com\example\aop\pointcut;
+namespace de\buzz2ee\aop\pointcut;
 
-use com\example\aop\interfaces\PointcutMatcher;
+use de\buzz2ee\aop\interfaces\PointcutMatcher;
 
 /**
  * Execution pointcut matcher implementation.

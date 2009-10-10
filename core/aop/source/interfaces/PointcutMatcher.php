@@ -5,7 +5,7 @@
  * try to provide similar functionallities.
  */
 
-namespace com\example\aop\interfaces;
+namespace de\buzz2ee\aop\interfaces;
 
 /**
  * Base interface for a pointcut matcher.

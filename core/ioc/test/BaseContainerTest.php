@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
 require_once 'BaseTest.php';
 
@@ -247,7 +247,7 @@ abstract class BaseContainerTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\PropertyNotFoundException
+     * @expectedException de\buzz2ee\ioc\exceptions\PropertyNotFoundException
      */
     public function testContainerThrowsExceptionForInjectionOfAnUnknownProperty()
     {
@@ -277,7 +277,7 @@ abstract class BaseContainerTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\CyclicDependencyException
+     * @expectedException de\buzz2ee\ioc\exceptions\CyclicDependencyException
      */
     public function testContainerThrowsExceptionForCyclicConstructorDependency()
     {
@@ -291,7 +291,7 @@ abstract class BaseContainerTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\ClassNotFoundException
+     * @expectedException de\buzz2ee\ioc\exceptions\ClassNotFoundException
      */
     public function testContainerThrowsExceptionForUnknownClass()
     {

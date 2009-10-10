@@ -5,10 +5,10 @@
  * try to provide similar functionallities.
  */
 
-namespace com\example\aop\pointcut;
+namespace de\buzz2ee\aop\pointcut;
 
-use com\example\aop\interfaces\PointcutMatcher;
-use com\example\aop\exceptions\InvalidPointcutExpressionException;
+use de\buzz2ee\aop\interfaces\PointcutMatcher;
+use de\buzz2ee\aop\exceptions\InvalidPointcutExpressionException;
 
 /**
  * The default pointcut parser implementation.

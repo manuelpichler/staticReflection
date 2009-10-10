@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
 require_once 'BaseTest.php';
 
@@ -106,7 +106,7 @@ class ReflectionArgumentValidatorTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\ArgumentNotFoundException
+     * @expectedException de\buzz2ee\ioc\exceptions\ArgumentNotFoundException
      */
     public function testValidatorThrowsExceptionForMissingParameter()
     {
@@ -117,7 +117,7 @@ class ReflectionArgumentValidatorTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\ArgumentNotFoundException
+     * @expectedException de\buzz2ee\ioc\exceptions\ArgumentNotFoundException
      */
     public function testValidatorThrowsExceptionForMissingArrayParameter()
     {
@@ -128,7 +128,7 @@ class ReflectionArgumentValidatorTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\ArgumentTypeException
+     * @expectedException de\buzz2ee\ioc\exceptions\ArgumentTypeException
      */
     public function testValidatorThrowsExceptionForInvalidTypeAsArrayParameter()
     {
@@ -139,7 +139,7 @@ class ReflectionArgumentValidatorTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\ArgumentTypeException
+     * @expectedException de\buzz2ee\ioc\exceptions\ArgumentTypeException
      */
     public function testValidatorThrowsExceptionForNullAsTypeParameter()
     {
@@ -150,7 +150,7 @@ class ReflectionArgumentValidatorTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\ArgumentTypeException
+     * @expectedException de\buzz2ee\ioc\exceptions\ArgumentTypeException
      */
     public function testValidatorThrowsExceptionForScalarAsTypeParameter()
     {
@@ -161,7 +161,7 @@ class ReflectionArgumentValidatorTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\ArgumentTypeException
+     * @expectedException de\buzz2ee\ioc\exceptions\ArgumentTypeException
      */
     public function testValidatorThrowsExceptionForDifferentTypeAsTypeParameter()
     {
@@ -172,7 +172,7 @@ class ReflectionArgumentValidatorTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\ArgumentTypeException
+     * @expectedException de\buzz2ee\ioc\exceptions\ArgumentTypeException
      */
     public function testValidatorThrowsExceptionForNullAsArrayParameter()
     {
@@ -183,7 +183,7 @@ class ReflectionArgumentValidatorTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\ArgumentTypeException
+     * @expectedException de\buzz2ee\ioc\exceptions\ArgumentTypeException
      */
     public function testValidatorThrowsExceptionForScalarAsArrayParameter()
     {
@@ -194,7 +194,7 @@ class ReflectionArgumentValidatorTest extends BaseTest
     /**
      * @return void
      * @group ioc
-     * @expectedException com\example\ioc\exceptions\ArgumentTypeException
+     * @expectedException de\buzz2ee\ioc\exceptions\ArgumentTypeException
      */
     public function testValidatorThrowsExceptionForNullAsArrayParameterWithDefault()
     {

@@ -5,11 +5,11 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
-use com\example\ioc\interfaces\Argument;
-use com\example\ioc\interfaces\Container;
-use com\example\ioc\interfaces\BaseInjection;
+use de\buzz2ee\ioc\interfaces\Argument;
+use de\buzz2ee\ioc\interfaces\Container;
+use de\buzz2ee\ioc\interfaces\BaseInjection;
 
 /**
  * Injection strategy for simple object properties.

@@ -5,11 +5,11 @@
  * to provide similar functionallities.
  */
 
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
-use com\example\ioc\interfaces\ArgumentValidator;
-use com\example\ioc\exceptions\ArgumentTypeException;
-use com\example\ioc\exceptions\ArgumentNotFoundException;
+use de\buzz2ee\ioc\interfaces\ArgumentValidator;
+use de\buzz2ee\ioc\exceptions\ArgumentTypeException;
+use de\buzz2ee\ioc\exceptions\ArgumentNotFoundException;
 
 /**
  * Default implementation of an argument validator.

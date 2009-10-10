@@ -1,5 +1,5 @@
 <?php
-namespace com\example\ioc;
+namespace de\buzz2ee\ioc;
 
 require_once 'PHPUnit/Framework/TestCase.php';
 
@@ -25,7 +25,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
             return;
         }
 
-        $filename = sprintf( '%s.php', strtr( substr( $className, 16 ), '\\', '/' ) );
+        $filename = sprintf( '%s.php', strtr( substr( $className, 15 ), '\\', '/' ) );
         $pathname = sprintf( '%s/../source/%s', dirname( __FILE__ ), $filename );
 
         if ( file_exists( $pathname ) === false )

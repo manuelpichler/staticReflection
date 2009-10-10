@@ -1,6 +1,6 @@
 <?php
 
-namespace com\example\ioc\sample;
+namespace de\buzz2ee\ioc\sample;
 
 class SienceFictionMovie extends Movie
 {
