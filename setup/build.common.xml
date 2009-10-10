@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="buzz2ee-commons" basedir=".">
 
+    <!--
+        Some common settings for all buzz2ee sub projects.
+    -->
     <property name="builddir" value="${basedir}/build" />
 
     <target name="dist" depends="build,tag" description="Default distribution build: Buzz2EE commons" />
