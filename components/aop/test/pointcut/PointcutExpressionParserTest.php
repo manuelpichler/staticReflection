@@ -1,6 +1,6 @@
 <?php
 /**
- * I provide completely working code within this article, which will not be
+ * I provide completely working code within this framework, which will not be
  * developed any further, because there are already existing packages, which try
  * to provide similar functionallities.
  */
@@ -41,6 +41,8 @@ class PointcutExpressionParserTest extends \de\buzz2ee\aop\BaseTest
     /**
      * @return void
      * @group aop
+     * @group aop::pointcut
+     * @group unittest
      * @expectedException de\buzz2ee\aop\exceptions\InvalidPointcutExpressionException
      */
     public function testParseMethodThrowsExceptionForEmptyExpression()
@@ -52,6 +54,8 @@ class PointcutExpressionParserTest extends \de\buzz2ee\aop\BaseTest
     /**
      * @return void
      * @group aop
+     * @group aop::pointcut
+     * @group unittest
      * @expectedException de\buzz2ee\aop\exceptions\InvalidPointcutExpressionException
      */
     public function testParseMethodThrowsExceptionForSingleNotModifier()
@@ -63,6 +67,8 @@ class PointcutExpressionParserTest extends \de\buzz2ee\aop\BaseTest
     /**
      * @return void
      * @group aop
+     * @group aop::pointcut
+     * @group unittest
      * @expectedException de\buzz2ee\aop\exceptions\InvalidPointcutExpressionException
      */
     public function testParseThrowsExceptionForInvalidExecutionDesignatorExpression()
@@ -74,6 +80,8 @@ class PointcutExpressionParserTest extends \de\buzz2ee\aop\BaseTest
     /**
      * @return void
      * @group aop
+     * @group aop::pointcut
+     * @group unittest
      */
     public function testParseMethodReturnsInstanceOfTypePointcutMatcher()
     {
@@ -87,6 +95,8 @@ class PointcutExpressionParserTest extends \de\buzz2ee\aop\BaseTest
     /**
      * @return void
      * @group aop
+     * @group aop::pointcut
+     * @group unittest
      */
     public function testParseReturnsInstanceOfTypeNotPointcutMatcher()
     {
@@ -100,6 +110,8 @@ class PointcutExpressionParserTest extends \de\buzz2ee\aop\BaseTest
     /**
      * @return void
      * @group aop
+     * @group aop::pointcut
+     * @group unittest
      */
     public function testParseReturnsInstanceOfTypePointcutAndMatcher()
     {
@@ -113,6 +125,8 @@ class PointcutExpressionParserTest extends \de\buzz2ee\aop\BaseTest
     /**
      * @return void
      * @group aop
+     * @group aop::pointcut
+     * @group unittest
      */
     public function testParseReturnsInstanceOfTypePointcutOrMatcher()
     {
@@ -126,6 +140,8 @@ class PointcutExpressionParserTest extends \de\buzz2ee\aop\BaseTest
     /**
      * @return void
      * @group aop
+     * @group aop::pointcut
+     * @group unittest
      */
     public function testParseMethodReturnsInstanceOfPointcutExecutionMatcher()
     {
@@ -139,6 +155,8 @@ class PointcutExpressionParserTest extends \de\buzz2ee\aop\BaseTest
     /**
      * @return void
      * @group aop
+     * @group aop::pointcut
+     * @group unittest
      */
     public function testParseMethodReturnsInstanceOfTypePointcutNamedMatcher()
     {

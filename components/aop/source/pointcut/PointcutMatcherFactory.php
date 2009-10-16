@@ -18,6 +18,8 @@ use \de\buzz2ee\aop\interfaces\PointcutMatcher;
  */
 class PointcutMatcherFactory
 {
+    const TYPE = __CLASS__;
+
     /**
      * @var PointcutMatcherFactory
      */

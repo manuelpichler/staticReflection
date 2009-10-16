@@ -7,6 +7,7 @@
 
 namespace de\buzz2ee\aop\pointcut;
 
+use de\buzz2ee\aop\interfaces\JoinPoint;
 use de\buzz2ee\aop\interfaces\PointcutMatcher;
 
 /**
@@ -21,32 +22,36 @@ abstract class PointcutBinaryMatcher implements PointcutMatcher
     /**
      * @var PointcutMatcher
      */
-    private $_matcherLeft  = null;
+    private $_left  = null;
 
     /**
      * @var PointcutMatcher
      */
-    private $_matcherRight = null;
+    private $_right = null;
 
     public function __construct( PointcutMatcher $left, PointcutMatcher $right )
     {
-        $this->_matcherLeft  = $left;
-        $this->_matcherRight = $right;
+        $this->_left  = $left;
+        $this->_right = $right;
     }
 
     /**
-     * @return PointcutMatcher
+     * @param JoinPoint $joinPoint
+     *
+     * @return boolean
      */
-    protected function getLeftMatcher()
+    protected function matchLeft( JoinPoint $joinPoint )
     {
-        return $this->_matcherLeft;
+        return $this->_left->match( $joinPoint );
     }
 
     /**
-     * @return PointcutMatcher
+     * @param JoinPoint $joinPoint
+     *
+     * @return boolean
      */
-    protected function getRightMatcher()
+    protected function matchRight( JoinPoint $joinPoint )
     {
-        return $this->_matcherRight;
+        return $this->_right->match( $joinPoint );
     }
 }

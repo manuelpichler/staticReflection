@@ -26,6 +26,11 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
     private static $_initialized = false;
 
     /**
+     * @var boolean
+     */
+    protected $backupStaticAttributes = false;
+
+    /**
      * Registers the test autoloading.
      */
     public function __construct()
@@ -37,6 +42,44 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
             self::$_initialized = true;
             spl_autoload_register( array( __CLASS__, 'autoload' ) );
         }
+    }
+
+    /**
+     * @param string $className
+     * @param string $methodName
+     * @param string $visibility
+     *
+     * @return JoinPoint
+     */
+    protected function createJoinPoint( $className = null, $methodName = null, $visibility = null )
+    {
+        $joinPoint = $this->getMock( 'de\buzz2ee\aop\interfaces\JoinPoint' );
+        $joinPoint->expects( $className === null ? $this->never() : $this->atLeastOnce() )
+            ->method( 'getClassName' )
+            ->will( $this->returnValue( $className ) );
+        $joinPoint->expects( $methodName === null ? $this->never() : $this->atLeastOnce() )
+            ->method( 'getMethodName' )
+            ->will( $this->returnValue( $methodName ) );
+        $joinPoint->expects( $visibility === null ? $this->never() : $this->atLeastOnce() )
+            ->method( 'getVisibility' )
+            ->will( $this->returnValue( $visibility ) );
+
+        return $joinPoint;
+    }
+
+    /**
+     * @param boolean $returnValue
+     *
+     * @return PointcutMatcher
+     */
+    protected function createPointcutMatcher( $returnValue )
+    {
+        $matcher = $this->getMock( '\de\buzz2ee\aop\interfaces\PointcutMatcher' );
+        $matcher->expects( $this->any() )
+            ->method( 'match' )
+            ->will( $this->returnValue( $returnValue ) );
+
+        return $matcher;
     }
 
     /**

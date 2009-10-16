@@ -9,7 +9,12 @@ namespace de\buzz2ee\aop\pointcut;
 
 require_once 'PHPUnit/Framework.php';
 
+require_once 'PointcutAndMatcherTest.php';
+require_once 'PointcutExecutionMatcherTest.php';
 require_once 'PointcutExpressionParserTest.php';
+require_once 'PointcutMatcherFactoryTest.php';
+require_once 'PointcutNotMatcherTest.php';
+require_once 'PointcutOrMatcherTest.php';
 
 /**
  * Main test suite.
@@ -31,7 +36,12 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
+        $this->addTestSuite( '\de\buzz2ee\aop\pointcut\PointcutAndMatcherTest' );
+        $this->addTestSuite( '\de\buzz2ee\aop\pointcut\PointcutExecutionMatcherTest' );
         $this->addTestSuite( '\de\buzz2ee\aop\pointcut\PointcutExpressionParserTest' );
+        $this->addTestSuite( '\de\buzz2ee\aop\pointcut\PointcutMatcherFactoryTest' );
+        $this->addTestSuite( '\de\buzz2ee\aop\pointcut\PointcutNotMatcherTest' );
+        $this->addTestSuite( '\de\buzz2ee\aop\pointcut\PointcutOrMatcherTest' );
     }
 
     /**

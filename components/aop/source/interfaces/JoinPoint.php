@@ -14,12 +14,20 @@ namespace de\buzz2ee\aop\interfaces;
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-interface PointcutMatcher
+interface JoinPoint
 {
     /**
-     * @param JoinPoint $joinPoint
-     *
-     * @return boolean
+     * @return string
      */
-    function match( JoinPoint $joinPoint );
+    function getClassName();
+
+    /**
+     * @return string
+     */
+    function getMethodName();
+
+    /**
+     * @return string
+     */
+    function getVisibility();
 }

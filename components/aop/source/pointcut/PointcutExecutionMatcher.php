@@ -7,6 +7,7 @@
 
 namespace de\buzz2ee\aop\pointcut;
 
+use de\buzz2ee\aop\interfaces\JoinPoint;
 use de\buzz2ee\aop\interfaces\PointcutMatcher;
 
 /**
@@ -48,13 +49,35 @@ class PointcutExecutionMatcher implements PointcutMatcher
     }
 
     /**
-     * @param string $className
-     * @param string $methodName
+     * @param JoinPoint $joinPoint
      *
      * @return boolean
      */
-    public function match( $className, $methodName )
+    public function match( JoinPoint $joinPoint )
     {
+        $pattern = sprintf( 
+            '(^%s %s::%s$)',
+            $this->_prepareRegexp( $this->_visibility === '' ? '*' : $this->_visibility ),
+            $this->_prepareRegexp( $this->_prepareNamespaceDelimiter( $this->_className ) ),
+            $this->_prepareRegexp( $this->_methodName )
+        );
+        $subject = sprintf( 
+            '%s %s::%s',
+            $joinPoint->getVisibility(),
+            $this->_prepareNamespaceDelimiter( $joinPoint->getClassName() ),
+            $joinPoint->getMethodName()
+        );
 
+        return ( preg_match( $pattern, $subject ) === 1 );
+    }
+
+    private function _prepareRegexp( $pattern )
+    {
+        return str_replace( '\\*', '.*', preg_quote( $pattern ) );
+    }
+
+    private function _prepareNamespaceDelimiter( $name )
+    {
+        return strtr( $name, '\\', '/' );
     }
 }

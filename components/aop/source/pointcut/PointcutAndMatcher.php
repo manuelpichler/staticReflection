@@ -7,6 +7,8 @@
 
 namespace de\buzz2ee\aop\pointcut;
 
+use de\buzz2ee\aop\interfaces\JoinPoint;
+
 /**
  * And binary matcher.
  *
@@ -19,16 +21,12 @@ class PointcutAndMatcher extends PointcutBinaryMatcher
     const TYPE = __CLASS__;
 
     /**
-     * @param string $className
-     * @param string $methodName
+     * @param JoinPoint $joinPoint
      *
      * @return boolean
      */
-    public function match( $className, $methodName )
+    public function match( JoinPoint $joinPoint )
     {
-        return (
-            $this->getLeftMatcher()->match( $className, $methodName ) &&
-            $this->getRightMatcher()->match( $className, $methodName )
-        );
+        return $this->matchLeft( $joinPoint ) && $this->matchRight( $joinPoint );
     }
 }

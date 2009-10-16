@@ -7,6 +7,7 @@
 
 namespace de\buzz2ee\aop\pointcut;
 
+use de\buzz2ee\aop\interfaces\JoinPoint;
 use de\buzz2ee\aop\interfaces\PointcutMatcher;
 
 /**
@@ -33,13 +34,12 @@ class PointcutNotMatcher implements PointcutMatcher
         $this->_matcher = $matcher;
     }
     /**
-     * @param string $className
-     * @param string $methodName
+     * @param JoinPoint $joinPoint
      *
      * @return boolean
      */
-    public function match( $className, $methodName )
+    public function match( JoinPoint $joinPoint )
     {
-        return !$this->_matcher->match( $className, $methodName );
+        return !$this->_matcher->match( $joinPoint );
     }
 }

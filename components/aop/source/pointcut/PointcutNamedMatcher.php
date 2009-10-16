@@ -7,6 +7,7 @@
 
 namespace de\buzz2ee\aop\pointcut;
 
+use de\buzz2ee\aop\interfaces\JoinPoint;
 use de\buzz2ee\aop\interfaces\PointcutMatcher;
 
 /**
@@ -21,12 +22,11 @@ class PointcutNamedMatcher implements PointcutMatcher
     const TYPE = __CLASS__;
 
     /**
-     * @param string $className
-     * @param string $methodName
+     * @param JoinPoint $joinPoint
      *
      * @return boolean
      */
-    public function match( $className, $methodName )
+    public function match( JoinPoint $joinPoint )
     {
 
     }
