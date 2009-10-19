@@ -196,8 +196,9 @@ class Parser
                     break;
 
                 case ParserTokens::T_SCOPE_OPEN:
-                    list( $methods, $properties ) = $this->_parseClassOrInterfaceScope();
+                    list( $methods, $properties, $endLine ) = $this->_parseClassOrInterfaceScope();
 
+                    $class->initEndLine( $endLine );
                     $class->initMethods( $methods );
                     $class->setProperties( $properties );
                     return $class;
@@ -227,8 +228,9 @@ class Parser
                     break;
 
                 case ParserTokens::T_SCOPE_OPEN:
-                    list( $methods ) = $this->_parseClassOrInterfaceScope( StaticReflectionInterface::IS_EXPLICIT_ABSTRACT );
+                    list( $methods, $properties, $endLine ) = $this->_parseClassOrInterfaceScope( StaticReflectionInterface::IS_EXPLICIT_ABSTRACT );
 
+                    $class->initEndLine( $endLine );
                     $class->initMethods( $methods );
                     return $class;
             }
@@ -320,7 +322,6 @@ class Parser
         $methods    = array();
         $properties = array();
 
-        $scope      = 1;
         $modifiers  = $defaultModifiers | StaticReflectionMethod::IS_PUBLIC;
         $docComment = '';
 
@@ -334,9 +335,9 @@ class Parser
                     break;
 
                 case ParserTokens::T_SCOPE_CLOSE:
-                    $this->_consumeToken( ParserTokens::T_SCOPE_CLOSE );
-                    --$scope;
-                    break;
+                    $token = $this->_consumeToken( ParserTokens::T_SCOPE_CLOSE );
+
+                    return array( $methods, $properties, $token->endLine);
 
                 case ParserTokens::T_ABSTRACT:
                     $this->_consumeToken( ParserTokens::T_ABSTRACT );
@@ -386,11 +387,6 @@ class Parser
                     $modifiers  = $defaultModifiers | StaticReflectionMethod::IS_PUBLIC;
                     $docComment = '';
                     break;
-            }
-
-            if ( $scope === 0 )
-            {
-                return array( $methods, $properties );
             }
         }
         throw new \RuntimeException( 'Unexpected end of token stream in class or interface body.' );

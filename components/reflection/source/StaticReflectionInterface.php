@@ -43,6 +43,13 @@ class StaticReflectionInterface extends \ReflectionClass
     private $_startLine = -1;
 
     /**
+     * The end line number where the interface declaration ends.
+     *
+     * @var integer
+     */
+    private $_endLine = -1;
+
+    /**
      * @var array(\ReflectionMethod)
      */
     private $_methods = null;
@@ -56,7 +63,7 @@ class StaticReflectionInterface extends \ReflectionClass
      * @param string $name
      * @param string $docComment
      */
-    public function __construct( $name, $docComment = '' )
+    public function __construct( $name, $docComment )
     {
         $this->setName( $name );
         $this->_docComment = $docComment;
@@ -264,19 +271,30 @@ class StaticReflectionInterface extends \ReflectionClass
         
     }
 
+    /**
+     * Checks whether it implements an interface. 
+     *
+     * @param string $interface The interface name.
+     *
+     * @return boolean
+     */
     public function implementsInterface( $interface )
     {
-        
+        if ( strcasecmp( $this->_name, $interface ) === 0 )
+        {
+            return true;
+        }
+        return in_array(
+            strtolower( $interface ),
+            array_map( 'strtolower', $this->getInterfaceNames() )
+        );
     }
 
     /**
-     * @return array(\ReflectionClass)
+     * Returns an array with the names of all implemented/extended interfaces.
+     *
+     * @return array(string)
      */
-    public function getInterfaces()
-    {
-        return (array) $this->_interfaces;
-    }
-
     public function getInterfaceNames()
     {
         $names = array();
@@ -285,6 +303,37 @@ class StaticReflectionInterface extends \ReflectionClass
             $names[] = $interface->getName();
         }
         return $names;
+    }
+
+    /**
+     * Returns an array with all implemented/extended interfaces.
+     *
+     * @return array(\ReflectionClass)
+     */
+    public function getInterfaces()
+    {
+        return array_values( $this->_collectInterfaces( (array) $this->_interfaces ) );
+    }
+
+    /**
+     * Collects recursive all implemented/extended interfaces.
+     *
+     * @param array(\ReflectionClass)         $interfaces    Input interface list.
+     * @param array(string=>\ReflectionClass) $interfaceList Result list
+     *
+     * @return array(\ReflectionClass)
+     */
+    private function _collectInterfaces( array $interfaces, array &$interfaceList = array() )
+    {
+        foreach ( $interfaces as $interface )
+        {
+            if ( isset( $interfaceList[$interface->getName()] ) === false )
+            {
+                $interfaceList[$interface->getName()] = $interface;
+                $this->_collectInterfaces( $interface->getInterfaces(), $interfaceList );
+            }
+        }
+        return $interfaceList;
     }
 
     /**
@@ -327,13 +376,34 @@ class StaticReflectionInterface extends \ReflectionClass
      */
     public function hasMethod( $name )
     {
-        return isset( $this->_methods[strtolower( $name )] );
+        return isset( $this->_methods[strtolower( $name )] ) || $this->_hasMethod( $name );
     }
 
     /**
-     * @param string $name
+     * Checks whether a specific method is defined in one of the parent interfaces.
      *
-     * \ReflectionMethod
+     * @param string $name Name of the method being checked for.
+     *
+     * @return boolean
+     */
+    private function _hasMethod( $name )
+    {
+        foreach ( $this->getInterfaces() as $interface )
+        {
+            if ( $interface->hasMethod( $name ) )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Gets a <b>ReflectionMethod</b> about a method.
+     *
+     * @param string $name The method name to reflect.
+     *
+     * @return \ReflectionMethod
      */
     public function getMethod( $name )
     {
@@ -341,15 +411,53 @@ class StaticReflectionInterface extends \ReflectionClass
         {
             return $this->_methods[strtolower( $name )];
         }
-        throw new \RuntimeException( 'No method ' . $this->_name . '::' . $name . '() found.' );
+        return $this->_getMethod( $name );
+    }
+
+    /**
+     * Gets a <b>ReflectionMethod</b> about a method from one of the parent
+     * interfaces.
+     *
+     * @param string $name The method name to reflect.
+     *
+     * @return \ReflectionMethod
+     */
+    private function _getMethod( $name )
+    {
+        foreach ( $this->getInterfaces() as $interface )
+        {
+            if ( $interface->hasMethod( $name ) )
+            {
+                return $interface->getMethod( $name );
+            }
+        }
+        throw new \ReflectionException( sprintf( 'Method %s does not exist', $name ) );
     }
 
     /**
      * @return array(\ReflectionMethod)
      */
-    public function getMethods( $filter = -1 )
+    public function getMethods( $filter = 0 )
     {
-        return (array) $this->_methods;
+        $result = $this->_collectMethods( $filter, (array) $this->_methods );
+        foreach ( $this->getInterfaces() as $interface )
+        {
+            $result = $this->_collectMethods( $filter, $interface->getMethods( $filter ), $result );
+        }
+        return array_values( $result );
+    }
+
+    private function _collectMethods( $filter, array $methods, array &$result = array() )
+    {
+        foreach ( $methods as $method )
+        {
+            $name = strtolower( $method->getName() );
+            if ( !isset( $result[$name] ) && ( $method->getModifiers() & $filter ) === $filter )
+            {
+                $result[$name] = $method;
+            }
+        }
+        return $result;
     }
 
     /**
@@ -387,13 +495,15 @@ class StaticReflectionInterface extends \ReflectionClass
     }
 
     /**
-     * @param string $name
+     * Gets a property.
+     *
+     * @param string $name The property name.
      *
      * @return \ReflectionProperty
      */
     public function getProperty( $name )
     {
-        throw new \RuntimeException( sprintf( 'Property %s does not exist', $name ) );
+        throw new \ReflectionException( sprintf( 'Property %s does not exist', $name ) );
     }
 
     /**
@@ -424,7 +534,9 @@ class StaticReflectionInterface extends \ReflectionClass
      */
     public function getStaticPropertyValue( $name, $default = null )
     {
-
+        throw new \ReflectionException(
+            sprintf( 'Class %s does not have a property named %s', $this->_name, $name )
+        );
     }
 
     /**
@@ -481,9 +593,35 @@ class StaticReflectionInterface extends \ReflectionClass
         }
     }
 
+    /**
+     * Get the ending line number.
+     *
+     * @return integer
+     */
     public function getEndLine()
     {
-        
+        return $this->_endLine;
+    }
+
+    /**
+     * Initializes the end line number. Note that this method is only used
+     * internally by this component.
+     *
+     * @param integer $endLine Line number where the interface declaration ends.
+     *
+     * @return void
+     * @access private
+     */
+    public function initEndLine( $endLine )
+    {
+        if ( $this->_endLine === -1 )
+        {
+            $this->_endLine = $endLine;
+        }
+        else
+        {
+            throw new \LogicException( 'Property endLine already set.' );
+        }
     }
 
     /**

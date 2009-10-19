@@ -514,6 +514,32 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection
      * @group reflection::parser
      * @group unittest
+     */
+    public function testParserSetsExpectedClassStartLine()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'ClassLineNumbers' );
+        $this->assertSame( 6, $parser->parse()->getStartLine() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserSetsExpectedClassEndLine()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'ClassLineNumbers' );
+        $this->assertSame( 14, $parser->parse()->getEndLine() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
      * @expectedException \RuntimeException
      */
     public function testParserThrowsExceptionForInvalidClassDeclaration()
