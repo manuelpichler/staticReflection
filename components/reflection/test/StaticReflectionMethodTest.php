@@ -231,6 +231,125 @@ class StaticReflectionMethodTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testIsClosureAlwaysReturnsFalse()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $this->assertFalse( $method->isClosure() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsDeprecatedAlwaysReturnsFalse()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $this->assertFalse( $method->isDeprecated() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsConstructorReturnsFalseForNonConstructMethod()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initDeclaringClass( new \ReflectionClass( '\stdClass' ) );
+
+        $this->assertFalse( $method->isConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsConstructorReturnsFalseForPhp4StyleMethodWhenConstructMethodExists()
+    {
+        $method0 = new StaticReflectionMethod( '__construct', '', 0 );
+        $method1 = new StaticReflectionMethod( 'stdClass', '', 0 );
+
+        $class = new StaticReflectionClass( '\stdClass', '', 0 );
+        $class->initMethods( array( $method0, $method1 ) );
+
+        $this->assertFalse( $method1->isConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsConstructorReturnsTrueForConstructMethod()
+    {
+        $method = new StaticReflectionMethod( '__construct', '', 0 );
+        $method->initDeclaringClass( new \ReflectionClass( '\stdClass' ) );
+
+        $this->assertTrue( $method->isConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsConstructorReturnsTrueForPhp4StyleMethod()
+    {
+        $method = new StaticReflectionMethod( 'stdclass', '', 0 );
+        $method->initDeclaringClass( new \ReflectionClass( '\stdClass' ) );
+
+        $this->assertTrue( $method->isConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsDestructorReturnsFalseForNonDestructMethod()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $this->assertFalse( $method->isDestructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsDestructorReturnsTrueForDestructMethod()
+    {
+        $method = new StaticReflectionMethod( '__DESTRUCT', '', 0 );
+        $this->assertTrue( $method->isDestructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testInNamespaceAlwaysReturnsFalse()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $this->assertFalse( $method->inNamespace() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
     public function testGetShortNameIsIdenticalWithGetName()
     {
         $method = new StaticReflectionMethod( 'foo', '', 0 );
@@ -281,11 +400,89 @@ class StaticReflectionMethodTest extends BaseTest
      * @covers \de\buzz2ee\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
+     */
+    public function testGetStartLineReturnsExpectedValue()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initStartLine( 42 );
+
+        $this->assertSame( 42, $method->getStartLine() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetEndLineReturnsExpectedValue()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initEndLine( 42 );
+
+        $this->assertSame( 42, $method->getEndLine() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetExtensionNameAlwaysReturnsFalse()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $this->assertFalse( $method->getExtensionName() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetExtensionAlwaysReturnsNull()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $this->assertNull( $method->getExtension() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
      * @expectedException \ReflectionException
      */
     public function testConstructorThrowsExceptionWhenInvalidModifierWasGiven()
     {
         $method = new StaticReflectionMethod( 'foo', '', 42 );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     * @expectedException \ReflectionException
+     */
+    public function testInvokeThrowsNotSupportedException()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->invoke( $this, 42 );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     * @expectedException \ReflectionException
+     */
+    public function testInvokeArgsThrowsNotSupportedException()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->invokeArgs( $this, array( 42 ) );
     }
 
     /**
@@ -302,4 +499,33 @@ class StaticReflectionMethodTest extends BaseTest
         $method->initDeclaringClass( $class );
         $method->initDeclaringClass( $class );
     }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitStartLineThrowsLogicExceptionWhenAlreadySet()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initStartLine( 42 );
+        $method->initStartLine( 42 );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitEndLineThrowsLogicExceptionWhenAlreadySet()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initEndLine( 23 );
+        $method->initEndLine( 23 );
+    }
 }
+

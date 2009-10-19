@@ -16,6 +16,8 @@ namespace de\buzz2ee\reflection;
  */
 class StaticReflectionMethod extends \ReflectionMethod
 {
+    const TYPE = __CLASS__;
+
     /**
      * @var string
      */
@@ -37,6 +39,20 @@ class StaticReflectionMethod extends \ReflectionMethod
      * @var \ReflectionClass
      */
     private $_declaringClass = null;
+
+    /**
+     * The start line number of the reflected method.
+     *
+     * @var integer
+     */
+    private $_startLine = -1;
+
+    /**
+     * The end line number of the reflected method.
+     *
+     * @var integer
+     */
+    private $_endLine = -1;
 
     /**
      * @param string  $name
@@ -93,6 +109,17 @@ class StaticReflectionMethod extends \ReflectionMethod
     }
 
     /**
+     * Returns <b>true</b> when the reflected function is declared in a namespace,
+     * otherwise this method will return <b>false</b>.
+     *
+     * @return boolean
+     */
+    public function inNamespace()
+    {
+        return false;
+    }
+
+    /**
      * Returns the doc comment of the reflected method or <b>false</b> when no
      * comment was found.
      *
@@ -134,6 +161,7 @@ class StaticReflectionMethod extends \ReflectionMethod
      * @param integer $modifiers The modifiers for the reflected method.
      *
      * @return void
+     * @access private
      */
     public function _setModifiers( $modifiers )
     {
@@ -155,6 +183,36 @@ class StaticReflectionMethod extends \ReflectionMethod
     public function getFileName()
     {
         return $this->getDeclaringClass()->getFileName();
+    }
+
+    /**
+     * Returns <b>true</b> when the reflected method is the ctor of the parent
+     * class instance.
+     *
+     * @return boolean
+     */
+    public function isConstructor()
+    {
+        if ( strcasecmp( $this->getName(), '__construct' ) === 0 )
+        {
+            return true;
+        }
+        else if ( $this->getDeclaringClass()->hasMethod( '__construct' ) )
+        {
+            return false;
+        }
+        return ( strcasecmp( $this->getName(), $this->getDeclaringClass()->getShortName() ) === 0 );
+    }
+
+    /**
+     * Returns <b>true</b> when the reflected method is the dtor of the parent
+     * class instance.
+     *
+     * @return boolean
+     */
+    public function isDestructor()
+    {
+        return ( strcasecmp( $this->getName(), '__destruct' ) === 0 );
     }
 
     /**
@@ -206,6 +264,17 @@ class StaticReflectionMethod extends \ReflectionMethod
     }
 
     /**
+     * Returns <b>true</b> when the reflected method/function is flagged as
+     * deprecated.
+     *
+     * @return boolean
+     */
+    public function isDeprecated()
+    {
+        return false;
+    }
+
+    /**
      * Returns <b>true</b> when the reflected method is declared by an internal
      * class/interface, or <b>false</b> when it is user-defined.
      *
@@ -225,6 +294,17 @@ class StaticReflectionMethod extends \ReflectionMethod
     public function isUserDefined()
     {
         return true;
+    }
+
+    /**
+     * Returns <b>true</b> when the reflected method/function is a closure,
+     * otherwise this method will return <b>false</b>.
+     *
+     * @return boolean
+     */
+    public function isClosure()
+    {
+        return false;
     }
 
     /**
@@ -256,5 +336,158 @@ class StaticReflectionMethod extends \ReflectionMethod
         {
             throw new \LogicException( 'Declaring class already set' );
         }
+    }
+
+    /**
+     * Returns the start line number of the reflected method's declaration.
+     *
+     * @return integer
+     */
+    public function getStartLine()
+    {
+        return $this->_startLine;
+    }
+
+    /**
+     * Initializes the start line number where the method's declaration starts.
+     *
+     * @param integer $startLine The methods start line number.
+     *
+     * @return void
+     * @access private
+     */
+    public function initStartLine( $startLine )
+    {
+        if ( $this->_startLine === -1 )
+        {
+            $this->_startLine = $startLine;
+        }
+        else
+        {
+            throw new \LogicException( 'Property startLine already set' );
+        }
+    }
+
+    /**
+     * Returns the end line number of the reflected method's declaration.
+     *
+     * @return integer
+     */
+    public function getEndLine()
+    {
+        return $this->_endLine;
+    }
+
+    /**
+     * Initializes the end line number where the method's declaration ends.
+     *
+     * @param integer $endLine The methods end line number.
+     *
+     * @return void
+     * @access private
+     */
+    public function initEndLine( $endLine )
+    {
+        if ( $this->_endLine === -1 )
+        {
+            $this->_endLine = $endLine;
+        }
+        else
+        {
+            throw new \LogicException( 'Property endLine already set' );
+        }
+    }
+    
+    public function getParameters()
+    {
+        
+    }
+
+    public function getNumberOfParameters()
+    {
+
+    }
+
+    public function getNumberOfRequiredParameters()
+    {
+
+    }
+
+    public function returnsReference()
+    {
+        
+    }
+
+    public function getStaticVariables()
+    {
+        
+    }
+
+    /**
+     * Returns a <b>\ReflectionExtension</b> of the extension where the reflected
+     * method was declared. If the method is not part of an extension this
+     * method will return <b>null</b>.
+     *
+     * @return \ReflectionExtension
+     */
+    public function getExtension()
+    {
+        return null;
+    }
+
+    /**
+     * Returns the name of the extension where the reflected method was
+     * declared. When the reflected method does not belong to an extension this
+     * method will return <b>false</b>.
+     *
+     * @return string|boolean
+     */
+    public function getExtensionName()
+    {
+        return false;
+    }
+
+    /**
+     * Will invoke the reflected method on the given <b>$object</b>.
+     *
+     * @param object $object The context object instance.
+     * @param mixed  $args   Variable list of method arguments.
+     *
+     * @return void
+     */
+    public function invoke( $object, $args = null )
+    {
+        throw new \ReflectionException( 'Method invoke() is not supported' );
+    }
+
+    /**
+     * Will invoke the reflected method on the given <b>$object</b>.
+     *
+     * @param object       $object The context object instance.
+     * @param array(mixed) $args   Array with method arguments
+     *
+     * @return void
+     */
+    public function invokeArgs( $object, array $args = array() )
+    {
+        throw new \ReflectionException( 'Method invokeArgs() is not supported' );
+    }
+
+    /**
+     * Returns the prototype of the context function.
+     */
+    public function getPrototype()
+    {
+        
+    }
+
+    /**
+     * Returns a string representation of the reflected method.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return '';
     }
 }

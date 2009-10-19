@@ -379,8 +379,11 @@ class Parser
                     break;
 
                 case ParserTokens::T_FUNCTION:
-                    $this->_consumeToken( ParserTokens::T_FUNCTION );
-                    $methods[]  = $this->_parseMethodDeclaration( $docComment, $modifiers );
+                    $token  = $this->_consumeToken( ParserTokens::T_FUNCTION );
+                    $method = $this->_parseMethodDeclaration( $docComment, $modifiers );
+                    $method->initStartLine( $token->startLine );
+
+                    $methods[]  = $method;
                     $modifiers  = $defaultModifiers | StaticReflectionMethod::IS_PUBLIC;
                     $docComment = '';
                     break;
@@ -415,10 +418,12 @@ class Parser
                     break;
 
                 case ParserTokens::T_SCOPE_OPEN:
-                    $this->_parseScope();
+                    $token = $this->_parseScope();
 
                 case ParserTokens::T_SEMICOLON:
-                    return new StaticReflectionMethod( $methodName, $docComment, $modifiers );
+                    $method = new StaticReflectionMethod( $methodName, $docComment, $modifiers );
+                    $method->initEndLine( $token->endLine );
+                    return $method;
             }
         }
         throw new \RuntimeException( 'Unexpected end of token stream in method declaration.' );
@@ -486,7 +491,7 @@ class Parser
 
             if ( $scope === 0 )
             {
-                return;
+                return $token;
             }
         }
         throw new \RuntimeException( 'Unexpected end of token stream in method declaration.' );

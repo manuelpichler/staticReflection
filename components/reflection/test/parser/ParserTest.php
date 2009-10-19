@@ -460,6 +460,58 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserSetsExpectedConcreteMethodStartLine()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'MethodLineNumbers' );
+        $this->assertSame( 7, $parser->parse()->getMethod( 'foo' )->getStartLine() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserSetsExpectedConcreteMethodEndLine()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'MethodLineNumbers' );
+        $this->assertSame( 12, $parser->parse()->getMethod( 'foo' )->getEndLine() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserSetsExpectedAbstractMethodStartLine()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'MethodLineNumbers' );
+        $this->assertSame( 16, $parser->parse()->getMethod( '_bar' )->getStartLine() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserSetsExpectedAbstractMethodEndLine()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'MethodLineNumbers' );
+        $this->assertSame( 19, $parser->parse()->getMethod( '_bar' )->getEndLine() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserSetsPropertyDocComment()
     {
         $parser = new Parser( $this->createSourceResolver(), 'PropertyWithComment' );

@@ -21,6 +21,17 @@ class CompatibilityReflectionMethodTest extends BaseTest
 {
     /**
      * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testStaticVersionIsCompatileWithNativeReflection()
+    {
+        $this->assertPublicApiEquals( 'ReflectionMethod', StaticReflectionMethod::TYPE );
+    }
+    
+    /**
+     * @return void
      * @covers \de\buzz2ee\reflection\StaticReflectionMethod
      * @group reflection
      * @group compatibilitytest
@@ -101,7 +112,7 @@ class CompatibilityReflectionMethodTest extends BaseTest
     public function testGetDocCommentForMethodWithComment()
     {
         $internal = $this->createInternal( 'CompatMethodWithComment', 'fooBar' );
-        $static   = $this->createInternal( 'CompatMethodWithComment', 'fooBar' );
+        $static   = $this->createStatic( 'CompatMethodWithComment', 'fooBar' );
 
         $this->assertSame( $internal->getDocComment(), $static->getDocComment() );
     }
@@ -115,9 +126,149 @@ class CompatibilityReflectionMethodTest extends BaseTest
     public function testGetDocCommentForMethodWithoutComment()
     {
         $internal = $this->createInternal( 'CompatMethodWithoutComment', 'fooBar' );
-        $static   = $this->createInternal( 'CompatMethodWithoutComment', 'fooBar' );
+        $static   = $this->createStatic( 'CompatMethodWithoutComment', 'fooBar' );
 
         $this->assertSame( $internal->getDocComment(), $static->getDocComment() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testIsClosure()
+    {
+        $internal = $this->createInternal( 'CompatMethodWithoutComment', 'fooBar' );
+        $static   = $this->createStatic( 'CompatMethodWithoutComment', 'fooBar' );
+
+        $this->assertSame( $internal->isClosure(), $static->isClosure() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testIsDeprecatedForMethodAnnotatedWithDeprecated()
+    {
+        $internal = $this->createInternal( 'CompatMethodAnnotatedWithDeprecated', 'fooBar' );
+        $static   = $this->createStatic( 'CompatMethodAnnotatedWithDeprecated', 'fooBar' );
+
+        $this->assertSame( $internal->isDeprecated(), $static->isDeprecated() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testIsDeprecatedForMethodAnnotatedWithoutDeprecated()
+    {
+        $internal = $this->createInternal( 'CompatMethodAnnotatedWithoutDeprecated', 'fooBar' );
+        $static   = $this->createStatic( 'CompatMethodAnnotatedWithoutDeprecated', 'fooBar' );
+
+        $this->assertSame( $internal->isDeprecated(), $static->isDeprecated() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testIsDestructorForDestructMethod()
+    {
+        $internal = $this->createInternal( 'CompatClassWithDestructor', '__destruct' );
+        $static   = $this->createStatic( 'CompatClassWithDestructor', '__destruct' );
+
+        $this->assertSame( $internal->isDestructor(), $static->isDestructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testIsDestructorForNonDestructMethod()
+    {
+        $internal = $this->createInternal( 'CompatClassWithDestructor', 'fooBar' );
+        $static   = $this->createStatic( 'CompatClassWithDestructor', 'fooBar' );
+
+        $this->assertSame( $internal->isDestructor(), $static->isDestructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testIsDestructorForAbstractDestructMethod()
+    {
+        $internal = $this->createInternal( 'CompatAbstractClassWithAbstractDestructor', '__destruct' );
+        $static   = $this->createStatic( 'CompatAbstractClassWithAbstractDestructor', '__destruct' );
+
+        $this->assertSame( $internal->isDestructor(), $static->isDestructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testInNamespaceForClassWithNamespace()
+    {
+        $internal = $this->createInternal( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
+        $static   = $this->createStatic( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
+
+        $this->assertSame( $internal->inNamespace(), $static->inNamespace() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testInNamespaceForClassWithoutNamespace()
+    {
+        $internal = $this->createInternal( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
+        $static   = $this->createStatic( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
+
+        $this->assertSame( $internal->inNamespace(), $static->inNamespace() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testGetExtension()
+    {
+        $internal = $this->createInternal( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
+        $static   = $this->createStatic( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
+
+        $this->assertSame( $internal->getExtension(), $static->getExtension() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testGetExtensionName()
+    {
+        $internal = $this->createInternal( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
+        $static   = $this->createStatic( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
+
+        $this->assertSame( $internal->getExtensionName(), $static->getExtensionName() );
     }
 
     /**

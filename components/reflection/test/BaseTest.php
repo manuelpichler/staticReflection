@@ -48,7 +48,8 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         {
             if ( !$method->isPublic()
                 || $method->isStatic()
-                || $method->getDeclaringClass()->getName() !== $className
+                || $reflection->isUserDefined() !== $method->isUserDefined()
+                || $reflection->isInternal() !== $method->isInternal()
                 || is_int( strpos( $method->getDocComment(), '@access private' ) )
             ) {
                 continue;
