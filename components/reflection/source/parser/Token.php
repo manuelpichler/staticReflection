@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection;
+namespace de\buzz2ee\reflection\parser;
 
 /**
  * Simple token object.
@@ -43,6 +43,8 @@ class Token
         $this->image  = $image;
     }
 
+    // @codeCoverageIgnoreStart
+
     /**
      * @return string
      */
@@ -56,4 +58,6 @@ class Token
             $this->image
         );
     }
+
+    // @codeCoverageIgnoreEnd
 }

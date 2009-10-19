@@ -8,21 +8,20 @@
 namespace de\buzz2ee\reflection\interfaces;
 
 /**
- * Interface with different class, method and/op property modifiers.
+ * Base interface for a source resolver.
  *
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-interface Reflector
+interface SourceResolver
 {
     /**
-     * The available modifiers
+     * Returns the source of the file where the given class is defined.
+     *
+     * @param string $className
+     *
+     * @return string
      */
-    const IS_ABSTRACT  = 2,
-          IS_FINAL     = 4,
-          IS_PRIVATE   = 1024,
-          IS_PROTECTED = 512,
-          IS_PUBLIC    = 256,
-          IS_STATIC    = 1;
+    function getSourceForClass( $className );
 }

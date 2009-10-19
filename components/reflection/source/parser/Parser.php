@@ -1,19 +1,28 @@
 <?php
 
-namespace de\buzz2ee\reflection;
+namespace de\buzz2ee\reflection\parser;
 
-use de\buzz2ee\reflection\interfaces\Reflector;
-use de\buzz2ee\reflection\interfaces\ParserTokens;
+use de\buzz2ee\reflection\interfaces\SourceResolver;
 
-class StaticReflectionParser
+use de\buzz2ee\reflection\StaticReflectionClass;
+use de\buzz2ee\reflection\StaticReflectionMethod;
+use de\buzz2ee\reflection\StaticReflectionInterface;
+use de\buzz2ee\reflection\StaticReflectionProperty;
+
+class Parser
 {
+    /**
+     * @var \de\buzz2ee\reflection\interfaces\SourceResolver
+     */
+    private $_resolver = null;
+
     /**
      * @var string
      */
-    private $_fileName = null;
+    private $_className = null;
 
     /**
-     * @var \de\buzz2ee\lang\StaticReflectionTokenizer
+     * @var \de\buzz2ee\lang\Tokenizer
      */
     private $_tokenizer = null;
 
@@ -28,11 +37,13 @@ class StaticReflectionParser
     private $_aliasMap = array();
 
     /**
-     * @param string $fileName
+     * @param \de\buzz2ee\reflection\interfaces\SourceResolver $resolver
+     * @param string                                           $className
      */
-    public function __construct( $fileName )
+    public function __construct( SourceResolver $resolver, $className )
     {
-        $this->_fileName = $fileName;
+        $this->_resolver  = $resolver;
+        $this->_className = $className;
     }
 
     /**
@@ -40,11 +51,12 @@ class StaticReflectionParser
      */
     public function parse()
     {
-        $this->_tokenizer = new StaticReflectionTokenizer( file_get_contents( $this->_fileName ) );
+        $this->_tokenizer = new Tokenizer( $this->_resolver->getSourceForClass( $this->_className ) );
 
         $modifiers  = 0;
         $docComment = '';
 
+        $class = null;
         while ( is_object( $token = $this->_next() ) )
         {
             switch ( $token->type )
@@ -62,16 +74,16 @@ class StaticReflectionParser
                     break;
 
                 case ParserTokens::T_ABSTRACT:
-                    $modifiers |= Reflector::IS_ABSTRACT;
+                    $modifiers |= StaticReflectionClass::IS_ABSTRACT;
                     break;
 
                 case ParserTokens::T_FINAL:
-                    $modifiers |= Reflector::IS_FINAL;
+                    $modifiers |= StaticReflectionClass::IS_FINAL;
                     break;
 
                 case ParserTokens::T_CLASS:
                     $class = $this->_parseClassDeclaration( $docComment, $modifiers );
-                    var_dump( $class );
+
                     $modifiers  = 0;
                     $docComment = '';
                     break;
@@ -79,14 +91,17 @@ class StaticReflectionParser
                 case ParserTokens::T_INTERFACE:
                     $class = $this->_parseInterfaceDeclaration( $docComment );
                     
-                    var_dump( $class );
                     $modifiers  = 0;
                     $docComment = '';
                     break;
             }
 
-            echo $token, PHP_EOL;
+            if ( $class !== null && $class->getName() === $this->_className )
+            {
+                return $class;
+            }
         }
+        throw new \LogicException( 'No class ' . $this->_className . ' found.' );
     }
 
     /**
@@ -102,9 +117,6 @@ class StaticReflectionParser
         {
             switch ( $token->type )
             {
-                case ParserTokens::T_DOC_COMMENT;
-                    break;
-                
                 case ParserTokens::T_STRING:
                 case ParserTokens::T_NS_SEPARATOR:
                     $this->_namespace .= $token->image;
@@ -135,9 +147,6 @@ class StaticReflectionParser
         {
             switch ( $token->type )
             {
-                case ParserTokens::T_DOC_COMMENT;
-                    break;
-
                 case ParserTokens::T_STRING:
                     $alias = $token->image;
                     
@@ -146,17 +155,17 @@ class StaticReflectionParser
                     break;
 
                 case ParserTokens::T_AS:
-                    $alias = $this->_tokenizer->next();
+                    $alias = $this->_tokenizer->next()->image;
                     break;
 
                 case ParserTokens::T_COMMA:
                 case ParserTokens::T_SEMICOLON:
-                    $this->_aliasMap[$alias] = ltrim( $namespace, '\\' ) . '\\';
+                    $this->_aliasMap[$alias] = trim( $namespace, '\\' );
 
                     return $token;
             }
         }
-        throw new \RuntimeException( 'Invalid token in use statement found.' );
+        throw new \RuntimeException( 'Unexpected end of token stream in use statement.' );
     }
 
     /**
@@ -170,11 +179,8 @@ class StaticReflectionParser
         {
             switch ( $token->type )
             {
-                case ParserTokens::T_DOC_COMMENT;
-                    break;
-
                 case ParserTokens::T_STRING:
-                    $name  = $this->_namespace . $token->image;
+                    $name  = $this->_createClassOrInterfaceName( array( $token->image ) );
                     $class = new StaticReflectionClass( $name, $docComment, $modifiers );
                     break;
 
@@ -192,9 +198,6 @@ class StaticReflectionParser
                     $class->setMethod( $methods );
                     $class->setProperties( $properties );
                     return $class;
-
-                default:
-                    throw new \RuntimeException( sprintf( 'Unexpected token("%") in class declaration.', $token->image ) );
             }
         }
         throw new \RuntimeException( 'Unexpected end of token stream in class declaration.' );
@@ -211,11 +214,8 @@ class StaticReflectionParser
         {
             switch ( $token->type )
             {
-                case ParserTokens::T_DOC_COMMENT;
-                    break;
-
                 case ParserTokens::T_STRING:
-                    $name  = $this->_namespace . $token->image;
+                    $name  = $this->_createClassOrInterfaceName( array( $token->image ) );
                     $class = new StaticReflectionInterface( $name, $docComment );
                     break;
 
@@ -224,13 +224,10 @@ class StaticReflectionParser
                     break;
 
                 case ParserTokens::T_SCOPE_OPEN:
-                    list( $methods ) = $this->_parseClassOrInterfaceScope( Reflector::IS_ABSTRACT );
+                    list( $methods ) = $this->_parseClassOrInterfaceScope( StaticReflectionInterface::IS_ABSTRACT );
 
                     $class->setMethod( $methods );
                     return $class;
-
-                default:
-                    throw new \RuntimeException( sprintf( 'Unexpected token("%") in interface declaration.', $token->image ) );
             }
         }
         throw new \RuntimeException( 'Unexpected end of token stream in interface declaration.' );
@@ -241,7 +238,8 @@ class StaticReflectionParser
      */
     private function _parseParentClass()
     {
-        return new StaticReflectionClass( $this->_parseClassOrInterfaceName() );
+        $parser = new static( $this->_resolver, $this->_parseClassOrInterfaceName() );
+        return $parser->parse();
     }
 
     /**
@@ -250,16 +248,11 @@ class StaticReflectionParser
     private function _parseInterfaceList()
     {
         $interfaces = array();
-
-        while ( is_object( $token = $this->_peek() ) )
+        
+        while ( ( $tokenType = $this->_peek() ) !== Tokenizer::EOF )
         {
-            switch ( $token->type )
+            switch ( $tokenType )
             {
-                case ParserTokens::T_COMMA:
-                case ParserTokens::T_DOC_COMMENT;
-                    $this->_next();
-                    break;
-
                 case ParserTokens::T_STRING:
                 case ParserTokens::T_NS_SEPARATOR:
                     $interfaces[] = $this->_parseInterface();
@@ -268,6 +261,10 @@ class StaticReflectionParser
                 case ParserTokens::T_IMPLEMENTS:
                 case ParserTokens::T_SCOPE_OPEN:
                     return $interfaces;
+
+                default:
+                    $this->_next();
+                    break;
             }
         }
         throw new \RuntimeException( 'Unexpected end of token stream in class name list.' );
@@ -278,7 +275,8 @@ class StaticReflectionParser
      */
     private function _parseInterface()
     {
-        return new StaticReflectionInterface( $this->_parseClassOrInterfaceName() );
+        $parser = new static( $this->_resolver, $this->_parseClassOrInterfaceName() );
+        return $parser->parse();
     }
 
     /**
@@ -286,26 +284,32 @@ class StaticReflectionParser
      */
     private function _parseClassOrInterfaceName()
     {
-        $classNameParts = array();
+        $name = array();
 
-        while ( is_object( $token = $this->_peek() ) )
+        $this->_consumeComments();
+        if ( $this->_peek() === ParserTokens::T_NS_SEPARATOR )
         {
-            switch ( $token->type )
+            $name[] = $this->_next()->image;
+        }
+
+        while ( $this->_peek() !== Tokenizer::EOF )
+        {
+            $this->_consumeComments();
+            $token = $this->_consumeToken( ParserTokens::T_STRING );
+
+            $name[] = $token->image;
+
+            $this->_consumeComments();
+            if ( $this->_peek() === ParserTokens::T_NS_SEPARATOR )
             {
-                case ParserTokens::T_DOC_COMMENT;
-                    $this->_next();
-                    break;
-
-                case ParserTokens::T_STRING:
-                case ParserTokens::T_NS_SEPARATOR:
-                    $classNameParts[] = $this->_next()->image;
-                    break;
-
-                default:
-                    return $this->_createClassOrInterfaceName( $classNameParts );
+                $name[] = $this->_next()->image;
+            }
+            else
+            {
+                break;
             }
         }
-        throw new \RuntimeException( 'Unexpected end of token stream in class name.' );
+        return $this->_createClassOrInterfaceName( $name );
     }
 
     private function _parseClassOrInterfaceScope( $defaultModifiers = 0 )
@@ -314,60 +318,70 @@ class StaticReflectionParser
         $properties = array();
 
         $scope      = 1;
-        $modifiers  = $defaultModifiers | Reflector::IS_PUBLIC;
+        $modifiers  = $defaultModifiers | StaticReflectionMethod::IS_PUBLIC;
         $docComment = '';
 
-        while ( is_object( $token = $this->_next() ) )
+        while ( ( $tokenType = $this->_peek() ) !== Tokenizer::EOF )
         {
-            switch ( $token->type )
+            switch ( $tokenType )
             {
                 case ParserTokens::T_DOC_COMMENT:
-                    break;
-
-                case ParserTokens::T_SCOPE_OPEN:
-                    ++$scope;
+                    $token      = $this->_consumeToken( ParserTokens::T_DOC_COMMENT );
+                    $docComment = $token->image;
                     break;
 
                 case ParserTokens::T_SCOPE_CLOSE:
+                    $this->_consumeToken( ParserTokens::T_SCOPE_CLOSE );
                     --$scope;
                     break;
 
                 case ParserTokens::T_ABSTRACT:
-                    $modifiers |= Reflector::IS_ABSTRACT;
+                    $this->_consumeToken( ParserTokens::T_ABSTRACT );
+                    $modifiers |= StaticReflectionMethod::IS_ABSTRACT;
                     break;
 
                 case ParserTokens::T_FINAL:
-                    $modifiers |= Reflector::IS_FINAL;
+                    $this->_consumeToken( ParserTokens::T_FINAL );
+                    $modifiers |= StaticReflectionMethod::IS_FINAL;
                     break;
 
                 case ParserTokens::T_PUBLIC:
-                    $modifiers |= Reflector::IS_PUBLIC;
+                    $this->_consumeToken( ParserTokens::T_PUBLIC );
+                    $modifiers |= StaticReflectionMethod::IS_PUBLIC;
                     break;
 
                 case ParserTokens::T_PRIVATE:
-                    $modifiers ^= Reflector::IS_PUBLIC;
-                    $modifiers |= Reflector::IS_PRIVATE;
+                    $this->_consumeToken( ParserTokens::T_PRIVATE );
+                    $modifiers ^= StaticReflectionMethod::IS_PUBLIC;
+                    $modifiers |= StaticReflectionMethod::IS_PRIVATE;
                     break;
 
                 case ParserTokens::T_PROTECTED:
-                    $modifiers ^= Reflector::IS_PUBLIC;
-                    $modifiers |= Reflector::IS_PROTECTED;
+                    $this->_consumeToken( ParserTokens::T_PROTECTED );
+                    $modifiers ^= StaticReflectionMethod::IS_PUBLIC;
+                    $modifiers |= StaticReflectionMethod::IS_PROTECTED;
                     break;
 
                 case ParserTokens::T_STATIC:
-                    $modifiers |= Reflector::IS_STATIC;
+                    $this->_consumeToken( ParserTokens::T_STATIC );
+                    $modifiers |= StaticReflectionMethod::IS_STATIC;
                     break;
 
                 case ParserTokens::T_FUNCTION:
+                    $this->_consumeToken( ParserTokens::T_FUNCTION );
                     $methods[]  = $this->_parseMethodDeclaration( $docComment, $modifiers );
-                    $modifiers  = $defaultModifiers | Reflector::IS_PUBLIC;
+                    $modifiers  = $defaultModifiers | StaticReflectionMethod::IS_PUBLIC;
                     $docComment = '';
                     break;
 
                 case ParserTokens::T_VARIABLE:
-                    $properties[] = $this->_parsePropertyDeclaration( $token->image, $docComment, $modifiers );
-                    $modifiers    = $defaultModifiers | Reflector::IS_PUBLIC;
-                    $docComment   = '';
+                    $properties = array_merge(
+                        $properties,
+                        $this->_parsePropertyDeclarations( $docComment, $modifiers )
+                    );
+
+                    $modifiers  = $defaultModifiers | StaticReflectionMethod::IS_PUBLIC;
+                    $docComment = '';
                     break;
             }
 
@@ -404,9 +418,47 @@ class StaticReflectionParser
         throw new \RuntimeException( 'Unexpected end of token stream in method declaration.' );
     }
 
-    private function _parsePropertyDeclaration( $propertyName, $docComment, $modifiers )
+    private function _parsePropertyDeclarations( $docComment, $modifiers )
     {
-        return new StaticReflectionProperty( substr( $propertyName, 1 ), $docComment, $modifiers );
+        $this->_consumeComments();
+        $properties = array( $this->_parsePropertyDeclaration( $docComment, $modifiers ) );
+
+        $this->_consumeComments();
+        while ( ( $tokensType = $this->_peek() ) === ParserTokens::T_COMMA )
+        {
+            $this->_consumeToken( ParserTokens::T_COMMA );
+
+            $docComment   = $this->_consumeComments();
+            $properties[] = $this->_parsePropertyDeclaration( $docComment, $modifiers );
+            
+            $this->_consumeComments();
+        }
+        $this->_consumeToken( ParserTokens::T_SEMICOLON );
+
+        return $properties;
+    }
+
+    private function _parsePropertyDeclaration( $docComment, $modifiers )
+    {
+        $this->_consumeComments();
+        $token = $this->_consumeToken( ParserTokens::T_VARIABLE );
+
+        while( ( $tokenType = $this->_peek() ) !== Tokenizer::EOF )
+        {
+            switch ( $tokenType )
+            {
+                case ParserTokens::T_DOC_COMMENT:
+                case ParserTokens::T_STATIC:
+                case ParserTokens::T_STRING:
+                    $this->_consumeToken( $tokenType );
+                    break;
+
+                case ParserTokens::T_COMMA:
+                case ParserTokens::T_SEMICOLON:
+                    break 2;
+            }
+        }
+        return new StaticReflectionProperty( substr( $token->image, 1 ), $docComment, $modifiers );
     }
 
     private function _parseScope()
@@ -451,25 +503,53 @@ class StaticReflectionParser
         }
         else
         {
-            array_unshift( $parts, $this->_namespace );
+            array_unshift( $parts, $this->_namespace, '\\' );
         }
-        return rtrim( join( '', $parts ), '\\' );
+        return trim( join( '', $parts ), '\\' );
     }
 
     /**
-     * @return \de\buzz2ee\lang\Token
+     * @param integer $tokenType
+     *
+     * @return \de\buzz2ee\reflection\parser\Token
+     */
+    private function _consumeToken( $tokenType )
+    {
+        if ( is_object( $token = $this->_next() ) === false )
+        {
+            throw new \RuntimeException( 'Unexpected end of token stream.' );
+        }
+        if ( $token->type !==  $tokenType )
+        {
+            throw new \RuntimeException( sprintf( 'Unexpected token(%s) found.', $token->image ) );
+        }
+        return $token;
+    }
+
+    private function _consumeComments()
+    {
+        $comment = '';
+        while ( $this->_peek() === ParserTokens::T_DOC_COMMENT )
+        {
+            $comment = $this->_next()->image;
+        }
+        return $comment;
+    }
+
+    /**
+     * @return \de\buzz2ee\reflection\parser\Token
      */
     private function _peek()
     {
         if ( is_object( $token = $this->_tokenizer->peek() ) )
         {
-            return $token;
+            return $token->type;
         }
-        return null;
+        return $token;
     }
 
     /**
-     * @return \de\buzz2ee\lang\Token
+     * @return \de\buzz2ee\reflection\parser\Token
      */
     private function _next()
     {

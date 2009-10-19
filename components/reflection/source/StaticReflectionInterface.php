@@ -18,6 +18,8 @@ use de\buzz2ee\reflection\interfaces\ReflectionClass;
  */
 class StaticReflectionInterface implements ReflectionClass
 {
+    const TYPE = __CLASS__;
+
     /**
      * @var string
      */
@@ -65,6 +67,26 @@ class StaticReflectionInterface implements ReflectionClass
     }
 
     /**
+     * Returns <b>true</b> when the class is declared abstract or is an interface.
+     *
+     * @return boolean
+     */
+    public function isAbstract()
+    {
+        return true;
+    }
+
+    /**
+     * Returns <b>true</b> when the class is declared as final.
+     *
+     * @return boolean
+     */
+    public function isFinal()
+    {
+        return false;
+    }
+
+    /**
      * @return boolean
      */
     public function isInterface()
@@ -106,6 +128,20 @@ class StaticReflectionInterface implements ReflectionClass
     }
 
     /**
+     * @param string $name
+     *
+     * \de\buzz2ee\reflection\interfaces\ReflectionMethod
+     */
+    public function getMethod( $name )
+    {
+        if ( isset( $this->_methods[strtolower( $name )] ) )
+        {
+            return $this->_methods[strtolower( $name )];
+        }
+        throw new \RuntimeException( 'No method ' . $this->_name . '::' . $name . '() found.' );
+    }
+
+    /**
      * @return array(\de\buzz2ee\reflection\interfaces\ReflectionMethod)
      */
     public function getMethods()
@@ -122,12 +158,26 @@ class StaticReflectionInterface implements ReflectionClass
     {
         if ( $this->_methods === null )
         {
-            $this->_methods = $methods;
+            $this->_methods = array();
+            foreach ( $methods as $method )
+            {
+                $this->_methods[strtolower( $method->getName() )] = $method;
+            }
         }
         else
         {
             throw new \RuntimeException( 'Methods already set' );
         }
+    }
+
+    /**
+     * @param string $name
+     *
+     * @return \de\buzz2ee\reflection\interfaces\ReflectionProperty
+     */
+    public function getProperty( $name )
+    {
+        throw new \RuntimeException( sprintf( 'Property %s does not exist', $name ) );
     }
 
     /**

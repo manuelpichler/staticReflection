@@ -34,7 +34,7 @@ interface ReflectionProperty extends Reflector
     /**
      * @return boolean
      */
-    function isFinal();
+    function isStatic();
 
     /**
      * @return boolean

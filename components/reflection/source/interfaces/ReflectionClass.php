@@ -27,6 +27,20 @@ interface ReflectionClass extends Reflector
     function getDocComment();
 
     /**
+     * Returns <b>true</b> when the class is declared abstract or is an interface.
+     *
+     * @return boolean
+     */
+    function isAbstract();
+
+    /**
+     * Returns <b>true</b> when the class is declared as final.
+     *
+     * @return boolean
+     */
+    function isFinal();
+
+    /**
      * @return boolean
      */
     function isInterface();
@@ -42,9 +56,23 @@ interface ReflectionClass extends Reflector
     function getParentClass();
 
     /**
+     * @param string $name
+     *
+     * \de\buzz2ee\reflection\interfaces\ReflectionMethod
+     */
+    function getMethod( $name );
+
+    /**
      * @return array(\de\buzz2ee\reflection\interfaces\ReflectionMethod)
      */
     function getMethods();
+
+    /**
+     * @param string $name
+     *
+     * @return \de\buzz2ee\reflection\interfaces\ReflectionProperty
+     */
+    function getProperty( $name );
 
     /**
      * @return array(\de\buzz2ee\reflection\interfaces\ReflectionProperty)

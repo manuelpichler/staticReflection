@@ -74,7 +74,7 @@ class StaticReflectionMethod implements ReflectionMethod
      */
     public function isAbstract()
     {
-        return ( $this->_modifiers & self::IS_ABSTRACT === self::IS_ABSTRACT );
+        return ( ( $this->_modifiers & self::IS_ABSTRACT ) === self::IS_ABSTRACT );
     }
 
     /**
@@ -82,7 +82,7 @@ class StaticReflectionMethod implements ReflectionMethod
      */
     public function isStatic()
     {
-        return ( $this->_modifiers & self::IS_STATIC === self::IS_STATIC );
+        return ( ( $this->_modifiers & self::IS_STATIC ) === self::IS_STATIC );
     }
 
     /**
@@ -90,7 +90,7 @@ class StaticReflectionMethod implements ReflectionMethod
      */
     public function isFinal()
     {
-        return ( $this->_modifiers & self::IS_FINAL === self::IS_FINAL );
+        return ( ( $this->_modifiers & self::IS_FINAL ) === self::IS_FINAL );
     }
 
     /**
@@ -98,7 +98,7 @@ class StaticReflectionMethod implements ReflectionMethod
      */
     public function isPrivate()
     {
-        return ( $this->_modifiers & self::IS_PRIVATE === self::IS_PRIVATE );
+        return ( ( $this->_modifiers & self::IS_PRIVATE ) === self::IS_PRIVATE );
     }
 
     /**
@@ -106,7 +106,7 @@ class StaticReflectionMethod implements ReflectionMethod
      */
     public function isProtected()
     {
-        return ( $this->_modifiers & self::IS_PROTECTED === self::IS_PROTECTED );
+        return ( ( $this->_modifiers & self::IS_PROTECTED ) === self::IS_PROTECTED );
     }
 
     /**
@@ -114,6 +114,6 @@ class StaticReflectionMethod implements ReflectionMethod
      */
     public function isPublic()
     {
-        return ( $this->_modifiers & self::IS_PUBLIC === self::IS_PUBLIC );
+        return ( ( $this->_modifiers & self::IS_PUBLIC ) === self::IS_PUBLIC );
     }
 }

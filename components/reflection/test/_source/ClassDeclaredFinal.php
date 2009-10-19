@@ -1,0 +1,2 @@
+<?php
+final class ClassDeclaredFinal {}

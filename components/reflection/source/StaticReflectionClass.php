@@ -7,6 +7,8 @@
 
 namespace de\buzz2ee\reflection;
 
+use de\buzz2ee\reflection\interfaces\ReflectionClass;
+
 /**
  * Static class implementation.
  *
@@ -16,6 +18,8 @@ namespace de\buzz2ee\reflection;
  */
 class StaticReflectionClass extends StaticReflectionInterface
 {
+    const TYPE = __CLASS__;
+
     /**
      * @var integer
      */
@@ -41,6 +45,26 @@ class StaticReflectionClass extends StaticReflectionInterface
         parent::__construct( $name, $docComment );
 
         $this->_modifiers = $modifiers;
+    }
+
+    /**
+     * Returns <b>true</b> when the class is declared abstract or is an interface.
+     *
+     * @return boolean
+     */
+    public function isAbstract()
+    {
+        return ( ( $this->_modifiers & self::IS_ABSTRACT ) === self::IS_ABSTRACT );
+    }
+
+    /**
+     * Returns <b>true</b> when the class is declared as final.
+     *
+     * @return boolean
+     */
+    public function isFinal()
+    {
+        return ( ( $this->_modifiers & self::IS_FINAL ) === self::IS_FINAL );
     }
 
     /**
@@ -77,6 +101,20 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
+     * @param string $name
+     *
+     * @return \de\buzz2ee\reflection\interfaces\ReflectionProperty
+     */
+    public function getProperty( $name )
+    {
+        if ( isset( $this->_properties[$name] ) )
+        {
+            return $this->_properties[$name];
+        }
+        throw new \RuntimeException( sprintf( 'Property %s does not exist', $name ) );
+    }
+
+    /**
      * @return array(\de\buzz2ee\reflection\interfaces\ReflectionProperties)
      */
     public function getProperties()
@@ -93,7 +131,12 @@ class StaticReflectionClass extends StaticReflectionInterface
     {
         if ( $this->_properties === null )
         {
-            $this->_properties = $properties;
+            $this->_properties = array();
+            foreach ( $properties as $property )
+            {
+                $property->initDeclaringClass( $this );
+                $this->_properties[$property->getName()] = $property;
+            }
         }
         else
         {

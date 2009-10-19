@@ -5,9 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection;
-
-use de\buzz2ee\reflection\interfaces\ParserTokens;
+namespace de\buzz2ee\reflection\parser;
 
 /**
  * Source tokenizer.
@@ -16,7 +14,7 @@ use de\buzz2ee\reflection\interfaces\ParserTokens;
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class StaticReflectionTokenizer
+class Tokenizer
 {
     /**
      * End of token stream identifier.
@@ -79,7 +77,7 @@ class StaticReflectionTokenizer
     }
 
     /**
-     * @return \de\buzz2ee\lang\Token
+     * @return \de\buzz2ee\reflection\parser\Token
      */
     public function next()
     {
@@ -89,7 +87,7 @@ class StaticReflectionTokenizer
     }
 
     /**
-     * @return \de\buzz2ee\lang\Token
+     * @return \de\buzz2ee\reflection\parser\Token
      */
     public function peek()
     {

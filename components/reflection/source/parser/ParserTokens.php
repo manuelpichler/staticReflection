@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection\interfaces;
+namespace de\buzz2ee\reflection\parser;
 
 /**
  * The default parser tokens.
@@ -14,7 +14,7 @@ namespace de\buzz2ee\reflection\interfaces;
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-interface ParserTokens
+final class ParserTokens
 {
     /**
      * Supported parser tokens.
