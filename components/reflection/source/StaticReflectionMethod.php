@@ -24,12 +24,19 @@ class StaticReflectionMethod extends \ReflectionMethod
     /**
      * @var string
      */
-    private $_docComment = null;
+    private $_docComment = false;
 
     /**
      * @var integer
      */
     private $_modifiers = 0;
+
+    /**
+     * The declaring class.
+     *
+     * @var \ReflectionClass
+     */
+    private $_declaringClass = null;
 
     /**
      * @param string  $name
@@ -38,12 +45,14 @@ class StaticReflectionMethod extends \ReflectionMethod
      */
     public function __construct( $name, $docComment, $modifiers )
     {
-        $this->_name       = $name;
-        $this->_docComment = $docComment;
-        $this->_modifiers  = $modifiers;
+        $this->_setName( $name );
+        $this->_setModifiers( $modifiers );
+        $this->_setDocComment( $docComment );
     }
 
     /**
+     * Returns the name of the reflected method.
+     *
      * @return string
      */
     public function getName()
@@ -52,7 +61,42 @@ class StaticReflectionMethod extends \ReflectionMethod
     }
 
     /**
+     * Sets the name of the reflected method.
+     *
+     * @param string $name Name of the reflected method.
+     *
+     * @return void
+     */
+    private function _setName( $name )
+    {
+        $this->_name = $name;
+    }
+
+    /**
+     * Returns the method's short name.
+     *
      * @return string
+     */
+    public function getShortName()
+    {
+        return $this->_name;
+    }
+
+    /**
+     * Get the namespace name where the class is defined.
+     *
+     * @return string
+     */
+    public function getNamespaceName()
+    {
+        return '';
+    }
+
+    /**
+     * Returns the doc comment of the reflected method or <b>false</b> when no
+     * comment was found.
+     *
+     * @return string|boolean
      */
     public function getDocComment()
     {
@@ -60,11 +104,57 @@ class StaticReflectionMethod extends \ReflectionMethod
     }
 
     /**
+     * Sets the doc comment of the reflected method.
+     *
+     * @param string $docComment Doc comment for the reflected method.
+     *
+     * @return void
+     */
+    private function _setDocComment( $docComment )
+    {
+        if ( trim( $docComment ) !== '' )
+        {
+            $this->_docComment = $docComment;
+        }
+    }
+
+    /**
+     * Returns the modifiers of the reflected method.
+     *
      * @return integer
      */
     public function getModifiers()
     {
         return $this->_modifiers;
+    }
+
+    /**
+     * Sets and validates the modifiers of the reflected method.
+     *
+     * @param integer $modifiers The modifiers for the reflected method.
+     *
+     * @return void
+     */
+    public function _setModifiers( $modifiers )
+    {
+        $expected = self::IS_PRIVATE | self::IS_PROTECTED | self::IS_PUBLIC
+                  | self::IS_STATIC  | self::IS_ABSTRACT  | self::IS_FINAL;
+
+        if ( ( $modifiers & ~$expected ) !== 0 )
+        {
+            throw new \ReflectionException( 'Invalid method modifier given.' );
+        }
+        $this->_modifiers = $modifiers;
+    }
+
+    /**
+     * Returns the pathname where the reflected method was declared.
+     *
+     * @return string
+     */
+    public function getFileName()
+    {
+        return $this->getDeclaringClass()->getFileName();
     }
 
     /**
@@ -113,5 +203,58 @@ class StaticReflectionMethod extends \ReflectionMethod
     public function isPublic()
     {
         return ( ( $this->_modifiers & self::IS_PUBLIC ) === self::IS_PUBLIC );
+    }
+
+    /**
+     * Returns <b>true</b> when the reflected method is declared by an internal
+     * class/interface, or <b>false</b> when it is user-defined.
+     *
+     * @return boolean
+     */
+    public function isInternal()
+    {
+        return false;
+    }
+
+    /**
+     * Returns <b>true</b> when the reflected method is user-defined, otherwise
+     * this method will return <b>false</b>.
+     *
+     * @return boolean
+     */
+    public function isUserDefined()
+    {
+        return true;
+    }
+
+    /**
+     * Gets the declaring class.
+     *
+     * @return \ReflectionClass
+     */
+    public function getDeclaringClass()
+    {
+        return $this->_declaringClass;
+    }
+
+    /**
+     * Sets the <b>ReflectionClass</b> where the reflected method is declared.
+     *
+     * @param \ReflectionClass $declaringClass The class where the reflected
+     *        method is declared.
+     *
+     * @return void
+     * @access private
+     */
+    public function initDeclaringClass( \ReflectionClass $declaringClass )
+    {
+        if ( $this->_declaringClass === null )
+        {
+            $this->_declaringClass = $declaringClass;
+        }
+        else
+        {
+            throw new \LogicException( 'Declaring class already set' );
+        }
     }
 }

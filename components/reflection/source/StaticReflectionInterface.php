@@ -473,6 +473,7 @@ class StaticReflectionInterface extends \ReflectionClass
             $this->_methods = array();
             foreach ( $methods as $method )
             {
+                $method->initDeclaringClass( $this );
                 $this->_methods[strtolower( $method->getName() )] = $method;
             }
         }

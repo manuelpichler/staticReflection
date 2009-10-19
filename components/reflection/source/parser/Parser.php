@@ -43,7 +43,7 @@ class Parser
     public function __construct( SourceResolver $resolver, $className )
     {
         $this->_resolver  = $resolver;
-        $this->_className = $className;
+        $this->_className = trim( $className, '\\' );
     }
 
     /**
@@ -120,16 +120,23 @@ class Parser
         {
             switch ( $token->type )
             {
+                case ParserTokens::T_DOC_COMMENT:
+                    break;
+
                 case ParserTokens::T_STRING:
                 case ParserTokens::T_NS_SEPARATOR:
                     $this->_namespace .= $token->image;
                     break;
 
                 case ParserTokens::T_SEMICOLON:
+                case ParserTokens::T_SCOPE_OPEN:
                     return $token;
+
+                default:
+                    throw new \RuntimeException( 'Invalid token in namespace declaration found.' );
             }
         }
-        throw new \RuntimeException( 'Invalid token in namespace declaration found.' );
+        throw new \RuntimeException( 'Unexpected end of token stream.' );
     }
 
     private function _parseUseStatements()
@@ -228,7 +235,7 @@ class Parser
                     break;
 
                 case ParserTokens::T_SCOPE_OPEN:
-                    list( $methods, $properties, $endLine ) = $this->_parseClassOrInterfaceScope( StaticReflectionInterface::IS_EXPLICIT_ABSTRACT );
+                    list( $methods, $properties, $endLine ) = $this->_parseClassOrInterfaceScope( StaticReflectionMethod::IS_ABSTRACT );
 
                     $class->initEndLine( $endLine );
                     $class->initMethods( $methods );

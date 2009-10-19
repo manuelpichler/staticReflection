@@ -426,6 +426,25 @@ class StaticReflectionInterfaceTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testGetMethodsFiltersBySuppliedModifierArgument()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $interface->initMethods(
+            array(
+                new StaticReflectionMethod( 'foo', '', \ReflectionMethod::IS_FINAL ),
+                new StaticReflectionMethod( 'bar', '', \ReflectionMethod::IS_PRIVATE ),
+            )
+        );
+
+        $this->assertSame( 1, count( $interface->getMethods( \ReflectionMethod::IS_FINAL ) ) );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
     public function testHasPropertyAlwaysReturnsFalse()
     {
         $interface = new StaticReflectionInterface( '\foo\Bar', '' );

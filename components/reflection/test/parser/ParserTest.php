@@ -95,6 +95,19 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserAcceptsClassNameWithLeadingNamespaceSeparatorChar()
+    {
+        $parser = new Parser( $this->createSourceResolver(), '\c\w\n\ClassWithNamespace' );
+        $this->assertSame( 'c\w\n\ClassWithNamespace', $parser->parse()->getName() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserHandlesClassWithImplementedInterface()
     {
         $parser = new Parser( $this->createSourceResolver(), 'ClassWithImplementedInterface' );
@@ -157,6 +170,51 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
         $interfaces = $parser->parse()->getInterfaces();
         $this->assertSame( 2, count( $interfaces ) );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesCurlyBraceSyntaxForNamespaces()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'foo\bar\baz\NamespaceCurlyBraceSyntax' );
+        $class  = $parser->parse();
+
+        $this->assertSame( 'foo\bar\baz', $class->getNamespaceName() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesSemicolonSyntaxForNamespaces()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'foo\bar\baz\NamespaceSemicolonSyntax' );
+        $class  = $parser->parse();
+
+        $this->assertSame( 'foo\bar\baz', $class->getNamespaceName() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserIgnoresCommentsInNamespaceDeclaration()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'foo\bar\baz\NamespaceDeclarationWithComments' );
+        $class  = $parser->parse();
+
+        $this->assertSame( 'foo\bar\baz', $class->getNamespaceName() );
     }
 
     /**
@@ -505,7 +563,10 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
     public function testParserSetsClassSourceFileName()
     {
         $parser = new Parser( $this->createSourceResolver(), 'ClassWithoutNamespace' );
-        $this->assertSame( __FILE__, $parser->parse()->getFileName() );
+        $this->assertSame(
+            $this->getPathnameForClass( 'ClassWithoutNamespace' ),
+            $parser->parse()->getFileName()
+        );
     }
 
     /**
@@ -658,36 +719,5 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
     {
         $parser = new Parser( $this->createSourceResolver(), 'NoClassDefined' );
         $parser->parse();
-    }
-
-    protected function createSourceResolver()
-    {
-        $resolver = $this->getMock( 'de\buzz2ee\reflection\interfaces\SourceResolver' );
-        $resolver->expects( $this->any() )
-            ->method( 'getPathnameForClass' )
-            ->will( $this->returnValue( __FILE__ ) );
-        $resolver->expects( $this->atLeastOnce() )
-            ->method( 'getSourceForClass' )
-            ->will( $this->returnCallback( array( $this, 'resolveSourceForClass' ) ) );
-        return $resolver;
-    }
-
-    public function resolveSourceForClass( $className )
-    {
-        $localName = explode( '\\', $className );
-        $localName = array_pop( $localName );
-
-        $files = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator( __DIR__ . '/../_source' )
-        );
-
-        foreach ( $files as $file )
-        {
-            if ( pathinfo( $file->getFilename(), PATHINFO_FILENAME ) == $localName )
-            {
-                return file_get_contents( $file->getRealpath() );
-            }
-        }
-        throw new \ErrorException( 'Cannot locate source for class: ' . $className );
     }
 }

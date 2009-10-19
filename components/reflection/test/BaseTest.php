@@ -59,6 +59,76 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         return $methods;
     }
 
+    /**
+     * Includes the searched class into the runtime scope.
+     *
+     * @param string $className Name of the searched class.
+     *
+     * void
+     */
+    protected function includeClass( $className )
+    {
+        $includePath = get_include_path();
+        set_include_path( $includePath . PATH_SEPARATOR . __DIR__ . '/_source' );
+
+        include_once $this->getPathnameForClass( $className );
+
+        set_include_path( $includePath );
+    }
+
+    /**
+     * This method will return the pathname of the source file for the given
+     * class.
+     *
+     * @param string $className Name of the searched class.
+     *
+     * @return string
+     */
+    public function getPathnameForClass( $className )
+    {
+        $localName = explode( '\\', $className );
+        $localName = array_pop( $localName );
+
+        $files = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator( __DIR__ . '/_source' )
+        );
+
+        foreach ( $files as $file )
+        {
+            if ( pathinfo( $file->getFilename(), PATHINFO_FILENAME ) == $localName )
+            {
+                return $file->getRealpath();
+            }
+        }
+        throw new \ErrorException( 'Cannot locate pathname for class: ' . $className );
+    }
+
+    protected function createSourceResolver()
+    {
+        $resolver = $this->getMock( 'de\buzz2ee\reflection\interfaces\SourceResolver' );
+        $resolver->expects( $this->any() )
+            ->method( 'getPathnameForClass' )
+            ->will( $this->returnCallback( array( $this, 'getPathnameForClass' ) ) );
+            //->will( $this->returnValue( array( $this, 'getPathnameForClass' ) ) );
+        $resolver->expects( $this->atLeastOnce() )
+            ->method( 'getSourceForClass' )
+            ->will( $this->returnCallback( array( $this, 'getSourceForClass' ) ) );
+        return $resolver;
+    }
+
+    /**
+     * This method will return the source code of the source file where the
+     * given class is defined.
+     *
+     * @param string $className Name of the search class.
+     *
+     * @return string
+     */
+    public function getSourceForClass( $className )
+    {
+        return file_get_contents( $this->getPathnameForClass( $className ) );
+    }
+
     public static function autoload( $className )
     {
         if ( strpos( $className, __NAMESPACE__ ) !== 0 )
