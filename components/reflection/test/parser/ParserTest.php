@@ -501,6 +501,19 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection
      * @group reflection::parser
      * @group unittest
+     */
+    public function testParserSetsClassSourceFileName()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'ClassWithoutNamespace' );
+        $this->assertSame( __FILE__, $parser->parse()->getFileName() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
      * @expectedException \RuntimeException
      */
     public function testParserThrowsExceptionForInvalidClassDeclaration()
@@ -624,6 +637,9 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
     protected function createSourceResolver()
     {
         $resolver = $this->getMock( 'de\buzz2ee\reflection\interfaces\SourceResolver' );
+        $resolver->expects( $this->any() )
+            ->method( 'getPathnameForClass' )
+            ->will( $this->returnValue( __FILE__ ) );
         $resolver->expects( $this->atLeastOnce() )
             ->method( 'getSourceForClass' )
             ->will( $this->returnCallback( array( $this, 'resolveSourceForClass' ) ) );

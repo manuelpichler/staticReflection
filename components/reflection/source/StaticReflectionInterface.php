@@ -7,8 +7,6 @@
 
 namespace de\buzz2ee\reflection;
 
-use de\buzz2ee\reflection\interfaces\ReflectionClass;
-
 /**
  * Static interface implementation.
  *
@@ -16,7 +14,7 @@ use de\buzz2ee\reflection\interfaces\ReflectionClass;
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class StaticReflectionInterface implements ReflectionClass
+class StaticReflectionInterface extends \ReflectionClass
 {
     const TYPE = __CLASS__;
 
@@ -28,15 +26,22 @@ class StaticReflectionInterface implements ReflectionClass
     /**
      * @var string
      */
-    private $_docComment = null;
+    private $_docComment = false;
 
     /**
-     * @var array(\de\buzz2ee\reflection\interfaces\ReflectionMethod)
+     * The file pathname where this interface is defined.
+     *
+     * @var string
+     */
+    private $_fileName = null;
+
+    /**
+     * @var array(\ReflectionMethod)
      */
     private $_methods = null;
 
     /**
-     * @var array(\de\buzz2ee\reflection\interfaces\ReflectionClass)
+     * @var array(\ReflectionClass)
      */
     private $_interfaces = null;
 
@@ -46,8 +51,39 @@ class StaticReflectionInterface implements ReflectionClass
      */
     public function __construct( $name, $docComment = '' )
     {
-        $this->_name       = $name;
+        $this->setName( $name );
         $this->_docComment = $docComment;
+    }
+
+    /**
+     * Returns the file pathname where this interface was defined.
+     *
+     * @return string
+     */
+    public function getFileName()
+    {
+        return $this->_fileName;
+    }
+
+    /**
+     * Sets the file pathname where this interface was defined. Note that this
+     * method is only for internal use.
+     *
+     * @param string $fileName File pathname where the interface was defined.
+     *
+     * @return void
+     * @access private
+     */
+    public function setFileName( $fileName )
+    {
+        if ( $this->_fileName === null )
+        {
+            $this->_fileName = $fileName;
+        }
+        else
+        {
+            throw new \ErrorException( 'Property fileName already set.' );
+        }
     }
 
     /**
@@ -59,11 +95,71 @@ class StaticReflectionInterface implements ReflectionClass
     }
 
     /**
+     * Sets the qualified name of the reflected interface.
+     *
+     * @param string $name The full qualified interface name.
+     *
+     * @return void
+     */
+    protected function setName( $name )
+    {
+        $this->_name = ltrim( $name, '\\' );
+    }
+
+    /**
+     * Returns the short name of the class, the part without the namespace.
+     *
+     * @return string
+     */
+    public function getShortName()
+    {
+        if ( ( $pos = strrpos( $this->_name, '\\' ) ) === false )
+        {
+            return $this->_name;
+        }
+        return substr( $this->_name, $pos + 1 );
+    }
+
+    /**
+     * Returns the namespace name of the reflected interface.
+     *
+     * @return string
+     */
+    public function getNamespaceName()
+    {
+        if ( ( $pos = strrpos( $this->_name, '\\' ) ) === false )
+        {
+            return '';
+        }
+        return substr( $this->_name, 0, $pos );
+    }
+
+    /**
+     * Checks if this class is defined in a namespace. 
+     *
+     * @return boolean
+     */
+    public function inNamespace()
+    {
+        return ( $this->getNamespaceName() !== '' );
+    }
+
+    /**
      * @return string
      */
     public function getDocComment()
     {
         return $this->_docComment;
+    }
+
+    /**
+     * Returns the class/interface modifiers
+     *
+     * @return integer
+     */
+    public function getModifiers()
+    {
+        return 0;
     }
 
     /**
@@ -95,17 +191,100 @@ class StaticReflectionInterface implements ReflectionClass
     }
 
     /**
-     * @return array(\de\buzz2ee\reflection\interfaces\ReflectionClass)
+     * Checks whether the class is internal, as opposed to user-defined.
+     *
+     * @return boolean
+     */
+    public function isInternal()
+    {
+        return false;
+    }
+
+    /**
+     * Checks whether the class is user-defined, as opposed to internal. 
+     *
+     * @return boolean
+     */
+    public function isUserDefined()
+    {
+        return true;
+    }
+
+    /**
+     * Checks if a class is an instance of an object.
+     *
+     * @param object $object The object to check.
+     *
+     * @return boolean
+     */
+    public function isInstance( $object )
+    {
+        return ( $object instanceof $this->_name );
+    }
+
+    /**
+     * Checks if the class is instantiable.
+     *
+     * @return boolean
+     */
+    public function isInstantiable()
+    {
+        return false;
+    }
+
+    public function isIterateable()
+    {
+        
+    }
+
+    public function isSubclassOf( $class )
+    {
+        
+    }
+
+    public function hasConstant( $name )
+    {
+        
+    }
+
+    public function getConstant( $name )
+    {
+        
+    }
+
+    public function getConstants()
+    {
+        
+    }
+
+    public function implementsInterface( $interface )
+    {
+        
+    }
+
+    /**
+     * @return array(\ReflectionClass)
      */
     public function getInterfaces()
     {
         return (array) $this->_interfaces;
     }
 
+    public function getInterfaceNames()
+    {
+        $names = array();
+        foreach ( $this->getInterfaces() as $interface )
+        {
+            $names[] = $interface->getName();
+        }
+        return $names;
+    }
+
     /**
-     * @param array(\de\buzz2ee\reflection\interfaces\ReflectionClass) $interfaces
+     * @param array(\ReflectionClass) $interfaces
      *
      * @return void
+     * @access private
      */
     public function setInterfaces( array $interfaces )
     {
@@ -120,17 +299,34 @@ class StaticReflectionInterface implements ReflectionClass
     }
 
     /**
-     * @return \de\buzz2ee\reflection\interfaces\ReflectionClass
+     * @return \ReflectionClass
      */
     public function getParentClass()
     {
         return null;
     }
 
+    public function getConstructor()
+    {
+        
+    }
+
+    /**
+     * Checks whether a specific method is defined in a class.
+     *
+     * @param string $name Name of the method being checked for.
+     *
+     * @return boolean
+     */
+    public function hasMethod( $name )
+    {
+        return isset( $this->_methods[strtolower( $name )] );
+    }
+
     /**
      * @param string $name
      *
-     * \de\buzz2ee\reflection\interfaces\ReflectionMethod
+     * \ReflectionMethod
      */
     public function getMethod( $name )
     {
@@ -142,19 +338,20 @@ class StaticReflectionInterface implements ReflectionClass
     }
 
     /**
-     * @return array(\de\buzz2ee\reflection\interfaces\ReflectionMethod)
+     * @return array(\ReflectionMethod)
      */
-    public function getMethods()
+    public function getMethods( $filter = -1 )
     {
         return (array) $this->_methods;
     }
 
     /**
-     * @param array(\de\buzz2ee\reflection\interfaces\ReflectionMethod) $methods
+     * @param array(\ReflectionMethod) $methods
      *
      * @return void
+     * @access private
      */
-    public function setMethod( array $methods )
+    public function setMethods( array $methods )
     {
         if ( $this->_methods === null )
         {
@@ -171,9 +368,21 @@ class StaticReflectionInterface implements ReflectionClass
     }
 
     /**
+     * Checks whether the specified property is defined.
+     *
+     * @param string $name Name of the property being checked for.
+     * 
+     * @return boolean
+     */
+    public function hasProperty( $name )
+    {
+        return false;
+    }
+
+    /**
      * @param string $name
      *
-     * @return \de\buzz2ee\reflection\interfaces\ReflectionProperty
+     * @return \ReflectionProperty
      */
     public function getProperty( $name )
     {
@@ -181,10 +390,117 @@ class StaticReflectionInterface implements ReflectionClass
     }
 
     /**
-     * @return array(\de\buzz2ee\reflection\interfaces\ReflectionProperty)
+     * @return array(\ReflectionProperty)
      */
-    public function getProperties()
+    public function getProperties( $filter = -1 )
     {
         return array();
+    }
+
+    /**
+     * Gets default properties from a class.
+     *
+     * @return array(mixed)
+     */
+    public function getDefaultProperties()
+    {
+        return array();
+    }
+
+    /**
+     * Gets the static property values.
+     *
+     * @param string $name    The property name.
+     * @param mixed  $default Optional default value.
+     *
+     * @return mixed
+     */
+    public function getStaticPropertyValue( $name, $default = null )
+    {
+
+    }
+
+    /**
+     * Get the static properties.
+     *
+     * @return array(string=>mixed)
+     */
+    public function getStaticProperties()
+    {
+        return array();
+    }
+
+    /**
+     * Sets static property value.
+     *
+     * @param string $name  The property name.
+     * @param mixed  $value The new property value.
+     *
+     * @return void
+     */
+    public function setStaticPropertyValue( $name, $value )
+    {
+        throw new \ReflectionException( 'Method setStaticPropertyValue() is not supported' );
+    }
+
+    public function getStartLine()
+    {
+
+    }
+
+    public function getEndLine()
+    {
+        
+    }
+
+    /**
+     * Gets an extensions <b>\ReflectionExtension</b> object or <b>null</b>.
+     *
+     * @return \ReflectionExtension
+     */
+    public function getExtension()
+    {
+        return null;
+    }
+
+    /**
+     * Returns the name of the owning extension or <b>false</b>.
+     *
+     * @return string|boolean
+     */
+    public function getExtensionName()
+    {
+        return false;
+    }
+
+    /**
+     * Creates an instance of the context class.
+     *
+     * @param mixed $args Accepts a variable number of arguments which are
+     *                    passed to the function much like call_user_func().
+     *
+     * @return object
+     */
+    public function newInstance( $args )
+    {
+        throw new \ReflectionException( 'Method newInstance() is not supported' );
+    }
+
+    /**
+     * Creates an instance of the context class.
+     *
+     * @param array(mixed) $args Arguments which are passed to the constructor
+     *                           much like call_user_func_array().
+     *
+     * @return object
+     */
+    public function newInstanceArgs( array $args = array() )
+    {
+        throw new \ReflectionException( 'Method newInstanceArgs() is not supported' );
+    }
+
+    public function __toString()
+    {
+        return '';
     }
 }

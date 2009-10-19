@@ -7,8 +7,6 @@
 
 namespace de\buzz2ee\reflection;
 
-use de\buzz2ee\reflection\interfaces\ReflectionClass;
-
 /**
  * Static class implementation.
  *
@@ -26,12 +24,12 @@ class StaticReflectionClass extends StaticReflectionInterface
     private $_modifiers = 0;
 
     /**
-     * @var \de\buzz2ee\reflection\interfaces\ReflectionClass
+     * @var \ReflectionClass
      */
     private $_parentClass = null;
 
     /**
-     * @var array(\de\buzz2ee\reflection\interfaces\ReflectionProperty)
+     * @var array(\ReflectionProperty)
      */
     private $_properties = null;
 
@@ -54,7 +52,7 @@ class StaticReflectionClass extends StaticReflectionInterface
      */
     public function isAbstract()
     {
-        return ( ( $this->_modifiers & self::IS_ABSTRACT ) === self::IS_ABSTRACT );
+        return ( ( $this->_modifiers & self::IS_EXPLICIT_ABSTRACT ) === self::IS_EXPLICIT_ABSTRACT );
     }
 
     /**
@@ -76,7 +74,7 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
-     * @return \de\buzz2ee\reflection\interfaces\ReflectionClass
+     * @return \ReflectionClass
      */
     public function getParentClass()
     {
@@ -84,11 +82,11 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
-     * @param \de\buzz2ee\reflection\interfaces\ReflectionClass $parentClass
+     * @param \ReflectionClass $parentClass
      *
      * @return void
      */
-    public function setParentClass( ReflectionClass $parentClass )
+    public function setParentClass( \ReflectionClass $parentClass )
     {
         if ( $this->_parentClass === null )
         {
@@ -103,7 +101,7 @@ class StaticReflectionClass extends StaticReflectionInterface
     /**
      * @param string $name
      *
-     * @return \de\buzz2ee\reflection\interfaces\ReflectionProperty
+     * @return \ReflectionProperty
      */
     public function getProperty( $name )
     {
@@ -115,15 +113,15 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
-     * @return array(\de\buzz2ee\reflection\interfaces\ReflectionProperties)
+     * @return array(\ReflectionProperty)
      */
-    public function getProperties()
+    public function getProperties( $filter = -1 )
     {
         return $this->_properties;
     }
 
     /**
-     * @param array(\de\buzz2ee\reflection\interfaces\ReflectionProperties) $properties
+     * @param array(\ReflectionProperty) $properties
      *
      * @return void
      */

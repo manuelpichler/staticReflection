@@ -18,6 +18,47 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * Asserts that the public api of the given classes is equal.
+     *
+     * @param string $classExpected
+     * @param string $classActual
+     *
+     * @return void
+     */
+    protected function assertPublicApiEquals( $classExpected, $classActual )
+    {
+        $expected = $this->getPublicMethods( $classExpected );
+        $actual   = $this->getPublicMethods( $classActual );
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @param string $className
+     *
+     * @return array(string)
+     */
+    protected function getPublicMethods( $className )
+    {
+        $reflection = new \ReflectionClass( $className );
+
+        $methods = array();
+        foreach ( $reflection->getMethods( \ReflectionMethod::IS_PUBLIC ) as $method )
+        {
+            if ( !$method->isPublic()
+                || $method->isStatic()
+                || $method->getDeclaringClass()->getName() !== $className
+                || is_int( strpos( $method->getDocComment(), '@access private' ) )
+            ) {
+                continue;
+            }
+            $methods[] = $method->getName();
+        }
+        sort( $methods );
+        return $methods;
+    }
+
     public static function autoload( $className )
     {
         if ( strpos( $className, __NAMESPACE__ ) !== 0 )

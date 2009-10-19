@@ -19,18 +19,50 @@ require_once 'BaseTest.php';
 class TokenizerTest extends \de\buzz2ee\reflection\BaseTest
 {
     /**
+     * Test source code
+     *
+     * @var string
+     */
+    private $_source = '<?php
+        class c
+        {
+            function x()
+            {
+                ?>}<?php
+                $x = "
+
+                ";
+            }
+        }';
+
+    /**
+     * The test tokenizer.
+     *
+     * @var \de\buzz2ee\reflection\parser\Tokenizer
+     */
+    private $_fixture = null;
+
+    /**
      * @return void
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->_fixture = new Tokenizer( $this->_source );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Tokenizer
      * @group reflection
      * @group reflection::parser
      * @group unittest
      */
     public function testTokenizerScopeParsingWithNonPhpCurlyBrace()
     {
-        $source = '<?php class c { function x() { ?>}<?php } }';
-        $scope  = 0;
-
-        $tokenizer = new Tokenizer( $source );
-        while ( ( $token = $tokenizer->next() ) !== Tokenizer::EOF )
+        $scope = 0;
+        while ( ( $token = $this->_fixture->next() ) !== Tokenizer::EOF )
         {
             if ( $token->type === ParserTokens::T_SCOPE_CLOSE )
             {
@@ -42,5 +74,45 @@ class TokenizerTest extends \de\buzz2ee\reflection\BaseTest
             }
         }
         $this->assertSame( 0, $scope );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Tokenizer
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testTokenizerSetsCorrectStartLineNumbers()
+    {
+        $expected = array( 2, 2, 3, 4, 4, 5, 7, 9, 10, 11 );
+        $actual   = array();
+
+        while ( ( $token = $this->_fixture->next() ) !== Tokenizer::EOF )
+        {
+            $actual[] = $token->startLine;
+        }
+
+        $this->assertSame( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Tokenizer
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testTokenizerSetsCorrectEndLineNumbers()
+    {
+        $expected = array( 2, 2, 3, 4, 4, 5, 7, 9, 10, 11 );
+        $actual   = array();
+
+        while ( ( $token = $this->_fixture->next() ) !== Tokenizer::EOF )
+        {
+            $actual[] = $token->endLine;
+        }
+
+        $this->assertSame( $expected, $actual );
     }
 }

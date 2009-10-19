@@ -32,15 +32,33 @@ class Token
     public $image = null;
 
     /**
+     * The start line number.
+     *
+     * @var integer
+     */
+    public $startLine = 0;
+
+    /**
+     * The end line number.
+     *
+     * @var integer
+     */
+    public $endLine = 0;
+
+    /**
      * @param integer $offset
      * @param integer $type
      * @param string  $image
+     * @param integer $startLine
+     * @param integer $endLine
      */
-    public function __construct( $offset, $type, $image )
+    public function __construct( $offset, $type, $image, $startLine, $endLine )
     {
-        $this->offset = $offset;
-        $this->type   = $type;
-        $this->image  = $image;
+        $this->offset    = $offset;
+        $this->type      = $type;
+        $this->image     = $image;
+        $this->startLine = $startLine;
+        $this->endLine   = $endLine;
     }
 
     // @codeCoverageIgnoreStart

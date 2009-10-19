@@ -74,7 +74,7 @@ class Parser
                     break;
 
                 case ParserTokens::T_ABSTRACT:
-                    $modifiers |= StaticReflectionClass::IS_ABSTRACT;
+                    $modifiers |= StaticReflectionClass::IS_EXPLICIT_ABSTRACT;
                     break;
 
                 case ParserTokens::T_FINAL:
@@ -98,6 +98,7 @@ class Parser
 
             if ( $class !== null && $class->getName() === $this->_className )
             {
+                $class->setFileName( $this->_resolver->getPathnameForClass( $this->_className ) );
                 return $class;
             }
         }
@@ -195,7 +196,7 @@ class Parser
                 case ParserTokens::T_SCOPE_OPEN:
                     list( $methods, $properties ) = $this->_parseClassOrInterfaceScope();
 
-                    $class->setMethod( $methods );
+                    $class->setMethods( $methods );
                     $class->setProperties( $properties );
                     return $class;
             }
@@ -224,9 +225,9 @@ class Parser
                     break;
 
                 case ParserTokens::T_SCOPE_OPEN:
-                    list( $methods ) = $this->_parseClassOrInterfaceScope( StaticReflectionInterface::IS_ABSTRACT );
+                    list( $methods ) = $this->_parseClassOrInterfaceScope( StaticReflectionInterface::IS_EXPLICIT_ABSTRACT );
 
-                    $class->setMethod( $methods );
+                    $class->setMethods( $methods );
                     return $class;
             }
         }

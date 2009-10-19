@@ -7,8 +7,6 @@
 
 namespace de\buzz2ee\reflection;
 
-use de\buzz2ee\reflection\interfaces\ReflectionProperty;
-
 /**
  * Static property implementation.
  *
@@ -71,7 +69,7 @@ class StaticReflectionProperty extends \ReflectionProperty
      * @return void
      * @access private
      */
-    public function initDeclaringClass( interfaces\ReflectionClass $declaringClass )
+    public function initDeclaringClass( \ReflectionClass $declaringClass )
     {
         if ( $this->_declaringClass === null )
         {

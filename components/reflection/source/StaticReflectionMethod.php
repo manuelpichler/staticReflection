@@ -7,8 +7,6 @@
 
 namespace de\buzz2ee\reflection;
 
-use de\buzz2ee\reflection\interfaces\ReflectionMethod;
-
 /**
  * Static method implementation.
  *
@@ -16,7 +14,7 @@ use de\buzz2ee\reflection\interfaces\ReflectionMethod;
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class StaticReflectionMethod implements ReflectionMethod
+class StaticReflectionMethod extends \ReflectionMethod
 {
     /**
      * @var string

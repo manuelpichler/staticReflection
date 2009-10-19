@@ -67,6 +67,13 @@ class Tokenizer
     private $_tokens = array();
 
     /**
+     * Start line of the current token.
+     *
+     * @var integer
+     */
+    private $_startLine = 1;
+
+    /**
      * Constructs a new tokenizer instance.
      *
      * @param string $source The raw source code.
@@ -100,7 +107,6 @@ class Tokenizer
 
     private function _tokenize( $source )
     {
-        $this->_tokens = array();
         foreach ( token_get_all( $source ) as $offset => $token )
         {
             $this->_addToken( $offset, $token );
@@ -126,20 +132,30 @@ class Tokenizer
 
     private function _createTokenFromString( $offset, $token )
     {
+        $startLine = $this->_startLine;
+        $endLine   = $this->_updateStartLine( $token );
+
         if ( isset( $this->_tokenCharMap[$token] ) )
         {
-            return new Token( $offset, $this->_tokenCharMap[$token], $token );
+            return new Token( $offset, $this->_tokenCharMap[$token], $token, $startLine, $endLine );
         }
         return null;
     }
 
     private function _createTokenFromArray( $offset, array $token )
     {
+        $startLine = $this->_startLine;
+        $endLine   = $this->_updateStartLine( $token[1] );
 
         if ( isset( $this->_tokenTypeMap[$token[0]] ) )
         {
-            return new Token( $offset, $this->_tokenTypeMap[$token[0]], $token[1] );
+            return new Token( $offset, $this->_tokenTypeMap[$token[0]], $token[1], $startLine, $endLine );
         }
         return null;
+    }
+
+    private function _updateStartLine( $image )
+    {
+        return ( $this->_startLine += substr_count( $image, "\n" ) );
     }
 }

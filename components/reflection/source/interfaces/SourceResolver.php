@@ -17,6 +17,15 @@ namespace de\buzz2ee\reflection\interfaces;
 interface SourceResolver
 {
     /**
+     * Returns the file pathname where the given class is defined.
+     *
+     * @param string $className
+     *
+     * @return string
+     */
+    function getPathnameForClass( $className );
+
+    /**
      * Returns the source of the file where the given class is defined.
      *
      * @param string $className
