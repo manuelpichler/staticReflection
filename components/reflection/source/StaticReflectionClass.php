@@ -38,7 +38,7 @@ class StaticReflectionClass extends StaticReflectionInterface
      * @param string  $docComment
      * @param integer $modifiers
      */
-    public function __construct( $name, $docComment = '', $modifiers = 0 )
+    public function __construct( $name, $docComment, $modifiers )
     {
         parent::__construct( $name, $docComment );
 

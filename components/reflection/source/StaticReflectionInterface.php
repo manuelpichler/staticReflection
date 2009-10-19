@@ -36,6 +36,13 @@ class StaticReflectionInterface extends \ReflectionClass
     private $_fileName = null;
 
     /**
+     * The start line number where the interface declaration starts.
+     *
+     * @var integer
+     */
+    private $_startLine = -1;
+
+    /**
      * @var array(\ReflectionMethod)
      */
     private $_methods = null;
@@ -74,7 +81,7 @@ class StaticReflectionInterface extends \ReflectionClass
      * @return void
      * @access private
      */
-    public function setFileName( $fileName )
+    public function initFileName( $fileName )
     {
         if ( $this->_fileName === null )
         {
@@ -82,7 +89,7 @@ class StaticReflectionInterface extends \ReflectionClass
         }
         else
         {
-            throw new \ErrorException( 'Property fileName already set.' );
+            throw new \LogicException( 'Property fileName already set.' );
         }
     }
 
@@ -286,7 +293,7 @@ class StaticReflectionInterface extends \ReflectionClass
      * @return void
      * @access private
      */
-    public function setInterfaces( array $interfaces )
+    public function initInterfaces( array $interfaces )
     {
         if ( $this->_interfaces === null )
         {
@@ -294,7 +301,7 @@ class StaticReflectionInterface extends \ReflectionClass
         }
         else
         {
-            throw new \RuntimeException( 'Interfaces already set' );
+            throw new \LogicException( 'Interfaces already set' );
         }
     }
 
@@ -351,7 +358,7 @@ class StaticReflectionInterface extends \ReflectionClass
      * @return void
      * @access private
      */
-    public function setMethods( array $methods )
+    public function initMethods( array $methods )
     {
         if ( $this->_methods === null )
         {
@@ -363,7 +370,7 @@ class StaticReflectionInterface extends \ReflectionClass
         }
         else
         {
-            throw new \RuntimeException( 'Methods already set' );
+            throw new \LogicException( 'Methods already set' );
         }
     }
 
@@ -443,9 +450,35 @@ class StaticReflectionInterface extends \ReflectionClass
         throw new \ReflectionException( 'Method setStaticPropertyValue() is not supported' );
     }
 
+    /**
+     * Get the starting line number. 
+     *
+     * @return integer
+     */
     public function getStartLine()
     {
+        return $this->_startLine;
+    }
 
+    /**
+     * Initializes the start line number. Note that this method is only used
+     * internally by this component.
+     *
+     * @param integer $startLine Line number where the interface declaration starts.
+     *
+     * @return void
+     * @access private
+     */
+    public function initStartLine( $startLine )
+    {
+        if ( $this->_startLine === -1 )
+        {
+            $this->_startLine = $startLine;
+        }
+        else
+        {
+            throw new \LogicException( 'Property startLine already set.' );
+        }
     }
 
     public function getEndLine()

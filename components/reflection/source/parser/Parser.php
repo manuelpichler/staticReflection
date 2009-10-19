@@ -83,6 +83,7 @@ class Parser
 
                 case ParserTokens::T_CLASS:
                     $class = $this->_parseClassDeclaration( $docComment, $modifiers );
+                    $class->initStartLine( $token->startLine );
 
                     $modifiers  = 0;
                     $docComment = '';
@@ -90,6 +91,7 @@ class Parser
 
                 case ParserTokens::T_INTERFACE:
                     $class = $this->_parseInterfaceDeclaration( $docComment );
+                    $class->initStartLine( $token->startLine );
                     
                     $modifiers  = 0;
                     $docComment = '';
@@ -98,7 +100,7 @@ class Parser
 
             if ( $class !== null && $class->getName() === $this->_className )
             {
-                $class->setFileName( $this->_resolver->getPathnameForClass( $this->_className ) );
+                $class->initFileName( $this->_resolver->getPathnameForClass( $this->_className ) );
                 return $class;
             }
         }
@@ -190,13 +192,13 @@ class Parser
                     break;
 
                 case ParserTokens::T_IMPLEMENTS:
-                    $class->setInterfaces( $this->_parseInterfaceList() );
+                    $class->initInterfaces( $this->_parseInterfaceList() );
                     break;
 
                 case ParserTokens::T_SCOPE_OPEN:
                     list( $methods, $properties ) = $this->_parseClassOrInterfaceScope();
 
-                    $class->setMethods( $methods );
+                    $class->initMethods( $methods );
                     $class->setProperties( $properties );
                     return $class;
             }
@@ -221,13 +223,13 @@ class Parser
                     break;
 
                 case ParserTokens::T_EXTENDS:
-                    $class->setInterfaces( $this->_parseInterfaceList() );
+                    $class->initInterfaces( $this->_parseInterfaceList() );
                     break;
 
                 case ParserTokens::T_SCOPE_OPEN:
                     list( $methods ) = $this->_parseClassOrInterfaceScope( StaticReflectionInterface::IS_EXPLICIT_ABSTRACT );
 
-                    $class->setMethods( $methods );
+                    $class->initMethods( $methods );
                     return $class;
             }
         }

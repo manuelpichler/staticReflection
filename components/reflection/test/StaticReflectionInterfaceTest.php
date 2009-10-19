@@ -38,7 +38,7 @@ class StaticReflectionInterfaceTest extends BaseTest
     public function testGetFileNameReturnsExpectedResult()
     {
         $interface = new StaticReflectionInterface( 'foo_Bar', '' );
-        $interface->setFileName( __FILE__ );
+        $interface->initFileName( __FILE__ );
 
         $this->assertSame( __FILE__, $interface->getFileName() );
     }
@@ -88,7 +88,7 @@ class StaticReflectionInterfaceTest extends BaseTest
     public function testHasMethodReturnsTrueWhenMethodForNameExists()
     {
         $interface = new StaticReflectionInterface( '\foo\Bar', '' );
-        $interface->setMethods( array( new StaticReflectionMethod( 'fooBar', '', 0 ) ) );
+        $interface->initMethods( array( new StaticReflectionMethod( 'fooBar', '', 0 ) ) );
 
         $this->assertTrue( $interface->hasMethod( 'fooBar' ) );
     }
@@ -102,7 +102,7 @@ class StaticReflectionInterfaceTest extends BaseTest
     public function testHasMethodHandlesNamesCaseInsensitive()
     {
         $interface = new StaticReflectionInterface( '\foo\Bar', '' );
-        $interface->setMethods( array( new StaticReflectionMethod( 'fooBar', '', 0 ) ) );
+        $interface->initMethods( array( new StaticReflectionMethod( 'fooBar', '', 0 ) ) );
 
         $this->assertTrue( $interface->hasMethod( 'Foobar' ) );
     }
@@ -116,7 +116,7 @@ class StaticReflectionInterfaceTest extends BaseTest
     public function testHasMethodReturnsFalseWhenMethodForNameNotExists()
     {
         $interface = new StaticReflectionInterface( '\foo\Bar', '' );
-        $interface->setMethods( array() );
+        $interface->initMethods( array() );
 
         $this->assertFalse( $interface->hasMethod( 'fooBar' ) );
     }
@@ -222,6 +222,20 @@ class StaticReflectionInterfaceTest extends BaseTest
      * @covers \de\buzz2ee\reflection\StaticReflectionInterface
      * @group reflection
      * @group unittest
+     */
+    public function testGetStartLineReturnsExpectedValue()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $interface->initStartLine( 42 );
+
+        $this->assertSame( 42, $interface->getStartLine() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
      * @expectedException \ReflectionException
      */
     public function testSetStaticPropertyValueThrowsNotSupportedException()
@@ -235,12 +249,26 @@ class StaticReflectionInterfaceTest extends BaseTest
      * @covers \de\buzz2ee\reflection\StaticReflectionInterface
      * @group reflection
      * @group unittest
-     * @expectedException \ErrorException
+     * @expectedException \LogicException
      */
-    public function testSetFileNameThrowsErrorExceptionWhenFileNameWasAlreadySet()
+    public function testInitFileNameThrowsLogicExceptionWhenFileNameWasAlreadySet()
     {
         $interface = new StaticReflectionInterface( '\foo\Bar', '' );
-        $interface->setFileName( __FILE__ );
-        $interface->setFileName( __FILE__ );
+        $interface->initFileName( __FILE__ );
+        $interface->initFileName( __FILE__ );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitStartLineThrowsLogicExceptionWhenLineNumberWasAlreadySet()
+    {
+        $interface = new StaticReflectionInterface( '\foo\Bar', '' );
+        $interface->initStartLine( 23 );
+        $interface->initStartLine( 42 );
     }
 }
