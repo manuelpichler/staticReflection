@@ -28,6 +28,6 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
     {
-        $this->assertPublicApiEquals( 'ReflectionClass', StaticReflectionInterface::TYPE );
+        $this->assertPublicApiEquals( 'ReflectionClass', StaticReflectionClass::TYPE );
     }
 }
