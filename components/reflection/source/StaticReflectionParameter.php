@@ -19,25 +19,80 @@ class StaticReflectionParameter extends \ReflectionParameter
     const TYPE = __CLASS__;
 
     /**
+     * Name of the reflected parameter.
+     *
+     * @var string
+     */
+    private $_name = null;
+
+    /**
+     * Parameter position in the argument list.
+     *
+     * @var integer
+     */
+    private $_position = 0;
+
+    /**
      * Method where this parameter is used.
      *
      * @var \ReflectionMethod
      */
     private $_declaringMethod = null;
 
-    public function __construct()
+    /**
+     * Constructs a new parameter instance.
+     *
+     * @param string  $name     Name of the parameter.
+     * @param integer $position Position in argument list.
+     */
+    public function __construct( $name, $position )
     {
-
+        $this->_setName( $name );
+        $this->_setPosition( $position );
     }
 
+    /**
+     * Sets the name of the reflected parameter.
+     *
+     * @param string $name The parameter name.
+     *
+     * @return void
+     */
+    private function _setName( $name )
+    {
+        $this->_name = ltrim( $name, '$' );
+    }
+
+    /**
+     * Sets the argument list position of the reflected parameter.
+     *
+     * @param integer $position The parameter position.
+     *
+     * @return void
+     */
+    private function _setPosition( $position )
+    {
+        $this->_position = (int) $position;
+    }
+
+    /**
+     * Gets the name of the reflected parameter.
+     *
+     * @return string
+     */
     public function getName()
     {
-        
+        return $this->_name;
     }
 
+    /**
+     * Gets the argument list position of the reflected parameter.
+     *
+     * @return integer
+     */
     public function getPosition()
     {
-        
+        return $this->_position;
     }
 
     public function allowsNull()

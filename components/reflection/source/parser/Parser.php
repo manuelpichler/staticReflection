@@ -7,6 +7,7 @@ use de\buzz2ee\reflection\interfaces\SourceResolver;
 use de\buzz2ee\reflection\StaticReflectionClass;
 use de\buzz2ee\reflection\StaticReflectionMethod;
 use de\buzz2ee\reflection\StaticReflectionInterface;
+use de\buzz2ee\reflection\StaticReflectionParameter;
 use de\buzz2ee\reflection\StaticReflectionProperty;
 
 class Parser

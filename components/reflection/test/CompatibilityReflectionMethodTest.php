@@ -21,7 +21,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 {
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -32,7 +32,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
     
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -46,7 +46,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -60,7 +60,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -74,7 +74,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -91,7 +91,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -105,7 +105,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -119,7 +119,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -133,7 +133,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -147,7 +147,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -161,7 +161,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -175,7 +175,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -189,7 +189,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -203,7 +203,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -217,7 +217,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -231,7 +231,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -245,7 +245,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */
@@ -259,7 +259,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \ReflectionMethod
      * @group reflection
      * @group compatibilitytest
      */

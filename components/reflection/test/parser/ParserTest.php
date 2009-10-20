@@ -527,6 +527,21 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserSetsExpectedNumberOfMethodParameters()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'MethodWithParameters' );
+        $method = $parser->parse()->getMethod( 'fooBar' );
+
+        $this->assertSame( 3, $method->getNumberOfParameters() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserSetsPropertyDocComment()
     {
         $parser = new Parser( $this->createSourceResolver(), 'PropertyWithComment' );

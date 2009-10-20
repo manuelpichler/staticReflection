@@ -404,15 +404,25 @@ class StaticReflectionMethod extends \ReflectionMethod
             throw new \LogicException( 'Property endLine already set' );
         }
     }
-    
+
+    /**
+     * Returns an <b>array</b> with all parameters of the reflected method.
+     *
+     * @return array(\ReflectionParameter)
+     */
     public function getParameters()
     {
-        
+        return (array) $this->_parameters;
     }
 
+    /**
+     * Returns the total number of parameters for the reflected method.
+     *
+     * @return integer
+     */
     public function getNumberOfParameters()
     {
-
+        return count( $this->getParameters() );
     }
 
     public function getNumberOfRequiredParameters()

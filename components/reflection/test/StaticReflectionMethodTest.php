@@ -429,6 +429,68 @@ class StaticReflectionMethodTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testGetParametersReturnsAnEmptyArrayWhenNotInitialized()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $this->assertSame( array(), $method->getParameters() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetParametersReturnsInitializedParameters()
+    {
+        $params = array(
+            new StaticReflectionParameter( 'foo', 0 ),
+            new StaticReflectionParameter( 'bar', 1 )
+        );
+
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initParameters( $params );
+
+        $this->assertSame( $params, $method->getParameters() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetNumberOfParametersReturnsZeroWhenNotInitialized()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $this->assertSame( 0, $method->getNumberOfParameters() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetNumberOfParametersReturnsExpectedValue()
+    {
+        $params = array(
+            new StaticReflectionParameter( 'foo', 0 ),
+            new StaticReflectionParameter( 'bar', 1 )
+        );
+
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initParameters( $params );
+
+        $this->assertSame( 2, $method->getNumberOfParameters() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
     public function testGetExtensionNameAlwaysReturnsFalse()
     {
         $method = new StaticReflectionMethod( 'foo', '', 0 );
@@ -526,6 +588,20 @@ class StaticReflectionMethodTest extends BaseTest
         $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initEndLine( 23 );
         $method->initEndLine( 23 );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitParametersThrowsLogicExceptionWhenAlreadySet()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initParameters( array() );
+        $method->initParameters( array() );
     }
 }
 
