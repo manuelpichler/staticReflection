@@ -7,7 +7,7 @@
 
 namespace de\buzz2ee\reflection;
 
-require_once 'BaseTest.php';
+require_once 'BaseCompatibilityTest.php';
 
 /**
  * Tests the api compatiblility between the static reflection implementation and
@@ -17,7 +17,7 @@ require_once 'BaseTest.php';
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class CompatibilityReflectionMethodTest extends BaseTest
+class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
 {
     /**
      * @return void
@@ -285,19 +285,6 @@ class CompatibilityReflectionMethodTest extends BaseTest
     }
 
     /**
-     * Creates an internal reflection class instance.
-     *
-     * @param string $className Name of the searched class.
-     *
-     * @return \ReflectionClass
-     */
-    protected function createInternalClass( $className )
-    {
-        $this->includeClass( $className );
-        return new \ReflectionClass( $className );
-    }
-
-    /**
      * Creates a static reflection method instance.
      *
      * @param string $className  Name of the searched class.
@@ -308,18 +295,5 @@ class CompatibilityReflectionMethodTest extends BaseTest
     protected function createStatic( $className, $methodName )
     {
         return $this->createStaticClass( $className )->getMethod( $methodName );
-    }
-
-    /**
-     * Creates an internal reflection class instance.
-     *
-     * @param string $className Name of the searched class.
-     *
-     * @return \ReflectionClass
-     */
-    protected function createStaticClass( $className )
-    {
-        $parser = new parser\Parser( $this->createSourceResolver(), $className );
-        return $parser->parse();
     }
 }

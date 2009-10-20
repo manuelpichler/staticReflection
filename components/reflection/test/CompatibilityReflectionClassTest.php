@@ -17,17 +17,17 @@ require_once 'BaseCompatibilityTest.php';
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
+class CompatibilityReflectionClassTest extends BaseCompatibilityTest
 {
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionParameter
+     * @covers \de\buzz2ee\reflection\StaticReflectionClass
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
      * @group reflection
      * @group unittest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
     {
-        $this->assertPublicApiEquals( 'ReflectionParameter', StaticReflectionParameter::TYPE );
+        $this->assertPublicApiEquals( 'ReflectionClass', StaticReflectionInterface::TYPE );
     }
-
 }
