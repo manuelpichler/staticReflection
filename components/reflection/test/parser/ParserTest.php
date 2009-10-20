@@ -194,6 +194,21 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserHandlesCurlyBraceDefaultNamespace()
+    {
+        $parser = new Parser( $this->createSourceResolver(), '\NamespaceCurlyBraceDefault' );
+        $class  = $parser->parse();
+
+        $this->assertSame( '', $class->getNamespaceName() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserHandlesSemicolonSyntaxForNamespaces()
     {
         $parser = new Parser( $this->createSourceResolver(), 'foo\bar\baz\NamespaceSemicolonSyntax' );
