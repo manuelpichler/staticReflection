@@ -85,8 +85,9 @@ class StaticReflectionClass extends StaticReflectionInterface
      * @param \ReflectionClass $parentClass
      *
      * @return void
+     * @access private
      */
-    public function setParentClass( \ReflectionClass $parentClass )
+    public function initParentClass( \ReflectionClass $parentClass )
     {
         if ( $this->_parentClass === null )
         {
@@ -94,7 +95,7 @@ class StaticReflectionClass extends StaticReflectionInterface
         }
         else
         {
-            throw new \RuntimeException( 'Parent class already set.' );
+            throw new \LogicException( 'Property parentClass already set' );
         }
     }
 
@@ -109,7 +110,7 @@ class StaticReflectionClass extends StaticReflectionInterface
         {
             return $this->_properties[$name];
         }
-        throw new \RuntimeException( sprintf( 'Property %s does not exist', $name ) );
+        throw new \ReflectionException( sprintf( 'Property %s does not exist', $name ) );
     }
 
     /**
@@ -121,24 +122,40 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
-     * @param array(\ReflectionProperty) $properties
+     * Tries to initializes the properties of the reflected class the first time,
+     * it will throw an exception when the properties are already set .
+     *
+     * @param array(\ReflectionProperty) $properties The properties of this class.
      *
      * @return void
+     * @access private
      */
-    public function setProperties( array $properties )
+    public function initProperties( array $properties )
     {
         if ( $this->_properties === null )
         {
-            $this->_properties = array();
-            foreach ( $properties as $property )
-            {
-                $property->initDeclaringClass( $this );
-                $this->_properties[$property->getName()] = $property;
-            }
+            $this->_initProperties( $properties );
         }
         else
         {
-            throw new \RuntimeException( 'Properties already set.' );
+            throw new \LogicException( 'Property properties already set' );
+        }
+    }
+
+    /**
+     * Initializes the properties of the reflected class.
+     *
+     * @param array(\ReflectionProperty) $properties The properties of this class.
+     *
+     * @return void
+     */
+    private function _initProperties( array $properties )
+    {
+        $this->_properties = array();
+        foreach ( $properties as $property )
+        {
+            $property->initDeclaringClass( $this );
+            $this->_properties[$property->getName()] = $property;
         }
     }
 }

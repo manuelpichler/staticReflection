@@ -18,6 +18,13 @@ class StaticReflectionParameter extends \ReflectionParameter
 {
     const TYPE = __CLASS__;
 
+    /**
+     * Method where this parameter is used.
+     *
+     * @var \ReflectionMethod
+     */
+    private $_declaringMethod = null;
+
     public function __construct()
     {
 
@@ -45,12 +52,37 @@ class StaticReflectionParameter extends \ReflectionParameter
 
     public function getDeclaringClass()
     {
-        
+        return $this->_declaringMethod->getDeclaringClass();
     }
 
+    /**
+     * Returns the function where this parameter was declared.
+     *
+     * @return \ReflectionFunction
+     */
     public function getDeclaringFunction()
     {
-        
+        return $this->_declaringMethod;
+    }
+
+    /**
+     * Initializes the declaring method instance.
+     *
+     * @param \ReflectionMethod $declaringMethod The declaring method.
+     *
+     * @return void
+     * @access private
+     */
+    public function initDeclaringMethod( \ReflectionMethod $declaringMethod )
+    {
+        if ( $this->_declaringMethod === null )
+        {
+            $this->_declaringMethod = $declaringMethod;
+        }
+        else
+        {
+            throw new \LogicException( 'Property declaringMethod already set' );
+        }
     }
 
     public function getDefaultValue()

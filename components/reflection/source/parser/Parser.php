@@ -195,7 +195,7 @@ class Parser
                     break;
 
                 case ParserTokens::T_EXTENDS:
-                    $class->setParentClass( $this->_parseParentClass() );
+                    $class->initParentClass( $this->_parseParentClass() );
                     break;
 
                 case ParserTokens::T_IMPLEMENTS:
@@ -207,7 +207,7 @@ class Parser
 
                     $class->initEndLine( $endLine );
                     $class->initMethods( $methods );
-                    $class->setProperties( $properties );
+                    $class->initProperties( $properties );
                     return $class;
             }
         }
@@ -402,9 +402,18 @@ class Parser
         throw new \RuntimeException( 'Unexpected end of token stream in class or interface body.' );
     }
 
+    /**
+     * Parses a method declaration for/from the currently parsed class/interface.
+     *
+     * @param string  $docComment Optional doc comment for the parsed method.
+     * @param integer $modifiers  Bitfield with method modifiers.
+     *
+     * @return \de\buzz2ee\reflection\StaticReflectionClass
+     */
     private function _parseMethodDeclaration( $docComment, $modifiers )
     {
         $methodName = null;
+        $parameters = array();
 
         while ( is_object( $token = $this->_next() ) )
         {
@@ -417,12 +426,18 @@ class Parser
                     }
                     break;
 
+                case ParserTokens::T_VARIABLE:
+                    $parameters[] = new StaticReflectionParameter( $token->image, count( $parameters ) );
+                     break;
+
                 case ParserTokens::T_SCOPE_OPEN:
                     $token = $this->_parseScope();
 
                 case ParserTokens::T_SEMICOLON:
                     $method = new StaticReflectionMethod( $methodName, $docComment, $modifiers );
                     $method->initEndLine( $token->endLine );
+                    $method->initParameters( $parameters );
+
                     return $method;
             }
         }

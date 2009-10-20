@@ -41,6 +41,13 @@ class StaticReflectionMethod extends \ReflectionMethod
     private $_declaringClass = null;
 
     /**
+     * Parameters declared for the reflected method.
+     *
+     * @var array(\ReflectionParameter)
+     */
+    private $_parameters = null;
+
+    /**
      * The start line number of the reflected method.
      *
      * @var integer
@@ -411,6 +418,45 @@ class StaticReflectionMethod extends \ReflectionMethod
     public function getNumberOfRequiredParameters()
     {
 
+    }
+
+    /**
+     * Initializes the parameters declared for the reflected method.
+     *
+     * @param array(\de\buzz2ee\reflection\StaticReflectionParameter) $parameters
+     *        Allowed parameters for the reflected method.
+     *
+     * @return void
+     * @access private
+     */
+    public function initParameters( array $parameters )
+    {
+        if ( $this->_parameters === null )
+        {
+            $this->_initParameters( $parameters );
+        }
+        else
+        {
+            throw new \LogicException( 'Property parameters already set' );
+        }
+    }
+
+    /**
+     * Initializes the parameters declared for the reflected method.
+     *
+     * @param array(\de\buzz2ee\reflection\StaticReflectionParameter) $parameters
+     *        Allowed parameters for the reflected method.
+     *
+     * @return void
+     */
+    private function _initParameters( array $parameters )
+    {
+        $this->_parameters = array();
+        foreach ( $parameters as $parameter )
+        {
+            $parameter->initDeclaringMethod( $this );
+            $this->_parameters[] = $parameter;
+        }
     }
 
     public function returnsReference()
