@@ -162,6 +162,9 @@ class StaticReflectionProperty extends \ReflectionProperty
     }
 
     /**
+     * Returns <b>true</b> when the reflected property was declared as static,
+     * otherwise this method will return <b>false</b>.
+     *
      * @return boolean
      */
     public function isStatic()
@@ -170,6 +173,9 @@ class StaticReflectionProperty extends \ReflectionProperty
     }
 
     /**
+     * Returns <b>true</b> when the reflected property was declared as private,
+     * otherwise this method will return <b>false</b>.
+     *
      * @return boolean
      */
     public function isPrivate()
@@ -178,6 +184,9 @@ class StaticReflectionProperty extends \ReflectionProperty
     }
 
     /**
+     * Returns <b>true</b> when the reflected property was declared as protected,
+     * otherwise this method will return <b>false</b>.
+     *
      * @return boolean
      */
     public function isProtected()
@@ -186,6 +195,9 @@ class StaticReflectionProperty extends \ReflectionProperty
     }
 
     /**
+     * Returns <b>true</b> when the reflected property was declared as public,
+     * otherwise this method will return <b>false</b>.
+     *
      * @return boolean
      */
     public function isPublic()

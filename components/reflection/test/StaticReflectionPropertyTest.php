@@ -73,8 +73,104 @@ class StaticReflectionPropertyTest extends BaseTest
      */
     public function testGetDocCommentReturnsStringWhenCommentIsNotEmpty()
     {
-        $property = new StaticReflectionProperty( 'foo', '/** @var int */', StaticReflectionProperty::IS_PUBLIC );
+        $property = new StaticReflectionProperty( 'foo', '/** @var int */', 0 );
         $this->assertSame( '/** @var int */', $property->getDocComment() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsPrivateReturnsFalseWhenModifierWasNotSupplied()
+    {
+        $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PUBLIC );
+        $this->assertFalse( $property->isPrivate() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsPrivateReturnsTrueWhenModifierWasSupplied()
+    {
+        $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PRIVATE );
+        $this->assertTrue( $property->isPrivate() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsProtectedReturnsFalseWhenModifierWasNotSupplied()
+    {
+        $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PRIVATE );
+        $this->assertFalse( $property->isProtected() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsProtectedReturnsTrueWhenModifierWasSupplied()
+    {
+        $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PROTECTED );
+        $this->assertTrue( $property->isProtected() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsPublicReturnsFalseWhenModifierWasNotSupplied()
+    {
+        $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PRIVATE );
+        $this->assertFalse( $property->isPublic() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsPublicReturnsTrueWhenModifierWasSupplied()
+    {
+        $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PUBLIC );
+        $this->assertTrue( $property->isPublic() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsStaticReturnsFalseWhenModifierWasNotSupplied()
+    {
+        $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PRIVATE );
+        $this->assertFalse( $property->isStatic() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsStaticReturnsTrueWhenModifierWasSupplied()
+    {
+        $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_STATIC );
+        $this->assertTrue( $property->isStatic() );
     }
 
     /**
