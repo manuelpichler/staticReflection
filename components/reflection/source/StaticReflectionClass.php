@@ -117,10 +117,13 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
-     * @param \ReflectionClass $parentClass
+     * Initializes the parent class of the reflected class.
+     *
+     * @param \ReflectionClass $parentClass The parent class instance.
      *
      * @return void
      * @access private
+     * @throws \LogicException When the parentClass property was already set.
      */
     public function initParentClass( \ReflectionClass $parentClass )
     {
