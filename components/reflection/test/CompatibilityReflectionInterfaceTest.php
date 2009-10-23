@@ -128,7 +128,21 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceWithConstant' );
         $static   = $this->createStaticClass( 'CompatInterfaceWithConstant' );
 
-        $this->assertSame( $internal->hasConstant( 'T_FOO' ), $static->hasConstant( 'T_FOO' ) );
+        $this->assertEquals( $internal->hasConstant( 'T_FOO' ), $static->hasConstant( 'T_FOO' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testGetConstantOnConstantThatDoesNotExist()
+    {
+        $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
+        $static   = $this->createStaticClass( 'CompatInterfaceSimple' );
+
+        $this->assertEquals( $internal->getConstant( 'T_FOO' ), $static->getConstant( 'T_FOO' ) );
     }
 
     /**

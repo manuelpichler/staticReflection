@@ -240,6 +240,34 @@ class StaticReflectionInterfaceTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testGetConstantReturnsFalseWhenConstantNotExists()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $interface->initConstants( array( 'T_BAR' => null ) );
+
+        $this->assertFalse( $interface->getConstant( 'T_BAZ' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetConstantReturnsValueWhenConstantExists()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $interface->initConstants( array( 'T_BAR' => 42 ) );
+
+        $this->assertEquals( 42, $interface->getConstant( 'T_BAR' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
     public function testGetConstantsReturnsAnEmptyErrorByDefault()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '/** @package foo */' );
