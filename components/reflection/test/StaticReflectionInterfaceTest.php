@@ -188,8 +188,36 @@ class StaticReflectionInterfaceTest extends BaseTest
      */
     public function testGetDocCommentReturnsStringWhenDocCommentIsNotEmpty()
     {
-        $interface = new StaticReflectionInterface( 'barBar', '/** @package foo */' );
-        $this->assertSame( '/** @package foo */', $interface->getDocComment() );
+        $interface = new StaticReflectionInterface( __CLASS__, '/** @package foo */' );
+        $this->assertEquals( '/** @package foo */', $interface->getDocComment() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testHasConstantReturnsTrueWhenConstantExists()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $interface->initConstants( array( 'T_BAR' => 'droelf' ) );
+
+        $this->assertTrue( $interface->hasConstant( 'T_BAR' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testHasConstantReturnsFalseWhenConstantNotExists()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $interface->initConstants( array( 'T_BAR' => 'droelf' ) );
+
+        $this->assertFalse( $interface->hasConstant( 'T_FOO' ) );
     }
 
     /**
