@@ -23,7 +23,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
-     * @group unittest
+     * @group compatibilitytest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
     {
@@ -34,7 +34,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
-     * @group unittest
+     * @group compatibilitytest
      */
     public function testGetDocCommentForInterfaceWithDocComment()
     {
@@ -48,7 +48,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
-     * @group unittest
+     * @group compatibilitytest
      */
     public function testGetDocCommentForInterfaceWithoutDocComment()
     {
@@ -62,7 +62,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
-     * @group unittest
+     * @group compatibilitytest
      */
     public function testInNamespaceForInterfaceWithNamespace()
     {
@@ -76,7 +76,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
-     * @group unittest
+     * @group compatibilitytest
      */
     public function testInNamespaceForInterfaceWithNamespaceDefault()
     {
@@ -90,7 +90,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
-     * @group unittest
+     * @group compatibilitytest
      */
     public function testInNamespaceForInterfaceWithoutNamespace()
     {
@@ -104,21 +104,24 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
-     * @group unittest
+     * @group compatibilitytest
      */
     public function testHasConstantThatExists()
     {
         $internal = $this->createInternalClass( 'CompatInterfaceWithConstant' );
         $static   = $this->createStaticClass( 'CompatInterfaceWithConstant' );
 
-        $this->assertSame( $internal->hasConstant( 'T_BAR' ), $static->hasConstant( 'T_BAR' ) );
+        $this->assertSame(
+            $internal->hasConstant( 'T_BAR' ),
+            $static->hasConstant( 'T_BAR' )
+        );
     }
 
     /**
      * @return void
      * @covers \ReflectionClass
      * @group reflection
-     * @group unittest
+     * @group compatibilitytest
      */
     public function testHasConstantThatDoesNotExists()
     {

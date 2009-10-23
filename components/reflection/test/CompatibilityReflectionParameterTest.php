@@ -23,7 +23,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @return void
      * @covers \de\buzz2ee\reflection\StaticReflectionParameter
      * @group reflection
-     * @group unittest
+     * @group compatibilitytest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
     {

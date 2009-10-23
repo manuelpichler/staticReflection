@@ -23,7 +23,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
-     * @group unittest
+     * @group compatibilitytest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
     {
