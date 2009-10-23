@@ -15,6 +15,7 @@ require_once 'CompatibilityReflectionClassTest.php';
 require_once 'CompatibilityReflectionInterfaceTest.php';
 require_once 'CompatibilityReflectionMethodTest.php';
 require_once 'CompatibilityReflectionParameterTest.php';
+require_once 'StaticReflectionClassTest.php';
 require_once 'StaticReflectionInterfaceTest.php';
 require_once 'StaticReflectionMethodTest.php';
 require_once 'StaticReflectionParameterTest.php';
@@ -46,6 +47,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
         $this->addTestSuite( '\de\buzz2ee\reflection\CompatibilityReflectionInterfaceTest' );
         $this->addTestSuite( '\de\buzz2ee\reflection\CompatibilityReflectionMethodTest' );
         $this->addTestSuite( '\de\buzz2ee\reflection\CompatibilityReflectionParameterTest' );
+        $this->addTestSuite( '\de\buzz2ee\reflection\StaticReflectionClassTest' );
         $this->addTestSuite( '\de\buzz2ee\reflection\StaticReflectionInterfaceTest' );
         $this->addTestSuite( '\de\buzz2ee\reflection\StaticReflectionMethodTest' );
         $this->addTestSuite( '\de\buzz2ee\reflection\StaticReflectionParameterTest' );

@@ -527,14 +527,19 @@ class StaticReflectionInterface extends \ReflectionClass
      *
      * @return array(\ReflectionMethod)
      */
-    public function getMethods( $filter = 0 )
+    public function getMethods( $filter = -1 )
     {
-        $result = $this->_collectMethods( $filter, (array) $this->_methods );
+        return array_values( $this->collectMethods( $filter ) );
+    }
+
+    protected function collectMethods( $filter )
+    {
+        $result = $this->_collectMethods( $filter, (array) $this->_methods, array() );
         foreach ( $this->getInterfaces() as $interface )
         {
             $result = $this->_collectMethods( $filter, $interface->getMethods( $filter ), $result );
         }
-        return array_values( $result );
+        return $result;
     }
 
     /**
@@ -547,15 +552,31 @@ class StaticReflectionInterface extends \ReflectionClass
      *
      * @return array(string=>\ReflectionMethod)
      */
-    private function _collectMethods( $filter, array $methods, array &$result = array() )
+    private function _collectMethods( $filter, array $methods, array $result )
     {
         foreach ( $methods as $method )
         {
-            $name = strtolower( $method->getName() );
-            if ( !isset( $result[$name] ) && ( $method->getModifiers() & $filter ) === $filter )
-            {
-                $result[$name] = $method;
-            }
+            $result = $this->_collectMethod( $filter, $method, $result );
+        }
+        return $result;
+    }
+
+    /**
+     * Adds the given method <b>$method</b> to <b>&$result</b> when a method
+     * with same name does not exist in this array,
+     *
+     * @param integer                          $filter Bitfield with filters.
+     * @param \ReflectionMethod                $method Input method.
+     * @param array(string=>\ReflectionMethod) $result Resulting method array.
+     *
+     * @return array(string=>\ReflectionMethod)
+     */
+    private function _collectMethod( $filter, \ReflectionMethod $method, array $result )
+    {
+        $name = strtolower( $method->getName() );
+        if ( !isset( $result[$name] ) && ( $filter === -1 || ( $method->getModifiers() & $filter ) === $filter ) )
+        {
+            $result[$name] = $method;
         }
         return $result;
     }

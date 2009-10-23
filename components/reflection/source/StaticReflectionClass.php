@@ -45,6 +45,15 @@ class StaticReflectionClass extends StaticReflectionInterface
         $this->_modifiers = $modifiers;
     }
 
+    public function getModifiers()
+    {
+        if ( count( $this->getMethods( StaticReflectionMethod::IS_ABSTRACT ) ) > 0 )
+        {
+            return $this->_modifiers | self::IS_IMPLICIT_ABSTRACT;
+        }
+        return $this->_modifiers;
+    }
+
     /**
      * Returns <b>true</b> when the class is declared abstract or is an interface.
      *
@@ -52,7 +61,17 @@ class StaticReflectionClass extends StaticReflectionInterface
      */
     public function isAbstract()
     {
-        return ( ( $this->_modifiers & self::IS_EXPLICIT_ABSTRACT ) === self::IS_EXPLICIT_ABSTRACT );
+        return ( $this->_isExplicitAbstract() || $this->_isImplicitAbstract() );
+    }
+
+    private function _isExplicitAbstract()
+    {
+        return ( ( $this->getModifiers() & self::IS_EXPLICIT_ABSTRACT ) === self::IS_EXPLICIT_ABSTRACT );
+    }
+
+    private function _isImplicitAbstract()
+    {
+        return ( ( $this->getModifiers() & self::IS_IMPLICIT_ABSTRACT ) === self::IS_IMPLICIT_ABSTRACT );
     }
 
     /**
@@ -66,6 +85,9 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
+     * Returns <b>true</b> when the reflected class/interface is an interface,
+     * which means that this concrete implementation always returns <b>false</b>.
+     * 
      * @return boolean
      */
     public function isInterface()
@@ -99,9 +121,37 @@ class StaticReflectionClass extends StaticReflectionInterface
         }
     }
 
-    public function getMethods( $filter = 0 )
+    public function getMethods( $filter = -1 )
     {
-        
+        if ( $this->_parentClass === null )
+        {
+            return parent::getMethods( $filter );
+        }
+        return $this->_collectMethodsFromParentClass( $filter );
+    }
+
+    private function _collectMethodsFromParentClass( $filter )
+    {
+        $result = parent::collectMethods( $filter );
+        foreach ( $this->_parentClass->getMethods( $filter ) as $method )
+        {
+            $result = $this->_collectMethodFromParentClass( $method, $result );
+        }
+        return array_values( $result );
+    }
+
+    private function _collectMethodFromParentClass( \ReflectionMethod $method, array $result )
+    {
+        $name = strtolower( $method->getName() );
+        if ( !isset( $result[$name] ) )
+        {
+            $result[$name] = $method;
+        }
+        else if ( $result[$name]->isAbstract() && !$method->isAbstract() )
+        {
+            $result[$name] = $method;
+        }
+        return $result;
     }
 
     public function getConstructor()
