@@ -24,10 +24,10 @@ class StaticReflectionClassTest extends BaseTest
      * @group reflection
      * @group unittest
      */
-    public function testGetParentClassReturnsNullWhenNoParentExists()
+    public function testGetParentClassReturnsFalseWhenNoParentExists()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
-        $this->assertNull( $class->getParentClass() );
+        $this->assertFalse( $class->getParentClass() );
     }
 
     /**

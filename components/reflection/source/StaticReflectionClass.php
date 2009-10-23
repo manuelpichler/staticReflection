@@ -26,7 +26,7 @@ class StaticReflectionClass extends StaticReflectionInterface
     /**
      * @var \ReflectionClass
      */
-    private $_parentClass = null;
+    private $_parentClass = false;
 
     /**
      * @var array(\ReflectionProperty)
@@ -106,10 +106,10 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
-     * Returns the parent of the reflected class or <b>null</b> when no parent
+     * Returns the parent of the reflected class or <b>false</b> when no parent
      * exists.
      *
-     * @return \ReflectionClass
+     * @return \ReflectionClass|boolean
      */
     public function getParentClass()
     {
@@ -124,7 +124,7 @@ class StaticReflectionClass extends StaticReflectionInterface
      */
     public function initParentClass( \ReflectionClass $parentClass )
     {
-        if ( $this->_parentClass === null )
+        if ( $this->_parentClass === false )
         {
             $this->_parentClass = $parentClass;
         }
@@ -145,7 +145,7 @@ class StaticReflectionClass extends StaticReflectionInterface
      */
     public function getMethods( $filter = -1 )
     {
-        if ( $this->_parentClass === null )
+        if ( $this->_parentClass === false )
         {
             return parent::getMethods( $filter );
         }

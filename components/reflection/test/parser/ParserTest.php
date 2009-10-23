@@ -43,10 +43,10 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
-    public function testParserHandlesClassParentByDefaultWithNull()
+    public function testParserHandlesClassParentByDefaultWithFalse()
     {
         $parser = new Parser( $this->createSourceResolver(), 'ClassWithoutNamespace' );
-        $this->assertNull( $parser->parse()->getParentClass() );
+        $this->assertFalse( $parser->parse()->getParentClass() );
     }
 
     /**

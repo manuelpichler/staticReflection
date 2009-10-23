@@ -36,6 +36,20 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
      * @group reflection
      * @group compatibilitytest
      */
+    public function testGetParentClassForClassWithoutParent()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithoutParent' );
+        $static   = $this->createStaticClass( 'CompatClassWithoutParent' );
+
+        $this->assertSame( $internal->getParentClass(), $static->getParentClass() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group compatibilitytest
+     */
     public function testGetMethodsWithProtectedFilterAndOverwrittenPublicMethod()
     {
         $internal = $this->createInternalClass( 'CompatClassWithOverwritingPublicMethod' );
