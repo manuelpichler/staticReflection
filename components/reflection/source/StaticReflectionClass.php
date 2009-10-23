@@ -126,7 +126,7 @@ class StaticReflectionClass extends StaticReflectionInterface
     /**
      * @return array(\ReflectionProperty)
      */
-    public function getProperties( $filter = -1 )
+    public function getProperties( $filter = 0 )
     {
         return $this->_properties;
     }
