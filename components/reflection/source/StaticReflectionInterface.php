@@ -522,6 +522,9 @@ class StaticReflectionInterface extends \ReflectionClass
     }
 
     /**
+     * Returns an array with all methods within the inheritence hierarchy of this
+     * class or interface.
+     *
      * @return array(\ReflectionMethod)
      */
     public function getMethods( $filter = 0 )
@@ -534,6 +537,16 @@ class StaticReflectionInterface extends \ReflectionClass
         return array_values( $result );
     }
 
+    /**
+     * Collects all methods from <b>$methods</b> and adds those methods to the
+     * <b>&$result</b> that do not already exist in this array,
+     *
+     * @param integer                          $filter  Bitfield with filters.
+     * @param array(string=>\ReflectionMethod) $methods Input methods.
+     * @param array(string=>\ReflectionMethod) $result  Resulting method array.
+     *
+     * @return array(string=>\ReflectionMethod)
+     */
     private function _collectMethods( $filter, array $methods, array &$result = array() )
     {
         foreach ( $methods as $method )
@@ -548,7 +561,10 @@ class StaticReflectionInterface extends \ReflectionClass
     }
 
     /**
-     * @param array(\ReflectionMethod) $methods
+     * This method initializes the methods that are declared for the reflected
+     * class or interface.
+     *
+     * @param array(\ReflectionMethod) $methods The declared class/interface methods.
      *
      * @return void
      * @access private

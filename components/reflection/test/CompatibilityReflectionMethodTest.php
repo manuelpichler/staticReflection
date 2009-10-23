@@ -179,6 +179,34 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @group reflection
      * @group compatibilitytest
      */
+    public function testIsConstructorForInterfaceConstructMethod()
+    {
+        $internal = $this->createInternal( 'CompatInterfaceWithConstruct', '__construct' );
+        $static   = $this->createStatic( 'CompatInterfaceWithConstruct', '__construct' );
+
+        $this->assertSame( $internal->isConstructor(), $static->isConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testIsConstructorForInterfaceClassNameMethod()
+    {
+        $internal = $this->createInternal( 'CompatInterfaceWithClassNameMethod', 'CompatInterfaceWithClassNameMethod' );
+        $static   = $this->createStatic( 'CompatInterfaceWithClassNameMethod', 'CompatInterfaceWithClassNameMethod' );
+
+        $this->assertSame( $internal->isConstructor(), $static->isConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
     public function testIsDestructorForDestructMethod()
     {
         $internal = $this->createInternal( 'CompatClassWithDestructor', '__destruct' );

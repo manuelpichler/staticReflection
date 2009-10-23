@@ -200,6 +200,10 @@ class StaticReflectionMethod extends \ReflectionMethod
      */
     public function isConstructor()
     {
+        if ( $this->isAbstract() )
+        {
+            return false;
+        }
         if ( strcasecmp( $this->getName(), '__construct' ) === 0 )
         {
             return true;

@@ -99,6 +99,16 @@ class StaticReflectionClass extends StaticReflectionInterface
         }
     }
 
+    public function getMethods( $filter = 0 )
+    {
+        
+    }
+
+    public function getConstructor()
+    {
+        
+    }
+
     /**
      * @param string $name
      *
