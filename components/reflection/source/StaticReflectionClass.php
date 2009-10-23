@@ -64,11 +64,21 @@ class StaticReflectionClass extends StaticReflectionInterface
         return ( $this->_isExplicitAbstract() || $this->_isImplicitAbstract() );
     }
 
+    /**
+     * Returns <b>true</b> when the explicit abstract modifier is present.
+     *
+     * @return boolean
+     */
     private function _isExplicitAbstract()
     {
         return ( ( $this->getModifiers() & self::IS_EXPLICIT_ABSTRACT ) === self::IS_EXPLICIT_ABSTRACT );
     }
 
+    /**
+     * Returns <b>true</b> when the implicit abstract modifier is present.
+     *
+     * @return boolean
+     */
     private function _isImplicitAbstract()
     {
         return ( ( $this->getModifiers() & self::IS_IMPLICIT_ABSTRACT ) === self::IS_IMPLICIT_ABSTRACT );
