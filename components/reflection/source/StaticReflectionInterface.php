@@ -52,18 +52,24 @@ class StaticReflectionInterface extends \ReflectionClass
     private $_endLine = -1;
 
     /**
+     * Declared interface methods.
+     *
      * @var array(\ReflectionMethod)
      */
     private $_methods = null;
 
     /**
+     * Extended/Implemented interfaces.
+     *
      * @var array(\ReflectionClass)
      */
     private $_interfaces = null;
 
     /**
-     * @param string $name
-     * @param string $docComment
+     * Constructs a new static reflection interface instance.
+     *
+     * @param string $name       Qualified name of the reflected interface.
+     * @param string $docComment Doc comment for this interface.
      */
     public function __construct( $name, $docComment )
     {
@@ -103,6 +109,8 @@ class StaticReflectionInterface extends \ReflectionClass
     }
 
     /**
+     * Returns the qualified name of the reflected interface.
+     *
      * @return string
      */
     public function getName()
@@ -221,6 +229,9 @@ class StaticReflectionInterface extends \ReflectionClass
     }
 
     /**
+     * Returns <b>true</b> when the reflected interface/class is an interface,
+     * in this case it means that this method always returns <b>true</b>.
+     *
      * @return boolean
      */
     public function isInterface()
