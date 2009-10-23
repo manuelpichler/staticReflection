@@ -529,15 +529,15 @@ class StaticReflectionInterface extends \ReflectionClass
      */
     public function getMethods( $filter = -1 )
     {
-        return array_values( $this->collectMethods( $filter ) );
+        return $this->prepareCollectedMethods( $filter, $this->collectMethods() );
     }
 
-    protected function collectMethods( $filter )
+    protected function collectMethods()
     {
-        $result = $this->_collectMethods( $filter, (array) $this->_methods, array() );
+        $result = $this->_collectMethods( (array) $this->_methods );
         foreach ( $this->getInterfaces() as $interface )
         {
-            $result = $this->_collectMethods( $filter, $interface->getMethods( $filter ), $result );
+            $result = $this->_collectMethods( $interface->getMethods(), $result );
         }
         return $result;
     }
@@ -546,17 +546,16 @@ class StaticReflectionInterface extends \ReflectionClass
      * Collects all methods from <b>$methods</b> and adds those methods to the
      * <b>&$result</b> that do not already exist in this array,
      *
-     * @param integer                          $filter  Bitfield with filters.
      * @param array(string=>\ReflectionMethod) $methods Input methods.
      * @param array(string=>\ReflectionMethod) $result  Resulting method array.
      *
      * @return array(string=>\ReflectionMethod)
      */
-    private function _collectMethods( $filter, array $methods, array $result )
+    private function _collectMethods( array $methods, array $result = array() )
     {
         foreach ( $methods as $method )
         {
-            $result = $this->_collectMethod( $filter, $method, $result );
+            $result = $this->_collectMethod( $method, $result );
         }
         return $result;
     }
@@ -565,18 +564,39 @@ class StaticReflectionInterface extends \ReflectionClass
      * Adds the given method <b>$method</b> to <b>&$result</b> when a method
      * with same name does not exist in this array,
      *
-     * @param integer                          $filter Bitfield with filters.
      * @param \ReflectionMethod                $method Input method.
      * @param array(string=>\ReflectionMethod) $result Resulting method array.
      *
      * @return array(string=>\ReflectionMethod)
      */
-    private function _collectMethod( $filter, \ReflectionMethod $method, array $result )
+    private function _collectMethod( \ReflectionMethod $method, array $result )
     {
         $name = strtolower( $method->getName() );
-        if ( !isset( $result[$name] ) && ( $filter === -1 || ( $method->getModifiers() & $filter ) === $filter ) )
+        if ( !isset( $result[$name] ) )
         {
             $result[$name] = $method;
+        }
+        return $result;
+    }
+
+    protected function prepareCollectedMethods( $filter, array $methods )
+    {
+        if ( $filter === -1 )
+        {
+            return array_values( $methods );
+        }
+        return $this->_filterCollectedMethods( $filter, $methods );
+    }
+
+    private function _filterCollectedMethods( $filter, array $methods )
+    {
+        $result = array();
+        foreach ( $methods as $method )
+        {
+            if ( ( $method->getModifiers() & $filter ) === $filter )
+            {
+                $result[] = $method;
+            }
         }
         return $result;
     }

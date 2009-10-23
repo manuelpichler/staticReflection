@@ -142,12 +142,12 @@ class StaticReflectionClass extends StaticReflectionInterface
 
     private function _collectMethodsFromParentClass( $filter )
     {
-        $result = parent::collectMethods( $filter );
-        foreach ( $this->_parentClass->getMethods( $filter ) as $method )
+        $result = parent::collectMethods();
+        foreach ( $this->_parentClass->getMethods() as $method )
         {
             $result = $this->_collectMethodFromParentClass( $method, $result );
         }
-        return array_values( $result );
+        return $this->prepareCollectedMethods( $filter, $result );
     }
 
     private function _collectMethodFromParentClass( \ReflectionMethod $method, array $result )

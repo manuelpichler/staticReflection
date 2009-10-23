@@ -29,4 +29,21 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
     {
         $this->assertPublicApiEquals( 'ReflectionClass', StaticReflectionClass::TYPE );
     }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testGetMethodsWithProtectedFilterAndOverwrittenPublicMethod()
+    {
+        $internal = $this->createInternalClass( 'ClassWithOverwritingPublicMethod' );
+        $static   = $this->createStaticClass( 'ClassWithOverwritingPublicMethod' );
+
+        $this->assertEquals(
+            count( $internal->getMethods( \ReflectionMethod::IS_PROTECTED ) ),
+            count( $static->getMethods( \ReflectionMethod::IS_PROTECTED ) )
+        );
+    }
 }
