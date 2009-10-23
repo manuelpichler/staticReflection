@@ -198,6 +198,18 @@ class StaticReflectionInterfaceTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testGetParentClassAlwaysReturnsFalse()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $this->assertFalse( $interface->getParentClass() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
     public function testGetInterfacesReturnsExpectedArray()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );

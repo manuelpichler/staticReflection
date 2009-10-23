@@ -175,4 +175,18 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
 
         $this->assertSame( $internal->getConstructor(), $static->getConstructor() );
     }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testGetParentClass()
+    {
+        $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
+        $static   = $this->createStaticClass( 'CompatInterfaceSimple' );
+
+        $this->assertSame( $internal->getParentClass(), $static->getParentClass() );
+    }
 }

@@ -41,7 +41,24 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithoutParent' );
         $static   = $this->createStaticClass( 'CompatClassWithoutParent' );
 
-        $this->assertSame( $internal->getParentClass(), $static->getParentClass() );
+        $this->assertEquals( $internal->getParentClass(), $static->getParentClass() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testGetParentClassForClassWithParent()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithParent' );
+        $static   = $this->createStaticClass( 'CompatClassWithParent' );
+
+        $this->assertEquals(
+            $internal->getParentClass()->getName(),
+            $static->getParentClass()->getName()
+        );
     }
 
     /**

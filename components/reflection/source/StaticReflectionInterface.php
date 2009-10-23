@@ -436,11 +436,11 @@ class StaticReflectionInterface extends \ReflectionClass
     }
 
     /**
-     * @return \ReflectionClass
+     * @return \ReflectionClass|boolean
      */
     public function getParentClass()
     {
-        return null;
+        return false;
     }
 
     /**
