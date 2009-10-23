@@ -303,6 +303,14 @@ class StaticReflectionInterface extends \ReflectionClass
         
     }
 
+    /**
+     * Return <b>true</b> when a constant with the given name exists in the
+     * reflected interface or one of its parents.
+     *
+     * @param string $name Name of the search constant.
+     *
+     * @return boolean
+     */
     public function hasConstant( $name )
     {
         return array_key_exists( $name, $this->getConstants() );
