@@ -133,6 +133,66 @@ class StaticReflectionInterfaceTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testInNamespaceReturnsTrueForClassWithNamespace()
+    {
+        $interface = new StaticReflectionInterface( '\foo\barBar', '' );
+        $this->assertTrue( $interface->inNamespace() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testInNamespaceReturnsFalseForClassWithNamespaceDefault()
+    {
+        $interface = new StaticReflectionInterface( '\barBar', '' );
+        $this->assertFalse( $interface->inNamespace() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testInNamespaceReturnsFalseForClassWithoutNamespace()
+    {
+        $interface = new StaticReflectionInterface( 'barBar', '' );
+        $this->assertFalse( $interface->inNamespace() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetDocCommentReturnsFalseWhenDocCommentIsEmpty()
+    {
+        $interface = new StaticReflectionInterface( 'barBar', '' );
+        $this->assertFalse( $interface->getDocComment() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetDocCommentReturnsStringWhenDocCommentIsNotEmpty()
+    {
+        $interface = new StaticReflectionInterface( 'barBar', '/** @package foo */' );
+        $this->assertSame( '/** @package foo */', $interface->getDocComment() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
     public function testGetInterfacesReturnsExpectedArray()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );

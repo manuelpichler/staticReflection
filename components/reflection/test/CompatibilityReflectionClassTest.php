@@ -21,8 +21,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
 {
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionClass
-     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @covers \ReflectionClass
      * @group reflection
      * @group unittest
      */

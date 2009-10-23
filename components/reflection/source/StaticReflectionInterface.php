@@ -24,6 +24,8 @@ class StaticReflectionInterface extends \ReflectionClass
     private $_name = null;
 
     /**
+     * Doc comment for the reflected interface.
+     * 
      * @var string
      */
     private $_docComment = false;
@@ -65,8 +67,8 @@ class StaticReflectionInterface extends \ReflectionClass
      */
     public function __construct( $name, $docComment )
     {
-        $this->setName( $name );
-        $this->_docComment = $docComment;
+        $this->_setName( $name );
+        $this->_setDocComment( $docComment );
     }
 
     /**
@@ -115,7 +117,7 @@ class StaticReflectionInterface extends \ReflectionClass
      *
      * @return void
      */
-    protected function setName( $name )
+    private function _setName( $name )
     {
         $this->_name = ltrim( $name, '\\' );
     }
@@ -159,11 +161,33 @@ class StaticReflectionInterface extends \ReflectionClass
     }
 
     /**
-     * @return string
+     * Returns the doc comment for the reflected interface or <b>false</b> when
+     * no doc comment exists.
+     *
+     * @return string|boolean
      */
     public function getDocComment()
     {
         return $this->_docComment;
+    }
+
+    /**
+     * Sets the doc comment for the reflected interface.
+     *
+     * @param string $docComment Doc comment for this interface.
+     *
+     * @return void
+     */
+    private function _setDocComment( $docComment )
+    {
+        if ( trim( $docComment ) === '' )
+        {
+            $this->_docComment = false;
+        }
+        else
+        {
+            $this->_docComment = $docComment;
+        }
     }
 
     /**
