@@ -38,8 +38,8 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
      */
     public function testGetMethodsWithProtectedFilterAndOverwrittenPublicMethod()
     {
-        $internal = $this->createInternalClass( 'ClassWithOverwritingPublicMethod' );
-        $static   = $this->createStaticClass( 'ClassWithOverwritingPublicMethod' );
+        $internal = $this->createInternalClass( 'CompatClassWithOverwritingPublicMethod' );
+        $static   = $this->createStaticClass( 'CompatClassWithOverwritingPublicMethod' );
 
         $this->assertEquals(
             count( $internal->getMethods( \ReflectionMethod::IS_PROTECTED ) ),

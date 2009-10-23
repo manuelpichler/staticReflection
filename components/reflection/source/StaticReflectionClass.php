@@ -106,6 +106,9 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
+     * Returns the parent of the reflected class or <b>null</b> when no parent
+     * exists.
+     *
      * @return \ReflectionClass
      */
     public function getParentClass()

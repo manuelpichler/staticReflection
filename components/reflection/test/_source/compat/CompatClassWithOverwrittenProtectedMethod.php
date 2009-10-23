@@ -1,5 +1,5 @@
 <?php
-class ClassWithOverwrittenProtectedMethod
+class CompatClassWithOverwrittenProtectedMethod
 {
     protected function fooBar()
     {

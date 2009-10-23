@@ -24,6 +24,33 @@ class StaticReflectionClassTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testGetParentClassReturnsNullWhenNoParentExists()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $this->assertNull( $class->getParentClass() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionClass
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetParentClassReturnsExpectedInstanceWhenParentExists()
+    {
+        $parent = new StaticReflectionClass( __CLASS__ . 'Parent', '', 0 );
+        $child  = new StaticReflectionClass( __CLASS__, '', 0 );
+        $child->initParentClass( $parent );
+
+        $this->assertSame( $parent, $child->getParentClass() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionClass
+     * @group reflection
+     * @group unittest
+     */
     public function testGetMethodsReturnsExpectedSingleMethod()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
