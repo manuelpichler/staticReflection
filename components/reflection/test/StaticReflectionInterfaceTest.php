@@ -19,6 +19,11 @@ require_once 'BaseTest.php';
 class StaticReflectionInterfaceTest extends BaseTest
 {
     /**
+     * Some zend engine constants.
+     */
+    const ZEND_ACC_INTERFACE = 0x80;
+
+    /**
      * @return void
      * @covers \de\buzz2ee\reflection\StaticReflectionInterface
      * @group reflection
@@ -307,6 +312,18 @@ class StaticReflectionInterfaceTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testGetModifiersReturnsZendAccInterface()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $this->assertSame( self::ZEND_ACC_INTERFACE, $interface->getModifiers() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
     public function testHasMethodReturnsTrueWhenMethodForNameExists()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
@@ -497,6 +514,34 @@ class StaticReflectionInterfaceTest extends BaseTest
         );
 
         $this->assertSame( 1, count( $interface->getMethods( \ReflectionMethod::IS_FINAL ) ) );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetConstructorReturnsNullForConstructMethod()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $interface->initMethods( array( new StaticReflectionMethod( '__construct', '', 0 ) ) );
+
+        $this->assertNull( $interface->getConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetConstructorReturnsNullForClassNameMethod()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $interface->initMethods( array( new StaticReflectionMethod( $interface->getShortName(), '', 0 ) ) );
+
+        $this->assertNull( $interface->getConstructor() );
     }
 
     /**

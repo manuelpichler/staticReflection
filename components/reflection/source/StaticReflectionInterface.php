@@ -19,6 +19,11 @@ class StaticReflectionInterface extends \ReflectionClass
     const TYPE = __CLASS__;
 
     /**
+     * Common zend engine constants
+     */
+    const ZEND_ACC_INTERFACE = 0x80;
+
+    /**
      * @var string
      */
     private $_name = null;
@@ -212,7 +217,7 @@ class StaticReflectionInterface extends \ReflectionClass
      */
     public function getModifiers()
     {
-        return 0;
+        return self::ZEND_ACC_INTERFACE;
     }
 
     /**
@@ -438,9 +443,15 @@ class StaticReflectionInterface extends \ReflectionClass
         return null;
     }
 
+    /**
+     * Returns the constructor of the reflected interface, what means <b>null</b>
+     * because an interface has no constructor.
+     *
+     * @return \ReflectionClass
+     */
     public function getConstructor()
     {
-        
+        return null;
     }
 
     /**

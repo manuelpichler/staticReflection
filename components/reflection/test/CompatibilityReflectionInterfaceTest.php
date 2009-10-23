@@ -130,4 +130,49 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
 
         $this->assertSame( $internal->hasConstant( 'T_FOO' ), $static->hasConstant( 'T_FOO' ) );
     }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testGetModifiersContainsZendAccInterface()
+    {
+        $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
+        $static   = $this->createStaticClass( 'CompatInterfaceSimple' );
+
+        $this->assertSame(
+            StaticReflectionInterface::ZEND_ACC_INTERFACE,
+            $internal->getModifiers() & $static->getModifiers()
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testGetConstructorForClassWithConstructMethod()
+    {
+        $internal = $this->createInternalClass( 'CompatInterfaceWithConstruct' );
+        $static   = $this->createStaticClass( 'CompatInterfaceWithConstruct' );
+
+        $this->assertSame( $internal->getConstructor(), $static->getConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testGetConstructorForClassWithClassNameMethod()
+    {
+        $internal = $this->createInternalClass( 'CompatInterfaceWithClassNameMethod' );
+        $static   = $this->createStaticClass( 'CompatInterfaceWithClassNameMethod' );
+
+        $this->assertSame( $internal->getConstructor(), $static->getConstructor() );
+    }
 }
