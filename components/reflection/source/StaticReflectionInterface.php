@@ -323,13 +323,19 @@ class StaticReflectionInterface extends \ReflectionClass
         return $this->_collectConstants( $this, (array) $this->_constants );
     }
 
-    private function _collectConstants( \ReflectionClass $class, array $constantList )
+    private function _collectConstants( \ReflectionClass $class, array $result = array() )
     {
         foreach ( $class->getInterfaces() as $interface )
         {
-            $constantList = $this->_collectConstants( $interface, $constantList );
+            foreach ( $interface->getConstants() as $name => $value )
+            {
+                if ( array_key_exists( $name, $result ) === false )
+                {
+                    $result[$name] = $value;
+                }
+            }
         }
-        return $constantList;
+        return $result;
     }
 
     /**

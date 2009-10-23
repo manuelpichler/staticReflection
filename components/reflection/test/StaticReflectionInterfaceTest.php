@@ -198,6 +198,68 @@ class StaticReflectionInterfaceTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testGetConstantsReturnsAnEmptyErrorByDefault()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '/** @package foo */' );
+        $this->assertSame( array(), $interface->getConstants() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetConstantsReturnsDefinedInterfaceConstants()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '/** @package foo */' );
+        $interface->initConstants( array( 'T_FOO' => 42, 'T_BAR' => 23 ) );
+
+        $this->assertEquals( array( 'T_FOO' => 42, 'T_BAR' => 23 ), $interface->getConstants() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetConstantsReturnsInheritConstants()
+    {
+        $parent = new StaticReflectionInterface( __CLASS__, '' );
+        $parent->initConstants( array( 'T_FOO' => 42, 'T_BAR' => 23 ) );
+
+        $child = new StaticReflectionInterface( __CLASS__, '' );
+        $child->initConstants( array( 'T_BAZ' => 13 ) );
+        $child->initInterfaces( array( $parent ) );
+
+        $this->assertEquals( array( 'T_FOO' => 42, 'T_BAR' => 23, 'T_BAZ' => 13 ), $child->getConstants() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetConstantsReturnsInheritConstantsButNotOverwrites()
+    {
+        $parent = new StaticReflectionInterface( __CLASS__, '' );
+        $parent->initConstants( array( 'T_FOO' => 42, 'T_BAR' => 23 ) );
+
+        $child = new StaticReflectionInterface( __CLASS__, '' );
+        $child->initConstants( array( 'T_BAR' => 13 ) );
+        $child->initInterfaces( array( $parent ) );
+
+        $this->assertEquals( array( 'T_FOO' => 42, 'T_BAR' => 13 ), $child->getConstants() );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
     public function testGetParentClassAlwaysReturnsFalse()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
