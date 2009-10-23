@@ -680,10 +680,38 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
     /**
      * @return void
      * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \de\buzz2ee\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \RuntimeException
+     */
+    public function testParserHandlesClassConstant()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'ClassWithConstant' );
+        $this->assertTrue( $parser->parse()->hasConstant( 'T_FOO' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \de\buzz2ee\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesListOfClassConstants()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'ClassWithConstantList' );
+        $this->assertSame( 3, count($parser->parse()->getConstants() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidClassDeclaration()
     {
@@ -697,7 +725,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \RuntimeException
+     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidInterfaceDeclaration()
     {
@@ -711,7 +739,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \RuntimeException
+     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidImplementedInterfaceDeclaration()
     {
@@ -725,7 +753,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \RuntimeException
+     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForUnclosedClassScope()
     {
@@ -739,7 +767,35 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \RuntimeException
+     * @expectedException \de\buzz2ee\reflection\exceptions\UnexpectedTokenException
+     */
+    public function testParserThrowsExceptionForUnexpectedTokenInClassScope()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'ClassScopeWithInvalidToken' );
+        $parser->parse();
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     * @expectedException \de\buzz2ee\reflection\exceptions\UnexpectedTokenException
+     */
+    public function testParserThrowsExceptionForInvalidConstantValue()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'InvalidClassConstantValue' );
+        $parser->parse();
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     * @expectedException \de\buzz2ee\reflection\exceptions\UnexpectedTokenException
      */
     public function testParserThrowsExceptionForInvalidNamespaceDeclaration()
     {
@@ -753,7 +809,21 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \RuntimeException
+     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
+     */
+    public function testParserThrowsExceptionForUnexpectedEndOfNamespaceDeclaration()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'foo\bar\UnexpectedEndOfNamespaceDeclaration' );
+        $parser->parse();
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidUseStatement()
     {
@@ -767,7 +837,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \RuntimeException
+     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidMethodDeclatation()
     {
@@ -781,11 +851,25 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \RuntimeException
+     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForUnclosedMethodScope()
     {
         $parser = new Parser( $this->createSourceResolver(), 'InvalidUnclosedMethodScope' );
+        $parser->parse();
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
+     */
+    public function testParserThrowsExceptionForUnclosedConstantDeclaration()
+    {
+        $parser = new Parser( $this->createSourceResolver(), 'InvalidUnclosedConstantDeclaration' );
         $parser->parse();
     }
 

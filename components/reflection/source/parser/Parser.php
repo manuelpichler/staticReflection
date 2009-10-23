@@ -9,6 +9,8 @@ use de\buzz2ee\reflection\StaticReflectionMethod;
 use de\buzz2ee\reflection\StaticReflectionInterface;
 use de\buzz2ee\reflection\StaticReflectionParameter;
 use de\buzz2ee\reflection\StaticReflectionProperty;
+use de\buzz2ee\reflection\exceptions\EndOfTokenStreamException;
+use de\buzz2ee\reflection\exceptions\UnexpectedTokenException;
 
 class Parser
 {
@@ -36,6 +38,27 @@ class Parser
      * @var array(string=>string)
      */
     private $_aliasMap = array();
+
+    /**
+     * Parsed methods within a class or interface scope.
+     *
+     * @var array(\de\buzz2ee\reflection\StaticReflectionMethod)
+     */
+    private $_methods = array();
+
+    /**
+     * Parsed properties within a class scope.
+     *
+     * @var array(\de\buzz2ee\reflection\StaticReflectionMethod)
+     */
+    private $_properties = array();
+
+    /**
+     * Parsed constants within a class or interface scope.
+     *
+     * @var array(string=>mixed)
+     */
+    private $_constants = array();
 
     /**
      * @param \de\buzz2ee\reflection\interfaces\SourceResolver $resolver
@@ -134,10 +157,13 @@ class Parser
                     return $token;
 
                 default:
-                    throw new \RuntimeException( 'Invalid token in namespace declaration found.' );
+                    throw new UnexpectedTokenException(
+                        $token,
+                        $this->_resolver->getPathnameForClass( $this->_className )
+                    );
             }
         }
-        throw new \RuntimeException( 'Unexpected end of token stream.' );
+        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
     }
 
     private function _parseUseStatements()
@@ -176,7 +202,7 @@ class Parser
                     return $token;
             }
         }
-        throw new \RuntimeException( 'Unexpected end of token stream in use statement.' );
+        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
     }
 
     /**
@@ -204,15 +230,16 @@ class Parser
                     break;
 
                 case ParserTokens::T_SCOPE_OPEN:
-                    list( $methods, $properties, $endLine ) = $this->_parseClassOrInterfaceScope();
+                    $endLine = $this->_parseClassOrInterfaceScope();
 
                     $class->initEndLine( $endLine );
-                    $class->initMethods( $methods );
-                    $class->initProperties( $properties );
+                    $class->initMethods( $this->_methods );
+                    $class->initConstants( $this->_constants );
+                    $class->initProperties( $this->_properties );
                     return $class;
             }
         }
-        throw new \RuntimeException( 'Unexpected end of token stream in class declaration.' );
+        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
     }
 
     /**
@@ -236,14 +263,15 @@ class Parser
                     break;
 
                 case ParserTokens::T_SCOPE_OPEN:
-                    list( $methods, $properties, $endLine ) = $this->_parseClassOrInterfaceScope( StaticReflectionMethod::IS_ABSTRACT );
+                    $endLine = $this->_parseClassOrInterfaceScope( StaticReflectionMethod::IS_ABSTRACT );
 
                     $class->initEndLine( $endLine );
-                    $class->initMethods( $methods );
+                    $class->initMethods( $this->_methods );
+                    $class->initConstants( $this->_constants );
                     return $class;
             }
         }
-        throw new \RuntimeException( 'Unexpected end of token stream in interface declaration.' );
+        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
     }
 
     /**
@@ -280,7 +308,7 @@ class Parser
                     break;
             }
         }
-        throw new \RuntimeException( 'Unexpected end of token stream in class name list.' );
+        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
     }
 
     /**
@@ -327,8 +355,9 @@ class Parser
 
     private function _parseClassOrInterfaceScope( $defaultModifiers = 0 )
     {
-        $methods    = array();
-        $properties = array();
+        $this->_methods    = array();
+        $this->_constants  = array();
+        $this->_properties = array();
 
         $modifiers  = $defaultModifiers | StaticReflectionMethod::IS_PUBLIC;
         $docComment = '';
@@ -345,7 +374,7 @@ class Parser
                 case ParserTokens::T_SCOPE_CLOSE:
                     $token = $this->_consumeToken( ParserTokens::T_SCOPE_CLOSE );
 
-                    return array( $methods, $properties, $token->endLine);
+                    return $token->endLine;
 
                 case ParserTokens::T_ABSTRACT:
                     $this->_consumeToken( ParserTokens::T_ABSTRACT );
@@ -379,28 +408,32 @@ class Parser
                     $modifiers |= StaticReflectionMethod::IS_STATIC;
                     break;
 
-                case ParserTokens::T_FUNCTION:
-                    $token  = $this->_consumeToken( ParserTokens::T_FUNCTION );
-                    $method = $this->_parseMethodDeclaration( $docComment, $modifiers );
-                    $method->initStartLine( $token->startLine );
+                case ParserTokens::T_CONST:
+                    $this->_parseConstantDeclarations();
+                    break;
 
-                    $methods[]  = $method;
+                case ParserTokens::T_FUNCTION:
+                    $this->_parseMethodDeclaration( $docComment, $modifiers );
+
                     $modifiers  = $defaultModifiers | StaticReflectionMethod::IS_PUBLIC;
                     $docComment = '';
                     break;
 
                 case ParserTokens::T_VARIABLE:
-                    $properties = array_merge(
-                        $properties,
-                        $this->_parsePropertyDeclarations( $docComment, $modifiers )
-                    );
+                    $this->_parsePropertyDeclarations( $docComment, $modifiers );
 
                     $modifiers  = $defaultModifiers | StaticReflectionMethod::IS_PUBLIC;
                     $docComment = '';
                     break;
+
+                default:
+                    throw new UnexpectedTokenException(
+                        $this->_next(),
+                        $this->_resolver->getPathnameForClass( $this->_className )
+                    );
             }
         }
-        throw new \RuntimeException( 'Unexpected end of token stream in class or interface body.' );
+        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
     }
 
     /**
@@ -413,6 +446,7 @@ class Parser
      */
     private function _parseMethodDeclaration( $docComment, $modifiers )
     {
+        $startLine  = $this->_consumeToken( ParserTokens::T_FUNCTION )->startLine;
         $methodName = null;
         $parameters = array();
 
@@ -436,33 +470,34 @@ class Parser
 
                 case ParserTokens::T_SEMICOLON:
                     $method = new StaticReflectionMethod( $methodName, $docComment, $modifiers );
+                    $method->initStartLine( $startLine );
                     $method->initEndLine( $token->endLine );
                     $method->initParameters( $parameters );
 
-                    return $method;
+                    $this->_methods[] = $method;
+
+                    return;
             }
         }
-        throw new \RuntimeException( 'Unexpected end of token stream in method declaration.' );
+        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
     }
 
     private function _parsePropertyDeclarations( $docComment, $modifiers )
     {
         $this->_consumeComments();
-        $properties = array( $this->_parsePropertyDeclaration( $docComment, $modifiers ) );
+        $this->_parsePropertyDeclaration( $docComment, $modifiers );
 
         $this->_consumeComments();
         while ( ( $tokensType = $this->_peek() ) === ParserTokens::T_COMMA )
         {
             $this->_consumeToken( ParserTokens::T_COMMA );
 
-            $docComment   = $this->_consumeComments();
-            $properties[] = $this->_parsePropertyDeclaration( $docComment, $modifiers );
+            $docComment = $this->_consumeComments();
+            $this->_parsePropertyDeclaration( $docComment, $modifiers );
             
             $this->_consumeComments();
         }
         $this->_consumeToken( ParserTokens::T_SEMICOLON );
-
-        return $properties;
     }
 
     private function _parsePropertyDeclaration( $docComment, $modifiers )
@@ -485,7 +520,60 @@ class Parser
                     break 2;
             }
         }
-        return new StaticReflectionProperty( substr( $token->image, 1 ), $docComment, $modifiers );
+        $this->_properties[] = new StaticReflectionProperty( $token->image, $docComment, $modifiers );
+    }
+
+    private function _parseConstantDeclarations()
+    {
+        $this->_consumeToken( ParserTokens::T_CONST );
+        $this->_parseConstantDeclaration();
+
+        $this->_consumeComments();
+        while ( ($tokenType = $this->_peek() ) === ParserTokens::T_COMMA )
+        {
+            $this->_consumeToken( ParserTokens::T_COMMA );
+            $this->_parseConstantDeclaration();
+            $this->_consumeComments();
+        }
+        $this->_consumeToken( ParserTokens::T_SEMICOLON );
+    }
+
+    private function _parseConstantDeclaration()
+    {
+        $this->_consumeComments();
+        $token = $this->_consumeToken( ParserTokens::T_STRING );
+
+        $this->_parseStaticScalar();
+        $this->_constants[$token->image] = null;
+    }
+
+    private function _parseStaticScalar()
+    {
+        $this->_consumeComments();
+        while( ( $tokenType = $this->_peek() ) !== Tokenizer::EOF )
+        {
+            switch ( $tokenType )
+            {
+                case ParserTokens::T_DOC_COMMENT:
+                case ParserTokens::T_NS_SEPARATOR:
+                case ParserTokens::T_STATIC:
+                case ParserTokens::T_STRING:
+                    $this->_next();
+                    break;
+
+                case ParserTokens::T_COMMA:
+                case ParserTokens::T_SEMICOLON:
+                    return;
+
+                default:
+                    throw new UnexpectedTokenException(
+                        $this->_next(),
+                        $this->_resolver->getPathnameForClass( $this->_className )
+                    );
+            }
+            $this->_consumeComments();
+        }
+        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
     }
 
     private function _parseScope()
@@ -510,7 +598,7 @@ class Parser
                 return $token;
             }
         }
-        throw new \RuntimeException( 'Unexpected end of token stream in method declaration.' );
+        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
     }
 
     /**
@@ -544,11 +632,14 @@ class Parser
     {
         if ( is_object( $token = $this->_next() ) === false )
         {
-            throw new \RuntimeException( 'Unexpected end of token stream.' );
+            throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
         }
         if ( $token->type !==  $tokenType )
         {
-            throw new \RuntimeException( sprintf( 'Unexpected token(%s) found.', $token->image ) );
+            throw new UnexpectedTokenException(
+                $token,
+                $this->_resolver->getPathnameForClass( $this->_className )
+            );
         }
         return $token;
     }

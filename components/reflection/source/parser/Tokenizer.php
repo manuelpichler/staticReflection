@@ -30,6 +30,7 @@ class Tokenizer
         T_ABSTRACT                  =>  ParserTokens::T_ABSTRACT,
         T_AS                        =>  ParserTokens::T_AS,
         T_CLASS                     =>  ParserTokens::T_CLASS,
+        T_CONST                     =>  ParserTokens::T_CONST,
         T_CURLY_OPEN                =>  ParserTokens::T_SCOPE_OPEN,
         T_DOC_COMMENT               =>  ParserTokens::T_DOC_COMMENT,
         T_DOLLAR_OPEN_CURLY_BRACES  =>  ParserTokens::T_SCOPE_OPEN,

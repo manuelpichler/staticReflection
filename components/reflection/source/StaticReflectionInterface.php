@@ -59,6 +59,13 @@ class StaticReflectionInterface extends \ReflectionClass
     private $_methods = null;
 
     /**
+     * Declared class/interface constants.
+     *
+     * @var array(string=>mixed)
+     */
+    private $_constants = null;
+
+    /**
      * Extended/Implemented interfaces.
      *
      * @var array(\ReflectionClass)
@@ -293,17 +300,51 @@ class StaticReflectionInterface extends \ReflectionClass
 
     public function hasConstant( $name )
     {
-        
+        return array_key_exists( $name, $this->getConstants() );
     }
 
     public function getConstant( $name )
     {
-        
+        if ( $this->hasConstant( $name ) )
+        {
+            $constants = $this->getConstants();
+            return $constants[$name];
+        }
+        return false;
     }
 
     public function getConstants()
     {
-        
+        return $this->_collectConstants( $this, (array) $this->_constants );
+    }
+
+    private function _collectConstants( \ReflectionClass $class, array $constantList )
+    {
+        foreach ( $class->getInterfaces() as $interface )
+        {
+            $constantList = $this->_collectConstants( $interface, $constantList );
+        }
+        return $constantList;
+    }
+
+    /**
+     * Initializes the declared constants for the reflected class/interface.
+     *
+     * @param array(string=>mixed) $contants Declared class/interface constants.
+     *
+     * @return void
+     * @access private
+     */
+    public function initConstants( array $contants )
+    {
+        if ( $this->_constants === null )
+        {
+            $this->_constants = $contants;
+        }
+        else
+        {
+            throw new \LogicException( 'Property constants already set' );
+        }
     }
 
     /**
