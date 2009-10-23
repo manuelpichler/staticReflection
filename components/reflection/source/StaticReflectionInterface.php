@@ -498,7 +498,7 @@ class StaticReflectionInterface extends \ReflectionClass
         {
             return $this->_methods[strtolower( $name )];
         }
-        return $this->_getMethod( $name );
+        return $this->_getMethodFromParentInterfaces( $name );
     }
 
     /**
@@ -509,7 +509,7 @@ class StaticReflectionInterface extends \ReflectionClass
      *
      * @return \ReflectionMethod
      */
-    private function _getMethod( $name )
+    private function _getMethodFromParentInterfaces( $name )
     {
         foreach ( $this->getInterfaces() as $interface )
         {
