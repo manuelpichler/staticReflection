@@ -131,6 +131,15 @@ class StaticReflectionClass extends StaticReflectionInterface
         }
     }
 
+    /**
+     * Returns an <b>array</b> with methods defined in the inheritence hierarchy
+     * of the reflection class. You can pass an optional filter argument that
+     * contains a bitfield of required method modifiers.
+     *
+     * @param integer $filter Optional filter for the returned methods
+     *
+     * @return array(\ReflectionMethod)
+     */
     public function getMethods( $filter = -1 )
     {
         if ( $this->_parentClass === null )
