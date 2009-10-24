@@ -76,6 +76,58 @@ class StaticReflectionInterfaceTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testIsSubclassOfReturnsTrueWhenExtendsInterface()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $interface->initInterfaces( array( new StaticReflectionInterface( __CLASS__ . 'Parent', '' ) ) );
+
+        $this->assertTrue( $interface->isSubclassOf( __CLASS__ . 'Parent' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsSubclassOfReturnsTrueWhenExtendsInterfaceAndIsCalledWithLeadingBackslash()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $interface->initInterfaces( array( new StaticReflectionInterface( __CLASS__ . 'Parent', '' ) ) );
+
+        $this->assertTrue( $interface->isSubclassOf( '\\' . __CLASS__ . 'Parent' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsSubclassOfReturnsFalseWhenNotExtendsInterface()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $this->assertFalse( $interface->isSubclassOf( __CLASS__ . 'Parent' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsSubclassOfReturnsFalseOnClaseItSelf()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $this->assertFalse( $interface->isSubclassOf( __CLASS__ ) );
+    }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     */
     public function testGetFileNameReturnsExpectedResult()
     {
         $interface = new StaticReflectionInterface( 'foo_Bar', '' );

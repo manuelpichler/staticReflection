@@ -298,9 +298,17 @@ class StaticReflectionInterface extends \ReflectionClass
         
     }
 
+    /**
+     * Checks that the reflected interface is a child of the given class name.
+     *
+     * @param string $class Name of the searched class.
+     *
+     * @return boolean
+     */
     public function isSubclassOf( $class )
     {
-        
+        $interfaceNames = array_map( 'strtolower', $this->getInterfaceNames() );
+        return in_array( ltrim( strtolower( $class ), '\\' ), $interfaceNames );
     }
 
     /**
