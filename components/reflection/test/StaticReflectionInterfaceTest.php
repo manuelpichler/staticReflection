@@ -1047,4 +1047,18 @@ class StaticReflectionInterfaceTest extends BaseTest
         $interface->initMethods( array() );
         $interface->initMethods( array() );
     }
+
+    /**
+     * @return void
+     * @covers \de\buzz2ee\reflection\StaticReflectionInterface
+     * @group reflection
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitConstantsThrowsLogicExceptionWhenCalledMoreThanOnce()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $interface->initConstants( array() );
+        $interface->initConstants( array() );
+    }
 }
