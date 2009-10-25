@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection\parser;
+namespace org\pdepend\reflection\parser;
 
 /**
  * Source tokenizer.
@@ -63,7 +63,7 @@ class Tokenizer
     );
 
     /**
-     * @var array(\de\buzz2ee\reflection\Token)
+     * @var array(\org\pdepend\reflection\Token)
      */
     private $_tokens = array();
 
@@ -85,7 +85,7 @@ class Tokenizer
     }
 
     /**
-     * @return \de\buzz2ee\reflection\parser\Token
+     * @return \org\pdepend\reflection\parser\Token
      */
     public function next()
     {
@@ -95,7 +95,7 @@ class Tokenizer
     }
 
     /**
-     * @return \de\buzz2ee\reflection\parser\Token
+     * @return \org\pdepend\reflection\parser\Token
      */
     public function peek()
     {

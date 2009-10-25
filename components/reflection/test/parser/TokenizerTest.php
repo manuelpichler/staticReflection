@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection\parser;
+namespace org\pdepend\reflection\parser;
 
 require_once 'BaseTest.php';
 
@@ -16,7 +16,7 @@ require_once 'BaseTest.php';
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class TokenizerTest extends \de\buzz2ee\reflection\BaseTest
+class TokenizerTest extends \org\pdepend\reflection\BaseTest
 {
     /**
      * Test source code
@@ -38,7 +38,7 @@ class TokenizerTest extends \de\buzz2ee\reflection\BaseTest
     /**
      * The test tokenizer.
      *
-     * @var \de\buzz2ee\reflection\parser\Tokenizer
+     * @var \org\pdepend\reflection\parser\Tokenizer
      */
     private $_fixture = null;
 
@@ -54,7 +54,7 @@ class TokenizerTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Tokenizer
+     * @covers \org\pdepend\reflection\parser\Tokenizer
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -78,7 +78,7 @@ class TokenizerTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Tokenizer
+     * @covers \org\pdepend\reflection\parser\Tokenizer
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -98,7 +98,7 @@ class TokenizerTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Tokenizer
+     * @covers \org\pdepend\reflection\parser\Tokenizer
      * @group reflection
      * @group reflection::parser
      * @group unittest

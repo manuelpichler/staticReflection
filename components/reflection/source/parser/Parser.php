@@ -1,21 +1,21 @@
 <?php
 
-namespace de\buzz2ee\reflection\parser;
+namespace org\pdepend\reflection\parser;
 
-use de\buzz2ee\reflection\interfaces\SourceResolver;
+use org\pdepend\reflection\interfaces\SourceResolver;
 
-use de\buzz2ee\reflection\StaticReflectionClass;
-use de\buzz2ee\reflection\StaticReflectionMethod;
-use de\buzz2ee\reflection\StaticReflectionInterface;
-use de\buzz2ee\reflection\StaticReflectionParameter;
-use de\buzz2ee\reflection\StaticReflectionProperty;
-use de\buzz2ee\reflection\exceptions\EndOfTokenStreamException;
-use de\buzz2ee\reflection\exceptions\UnexpectedTokenException;
+use org\pdepend\reflection\StaticReflectionClass;
+use org\pdepend\reflection\StaticReflectionMethod;
+use org\pdepend\reflection\StaticReflectionInterface;
+use org\pdepend\reflection\StaticReflectionParameter;
+use org\pdepend\reflection\StaticReflectionProperty;
+use org\pdepend\reflection\exceptions\EndOfTokenStreamException;
+use org\pdepend\reflection\exceptions\UnexpectedTokenException;
 
 class Parser
 {
     /**
-     * @var \de\buzz2ee\reflection\interfaces\SourceResolver
+     * @var \org\pdepend\reflection\interfaces\SourceResolver
      */
     private $_resolver = null;
 
@@ -42,14 +42,14 @@ class Parser
     /**
      * Parsed methods within a class or interface scope.
      *
-     * @var array(\de\buzz2ee\reflection\StaticReflectionMethod)
+     * @var array(\org\pdepend\reflection\StaticReflectionMethod)
      */
     private $_methods = array();
 
     /**
      * Parsed properties within a class scope.
      *
-     * @var array(\de\buzz2ee\reflection\StaticReflectionMethod)
+     * @var array(\org\pdepend\reflection\StaticReflectionMethod)
      */
     private $_properties = array();
 
@@ -61,7 +61,7 @@ class Parser
     private $_constants = array();
 
     /**
-     * @param \de\buzz2ee\reflection\interfaces\SourceResolver $resolver
+     * @param \org\pdepend\reflection\interfaces\SourceResolver $resolver
      * @param string                                           $className
      */
     public function __construct( SourceResolver $resolver, $className )
@@ -442,7 +442,7 @@ class Parser
      * @param string  $docComment Optional doc comment for the parsed method.
      * @param integer $modifiers  Bitfield with method modifiers.
      *
-     * @return \de\buzz2ee\reflection\StaticReflectionClass
+     * @return \org\pdepend\reflection\StaticReflectionClass
      */
     private function _parseMethodDeclaration( $docComment, $modifiers )
     {
@@ -626,7 +626,7 @@ class Parser
     /**
      * @param integer $tokenType
      *
-     * @return \de\buzz2ee\reflection\parser\Token
+     * @return \org\pdepend\reflection\parser\Token
      */
     private function _consumeToken( $tokenType )
     {
@@ -655,7 +655,7 @@ class Parser
     }
 
     /**
-     * @return \de\buzz2ee\reflection\parser\Token
+     * @return \org\pdepend\reflection\parser\Token
      */
     private function _peek()
     {
@@ -667,7 +667,7 @@ class Parser
     }
 
     /**
-     * @return \de\buzz2ee\reflection\parser\Token
+     * @return \org\pdepend\reflection\parser\Token
      */
     private function _next()
     {

@@ -1,5 +1,5 @@
 <?php
-namespace de\buzz2ee\reflection\exceptions;
+namespace org\pdepend\reflection\exceptions;
 
 class EndOfTokenStreamException extends ParserException
 {

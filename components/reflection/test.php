@@ -1,6 +1,6 @@
 <?php
-use \de\buzz2ee\reflection\parser\Parser;
-use \de\buzz2ee\reflection\interfaces\SourceResolver;
+use \org\pdepend\reflection\parser\Parser;
+use \org\pdepend\reflection\interfaces\SourceResolver;
 
 function __autoload( $className )
 {
@@ -13,7 +13,7 @@ if ( isset( $argv[1] ) )
 }
 else
 {
-    $className = 'de\buzz2ee\reflection\parser\Parser';
+    $className = 'org\pdepend\reflection\parser\Parser';
 }
 
 class DynamicSourceResolver implements SourceResolver
@@ -67,7 +67,7 @@ class DynamicSourceResolver implements SourceResolver
     }
 }
 
-$resolver = new DynamicSourceResolver( __DIR__ . '/test', 'de\buzz2ee\reflection' );
+$resolver = new DynamicSourceResolver( __DIR__ . '/test', 'org\pdepend\reflection' );
 
 $parser = new Parser( $resolver, $className );
 var_dump( $parser->parse() );

@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection\interfaces;
+namespace org\pdepend\reflection\interfaces;
 
 /**
  * Interface with different class, method and/op property modifiers.

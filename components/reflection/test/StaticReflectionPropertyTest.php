@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection;
+namespace org\pdepend\reflection;
 
 require_once 'BaseTest.php';
 
@@ -20,7 +20,7 @@ class StaticReflectionPropertyTest extends BaseTest
 {
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -31,7 +31,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -43,7 +43,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -55,7 +55,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -67,7 +67,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -79,7 +79,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -91,7 +91,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -103,7 +103,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -115,7 +115,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -127,7 +127,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -139,7 +139,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -151,7 +151,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -163,7 +163,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -175,7 +175,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      */
@@ -187,7 +187,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      * @expectedException \ReflectionException
@@ -203,7 +203,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      * @expectedException \ReflectionException
@@ -216,7 +216,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      * @expectedException \ReflectionException
@@ -229,7 +229,7 @@ class StaticReflectionPropertyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionProperty
+     * @covers \org\pdepend\reflection\StaticReflectionProperty
      * @group reflection
      * @group unittest
      * @expectedException \ReflectionException

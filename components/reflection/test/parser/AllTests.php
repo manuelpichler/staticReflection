@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection\parser;
+namespace org\pdepend\reflection\parser;
 
 require_once 'PHPUnit/Framework.php';
 
@@ -26,14 +26,14 @@ class AllTests extends \PHPUnit_Framework_TestSuite
      */
     public function __construct()
     {
-        $this->setName( 'com::example::reflection::parser::AllTests' );
+        $this->setName( 'org::pdepend::reflection::parser::AllTests' );
 
         \PHPUnit_Util_Filter::addDirectoryToWhitelist(
             realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
-        $this->addTestSuite( '\de\buzz2ee\reflection\parser\ParserTest' );
-        $this->addTestSuite( '\de\buzz2ee\reflection\parser\TokenizerTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\parser\ParserTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\parser\TokenizerTest' );
     }
 
     /**

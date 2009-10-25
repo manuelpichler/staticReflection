@@ -1,5 +1,5 @@
 <?php
-namespace de\buzz2ee\reflection;
+namespace org\pdepend\reflection;
 
 require_once 'PHPUnit/Framework/TestCase.php';
 
@@ -106,7 +106,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
 
     protected function createSourceResolver()
     {
-        $resolver = $this->getMock( 'de\buzz2ee\reflection\interfaces\SourceResolver' );
+        $resolver = $this->getMock( 'org\pdepend\reflection\interfaces\SourceResolver' );
         $resolver->expects( $this->any() )
             ->method( 'getPathnameForClass' )
             ->will( $this->returnCallback( array( $this, 'getPathnameForClass' ) ) );

@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection;
+namespace org\pdepend\reflection;
 
 require_once 'PHPUnit/Framework.php';
 
@@ -35,7 +35,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
      */
     public function __construct()
     {
-        $this->setName( 'com::example::reflection::AllTests' );
+        $this->setName( 'org::pdepend::reflection::AllTests' );
 
         \PHPUnit_Util_Filter::addDirectoryToWhitelist(
             realpath( dirname( __FILE__ ) . '/../source/' )
@@ -43,15 +43,15 @@ class AllTests extends \PHPUnit_Framework_TestSuite
 
         $this->addTest( parser\AllTests::suite() );
 
-        $this->addTestSuite( '\de\buzz2ee\reflection\CompatibilityReflectionClassTest' );
-        $this->addTestSuite( '\de\buzz2ee\reflection\CompatibilityReflectionInterfaceTest' );
-        $this->addTestSuite( '\de\buzz2ee\reflection\CompatibilityReflectionMethodTest' );
-        $this->addTestSuite( '\de\buzz2ee\reflection\CompatibilityReflectionParameterTest' );
-        $this->addTestSuite( '\de\buzz2ee\reflection\StaticReflectionClassTest' );
-        $this->addTestSuite( '\de\buzz2ee\reflection\StaticReflectionInterfaceTest' );
-        $this->addTestSuite( '\de\buzz2ee\reflection\StaticReflectionMethodTest' );
-        $this->addTestSuite( '\de\buzz2ee\reflection\StaticReflectionParameterTest' );
-        $this->addTestSuite( '\de\buzz2ee\reflection\StaticReflectionPropertyTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\CompatibilityReflectionClassTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\CompatibilityReflectionInterfaceTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\CompatibilityReflectionMethodTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\CompatibilityReflectionParameterTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\StaticReflectionClassTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\StaticReflectionInterfaceTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\StaticReflectionMethodTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\StaticReflectionParameterTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\StaticReflectionPropertyTest' );
     }
 
     /**

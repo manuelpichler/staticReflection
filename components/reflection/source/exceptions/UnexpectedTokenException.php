@@ -5,9 +5,9 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection\exceptions;
+namespace org\pdepend\reflection\exceptions;
 
-use de\buzz2ee\reflection\parser\Token;
+use org\pdepend\reflection\parser\Token;
 
 /**
  * This type of exception will be thrown when the parser detects an invalid
@@ -22,7 +22,7 @@ class UnexpectedTokenException extends ParserException
     /**
      * Constructs a new unexpected token exception.
      *
-     * @param \de\buzz2ee\reflection\parser\Token $token    The unexpected token.
+     * @param \org\pdepend\reflection\parser\Token $token    The unexpected token.
      * @param string                              $fileName The parsed source file.
      */
     public function __construct( Token $token, $fileName )

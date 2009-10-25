@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection;
+namespace org\pdepend\reflection;
 
 /**
  * Static parameter implementation.

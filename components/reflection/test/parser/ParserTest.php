@@ -5,12 +5,12 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection\parser;
+namespace org\pdepend\reflection\parser;
 
-use \de\buzz2ee\reflection\StaticReflectionClass;
-use \de\buzz2ee\reflection\StaticReflectionInterface;
-use \de\buzz2ee\reflection\StaticReflectionMethod;
-use \de\buzz2ee\reflection\StaticReflectionProperty;
+use \org\pdepend\reflection\StaticReflectionClass;
+use \org\pdepend\reflection\StaticReflectionInterface;
+use \org\pdepend\reflection\StaticReflectionMethod;
+use \org\pdepend\reflection\StaticReflectionProperty;
 
 require_once 'BaseTest.php';
 
@@ -21,11 +21,11 @@ require_once 'BaseTest.php';
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class ParserTest extends \de\buzz2ee\reflection\BaseTest
+class ParserTest extends \org\pdepend\reflection\BaseTest
 {
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -38,7 +38,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -51,7 +51,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -64,7 +64,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -77,7 +77,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -90,7 +90,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -103,7 +103,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -118,7 +118,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -131,7 +131,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -144,7 +144,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -159,7 +159,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -174,7 +174,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -189,7 +189,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -204,7 +204,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -219,7 +219,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -234,7 +234,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -249,7 +249,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -264,7 +264,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -283,7 +283,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -298,7 +298,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -313,7 +313,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -326,7 +326,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -346,7 +346,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -359,7 +359,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -372,7 +372,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -392,7 +392,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -405,7 +405,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -418,7 +418,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -431,7 +431,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -444,7 +444,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -457,7 +457,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -470,7 +470,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -483,7 +483,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -496,7 +496,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -509,7 +509,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -522,7 +522,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -537,7 +537,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -557,7 +557,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -572,7 +572,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -585,7 +585,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -598,7 +598,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -611,7 +611,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -624,7 +624,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -637,7 +637,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -653,7 +653,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -666,7 +666,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -679,8 +679,8 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
-     * @covers \de\buzz2ee\reflection\parser\ParserTokens
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -693,8 +693,8 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
-     * @covers \de\buzz2ee\reflection\parser\ParserTokens
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -707,11 +707,11 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidClassDeclaration()
     {
@@ -721,11 +721,11 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidInterfaceDeclaration()
     {
@@ -735,11 +735,11 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidImplementedInterfaceDeclaration()
     {
@@ -749,11 +749,11 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForUnclosedClassScope()
     {
@@ -763,11 +763,11 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \de\buzz2ee\reflection\exceptions\UnexpectedTokenException
+     * @expectedException \org\pdepend\reflection\exceptions\UnexpectedTokenException
      */
     public function testParserThrowsExceptionForUnexpectedTokenInClassScope()
     {
@@ -777,11 +777,11 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \de\buzz2ee\reflection\exceptions\UnexpectedTokenException
+     * @expectedException \org\pdepend\reflection\exceptions\UnexpectedTokenException
      */
     public function testParserThrowsExceptionForInvalidConstantValue()
     {
@@ -791,11 +791,11 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \de\buzz2ee\reflection\exceptions\UnexpectedTokenException
+     * @expectedException \org\pdepend\reflection\exceptions\UnexpectedTokenException
      */
     public function testParserThrowsExceptionForInvalidNamespaceDeclaration()
     {
@@ -805,11 +805,11 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForUnexpectedEndOfNamespaceDeclaration()
     {
@@ -819,11 +819,11 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidUseStatement()
     {
@@ -833,11 +833,11 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidMethodDeclatation()
     {
@@ -847,11 +847,11 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForUnclosedMethodScope()
     {
@@ -861,11 +861,11 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \de\buzz2ee\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForUnclosedConstantDeclaration()
     {
@@ -875,7 +875,7 @@ class ParserTest extends \de\buzz2ee\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\Parser
      * @group reflection
      * @group reflection::parser
      * @group unittest

@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection;
+namespace org\pdepend\reflection;
 
 require_once 'BaseTest.php';
 
@@ -20,7 +20,7 @@ class StaticReflectionMethodTest extends BaseTest
 {
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -32,7 +32,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -44,7 +44,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -59,7 +59,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -71,7 +71,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -83,7 +83,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -95,7 +95,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -107,7 +107,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -119,7 +119,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -131,7 +131,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -143,7 +143,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -155,7 +155,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -167,7 +167,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -179,7 +179,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -191,7 +191,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -203,7 +203,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -215,7 +215,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -227,7 +227,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -239,7 +239,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -251,7 +251,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -265,7 +265,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -282,7 +282,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -296,7 +296,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -310,7 +310,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -322,7 +322,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -334,7 +334,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -346,7 +346,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -358,7 +358,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -370,7 +370,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -382,7 +382,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -397,7 +397,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -411,7 +411,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -425,7 +425,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -437,7 +437,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -456,7 +456,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -468,7 +468,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -487,7 +487,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -499,7 +499,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      */
@@ -511,7 +511,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      * @expectedException \ReflectionException
@@ -523,7 +523,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      * @expectedException \ReflectionException
@@ -536,7 +536,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      * @expectedException \ReflectionException
@@ -549,7 +549,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      * @expectedException \LogicException
@@ -564,7 +564,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      * @expectedException \LogicException
@@ -578,7 +578,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      * @expectedException \LogicException
@@ -592,7 +592,7 @@ class StaticReflectionMethodTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionMethod
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
      * @group reflection
      * @group unittest
      * @expectedException \LogicException

@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection\exceptions;
+namespace org\pdepend\reflection\exceptions;
 
 /**
  * Base class for parser related exceptions.

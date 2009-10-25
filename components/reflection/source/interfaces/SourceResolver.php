@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection\interfaces;
+namespace org\pdepend\reflection\interfaces;
 
 /**
  * Base interface for a source resolver.

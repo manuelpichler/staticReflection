@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection;
+namespace org\pdepend\reflection;
 
 require_once 'BaseCompatibilityTest.php';
 
@@ -21,7 +21,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
 {
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\StaticReflectionParameter
      * @group reflection
      * @group compatibilitytest
      */
@@ -96,7 +96,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @param string  $methodName Name of the declaring method.
      * @param integer $position   The parameter position.
      *
-     * @return \de\buzz2ee\reflection\StaticReflectionParameter
+     * @return \org\pdepend\reflection\StaticReflectionParameter
      */
     protected function createStatic( $className, $methodName, $position )
     {

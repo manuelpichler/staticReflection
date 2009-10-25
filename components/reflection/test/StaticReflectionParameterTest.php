@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection;
+namespace org\pdepend\reflection;
 
 require_once 'BaseTest.php';
 
@@ -20,7 +20,7 @@ class StaticReflectionParameterTest extends BaseTest
 {
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -33,7 +33,7 @@ class StaticReflectionParameterTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -46,7 +46,7 @@ class StaticReflectionParameterTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -59,7 +59,7 @@ class StaticReflectionParameterTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -75,7 +75,7 @@ class StaticReflectionParameterTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -91,7 +91,7 @@ class StaticReflectionParameterTest extends BaseTest
 
     /**
      * @return void
-     * @covers \de\buzz2ee\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest

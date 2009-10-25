@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace de\buzz2ee\reflection;
+namespace org\pdepend\reflection;
 
 /**
  * Static method implementation.
@@ -437,7 +437,7 @@ class StaticReflectionMethod extends \ReflectionMethod
     /**
      * Initializes the parameters declared for the reflected method.
      *
-     * @param array(\de\buzz2ee\reflection\StaticReflectionParameter) $parameters
+     * @param array(\org\pdepend\reflection\StaticReflectionParameter) $parameters
      *        Allowed parameters for the reflected method.
      *
      * @return void
@@ -458,7 +458,7 @@ class StaticReflectionMethod extends \ReflectionMethod
     /**
      * Initializes the parameters declared for the reflected method.
      *
-     * @param array(\de\buzz2ee\reflection\StaticReflectionParameter) $parameters
+     * @param array(\org\pdepend\reflection\StaticReflectionParameter) $parameters
      *        Allowed parameters for the reflected method.
      *
      * @return void
