@@ -106,6 +106,18 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
+     * Checks that the reflected class is a child of the given class name.
+     *
+     * @param string $class Name of the searched class.
+     *
+     * @return boolean
+     */
+    public function isSubclassOf( $class )
+    {
+
+    }
+
+    /**
      * Returns the parent of the reflected class or <b>false</b> when no parent
      * exists.
      *
