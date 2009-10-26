@@ -590,6 +590,32 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserHandlesPropertyWithArrayDefaultValue()
+    {
+        $parser = new Parser( $this->createParserContext(), 'PropertyWithArrayDefaultValue' );
+        $this->assertType( StaticReflectionProperty::TYPE, $parser->parse()->getProperty( 'foo' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesPropertyWithNestedArrayDefaultValue()
+    {
+        $parser = new Parser( $this->createParserContext(), 'PropertyWithNestedArrayDefaultValue' );
+        $this->assertType( StaticReflectionProperty::TYPE, $parser->parse()->getProperty( '_bar' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserFlagsPropertyAsPrivate()
     {
         $parser = new Parser( $this->createParserContext(), 'PropertyPrivate' );

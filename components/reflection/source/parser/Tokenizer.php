@@ -96,6 +96,8 @@ class Tokenizer
      * @var array(string=>integer)
      */
     private $_tokenCharMap = array(
+        ')'  =>  ParserTokens::T_BLOCK_CLOSE,
+        '('  =>  ParserTokens::T_BLOCK_OPEN,
         ','  =>  ParserTokens::T_COMMA,
         '}'  =>  ParserTokens::T_SCOPE_CLOSE,
         '{'  =>  ParserTokens::T_SCOPE_OPEN,

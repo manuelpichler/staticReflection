@@ -583,6 +583,10 @@ class Parser
                     $this->_consumeToken( $tokenType );
                     break;
 
+                case ParserTokens::T_BLOCK_OPEN:
+                    $this->_parseBlock();
+                    break;
+
                 case ParserTokens::T_COMMA:
                 case ParserTokens::T_SEMICOLON:
                     break 2;
@@ -662,6 +666,36 @@ class Parser
             }
 
             if ( $scope === 0 )
+            {
+                return $token;
+            }
+        }
+        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
+    }
+
+    /**
+     * Temporary parse method until the parser supports static array parsing.
+     *
+     * @return \org\pdepend\reflection\parserToken
+     */
+    private function _parseBlock()
+    {
+        $block = 0;
+
+        while ( is_object( $token = $this->_next() ) )
+        {
+            switch ( $token->type )
+            {
+                case ParserTokens::T_BLOCK_OPEN:
+                    ++$block;
+                    break;
+
+                case ParserTokens::T_BLOCK_CLOSE:
+                    --$block;
+                    break;
+            }
+
+            if ( $block === 0 )
             {
                 return $token;
             }
