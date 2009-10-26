@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace org\pdepend\reflection;
+namespace org\pdepend\reflection\api;
 
 require_once 'BaseCompatibilityTest.php';
 

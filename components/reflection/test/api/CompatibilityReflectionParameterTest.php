@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace org\pdepend\reflection;
+namespace org\pdepend\reflection\api;
 
 require_once 'BaseCompatibilityTest.php';
 
@@ -21,7 +21,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
 {
     /**
      * @return void
-     * @covers \org\pdepend\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group compatibilitytest
      */
@@ -96,7 +96,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @param string  $methodName Name of the declaring method.
      * @param integer $position   The parameter position.
      *
-     * @return \org\pdepend\reflection\StaticReflectionParameter
+     * @return \org\pdepend\reflection\api\StaticReflectionParameter
      */
     protected function createStatic( $className, $methodName, $position )
     {

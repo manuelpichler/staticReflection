@@ -4,20 +4,20 @@ namespace org\pdepend\reflection\parser;
 
 use org\pdepend\reflection\interfaces\SourceResolver;
 
-use org\pdepend\reflection\StaticReflectionClass;
-use org\pdepend\reflection\StaticReflectionMethod;
-use org\pdepend\reflection\StaticReflectionInterface;
-use org\pdepend\reflection\StaticReflectionParameter;
-use org\pdepend\reflection\StaticReflectionProperty;
+use org\pdepend\reflection\api\StaticReflectionClass;
+use org\pdepend\reflection\api\StaticReflectionMethod;
+use org\pdepend\reflection\api\StaticReflectionInterface;
+use org\pdepend\reflection\api\StaticReflectionParameter;
+use org\pdepend\reflection\api\StaticReflectionProperty;
 use org\pdepend\reflection\exceptions\EndOfTokenStreamException;
 use org\pdepend\reflection\exceptions\UnexpectedTokenException;
 
 class Parser
 {
     /**
-     * @var \org\pdepend\reflection\interfaces\SourceResolver
+     * @var \org\pdepend\reflection\parser\ParserContext
      */
-    private $_resolver = null;
+    private $_context = null;
 
     /**
      * @var string
@@ -25,7 +25,7 @@ class Parser
     private $_className = null;
 
     /**
-     * @var \de\buzz2ee\lang\Tokenizer
+     * @var \org\pdepend\reflection\parser\Tokenizer
      */
     private $_tokenizer = null;
 
@@ -42,14 +42,14 @@ class Parser
     /**
      * Parsed methods within a class or interface scope.
      *
-     * @var array(\org\pdepend\reflection\StaticReflectionMethod)
+     * @var array(\org\pdepend\reflection\api\StaticReflectionMethod)
      */
     private $_methods = array();
 
     /**
      * Parsed properties within a class scope.
      *
-     * @var array(\org\pdepend\reflection\StaticReflectionMethod)
+     * @var array(\org\pdepend\reflection\api\StaticReflectionMethod)
      */
     private $_properties = array();
 
@@ -61,21 +61,21 @@ class Parser
     private $_constants = array();
 
     /**
-     * @param \org\pdepend\reflection\interfaces\SourceResolver $resolver
-     * @param string                                           $className
+     * @param \org\pdepend\reflection\parser\ParserContext $context
+     * @param string                                       $className
      */
-    public function __construct( SourceResolver $resolver, $className )
+    public function __construct( ParserContext $context, $className )
     {
-        $this->_resolver  = $resolver;
+        $this->_context   = $context;
         $this->_className = trim( $className, '\\' );
     }
 
     /**
-     * @return \de\buzz2ee\lang\interfaces\ReflectionClass
+     * @return \org\pdepend\reflection\api\StaticReflectionInterface
      */
     public function parse()
     {
-        $this->_tokenizer = new Tokenizer( $this->_resolver->getSourceForClass( $this->_className ) );
+        $this->_tokenizer = new Tokenizer( $this->_context->getSource( $this->_className ) );
 
         $modifiers  = 0;
         $docComment = '';
@@ -124,7 +124,7 @@ class Parser
 
             if ( $class !== null && $class->getName() === $this->_className )
             {
-                $class->initFileName( $this->_resolver->getPathnameForClass( $this->_className ) );
+                $class->initFileName( $this->_context->getPathname( $this->_className ) );
                 return $class;
             }
         }
@@ -159,11 +159,11 @@ class Parser
                 default:
                     throw new UnexpectedTokenException(
                         $token,
-                        $this->_resolver->getPathnameForClass( $this->_className )
+                        $this->_context->getPathname( $this->_className )
                     );
             }
         }
-        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
     }
 
     private function _parseUseStatements()
@@ -202,11 +202,11 @@ class Parser
                     return $token;
             }
         }
-        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
     }
 
     /**
-     * @return \de\buzz2ee\lang\StaticReflectionClass
+     * @return \org\pdepend\reflection\api\StaticReflectionClass
      */
     private function _parseClassDeclaration( $docComment, $modifiers )
     {
@@ -239,11 +239,11 @@ class Parser
                     return $class;
             }
         }
-        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
     }
 
     /**
-     * @return \de\buzz2ee\lang\StaticReflectionInterface
+     * @return \org\pdepend\reflection\api\StaticReflectionInterface
      */
     private function _parseInterfaceDeclaration( $docComment )
     {
@@ -271,20 +271,19 @@ class Parser
                     return $class;
             }
         }
-        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
     }
 
     /**
-     * @return \de\buzz2ee\lang\StaticReflectionClass
+     * @return \ReflectionClass
      */
     private function _parseParentClass()
     {
-        $parser = new static( $this->_resolver, $this->_parseClassOrInterfaceName() );
-        return $parser->parse();
+        return $this->_context->getClass( $this->_parseClassOrInterfaceName() );
     }
 
     /**
-     * @return array(\de\buzz2ee\lang\StaticReflectionInterface)
+     * @return array(\ReflectionClass)
      */
     private function _parseInterfaceList()
     {
@@ -308,16 +307,15 @@ class Parser
                     break;
             }
         }
-        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
     }
 
     /**
-     * @return \de\buzz2ee\lang\StaticReflectionInterface
+     * @return \ReflectionClass
      */
     private function _parseInterface()
     {
-        $parser = new static( $this->_resolver, $this->_parseClassOrInterfaceName() );
-        return $parser->parse();
+        return $this->_context->getClass( $this->_parseClassOrInterfaceName() );
     }
 
     /**
@@ -429,11 +427,11 @@ class Parser
                 default:
                     throw new UnexpectedTokenException(
                         $this->_next(),
-                        $this->_resolver->getPathnameForClass( $this->_className )
+                        $this->_context->getPathname( $this->_className )
                     );
             }
         }
-        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
     }
 
     /**
@@ -442,7 +440,7 @@ class Parser
      * @param string  $docComment Optional doc comment for the parsed method.
      * @param integer $modifiers  Bitfield with method modifiers.
      *
-     * @return \org\pdepend\reflection\StaticReflectionClass
+     * @return \org\pdepend\reflection\api\StaticReflectionClass
      */
     private function _parseMethodDeclaration( $docComment, $modifiers )
     {
@@ -479,7 +477,7 @@ class Parser
                     return;
             }
         }
-        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
     }
 
     private function _parsePropertyDeclarations( $docComment, $modifiers )
@@ -568,12 +566,12 @@ class Parser
                 default:
                     throw new UnexpectedTokenException(
                         $this->_next(),
-                        $this->_resolver->getPathnameForClass( $this->_className )
+                        $this->_context->getPathname( $this->_className )
                     );
             }
             $this->_consumeComments();
         }
-        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
     }
 
     private function _parseScope()
@@ -598,7 +596,7 @@ class Parser
                 return $token;
             }
         }
-        throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
     }
 
     /**
@@ -632,13 +630,13 @@ class Parser
     {
         if ( is_object( $token = $this->_next() ) === false )
         {
-            throw new EndOfTokenStreamException( $this->_resolver->getPathnameForClass( $this->_className ) );
+            throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
         }
         if ( $token->type !==  $tokenType )
         {
             throw new UnexpectedTokenException(
                 $token,
-                $this->_resolver->getPathnameForClass( $this->_className )
+                $this->_context->getPathname( $this->_className )
             );
         }
         return $token;

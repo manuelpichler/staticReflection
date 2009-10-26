@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace org\pdepend\reflection;
+namespace org\pdepend\reflection\api;
 
 /**
  * Static method implementation.
@@ -453,7 +453,7 @@ class StaticReflectionMethod extends \ReflectionMethod
     /**
      * Initializes the parameters declared for the reflected method.
      *
-     * @param array(\org\pdepend\reflection\StaticReflectionParameter) $parameters
+     * @param array(\org\pdepend\reflection\api\StaticReflectionParameter) $parameters
      *        Allowed parameters for the reflected method.
      *
      * @return void
@@ -474,7 +474,7 @@ class StaticReflectionMethod extends \ReflectionMethod
     /**
      * Initializes the parameters declared for the reflected method.
      *
-     * @param array(\org\pdepend\reflection\StaticReflectionParameter) $parameters
+     * @param array(\org\pdepend\reflection\api\StaticReflectionParameter) $parameters
      *        Allowed parameters for the reflected method.
      *
      * @return void

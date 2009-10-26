@@ -5,7 +5,9 @@
  * to provide similar functionallities.
  */
 
-namespace org\pdepend\reflection;
+namespace org\pdepend\reflection\api;
+
+use org\pdepend\reflection\parser\Parser;
 
 require_once 'BaseTest.php';
 
@@ -17,7 +19,7 @@ require_once 'BaseTest.php';
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-abstract class BaseCompatibilityTest extends BaseTest
+abstract class BaseCompatibilityTest extends \org\pdepend\reflection\BaseTest
 {
     /**
      * Creates an internal reflection class instance.
@@ -41,7 +43,7 @@ abstract class BaseCompatibilityTest extends BaseTest
      */
     protected function createStaticClass( $className )
     {
-        $parser = new parser\Parser( $this->createSourceResolver(), $className );
+        $parser = new Parser( $this->createParserContext(), $className );
         return $parser->parse();
     }
 }

@@ -104,13 +104,23 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         throw new \ErrorException( 'Cannot locate pathname for class: ' . $className );
     }
 
-    protected function createSourceResolver()
+    protected function createParserContext()
+    {
+        $session  = new ReflectionSession();
+        $resolver = $this->_createSourceResolver();
+
+        $context = new parser\ParserContext( $session, $resolver );
+        $session->addBuilder( new StaticReflectionBuilder( $context ) );
+
+        return $context;
+    }
+
+    private function _createSourceResolver()
     {
         $resolver = $this->getMock( 'org\pdepend\reflection\interfaces\SourceResolver' );
         $resolver->expects( $this->any() )
             ->method( 'getPathnameForClass' )
             ->will( $this->returnCallback( array( $this, 'getPathnameForClass' ) ) );
-            //->will( $this->returnValue( array( $this, 'getPathnameForClass' ) ) );
         $resolver->expects( $this->atLeastOnce() )
             ->method( 'getSourceForClass' )
             ->will( $this->returnCallback( array( $this, 'getSourceForClass' ) ) );

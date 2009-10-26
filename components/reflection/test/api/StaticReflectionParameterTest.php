@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace org\pdepend\reflection;
+namespace org\pdepend\reflection\api;
 
 require_once 'BaseTest.php';
 
@@ -16,11 +16,11 @@ require_once 'BaseTest.php';
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class StaticReflectionParameterTest extends BaseTest
+class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 {
     /**
      * @return void
-     * @covers \org\pdepend\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -33,7 +33,7 @@ class StaticReflectionParameterTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -46,7 +46,7 @@ class StaticReflectionParameterTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -59,7 +59,7 @@ class StaticReflectionParameterTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -75,7 +75,7 @@ class StaticReflectionParameterTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -91,7 +91,7 @@ class StaticReflectionParameterTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\StaticReflectionParameter
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest

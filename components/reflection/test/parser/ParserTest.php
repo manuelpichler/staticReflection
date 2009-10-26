@@ -7,10 +7,10 @@
 
 namespace org\pdepend\reflection\parser;
 
-use \org\pdepend\reflection\StaticReflectionClass;
-use \org\pdepend\reflection\StaticReflectionInterface;
-use \org\pdepend\reflection\StaticReflectionMethod;
-use \org\pdepend\reflection\StaticReflectionProperty;
+use \org\pdepend\reflection\api\StaticReflectionClass;
+use \org\pdepend\reflection\api\StaticReflectionInterface;
+use \org\pdepend\reflection\api\StaticReflectionMethod;
+use \org\pdepend\reflection\api\StaticReflectionProperty;
 
 require_once 'BaseTest.php';
 
@@ -32,7 +32,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserReturnsInstanceOfTypeStaticClass()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithoutNamespace' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithoutNamespace' );
         $this->assertType( StaticReflectionClass::TYPE, $parser->parse() );
     }
 
@@ -45,7 +45,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesClassParentByDefaultWithFalse()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithoutNamespace' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithoutNamespace' );
         $this->assertFalse( $parser->parse()->getParentClass() );
     }
 
@@ -58,7 +58,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesClassWithoutInterfaceByDefaultAsEmpty()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithoutNamespace' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithoutNamespace' );
         $this->assertSame( array(), $parser->parse()->getInterfaces() );
     }
 
@@ -71,7 +71,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesClassWithParentClass()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithParentClass' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithParentClass' );
         $this->assertType( StaticReflectionInterface::TYPE, $parser->parse()->getParentClass() );
     }
 
@@ -84,7 +84,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesCommentInParentClassName()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithCommentInParentClassName' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithCommentInParentClassName' );
         $this->assertSame( 'c\w\n\ClassWithNamespace', $parser->parse()->getParentClass()->getName() );
     }
 
@@ -97,7 +97,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserAcceptsClassNameWithLeadingNamespaceSeparatorChar()
     {
-        $parser = new Parser( $this->createSourceResolver(), '\c\w\n\ClassWithNamespace' );
+        $parser = new Parser( $this->createParserContext(), '\c\w\n\ClassWithNamespace' );
         $this->assertSame( 'c\w\n\ClassWithNamespace', $parser->parse()->getName() );
     }
 
@@ -110,7 +110,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesClassWithImplementedInterface()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithImplementedInterface' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithImplementedInterface' );
 
         $interfaces = $parser->parse()->getInterfaces();
         $this->assertType( StaticReflectionInterface::TYPE, $interfaces[0] );
@@ -125,7 +125,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesClassWithMultipleImplementedInterfaces()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithMultipleImplementedInterfaces' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithMultipleImplementedInterfaces' );
         $this->assertSame( 2, count( $parser->parse()->getInterfaces() ) );
     }
 
@@ -138,7 +138,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserReturnsInstanceOfTypeStaticInterface()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'InterfaceWithoutNamespace' );
+        $parser = new Parser( $this->createParserContext(), 'InterfaceWithoutNamespace' );
         $this->assertType( StaticReflectionInterface::TYPE, $parser->parse() );
     }
 
@@ -151,7 +151,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesInterfaceWithParentInterface()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'InterfaceWithParentInterface' );
+        $parser = new Parser( $this->createParserContext(), 'InterfaceWithParentInterface' );
 
         $interfaces = $parser->parse()->getInterfaces();
         $this->assertType( StaticReflectionInterface::TYPE, $interfaces[0] );
@@ -166,7 +166,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesInterfaceWithMultipleParentInterfaces()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'InterfaceWithMultipleParentInterfaces' );
+        $parser = new Parser( $this->createParserContext(), 'InterfaceWithMultipleParentInterfaces' );
 
         $interfaces = $parser->parse()->getInterfaces();
         $this->assertSame( 2, count( $interfaces ) );
@@ -181,7 +181,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesCurlyBraceSyntaxForNamespaces()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'foo\bar\baz\NamespaceCurlyBraceSyntax' );
+        $parser = new Parser( $this->createParserContext(), 'foo\bar\baz\NamespaceCurlyBraceSyntax' );
         $class  = $parser->parse();
 
         $this->assertSame( 'foo\bar\baz', $class->getNamespaceName() );
@@ -196,7 +196,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesCurlyBraceDefaultNamespace()
     {
-        $parser = new Parser( $this->createSourceResolver(), '\NamespaceCurlyBraceDefault' );
+        $parser = new Parser( $this->createParserContext(), '\NamespaceCurlyBraceDefault' );
         $class  = $parser->parse();
 
         $this->assertSame( '', $class->getNamespaceName() );
@@ -211,7 +211,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesSemicolonSyntaxForNamespaces()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'foo\bar\baz\NamespaceSemicolonSyntax' );
+        $parser = new Parser( $this->createParserContext(), 'foo\bar\baz\NamespaceSemicolonSyntax' );
         $class  = $parser->parse();
 
         $this->assertSame( 'foo\bar\baz', $class->getNamespaceName() );
@@ -226,7 +226,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserIgnoresCommentsInNamespaceDeclaration()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'foo\bar\baz\NamespaceDeclarationWithComments' );
+        $parser = new Parser( $this->createParserContext(), 'foo\bar\baz\NamespaceDeclarationWithComments' );
         $class  = $parser->parse();
 
         $this->assertSame( 'foo\bar\baz', $class->getNamespaceName() );
@@ -241,7 +241,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesClassUseStatementAsExpected()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassUseStatement' );
+        $parser = new Parser( $this->createParserContext(), 'ClassUseStatement' );
 
         $interfaces = $parser->parse()->getInterfaces();
         $this->assertSame( 'foo\InterfaceWithNamespace', $interfaces[0]->getName() );
@@ -256,7 +256,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesClassUseStatementWithAliasAsExpected()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassAliasedUseStatement' );
+        $parser = new Parser( $this->createParserContext(), 'ClassAliasedUseStatement' );
 
         $interfaces = $parser->parse()->getInterfaces();
         $this->assertSame( 'foo\InterfaceWithNamespace', $interfaces[0]->getName() );
@@ -271,7 +271,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesClassWithMultipleUseStatements()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithMultipleUseStatement' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithMultipleUseStatement' );
 
         $class = $parser->parse();
         $this->assertSame( 'c\w\n\ClassWithNamespace', $class->getParentClass()->getName() );
@@ -290,7 +290,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesRegularMethodInClassAsExpected()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithMethod' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithMethod' );
 
         $class = $parser->parse();
         $this->assertSame( 1, count( $class->getMethods() ) );
@@ -305,7 +305,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesClassWithMultipleMethods()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithMultipleMethods' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithMultipleMethods' );
 
         $class = $parser->parse();
         $this->assertSame( 3, count( $class->getMethods() ) );
@@ -320,7 +320,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesInterfaceWithMultipleMethodDeclarations()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'InterfaceWithMultipleMethods' );
+        $parser = new Parser( $this->createParserContext(), 'InterfaceWithMultipleMethods' );
         $this->assertSame( 3, count( $parser->parse()->getMethods() ) );
     }
 
@@ -333,7 +333,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserSetsClassDocComment()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithDocComment' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithDocComment' );
         $this->assertSame(
             "/**\n" .
             " * Hello Static Reflection\n" .
@@ -353,7 +353,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserFlagsClassAsAbstract()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassDeclaredAbstract' );
+        $parser = new Parser( $this->createParserContext(), 'ClassDeclaredAbstract' );
         $this->assertTrue( $parser->parse()->isAbstract() );
     }
 
@@ -366,7 +366,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserFlagsClassAsFinal()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassDeclaredFinal' );
+        $parser = new Parser( $this->createParserContext(), 'ClassDeclaredFinal' );
         $this->assertTrue( $parser->parse()->isFinal() );
     }
 
@@ -379,7 +379,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserSetsMethodDocComment()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'MethodWithComment' );
+        $parser = new Parser( $this->createParserContext(), 'MethodWithComment' );
         $this->assertSame(
             "/**\n" .
             "     * A simple method...\n" .
@@ -399,7 +399,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserFlagsMethodAsPublic()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'MethodPublic' );
+        $parser = new Parser( $this->createParserContext(), 'MethodPublic' );
         $this->assertTrue( $parser->parse()->getMethod( 'foo' )->isPublic() );
     }
 
@@ -412,7 +412,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserFlagsMethodAsProtected()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'MethodProtected' );
+        $parser = new Parser( $this->createParserContext(), 'MethodProtected' );
         $this->assertTrue( $parser->parse()->getMethod( 'foo' )->isProtected() );
     }
 
@@ -425,7 +425,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserFlagsMethodAsPrivate()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'MethodPrivate' );
+        $parser = new Parser( $this->createParserContext(), 'MethodPrivate' );
         $this->assertTrue( $parser->parse()->getMethod( 'foo' )->isPrivate() );
     }
 
@@ -438,7 +438,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserFlagsMethodAsFinal()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'MethodFinal' );
+        $parser = new Parser( $this->createParserContext(), 'MethodFinal' );
         $this->assertTrue( $parser->parse()->getMethod( 'foo' )->isFinal() );
     }
 
@@ -451,7 +451,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserFlagsMethodAsStatic()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'MethodStatic' );
+        $parser = new Parser( $this->createParserContext(), 'MethodStatic' );
         $this->assertTrue( $parser->parse()->getMethod( 'foo' )->isStatic() );
     }
 
@@ -464,7 +464,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserFlagsMethodAsAbstract()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'MethodAbstract' );
+        $parser = new Parser( $this->createParserContext(), 'MethodAbstract' );
         $this->assertTrue( $parser->parse()->getMethod( 'foo' )->isAbstract() );
     }
 
@@ -477,7 +477,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserSetsExpectedConcreteMethodStartLine()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'MethodLineNumbers' );
+        $parser = new Parser( $this->createParserContext(), 'MethodLineNumbers' );
         $this->assertSame( 7, $parser->parse()->getMethod( 'foo' )->getStartLine() );
     }
 
@@ -490,7 +490,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserSetsExpectedConcreteMethodEndLine()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'MethodLineNumbers' );
+        $parser = new Parser( $this->createParserContext(), 'MethodLineNumbers' );
         $this->assertSame( 12, $parser->parse()->getMethod( 'foo' )->getEndLine() );
     }
 
@@ -503,7 +503,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserSetsExpectedAbstractMethodStartLine()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'MethodLineNumbers' );
+        $parser = new Parser( $this->createParserContext(), 'MethodLineNumbers' );
         $this->assertSame( 16, $parser->parse()->getMethod( '_bar' )->getStartLine() );
     }
 
@@ -516,7 +516,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserSetsExpectedAbstractMethodEndLine()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'MethodLineNumbers' );
+        $parser = new Parser( $this->createParserContext(), 'MethodLineNumbers' );
         $this->assertSame( 19, $parser->parse()->getMethod( '_bar' )->getEndLine() );
     }
 
@@ -529,7 +529,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserSetsExpectedNumberOfMethodParameters()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'MethodWithParameters' );
+        $parser = new Parser( $this->createParserContext(), 'MethodWithParameters' );
         $method = $parser->parse()->getMethod( 'fooBar' );
 
         $this->assertSame( 3, $method->getNumberOfParameters() );
@@ -544,7 +544,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserSetsPropertyDocComment()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'PropertyWithComment' );
+        $parser = new Parser( $this->createParserContext(), 'PropertyWithComment' );
         $this->assertSame(
             "/**\n" .
             "     * The answer...\n" .
@@ -564,7 +564,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesCommaSeparatedProperties()
     {
-        $parser     = new Parser( $this->createSourceResolver(), 'PropertyWithCommaSeparatedProperties' );
+        $parser     = new Parser( $this->createParserContext(), 'PropertyWithCommaSeparatedProperties' );
         $properties = $parser->parse()->getProperties();
 
         $this->assertSame( 3, count( $properties ) );
@@ -579,7 +579,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesPropertyWithConstantDefaultValue()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'PropertyWithConstantDefaultValue' );
+        $parser = new Parser( $this->createParserContext(), 'PropertyWithConstantDefaultValue' );
         $this->assertType( StaticReflectionProperty::TYPE, $parser->parse()->getProperty( 'foo' ) );
     }
 
@@ -592,7 +592,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserFlagsPropertyAsPrivate()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'PropertyPrivate' );
+        $parser = new Parser( $this->createParserContext(), 'PropertyPrivate' );
         $this->assertTrue( $parser->parse()->getProperty( 'foo' )->isPrivate() );
     }
 
@@ -605,7 +605,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserFlagsPropertyAsProtected()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'PropertyProtected' );
+        $parser = new Parser( $this->createParserContext(), 'PropertyProtected' );
         $this->assertTrue( $parser->parse()->getProperty( 'foo' )->isProtected() );
     }
 
@@ -618,7 +618,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserFlagsPropertyAsPublic()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'PropertyPublic' );
+        $parser = new Parser( $this->createParserContext(), 'PropertyPublic' );
         $this->assertTrue( $parser->parse()->getProperty( 'foo' )->isPublic() );
     }
 
@@ -631,7 +631,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserFlagsPropertyAsStatic()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'PropertyStatic' );
+        $parser = new Parser( $this->createParserContext(), 'PropertyStatic' );
         $this->assertTrue( $parser->parse()->getProperty( 'foo' )->isStatic() );
     }
 
@@ -644,7 +644,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserSetsClassSourceFileName()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithoutNamespace' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithoutNamespace' );
         $this->assertSame(
             $this->getPathnameForClass( 'ClassWithoutNamespace' ),
             $parser->parse()->getFileName()
@@ -660,7 +660,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserSetsExpectedClassStartLine()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassLineNumbers' );
+        $parser = new Parser( $this->createParserContext(), 'ClassLineNumbers' );
         $this->assertSame( 6, $parser->parse()->getStartLine() );
     }
 
@@ -673,7 +673,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserSetsExpectedClassEndLine()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassLineNumbers' );
+        $parser = new Parser( $this->createParserContext(), 'ClassLineNumbers' );
         $this->assertSame( 14, $parser->parse()->getEndLine() );
     }
 
@@ -687,7 +687,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesClassConstant()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithConstant' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithConstant' );
         $this->assertTrue( $parser->parse()->hasConstant( 'T_FOO' ) );
     }
 
@@ -701,7 +701,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesListOfClassConstants()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassWithConstantList' );
+        $parser = new Parser( $this->createParserContext(), 'ClassWithConstantList' );
         $this->assertSame( 3, count($parser->parse()->getConstants() ) );
     }
 
@@ -715,7 +715,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserThrowsExceptionForInvalidClassDeclaration()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'InvalidClassDeclaration' );
+        $parser = new Parser( $this->createParserContext(), 'InvalidClassDeclaration' );
         $parser->parse();
     }
 
@@ -729,7 +729,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserThrowsExceptionForInvalidInterfaceDeclaration()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'InvalidInterfaceDeclaration' );
+        $parser = new Parser( $this->createParserContext(), 'InvalidInterfaceDeclaration' );
         $parser->parse();
     }
 
@@ -743,7 +743,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserThrowsExceptionForInvalidImplementedInterfaceDeclaration()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'InvalidImplementedInterfaceDeclaration' );
+        $parser = new Parser( $this->createParserContext(), 'InvalidImplementedInterfaceDeclaration' );
         $parser->parse();
     }
 
@@ -757,7 +757,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserThrowsExceptionForUnclosedClassScope()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'InvalidUnclosedClassScope' );
+        $parser = new Parser( $this->createParserContext(), 'InvalidUnclosedClassScope' );
         $parser->parse();
     }
 
@@ -771,7 +771,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserThrowsExceptionForUnexpectedTokenInClassScope()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'ClassScopeWithInvalidToken' );
+        $parser = new Parser( $this->createParserContext(), 'ClassScopeWithInvalidToken' );
         $parser->parse();
     }
 
@@ -785,7 +785,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserThrowsExceptionForInvalidConstantValue()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'InvalidClassConstantValue' );
+        $parser = new Parser( $this->createParserContext(), 'InvalidClassConstantValue' );
         $parser->parse();
     }
 
@@ -799,7 +799,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserThrowsExceptionForInvalidNamespaceDeclaration()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'foo\bar\InvalidNamespaceDeclaration' );
+        $parser = new Parser( $this->createParserContext(), 'foo\bar\InvalidNamespaceDeclaration' );
         $parser->parse();
     }
 
@@ -813,7 +813,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserThrowsExceptionForUnexpectedEndOfNamespaceDeclaration()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'foo\bar\UnexpectedEndOfNamespaceDeclaration' );
+        $parser = new Parser( $this->createParserContext(), 'foo\bar\UnexpectedEndOfNamespaceDeclaration' );
         $parser->parse();
     }
 
@@ -827,7 +827,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserThrowsExceptionForInvalidUseStatement()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'InvalidUseStatement' );
+        $parser = new Parser( $this->createParserContext(), 'InvalidUseStatement' );
         $parser->parse();
     }
 
@@ -841,7 +841,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserThrowsExceptionForInvalidMethodDeclatation()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'InvalidMethodDeclaration' );
+        $parser = new Parser( $this->createParserContext(), 'InvalidMethodDeclaration' );
         $parser->parse();
     }
 
@@ -855,7 +855,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserThrowsExceptionForUnclosedMethodScope()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'InvalidUnclosedMethodScope' );
+        $parser = new Parser( $this->createParserContext(), 'InvalidUnclosedMethodScope' );
         $parser->parse();
     }
 
@@ -869,7 +869,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserThrowsExceptionForUnclosedConstantDeclaration()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'InvalidUnclosedConstantDeclaration' );
+        $parser = new Parser( $this->createParserContext(), 'InvalidUnclosedConstantDeclaration' );
         $parser->parse();
     }
 
@@ -883,7 +883,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserThrowsExceptionWhenRequestClassDoesNotExist()
     {
-        $parser = new Parser( $this->createSourceResolver(), 'NoClassDefined' );
+        $parser = new Parser( $this->createParserContext(), 'NoClassDefined' );
         $parser->parse();
     }
 }
