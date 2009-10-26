@@ -23,6 +23,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
@@ -34,6 +35,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetParentClassForClassWithoutParent()
@@ -48,6 +50,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetParentClassForClassWithParent()
@@ -65,6 +68,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetMethodsWithProtectedFilterAndOverwrittenPublicMethod()

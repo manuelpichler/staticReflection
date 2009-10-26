@@ -23,6 +23,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
@@ -34,6 +35,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetName()
@@ -48,6 +50,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetShortName()
@@ -62,6 +65,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetNamespaceName()
@@ -76,6 +80,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetDeclaringClass()
@@ -93,6 +98,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetFileName()
@@ -107,6 +113,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetDocCommentForMethodWithComment()
@@ -121,6 +128,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetDocCommentForMethodWithoutComment()
@@ -135,6 +143,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testIsClosure()
@@ -149,6 +158,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testIsDeprecatedForMethodAnnotatedWithDeprecated()
@@ -163,6 +173,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testIsDeprecatedForMethodAnnotatedWithoutDeprecated()
@@ -177,6 +188,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testIsConstructorForInterfaceConstructMethod()
@@ -191,6 +203,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testIsConstructorForInterfaceClassNameMethod()
@@ -205,6 +218,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testIsConstructorForAbstractConstructMethod()
@@ -219,6 +233,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testIsDestructorForDestructMethod()
@@ -233,6 +248,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testIsDestructorForNonDestructMethod()
@@ -247,6 +263,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testIsDestructorForAbstractDestructMethod()
@@ -261,6 +278,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testIsDestructorForInterfaceDestructMethod()
@@ -275,6 +293,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testInNamespaceForClassWithNamespace()
@@ -289,6 +308,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testInNamespaceForClassWithoutNamespace()
@@ -303,6 +323,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetExtension()
@@ -317,6 +338,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetExtensionName()

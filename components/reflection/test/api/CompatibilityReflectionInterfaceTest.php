@@ -23,6 +23,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
@@ -34,6 +35,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetDocCommentForInterfaceWithDocComment()
@@ -48,6 +50,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetDocCommentForInterfaceWithoutDocComment()
@@ -62,6 +65,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testInNamespaceForInterfaceWithNamespace()
@@ -76,6 +80,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testInNamespaceForInterfaceWithNamespaceDefault()
@@ -90,6 +95,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testInNamespaceForInterfaceWithoutNamespace()
@@ -104,6 +110,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testHasConstantThatExists()
@@ -121,6 +128,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testHasConstantThatDoesNotExists()
@@ -135,6 +143,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetConstantOnConstantThatDoesNotExist()
@@ -149,6 +158,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetModifiersContainsZendAccInterface()
@@ -166,6 +176,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetConstructorForClassWithConstructMethod()
@@ -180,6 +191,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetConstructorForClassWithClassNameMethod()
@@ -194,6 +206,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetParentClass()

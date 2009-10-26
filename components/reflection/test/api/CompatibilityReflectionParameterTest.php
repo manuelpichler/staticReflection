@@ -23,6 +23,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
@@ -34,6 +35,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionParameter
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetName()
@@ -48,6 +50,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionParameter
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetPositionOfFirstParameter()
@@ -62,6 +65,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @return void
      * @covers \ReflectionParameter
      * @group reflection
+     * @group reflection::api
      * @group compatibilitytest
      */
     public function testGetPositionOfLastParameter()
