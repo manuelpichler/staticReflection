@@ -63,6 +63,20 @@ class StaticReflectionMethodTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testGetModifiersReturnsExpectedBitfield()
+    {
+        $bitfield = StaticReflectionMethod::IS_FINAL | StaticReflectionMethod::IS_STATIC;
+        $method   = new StaticReflectionMethod( 'foo', '', $bitfield );
+
+        $this->assertEquals( $bitfield, $method->getModifiers() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
     public function testIsAbstractReturnsFalseWhenModifierWasNotSupplied()
     {
         $method = new StaticReflectionMethod( 'foo', '', 0 );
