@@ -22,6 +22,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetParentClassReturnsFalseWhenNoParentExists()
@@ -34,6 +35,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetParentClassReturnsExpectedInstanceWhenParentExists()
@@ -49,6 +51,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetConstantsReturnsAnEmptyArrayByDefault()
@@ -61,6 +64,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetConstantsReturnsAnArrayWithDefinedClassConstants()
@@ -75,6 +79,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetConstantsReturnsAnArrayWithInheritClassConstants()
@@ -92,6 +97,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsReturnsExpectedSingleMethod()
@@ -106,6 +112,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsReturnsExpectedTwoMethods()
@@ -125,6 +132,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsReturnsMethodsFromParentClass()
@@ -143,6 +151,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsReturnsMethodsWithSameNameOnlyOneTime()
@@ -161,6 +170,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsWorksCaseInsensitive()
@@ -179,6 +189,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsReturnsLastMethodInInheritanceHierarchy()
@@ -198,6 +209,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsReturnsConcreteMethodInsteadOfAbstract()
@@ -217,6 +229,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsReturnsMethodsOfImplementedInterface()
@@ -233,6 +246,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsPrefersImplementedMethodsOverInterfaceMethods()
@@ -264,6 +278,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsAbstractReturnsFalseWhenModifierIsNotSet()
@@ -276,6 +291,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsAbstractReturnsTrueWhenIsExplicitAbstractModifierIsSet()
@@ -288,6 +304,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsAbstractReturnsTrueWhenIsImplicitAbstractModifierIsSet()
@@ -300,6 +317,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsAbstractReturnsTrueWhenClassContainsAnAbstractMethod()
@@ -314,6 +332,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsInterfaceAlwaysReturnsFalse()
@@ -326,6 +345,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionClass
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \LogicException
      */

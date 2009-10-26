@@ -27,6 +27,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
@@ -38,6 +39,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsAbstractAlwaysReturnsTrue()
@@ -50,6 +52,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsFinalAlwaysReturnsFalse()
@@ -62,6 +65,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsInterfaceAlwaysReturnsTrue()
@@ -74,6 +78,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsSubclassOfReturnsTrueWhenExtendsInterface()
@@ -88,6 +93,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsSubclassOfReturnsTrueWhenExtendsInterfaceAndIsCalledWithLeadingBackslash()
@@ -102,6 +108,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsSubclassOfReturnsFalseWhenNotExtendsInterface()
@@ -114,6 +121,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsSubclassOfReturnsFalseOnClaseItSelf()
@@ -126,6 +134,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetFileNameReturnsExpectedResult()
@@ -140,6 +149,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetShortNameReturnsFullNameWhenNameNotContainsNamespace()
@@ -152,6 +162,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetShortNameStripsNamespaceFromFullQualifiedClassName()
@@ -164,6 +175,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetNamespaceNameReturnsNamespacePartFormFullQualifiedClassName()
@@ -176,6 +188,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetNamespaceNameReturnsEmptyStringForClassWithoutNamespace()
@@ -188,6 +201,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testInNamespaceReturnsTrueForClassWithNamespace()
@@ -200,6 +214,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testInNamespaceReturnsFalseForClassWithNamespaceDefault()
@@ -212,6 +227,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testInNamespaceReturnsFalseForClassWithoutNamespace()
@@ -224,6 +240,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetDocCommentReturnsFalseWhenDocCommentIsEmpty()
@@ -236,6 +253,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetDocCommentReturnsStringWhenDocCommentIsNotEmpty()
@@ -248,6 +266,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testHasConstantReturnsTrueWhenConstantExists()
@@ -262,6 +281,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testHasConstantReturnsTrueForExistingConstantWithValueNull()
@@ -276,6 +296,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testHasConstantReturnsFalseWhenConstantNotExists()
@@ -290,6 +311,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetConstantReturnsFalseWhenConstantNotExists()
@@ -304,6 +326,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetConstantReturnsValueWhenConstantExists()
@@ -318,6 +341,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetConstantsReturnsAnEmptyArrayByDefault()
@@ -330,6 +354,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetConstantsReturnsDefinedInterfaceConstants()
@@ -344,6 +369,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetConstantsReturnsInheritConstants()
@@ -362,6 +388,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetConstantsReturnsInheritConstantsButNotOverwrites()
@@ -380,6 +407,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetParentClassAlwaysReturnsFalse()
@@ -392,6 +420,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetInterfacesReturnsExpectedArray()
@@ -411,6 +440,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetInterfacesAlsoReturnsInheritInterfaces()
@@ -429,6 +459,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetInterfacesReturnsEachInterfaceOnlyOnce()
@@ -447,6 +478,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetInterfaceNamesReturnsExpectedArrayOfStrings()
@@ -468,6 +500,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testImplementsInterfaceReturnsTrueForSameType()
@@ -480,6 +513,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testImplementsInterfaceReturnsTrueForParentType()
@@ -494,6 +528,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testImplementsInterfaceWorksCaseInsensitive()
@@ -506,6 +541,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetModifiersReturnsZendAccInterface()
@@ -518,6 +554,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testHasMethodReturnsTrueWhenMethodForNameExists()
@@ -532,6 +569,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testHasMethodReturnsTrueWhenParentDeclaresMethod()
@@ -546,6 +584,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodReturnsDeclaredInstance()
@@ -560,6 +599,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodReturnsMethodDeclaredInParent()
@@ -574,6 +614,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testHasMethodHandlesNamesCaseInsensitive()
@@ -588,6 +629,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testHasMethodReturnsFalseWhenMethodForNameNotExists()
@@ -602,6 +644,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsReturnsMethodsDefinedOnContextClass()
@@ -616,6 +659,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsReturnsMethodsDefinedOnParentClass()
@@ -635,6 +679,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsReturnsMethodsWithSameNameOnlyOnce()
@@ -654,6 +699,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodReturnsHighestMethodInInheritenceHierarchy()
@@ -678,6 +724,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsWorksCaseInsensitive()
@@ -697,6 +744,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetMethodsFiltersBySuppliedModifierArgument()
@@ -716,6 +764,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetConstructorReturnsNullForConstructMethod()
@@ -730,6 +779,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetConstructorReturnsNullForClassNameMethod()
@@ -744,6 +794,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testHasPropertyAlwaysReturnsFalse()
@@ -756,6 +807,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetPropertiesReturnsAnEmptyArray()
@@ -768,6 +820,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetDefaultPropertiesReturnsAnEmptyArray()
@@ -780,6 +833,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetStaticPropertiesReturnsAnEmptyArray()
@@ -792,6 +846,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsInternalAlwaysReturnsFalse()
@@ -804,6 +859,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsUserDefinedAlwaysReturnsFalse()
@@ -816,6 +872,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetExtensionAlwaysReturnsNull()
@@ -828,6 +885,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetExtensionNameAlwaysReturnsFalse()
@@ -840,6 +898,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsInstanceReturnsTrueForMatchingInstance()
@@ -852,6 +911,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsInstanceReturnsFalseForNotMatchingInstance()
@@ -864,6 +924,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsInstantiableReturnsFalse()
@@ -876,6 +937,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetStartLineReturnsExpectedValue()
@@ -890,6 +952,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetEndLineReturnsExpectedValue()
@@ -904,6 +967,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \ReflectionException
      */
@@ -917,6 +981,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \ReflectionException
      */
@@ -930,6 +995,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \ReflectionException
      */
@@ -943,6 +1009,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \ReflectionException
      */
@@ -956,6 +1023,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \ReflectionException
      */
@@ -969,6 +1037,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \ReflectionException
      */
@@ -982,6 +1051,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \LogicException
      */
@@ -996,6 +1066,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \LogicException
      */
@@ -1010,6 +1081,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \LogicException
      */
@@ -1024,6 +1096,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \LogicException
      */
@@ -1038,6 +1111,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \LogicException
      */
@@ -1052,6 +1126,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionInterface
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \LogicException
      */

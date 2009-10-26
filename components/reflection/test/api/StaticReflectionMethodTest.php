@@ -62,6 +62,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetDocCommentReturnsFalseWhenEmptyDocCommentWasGiven()
@@ -74,6 +75,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetDocCommentReturnsDocCommentWhenDocCommentContainsText()
@@ -86,6 +88,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetFileNameReturnsFileOfDeclaringClass()
@@ -101,6 +104,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetModifiersReturnsExpectedBitfield()
@@ -115,6 +119,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsAbstractReturnsFalseWhenModifierWasNotSupplied()
@@ -127,6 +132,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsAbstractReturnsTrueWhenModifierWasSupplied()
@@ -139,6 +145,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsFinalReturnsFalseWhenModifierWasNotSupplied()
@@ -151,6 +158,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsFinalReturnsTrueWhenModifierWasSupplied()
@@ -163,6 +171,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsPrivateReturnsFalseWhenModifierWasNotSupplied()
@@ -175,6 +184,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsPrivateReturnsTrueWhenModifierWasSupplied()
@@ -187,6 +197,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsProtectedReturnsFalseWhenModifierWasNotSupplied()
@@ -199,6 +210,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsProtectedReturnsTrueWhenModifierWasSupplied()
@@ -211,6 +223,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsPublicReturnsFalseWhenModifierWasNotSupplied()
@@ -223,6 +236,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsPublicReturnsTrueWhenModifierWasSupplied()
@@ -235,6 +249,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsStaticReturnsFalseWhenModifierWasNotSupplied()
@@ -247,6 +262,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsStaticReturnsTrueWhenModifierWasSupplied()
@@ -259,6 +275,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsInternalAlwaysReturnsFalse()
@@ -271,6 +288,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsUserDefinedAlwaysReturnsTrue()
@@ -283,6 +301,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsClosureAlwaysReturnsFalse()
@@ -295,6 +314,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsDeprecatedAlwaysReturnsFalse()
@@ -307,6 +327,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsConstructorReturnsFalseForNonConstructMethod()
@@ -321,6 +342,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsConstructorReturnsFalseForPhp4StyleMethodWhenConstructMethodExists()
@@ -338,6 +360,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsConstructorReturnsTrueForConstructMethod()
@@ -352,6 +375,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsConstructorReturnsTrueForPhp4StyleMethod()
@@ -366,6 +390,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsConstructorReturnsTrueForAbstractMethod()
@@ -380,6 +405,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsConstructorReturnsFalseForInterfaceMethod()
@@ -394,6 +420,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsDestructorReturnsFalseForNonDestructMethod()
@@ -408,6 +435,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsDestructorReturnsTrueForDestructMethod()
@@ -422,6 +450,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsDestructorReturnsTrueForAbstractDestructMethod()
@@ -436,6 +465,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsDestructorReturnsFalseForInterfaceDestructMethod()
@@ -450,6 +480,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testInNamespaceAlwaysReturnsFalse()
@@ -462,6 +493,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetShortNameIsIdenticalWithGetName()
@@ -474,6 +506,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetNamespaceNameIsAlwaysAnEmptyString()
@@ -486,6 +519,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetDeclaringClassReturnsNullByDefault()
@@ -498,6 +532,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetDeclaringClassReturnsPreviousSetClassInstance()
@@ -513,6 +548,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetStartLineReturnsExpectedValue()
@@ -527,6 +563,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetEndLineReturnsExpectedValue()
@@ -541,6 +578,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetParametersReturnsAnEmptyArrayWhenNotInitialized()
@@ -553,6 +591,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetParametersReturnsInitializedParameters()
@@ -572,6 +611,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetNumberOfParametersReturnsZeroWhenNotInitialized()
@@ -584,6 +624,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetNumberOfParametersReturnsExpectedValue()
@@ -603,6 +644,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetExtensionNameAlwaysReturnsFalse()
@@ -615,6 +657,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetExtensionAlwaysReturnsNull()
@@ -627,6 +670,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \ReflectionException
      */
@@ -639,6 +683,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \ReflectionException
      */
@@ -652,6 +697,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \ReflectionException
      */
@@ -665,6 +711,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \LogicException
      */
@@ -680,6 +727,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \LogicException
      */
@@ -694,6 +742,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \LogicException
      */
@@ -708,6 +757,7 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionMethod
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \LogicException
      */
@@ -718,4 +768,3 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
         $method->initParameters( array() );
     }
 }
-

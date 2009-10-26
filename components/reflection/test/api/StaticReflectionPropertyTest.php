@@ -22,6 +22,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
@@ -33,6 +34,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testLeadingDollarInPropertyNameIsStripped()
@@ -45,6 +47,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testFirstCharacterIsNotStrippedWhenItIsNotADollar()
@@ -57,6 +60,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetDocCommentReturnsFalseWhenCommentIsEmpty()
@@ -69,6 +73,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testGetDocCommentReturnsStringWhenCommentIsNotEmpty()
@@ -81,6 +86,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsPrivateReturnsFalseWhenModifierWasNotSupplied()
@@ -93,6 +99,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsPrivateReturnsTrueWhenModifierWasSupplied()
@@ -105,6 +112,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsProtectedReturnsFalseWhenModifierWasNotSupplied()
@@ -117,6 +125,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsProtectedReturnsTrueWhenModifierWasSupplied()
@@ -129,6 +138,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsPublicReturnsFalseWhenModifierWasNotSupplied()
@@ -141,6 +151,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsPublicReturnsTrueWhenModifierWasSupplied()
@@ -153,6 +164,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsStaticReturnsFalseWhenModifierWasNotSupplied()
@@ -165,6 +177,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsStaticReturnsTrueWhenModifierWasSupplied()
@@ -177,6 +190,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      */
     public function testIsDefaultAlwaysReturnsTrue()
@@ -189,6 +203,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \ReflectionException
      */
@@ -205,6 +220,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \ReflectionException
      */
@@ -218,6 +234,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \ReflectionException
      */
@@ -231,6 +248,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
+     * @group reflection::api
      * @group unittest
      * @expectedException \ReflectionException
      */
