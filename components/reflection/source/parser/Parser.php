@@ -129,6 +129,8 @@ class Parser
     private $_constants = array();
 
     /**
+     * Constructs a new parser instance.
+     *
      * @param \org\pdepend\reflection\parser\ParserContext $context
      * @param string                                       $className
      */
@@ -196,7 +198,7 @@ class Parser
                 return $class;
             }
         }
-        throw new \LogicException( 'No class ' . $this->_className . ' found.' );
+        throw new \ReflectionException( 'Class ' . $this->_className . ' does not exist' );
     }
 
     /**

@@ -879,7 +879,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \LogicException
+     * @expectedException \ReflectionException
      */
     public function testParserThrowsExceptionWhenRequestClassDoesNotExist()
     {
