@@ -80,21 +80,29 @@ class Parser
     private $_context = null;
 
     /**
+     * Name of the searched class.
+     *
      * @var string
      */
     private $_className = null;
 
     /**
+     * The used source tokenizer.
+     *
      * @var \org\pdepend\reflection\parser\Tokenizer
      */
     private $_tokenizer = null;
 
     /**
+     * The currently parsed namespace.
+     *
      * @var string
      */
     private $_namespace = '';
 
     /**
+     * Alias map created from <b>use</b> statements.
+     *
      * @var array(string=>string)
      */
     private $_aliasMap = array();
