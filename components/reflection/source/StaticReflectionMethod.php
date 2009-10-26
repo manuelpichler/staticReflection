@@ -231,6 +231,8 @@ class StaticReflectionMethod extends \ReflectionMethod
     }
 
     /**
+     * Returns <b>true</b> when the reflected method is declared as abstract.
+     *
      * @return boolean
      */
     public function isAbstract()
@@ -239,6 +241,8 @@ class StaticReflectionMethod extends \ReflectionMethod
     }
 
     /**
+     * Returns <b>true</b> when the reflected method is declared as static.
+     *
      * @return boolean
      */
     public function isStatic()
@@ -247,6 +251,8 @@ class StaticReflectionMethod extends \ReflectionMethod
     }
 
     /**
+     * Returns <b>true</b> when the reflected method is declared as final.
+     *
      * @return boolean
      */
     public function isFinal()
@@ -255,6 +261,8 @@ class StaticReflectionMethod extends \ReflectionMethod
     }
 
     /**
+     * Returns <b>true</b> when the reflected method is declared as private.
+     *
      * @return boolean
      */
     public function isPrivate()
@@ -263,6 +271,8 @@ class StaticReflectionMethod extends \ReflectionMethod
     }
 
     /**
+     * Returns <b>true</b> when the reflected method is declared as protected.
+     *
      * @return boolean
      */
     public function isProtected()
@@ -271,6 +281,8 @@ class StaticReflectionMethod extends \ReflectionMethod
     }
 
     /**
+     * Returns <b>true</b> when the reflected method is declared as public.
+     *
      * @return boolean
      */
     public function isPublic()
