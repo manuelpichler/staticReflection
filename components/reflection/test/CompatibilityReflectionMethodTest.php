@@ -198,7 +198,21 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatInterfaceWithClassNameMethod', 'CompatInterfaceWithClassNameMethod' );
         $static   = $this->createStatic( 'CompatInterfaceWithClassNameMethod', 'CompatInterfaceWithClassNameMethod' );
 
-        $this->assertSame( $internal->isConstructor(), $static->isConstructor() );
+        $this->assertEquals( $internal->isConstructor(), $static->isConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testIsConstructorForAbstractConstructMethod()
+    {
+        $internal = $this->createInternal( 'CompatAbstractConstructMethod', '__construct' );
+        $static   = $this->createStatic( 'CompatAbstractConstructMethod', '__construct' );
+
+        $this->assertEquals( $internal->isConstructor(), $static->isConstructor() );
     }
 
     /**
@@ -240,7 +254,21 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatAbstractClassWithAbstractDestructor', '__destruct' );
         $static   = $this->createStatic( 'CompatAbstractClassWithAbstractDestructor', '__destruct' );
 
-        $this->assertSame( $internal->isDestructor(), $static->isDestructor() );
+        $this->assertEquals( $internal->isDestructor(), $static->isDestructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group compatibilitytest
+     */
+    public function testIsDestructorForInterfaceDestructMethod()
+    {
+        $internal = $this->createInternal( 'CompatInterfaceWithDestructor', '__destruct' );
+        $static   = $this->createStatic( 'CompatInterfaceWithDestructor', '__destruct' );
+
+        $this->assertEquals( $internal->isDestructor(), $static->isDestructor() );
     }
 
     /**

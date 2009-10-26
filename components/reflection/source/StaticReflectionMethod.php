@@ -200,11 +200,11 @@ class StaticReflectionMethod extends \ReflectionMethod
      */
     public function isConstructor()
     {
-        if ( $this->isAbstract() )
+        if ( $this->getDeclaringClass()->isInterface() )
         {
             return false;
         }
-        if ( strcasecmp( $this->getName(), '__construct' ) === 0 )
+        else if ( strcasecmp( $this->getName(), '__construct' ) === 0 )
         {
             return true;
         }
@@ -223,6 +223,10 @@ class StaticReflectionMethod extends \ReflectionMethod
      */
     public function isDestructor()
     {
+        if ( $this->getDeclaringClass()->isInterface() )
+        {
+            return false;
+        }
         return ( strcasecmp( $this->getName(), '__destruct' ) === 0 );
     }
 

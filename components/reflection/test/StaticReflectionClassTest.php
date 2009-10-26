@@ -51,12 +51,55 @@ class StaticReflectionClassTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testGetConstantsReturnsAnEmptyArrayByDefault()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $this->assertSame( array(), $class->getConstants() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\StaticReflectionClass
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetConstantsReturnsAnArrayWithDefinedClassConstants()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initConstants( array( 'T_FOO' => 42, 'T_BAR' => 23 ) );
+
+        $this->assertSame( array( 'T_FOO' => 42, 'T_BAR' => 23 ), $class->getConstants() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\StaticReflectionClass
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetConstantsReturnsAnArrayWithInheritClassConstants()
+    {
+        $parent = new StaticReflectionClass( __CLASS__, '', 0 );
+        $parent->initConstants( array( 'T_FOO' => 42, 'T_BAR' => 23 ) );
+
+        $child = new StaticReflectionClass( __CLASS__, '', 0 );
+        $child->initParentClass( $parent );
+
+        $this->assertSame( array( 'T_FOO' => 42, 'T_BAR' => 23 ), $child->getConstants() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\StaticReflectionClass
+     * @group reflection
+     * @group unittest
+     */
     public function testGetMethodsReturnsExpectedSingleMethod()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initMethods( array( new StaticReflectionMethod( 'fooBar', '', 0 ) ) );
 
-        $this->assertSame( 1, count( $class->getMethods() ) );
+        $this->assertEquals( 1, count( $class->getMethods() ) );
     }
 
     /**

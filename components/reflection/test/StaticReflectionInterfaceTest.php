@@ -320,9 +320,9 @@ class StaticReflectionInterfaceTest extends BaseTest
      * @group reflection
      * @group unittest
      */
-    public function testGetConstantsReturnsAnEmptyErrorByDefault()
+    public function testGetConstantsReturnsAnEmptyArrayByDefault()
     {
-        $interface = new StaticReflectionInterface( __CLASS__, '/** @package foo */' );
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
         $this->assertSame( array(), $interface->getConstants() );
     }
 

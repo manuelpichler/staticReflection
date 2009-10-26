@@ -314,9 +314,39 @@ class StaticReflectionMethodTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testIsConstructorReturnsTrueForAbstractMethod()
+    {
+        $method = new StaticReflectionMethod( '__construct', '', StaticReflectionMethod::IS_ABSTRACT );
+        $method->initDeclaringClass( new \ReflectionClass( '\stdClass' ) );
+        
+        $this->assertTrue( $method->isConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsConstructorReturnsFalseForInterfaceMethod()
+    {
+        $method = new StaticReflectionMethod( '__construct', '', 0 );
+        $method->initDeclaringClass( new StaticReflectionInterface( 'stdClass', '' ) );
+
+        $this->assertFalse( $method->isConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
     public function testIsDestructorReturnsFalseForNonDestructMethod()
     {
         $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initDeclaringClass( new \ReflectionClass( '\stdClass' ) );
+
         $this->assertFalse( $method->isDestructor() );
     }
 
@@ -329,7 +359,37 @@ class StaticReflectionMethodTest extends BaseTest
     public function testIsDestructorReturnsTrueForDestructMethod()
     {
         $method = new StaticReflectionMethod( '__DESTRUCT', '', 0 );
+        $method->initDeclaringClass( new \ReflectionClass( '\stdClass' ) );
+
         $this->assertTrue( $method->isDestructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsDestructorReturnsTrueForAbstractDestructMethod()
+    {
+        $method = new StaticReflectionMethod( '__destruct', '', StaticReflectionMethod::IS_ABSTRACT );
+        $method->initDeclaringClass( new \ReflectionClass( '\stdClass' ) );
+
+        $this->assertTrue( $method->isDestructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\StaticReflectionMethod
+     * @group reflection
+     * @group unittest
+     */
+    public function testIsDestructorReturnsFalseForInterfaceDestructMethod()
+    {
+        $method = new StaticReflectionMethod( '__destruct', '', 0 );
+        $method->initDeclaringClass( new StaticReflectionInterface( 'stdClass', '' ) );
+
+        $this->assertFalse( $method->isDestructor() );
     }
 
     /**

@@ -149,6 +149,27 @@ class StaticReflectionClass extends StaticReflectionInterface
         }
     }
 
+    public function getConstants()
+    {
+        if ( $this->_parentClass === false )
+        {
+            return parent::getConstants();
+        }
+        return $this->_collectConstants( $this->_parentClass, parent::getConstants() );
+    }
+
+    private function _collectConstants( \ReflectionClass $class, array $result )
+    {
+        foreach ( $class->getConstants() as $name => $value )
+        {
+            if ( array_key_exists( $name, $result ) === false )
+            {
+                $result[$name] = $value;
+            }
+        }
+        return $result;
+    }
+
     /**
      * Returns an <b>array</b> with methods defined in the inheritence hierarchy
      * of the reflection class. You can pass an optional filter argument that
