@@ -57,9 +57,24 @@ use org\pdepend\reflection\api\StaticReflectionProperty;
 use org\pdepend\reflection\exceptions\EndOfTokenStreamException;
 use org\pdepend\reflection\exceptions\UnexpectedTokenException;
 
+/**
+ * Parser implementation based on PHP's internal tokenizer extension.
+ * 
+ * @category  PHP
+ * @package   org\pdepend\reflection\parser
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+
+ */
 class Parser
 {
     /**
+     * Configured parser context that will be used to retrieve source information
+     * and dependent class or interfaces.
+     *
      * @var \org\pdepend\reflection\parser\ParserContext
      */
     private $_context = null;
