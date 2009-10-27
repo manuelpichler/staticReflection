@@ -85,6 +85,11 @@ class StaticReflectionClass extends StaticReflectionInterface
         $this->_modifiers = $modifiers;
     }
 
+    /**
+     * Returns a bitfield with modifiers for the reflected class.
+     *
+     * @return integer
+     */
     public function getModifiers()
     {
         if ( count( $this->getMethods( StaticReflectionMethod::IS_ABSTRACT ) ) > 0 )
