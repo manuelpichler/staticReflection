@@ -129,6 +129,13 @@ class Parser
     private $_constants = array();
 
     /**
+     * Parsed method parameters for a single method.
+     *
+     * @var array(\org\pdepend\reflection\api\StaticReflectionParameter)
+     */
+    private $_parameters = array();
+
+    /**
      * Constructs a new parser instance.
      *
      * @param \org\pdepend\reflection\parser\ParserContext $context
@@ -510,50 +517,108 @@ class Parser
      * @param string  $docComment Optional doc comment for the parsed method.
      * @param integer $modifiers  Bitfield with method modifiers.
      *
-     * @return \org\pdepend\reflection\api\StaticReflectionClass
+     * @return void
      */
     private function _parseMethodDeclaration( $docComment, $modifiers )
     {
         $startLine  = $this->_consumeToken( ParserTokens::T_FUNCTION )->startLine;
         $returnsRef = $this->_parseOptionalByReference();
-        $methodName = null;
-        $parameters = array();
 
-        while ( is_object( $token = $this->_next() ) )
+        $this->_consumeComments();
+        $token = $this->_consumeToken( ParserTokens::T_STRING );
+
+        $this->_parseMethodParameterList();
+
+        $this->_consumeComments();
+        if ( $this->_peek() === ParserTokens::T_SEMICOLON )
         {
-            switch ( $token->type )
-            {
-                case ParserTokens::T_STRING:
-                    if ( $methodName === null )
-                    {
-                        $methodName = $token->image;
-                    }
-                    break;
-
-                case ParserTokens::T_VARIABLE:
-                    $parameters[] = new StaticReflectionParameter( $token->image, count( $parameters ) );
-                     break;
-
-                case ParserTokens::T_SCOPE_OPEN:
-                    $token = $this->_parseScope();
-
-                case ParserTokens::T_SEMICOLON:
-                    $method = new StaticReflectionMethod( $methodName, $docComment, $modifiers );
-                    $method->initStartLine( $startLine );
-                    $method->initEndLine( $token->endLine );
-                    $method->initParameters( $parameters );
-
-                    if ( $returnsRef )
-                    {
-                        $method->initReturnsReference();
-                    }
-
-                    $this->_methods[] = $method;
-
-                    return;
-            }
+            $endLine = $this->_consumeToken( ParserTokens::T_SEMICOLON )->endLine;
         }
-        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
+        else
+        {
+            $endLine = $this->_parseScope()->endLine;
+        }
+
+        $method = new StaticReflectionMethod( $token->image, $docComment, $modifiers);
+        $method->initStartLine( $startLine );
+        $method->initEndLine( $endLine );
+        $method->initParameters( $this->_parameters );
+
+        if ( $returnsRef )
+        {
+            $method->initReturnsReference();
+        }
+
+        $this->_methods[] = $method;
+    }
+
+    /**
+     * Parses the signature of a method, which means everything starting from
+     * the opening <b>(</b> parenthesis until the closing parenthesis <b>)</b>.
+     *
+     * @return void
+     */
+    private function _parseMethodParameterList()
+    {
+        $this->_consumeComments();
+        $this->_consumeToken( ParserTokens::T_BLOCK_OPEN );
+
+        $this->_parameters = array();
+        while ( $this->_parseMethodParameter() )
+        {
+            $this->_consumeComments();
+            if ( $this->_peek() !== ParserTokens::T_COMMA )
+            {
+                break;
+            }
+            $this->_consumeToken( ParserTokens::T_COMMA );
+        }
+        $this->_consumeToken( ParserTokens::T_BLOCK_CLOSE );
+    }
+
+    /**
+     * Parses a single method parameter and returns <b>true</b> when a parameter
+     * was found. Otherwise this method will return <b>false</b>.
+     *
+     * @return boolean
+     */
+    private function _parseMethodParameter()
+    {
+        $typeHint = $this->_parseOptionalMethodParameterTypeHint();
+        $byRef    = $this->_parseOptionalByReference();
+
+        $this->_consumeComments();
+        if ( $this->_peek() !== ParserTokens::T_VARIABLE )
+        {
+            return false;
+        }
+
+        $token = $this->_consumeToken( ParserTokens::T_VARIABLE );
+
+        $this->_parseOptionalDefaultValue();
+
+        $this->_parameters[] = new StaticReflectionParameter( $token->image, count( $this->_parameters ) );
+
+        return true;
+    }
+
+    /**
+     * Parses an optional parameter type-hint and returns a reflection class
+     * instance for a type type-hint, <b>true</b> for an array type-hint or
+     * <b>false</b> when no type hint exists.
+     *
+     * @return \ReflectionClass|boolean
+     */
+    private function _parseOptionalMethodParameterTypeHint()
+    {
+        $this->_consumeComments();
+        switch ( $this->_peek() )
+        {
+            case ParserTokens::T_NS_SEPARATOR:
+            case ParserTokens::T_STRING:
+                return $this->_parseClassOrInterfaceName();
+        }
+        return false;
     }
 
     /**
@@ -573,6 +638,38 @@ class Parser
             return true;
         }
         return false;
+    }
+
+    /**
+     * Parses an optional default as it can occure for property or parameter
+     * nodes.
+     *
+     * @return mixed
+     */
+    private function _parseOptionalDefaultValue()
+    {
+        $this->_consumeComments();
+        switch ( $this->_peek() )
+        {
+            case ParserTokens::T_STRING:
+                $this->_consumeToken( ParserTokens::T_STRING );
+
+                $this->_consumeComments();
+                if ( $this->_peek() === ParserTokens::T_STRING )
+                {
+                    $this->_consumeToken( ParserTokens::T_STRING );
+                }
+                break;
+
+            case ParserTokens::T_NAMESPACE:
+                $this->_consumeToken( ParserTokens::T_NAMESPACE );
+                $this->_parseClassOrInterfaceName();
+                break;
+
+            case ParserTokens::T_BLOCK_OPEN:
+                $this->_parseBlock();
+                break;
+        }
     }
 
     private function _parsePropertyDeclarations( $docComment, $modifiers )
@@ -675,6 +772,9 @@ class Parser
 
     private function _parseScope()
     {
+        $this->_consumeComments();
+        $this->_consumeToken( ParserTokens::T_SCOPE_OPEN );
+
         $scope = 1;
 
         while ( is_object( $token = $this->_next() ) )

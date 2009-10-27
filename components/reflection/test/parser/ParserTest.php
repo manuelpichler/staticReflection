@@ -965,11 +965,11 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @covers \org\pdepend\reflection\parser\Parser
      * @covers \org\pdepend\reflection\parser\ParserTokens
      * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @covers \org\pdepend\reflection\exceptions\UnexpectedTokenException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \org\pdepend\reflection\exceptions\UnexpectedTokenException
      */
     public function testParserThrowsExceptionForInvalidMethodDeclatation()
     {
