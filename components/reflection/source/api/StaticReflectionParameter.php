@@ -87,6 +87,20 @@ class StaticReflectionParameter extends \ReflectionParameter
     private $_optional = false;
 
     /**
+     * Is the reflected parameter declared as array parameter?
+     *
+     * @var boolean
+     */
+    private $_array = false;
+
+    /**
+     * The class/interface type-hint for the reflected parameter or <b>null</b>.
+     *
+     * @var \ReflectionClass
+     */
+    private $_class = null;
+
+    /**
      * Is the reflected parameter passed by reference?
      *
      * @var boolean
@@ -163,7 +177,7 @@ class StaticReflectionParameter extends \ReflectionParameter
      */
     public function getClass()
     {
-        return null;
+        return $this->_class;
     }
 
     public function getDeclaringClass()
@@ -221,7 +235,7 @@ class StaticReflectionParameter extends \ReflectionParameter
      */
     public function isArray()
     {
-        return false;
+        return $this->_array;
     }
 
     public function isDefaultValueAvailable()

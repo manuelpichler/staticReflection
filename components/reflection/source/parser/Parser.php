@@ -637,7 +637,7 @@ class Parser
             case ParserTokens::T_STRING:
             case ParserTokens::T_NAMESPACE:
             case ParserTokens::T_NS_SEPARATOR:
-                return $this->_parseClassOrInterfaceName();
+                return $this->_parseInterface();
         }
         return false;
     }
