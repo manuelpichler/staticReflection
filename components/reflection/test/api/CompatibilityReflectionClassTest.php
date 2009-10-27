@@ -81,4 +81,52 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
             count( $static->getMethods( \ReflectionMethod::IS_PROTECTED ) )
         );
     }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetProperties()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithProperties' );
+        $static   = $this->createStaticClass( 'CompatClassWithProperties' );
+
+        $this->assertEquals( count( $internal->getProperties() ), count( $static->getProperties() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetPropertiesOnInheritProperties()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithParentProperties' );
+        $static   = $this->createStaticClass( 'CompatClassWithParentProperties' );
+
+        $this->assertEquals( count( $internal->getProperties() ), count( $static->getProperties() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetPropertyForUnknownPropertyExceptionMessage()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithoutProperties' );
+        $static   = $this->createStaticClass( 'CompatClassWithoutProperties' );
+
+        $expected = $this->executeFailingMethod( $internal, 'getProperty', __FUNCTION__ );
+        $actual   = $this->executeFailingMethod( $static, 'getProperty', __FUNCTION__ );;
+
+        $this->assertEquals( $expected, $actual );
+    }
 }

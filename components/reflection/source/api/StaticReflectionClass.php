@@ -69,7 +69,7 @@ class StaticReflectionClass extends StaticReflectionInterface
     private $_parentClass = false;
 
     /**
-     * @var array(\ReflectionProperty)
+     * @var array(string=>\ReflectionProperty)
      */
     private $_properties = null;
 
@@ -263,25 +263,95 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
+     * Checks whether the specified property is defined.
+     *
+     * @param string $name Name of the property being checked for.
+     *
+     * @return boolean
+     */
+    public function hasProperty( $name )
+    {
+        return array_key_exists( $name, $this->_collectProperties() );
+    }
+
+    /**
      * @param string $name
      *
      * @return \ReflectionProperty
      */
     public function getProperty( $name )
     {
-        if ( isset( $this->_properties[$name] ) )
+        if ( $this->hasProperty( $name ) )
         {
-            return $this->_properties[$name];
+            $properties = $this->_collectProperties();
+            return $properties[$name];
         }
         throw new \ReflectionException( sprintf( 'Property %s does not exist', $name ) );
     }
 
     /**
+     * Returns all properties of the reflected class or one of its parent classes.
+     *
+     * @param integer $filter Optional bitfield with property modifiers that
+     *        will be used as a filter for the collected properties.
+     *
      * @return array(\ReflectionProperty)
      */
-    public function getProperties( $filter = 0 )
+    public function getProperties( $filter = -1 )
     {
-        return $this->_properties;
+        return array_values( $this->_collectProperties() );
+    }
+
+    /**
+     * Collects all properties defined for the reflected class or one of its
+     * parents.
+     *
+     * @return array(string=>\ReflectionProperty)
+     */
+    private function _collectProperties()
+    {
+        if ( $this->_parentClass === false )
+        {
+            return (array) $this->_properties;
+        }
+        return $this->_collectPropertiesFromParentClass( (array) $this->_properties );
+    }
+
+    /**
+     * Collects all properties of the current an its parent class.
+     *
+     * @param array(string=>\ReflectionProperty) $result Properties defined
+     *        within the scope of the currently reflected class.
+     *
+     * @return array(string=>\ReflectionProperty)
+     */
+    private function _collectPropertiesFromParentClass( array $result )
+    {
+        foreach ( $this->_parentClass->getProperties() as $property )
+        {
+            $result = $this->_collectPropertyFromParentClass( $property, $result );
+        }
+        return $result;
+    }
+
+    /**
+     * Adds the given property to the result array when it does not already
+     * exist and is not declared as private.
+     *
+     * @param ReflectionProperty                 $property The current property
+     *        instance that should be added to the result of available properties.
+     * @param array(string=>\ReflectionProperty) $result   An array with all
+     *        properties that have already been collected for the reflected class.
+     *
+     * @return array(string=>\ReflectionProperty)
+     */
+    private function _collectPropertyFromParentClass( \ReflectionProperty $property, array $result )
+    {
+        if ( !$property->isPrivate() && !isset( $result[$property->getName()] ) )
+        {
+            $result[$property->getName()] = $property;
+        }
+        return $result;
     }
 
     /**

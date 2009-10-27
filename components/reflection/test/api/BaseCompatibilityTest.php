@@ -46,4 +46,32 @@ abstract class BaseCompatibilityTest extends \org\pdepend\reflection\BaseTest
         $parser = new Parser( $this->createParserContext(), $className );
         return $parser->parse();
     }
+
+    /**
+     * Invokes the given method on the given object and catches a thrown exception
+     * and returns the exception message. When no exception is thrown this method
+     * will return <b>null</b>.
+     *
+     * @param object $object The context object.
+     * @param string $method The method to call.
+     * @param array  $args   Optional method arguments.
+     *
+     * @return string
+     */
+    protected function executeFailingMethod( $object, $method, $args )
+    {
+        try
+        {
+            $args = func_get_args();
+            array_shift( $args );
+            array_shift( $args );
+
+            call_user_func_array( array( $object, $method ), $args );
+        }
+        catch ( \ReflectionException $e )
+        {
+            return $e->getMessage();
+        }
+        return null;
+    }
 }

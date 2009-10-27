@@ -281,6 +281,151 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testGetPropertyReturnsDirectlyDeclaredProperty()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initProperties(
+            array(
+                $prop0 = new StaticReflectionProperty( 'foo', '', 0 ),
+                $prop1 = new StaticReflectionProperty( 'bar', '', 0 ),
+            )
+        );
+
+        $this->assertSame( $prop1, $class->getProperty( 'bar' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetPropertiesReturnsDirectlyDeclaredProperties()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initProperties(
+            array(
+                new StaticReflectionProperty( 'foo', '', 0 ),
+                new StaticReflectionProperty( 'bar', '', 0 ),
+            )
+        );
+
+        $this->assertEquals( 2, count( $class->getProperties() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetPropertiesReturnsDirectlyDeclaredPrivateProperties()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initProperties(
+            array(
+                new StaticReflectionProperty( 'foo', '', \ReflectionProperty::IS_PRIVATE ),
+            )
+        );
+
+        $this->assertEquals( 1, count( $class->getProperties() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetPropertiesReturnsPublicOrProtectedInheritProperties()
+    {
+        $parent = new StaticReflectionClass( __CLASS__ . 'Parent', '', 0 );
+        $parent->initProperties(
+            array(
+                new StaticReflectionProperty( 'foo', '', \ReflectionProperty::IS_PROTECTED ),
+                new StaticReflectionProperty( 'bar', '', \ReflectionProperty::IS_PUBLIC ),
+            )
+        );
+
+        $child = new StaticReflectionClass( __CLASS__, '', 0 );
+        $child->initParentClass( $parent );
+        $child->initProperties( array(  new StaticReflectionProperty( 'baz', '', 0 ) ) );
+
+        $this->assertEquals( 3, count( $child->getProperties() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetPropertiesNotReturnsPrivateInheritProperties()
+    {
+        $parent = new StaticReflectionClass( __CLASS__ . 'Parent', '', 0 );
+        $parent->initProperties(
+            array(
+                new StaticReflectionProperty( 'foo', '', \ReflectionProperty::IS_PRIVATE ),
+                new StaticReflectionProperty( 'bar', '', \ReflectionProperty::IS_PUBLIC ),
+            )
+        );
+
+        $child = new StaticReflectionClass( __CLASS__, '', 0 );
+        $child->initParentClass( $parent );
+        $child->initProperties( array(  new StaticReflectionProperty( 'baz', '', 0 ) ) );
+
+        $this->assertEquals( 2, count( $child->getProperties() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testHasPropertyReturnsTrueForInheritProperty()
+    {
+        $parent = new StaticReflectionClass( __CLASS__ . 'Parent', '', 0 );
+        $parent->initProperties( array( $prop = new StaticReflectionProperty( 'foo', '', 0 ) ) );
+
+        $child = new StaticReflectionClass( __CLASS__, '', 0 );
+        $child->initParentClass( $parent );
+        $child->initProperties( array(  new StaticReflectionProperty( 'baz', '', 0 ) ) );
+
+        $this->assertTrue( $child->hasProperty( 'foo' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetPropertyReturnsInheritProperty()
+    {
+        $parent = new StaticReflectionClass( __CLASS__ . 'Parent', '', 0 );
+        $parent->initProperties( array( $prop = new StaticReflectionProperty( 'foo', '', 0 ) ) );
+
+        $child = new StaticReflectionClass( __CLASS__, '', 0 );
+        $child->initParentClass( $parent );
+        $child->initProperties( array(  new StaticReflectionProperty( 'baz', '', 0 ) ) );
+
+        $this->assertSame( $prop, $child->getProperty( 'foo' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testIsAbstractReturnsFalseWhenModifierIsNotSet()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
@@ -347,6 +492,20 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @group reflection
      * @group reflection::api
      * @group unittest
+     * @expectedException \ReflectionException
+     */
+    public function testGetPropertyThrowsExceptionWhenNoPropertyForTheGivenNameExists()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->getProperty( 'foo' );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      * @expectedException \LogicException
      */
     public function testInitParentClassThrowsLogicExceptionWhenParentWasAlreadySet()
@@ -354,5 +513,20 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initParentClass( new \ReflectionClass( __CLASS__ ) );
         $class->initParentClass( new \ReflectionClass( __CLASS__ ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitPropertiesThrowsLogicExceptionWhenPropertiesWasAlreadySet()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initProperties( array() );
+        $class->initProperties( array() );
     }
 }
