@@ -32,8 +32,8 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
-        $this->addTestSuite( '\org\pdepend\reflection\parser\ParserTest' );
         $this->addTestSuite( '\org\pdepend\reflection\parser\TokenizerTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\parser\ParserTest' );
     }
 
     /**

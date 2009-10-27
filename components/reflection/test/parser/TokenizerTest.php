@@ -55,6 +55,7 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
     /**
      * @return void
      * @covers \org\pdepend\reflection\parser\Tokenizer
+     * @covers \org\pdepend\reflection\parser\Token
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -79,6 +80,7 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
     /**
      * @return void
      * @covers \org\pdepend\reflection\parser\Tokenizer
+     * @covers \org\pdepend\reflection\parser\Token
      * @group reflection
      * @group reflection::parser
      * @group unittest
