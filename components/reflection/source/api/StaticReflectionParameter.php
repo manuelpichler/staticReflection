@@ -284,16 +284,49 @@ class StaticReflectionParameter extends \ReflectionParameter
     /**
      * Initializes the type hint for the reflected parameter.
      *
-     * @param \ReflectionClass|boolean $typeHint Type hint for the reflected
-     *        method. A boolean <b>true</b> value means an array type-hint,
-     *        while a reflection class instance means a type type-hint.
+     * @param \ReflectionClass|boolean $classOrBoolean Type hint for the
+     *        reflected method. A boolean <b>true</b> value means an array
+     *        type-hint, while a reflection class instance means a type type-hint.
      *
      * @return void
      * @access private
      */
-    public function initTypeHint( $typeHint )
+    public function initTypeHint( $classOrBoolean )
     {
+        if ( $this->_array === false && $this->_class === null )
+        {
+            $this->_initTypeHint( $classOrBoolean );
+        }
+        else
+        {
+            throw new \LogicException( 'Property typeHint already set' );
+        }
+    }
 
+    /**
+     * Initializes the type hint for the reflected parameter.
+     *
+     * @param \ReflectionClass|boolean $classOrBoolean Type hint for the
+     *        reflected method. A boolean <b>true</b> value means an array
+     *        type-hint, while a reflection class instance means a type type-hint.
+     *
+     * @return void
+     * @access private
+     */
+    private function _initTypeHint( $classOrBoolean )
+    {
+        if ( $classOrBoolean instanceof \ReflectionClass )
+        {
+            $this->_class = $classOrBoolean;
+        }
+        else if ( $classOrBoolean === true )
+        {
+            $this->_array = true;
+        }
+        else
+        {
+            throw new \LogicException( 'Invalid type hint value given' );
+        }
     }
 
     public function __toString()

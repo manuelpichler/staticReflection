@@ -199,4 +199,33 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
         $parameter->initPassedByReference();
         $parameter->initPassedByReference();
     }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitTypeHintThrowsLogicExceptionWhenNotTrueOrReflectionClass()
+    {
+        $parameter = new StaticReflectionParameter( 'foo', 0 );
+        $parameter->initTypeHint( false );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitTypeHintThrowsLogicExceptionWhenAlreadySet()
+    {
+        $parameter = new StaticReflectionParameter( 'foo', 0 );
+        $parameter->initTypeHint( true );
+        $parameter->initTypeHint( true );
+    }
 }
