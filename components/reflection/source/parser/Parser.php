@@ -67,7 +67,6 @@ use org\pdepend\reflection\exceptions\UnexpectedTokenException;
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
-
  */
 class Parser
 {
@@ -710,9 +709,11 @@ class Parser
         {
             switch ( $tokenType )
             {
-                case ParserTokens::T_DOC_COMMENT:
                 case ParserTokens::T_STATIC:
                 case ParserTokens::T_STRING:
+                case ParserTokens::T_NAMESPACE;
+                case ParserTokens::T_DOC_COMMENT:
+                case ParserTokens::T_NS_SEPARATOR;
                     $this->_consumeToken( $tokenType );
                     break;
 
@@ -759,11 +760,12 @@ class Parser
         {
             switch ( $tokenType )
             {
-                case ParserTokens::T_DOC_COMMENT:
-                case ParserTokens::T_NS_SEPARATOR:
                 case ParserTokens::T_STATIC:
                 case ParserTokens::T_STRING:
-                    $this->_next();
+                case ParserTokens::T_NAMESPACE;
+                case ParserTokens::T_DOC_COMMENT:
+                case ParserTokens::T_NS_SEPARATOR;
+                    $this->_consumeToken( $tokenType );
                     break;
 
                 case ParserTokens::T_COMMA:
