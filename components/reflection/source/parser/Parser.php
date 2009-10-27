@@ -515,6 +515,7 @@ class Parser
     private function _parseMethodDeclaration( $docComment, $modifiers )
     {
         $startLine  = $this->_consumeToken( ParserTokens::T_FUNCTION )->startLine;
+        $returnsRef = $this->_parseOptionalByReference();
         $methodName = null;
         $parameters = array();
 
@@ -542,12 +543,36 @@ class Parser
                     $method->initEndLine( $token->endLine );
                     $method->initParameters( $parameters );
 
+                    if ( $returnsRef )
+                    {
+                        $method->initReturnsReference();
+                    }
+
                     $this->_methods[] = $method;
 
                     return;
             }
         }
         throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
+    }
+
+    /**
+     * Parses an optional by reference flag from the token stream and returns
+     * <b>true</b> when a by reference token was found, otherwise the return
+     * value will be <b>false</b>.
+     *
+     * @return boolean
+     */
+    private function _parseOptionalByReference()
+    {
+        $this->_consumeComments();
+        if ( $this->_peek() === ParserTokens::T_BITWISE_AND )
+        {
+            $this->_consumeToken( ParserTokens::T_BITWISE_AND );
+            $this->_consumeComments();
+            return true;
+        }
+        return false;
     }
 
     private function _parsePropertyDeclarations( $docComment, $modifiers )

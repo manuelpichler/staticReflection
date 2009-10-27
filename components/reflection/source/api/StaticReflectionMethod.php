@@ -74,6 +74,13 @@ class StaticReflectionMethod extends \ReflectionMethod
     private $_modifiers = 0;
 
     /**
+     * Flags the reflected method as returns or not returns a value by reference.
+     *
+     * @var boolean
+     */
+    private $_returnsReference = false;
+
+    /**
      * The declaring class.
      *
      * @var \ReflectionClass
@@ -529,9 +536,34 @@ class StaticReflectionMethod extends \ReflectionMethod
         }
     }
 
+    /**
+     * Returns <b>true</b> when the reflected method returns its return value
+     * by reference. Otherwise the return value of this method will be
+     * <b>false</b>.
+     *
+     * @return boolean
+     */
     public function returnsReference()
     {
-        
+        return $this->_returnsReference;
+    }
+
+    /**
+     * A call to this method flags the reflected method as returns by reference.
+     *
+     * @return void
+     * @access private
+     */
+    public function initReturnsReference()
+    {
+        if ( $this->_returnsReference === false )
+        {
+            $this->_returnsReference = true;
+        }
+        else
+        {
+            throw new \LogicException( 'Property returnsReference already set' );
+        }
     }
 
     public function getStaticVariables()

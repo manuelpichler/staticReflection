@@ -43,7 +43,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
         $static   = $this->createStatic( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
 
-        $this->assertSame( $internal->getName(), $static->getName() );
+        $this->assertEquals( $internal->getName(), $static->getName() );
     }
 
     /**
@@ -58,7 +58,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
         $static   = $this->createStatic( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
 
-        $this->assertSame( $internal->getShortName(), $static->getShortName() );
+        $this->assertEquals( $internal->getShortName(), $static->getShortName() );
     }
 
     /**
@@ -73,7 +73,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
         $static   = $this->createStatic( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
 
-        $this->assertSame( $internal->getNamespaceName(), $static->getNamespaceName() );
+        $this->assertEquals( $internal->getNamespaceName(), $static->getNamespaceName() );
     }
 
     /**
@@ -88,7 +88,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
         $static   = $this->createStatic( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
 
-        $this->assertSame(
+        $this->assertEquals(
             $internal->getDeclaringClass()->getName(),
             $static->getDeclaringClass()->getName()
         );
@@ -106,7 +106,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
         $static   = $this->createStatic( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
 
-        $this->assertSame( $internal->getFileName(), $static->getFileName() );
+        $this->assertEquals( $internal->getFileName(), $static->getFileName() );
     }
 
     /**
@@ -121,7 +121,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatMethodWithComment', 'fooBar' );
         $static   = $this->createStatic( 'CompatMethodWithComment', 'fooBar' );
 
-        $this->assertSame( $internal->getDocComment(), $static->getDocComment() );
+        $this->assertEquals( $internal->getDocComment(), $static->getDocComment() );
     }
 
     /**
@@ -136,7 +136,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatMethodWithoutComment', 'fooBar' );
         $static   = $this->createStatic( 'CompatMethodWithoutComment', 'fooBar' );
 
-        $this->assertSame( $internal->getDocComment(), $static->getDocComment() );
+        $this->assertEquals( $internal->getDocComment(), $static->getDocComment() );
     }
 
     /**
@@ -151,7 +151,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatMethodWithoutComment', 'fooBar' );
         $static   = $this->createStatic( 'CompatMethodWithoutComment', 'fooBar' );
 
-        $this->assertSame( $internal->isClosure(), $static->isClosure() );
+        $this->assertEquals( $internal->isClosure(), $static->isClosure() );
     }
 
     /**
@@ -166,7 +166,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatMethodAnnotatedWithDeprecated', 'fooBar' );
         $static   = $this->createStatic( 'CompatMethodAnnotatedWithDeprecated', 'fooBar' );
 
-        $this->assertSame( $internal->isDeprecated(), $static->isDeprecated() );
+        $this->assertEquals( $internal->isDeprecated(), $static->isDeprecated() );
     }
 
     /**
@@ -181,7 +181,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatMethodAnnotatedWithoutDeprecated', 'fooBar' );
         $static   = $this->createStatic( 'CompatMethodAnnotatedWithoutDeprecated', 'fooBar' );
 
-        $this->assertSame( $internal->isDeprecated(), $static->isDeprecated() );
+        $this->assertEquals( $internal->isDeprecated(), $static->isDeprecated() );
     }
 
     /**
@@ -196,7 +196,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatInterfaceWithConstruct', '__construct' );
         $static   = $this->createStatic( 'CompatInterfaceWithConstruct', '__construct' );
 
-        $this->assertSame( $internal->isConstructor(), $static->isConstructor() );
+        $this->assertEquals( $internal->isConstructor(), $static->isConstructor() );
     }
 
     /**
@@ -241,7 +241,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatClassWithDestructor', '__destruct' );
         $static   = $this->createStatic( 'CompatClassWithDestructor', '__destruct' );
 
-        $this->assertSame( $internal->isDestructor(), $static->isDestructor() );
+        $this->assertEquals( $internal->isDestructor(), $static->isDestructor() );
     }
 
     /**
@@ -256,7 +256,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatClassWithDestructor', 'fooBar' );
         $static   = $this->createStatic( 'CompatClassWithDestructor', 'fooBar' );
 
-        $this->assertSame( $internal->isDestructor(), $static->isDestructor() );
+        $this->assertEquals( $internal->isDestructor(), $static->isDestructor() );
     }
 
     /**
@@ -296,12 +296,72 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
+    public function testReturnsReferenceClassMethodWithoutBitwiseAnd()
+    {
+        $internal = $this->createInternal( 'CompatClassMethodWithoutBitwiseAnd', 'fooBar' );
+        $static   = $this->createStatic( 'CompatClassMethodWithoutBitwiseAnd', 'fooBar' );
+
+        $this->assertEquals( $internal->returnsReference(), $static->returnsReference() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testReturnsReferenceClassMethodWithBitwiseAnd()
+    {
+        $internal = $this->createInternal( 'CompatClassMethodWithBitwiseAnd', 'fooBar' );
+        $static   = $this->createStatic( 'CompatClassMethodWithBitwiseAnd', 'fooBar' );
+
+        $this->assertEquals( $internal->returnsReference(), $static->returnsReference() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testReturnsReferenceClassAbstractMethodWithBitwiseAnd()
+    {
+        $internal = $this->createInternal( 'CompatClassAbstractMethodWithBitwiseAnd', 'fooBar' );
+        $static   = $this->createStatic( 'CompatClassAbstractMethodWithBitwiseAnd', 'fooBar' );
+
+        $this->assertEquals( $internal->returnsReference(), $static->returnsReference() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testReturnsReferenceInterfaceMethodWithBitwiseAnd()
+    {
+        $internal = $this->createInternal( 'CompatInterfaceMethodWithBitwiseAnd', 'fooBar' );
+        $static   = $this->createStatic( 'CompatInterfaceMethodWithBitwiseAnd', 'fooBar' );
+
+        $this->assertEquals( $internal->returnsReference(), $static->returnsReference() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
     public function testInNamespaceForClassWithNamespace()
     {
         $internal = $this->createInternal( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
         $static   = $this->createStatic( '\compat\CompatMethodInClassWithNamespace', 'fooBar' );
 
-        $this->assertSame( $internal->inNamespace(), $static->inNamespace() );
+        $this->assertEquals( $internal->inNamespace(), $static->inNamespace() );
     }
 
     /**
@@ -316,7 +376,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
         $static   = $this->createStatic( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
 
-        $this->assertSame( $internal->inNamespace(), $static->inNamespace() );
+        $this->assertEquals( $internal->inNamespace(), $static->inNamespace() );
     }
 
     /**
@@ -331,7 +391,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
         $static   = $this->createStatic( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
 
-        $this->assertSame( $internal->getExtension(), $static->getExtension() );
+        $this->assertEquals( $internal->getExtension(), $static->getExtension() );
     }
 
     /**
@@ -346,7 +406,7 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
         $static   = $this->createStatic( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
 
-        $this->assertSame( $internal->getExtensionName(), $static->getExtensionName() );
+        $this->assertEquals( $internal->getExtensionName(), $static->getExtensionName() );
     }
 
     /**

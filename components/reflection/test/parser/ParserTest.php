@@ -507,6 +507,34 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserDoesNotFlagMethodAsReturnsReference()
+    {
+        $parser = new Parser( $this->createParserContext(), 'MethodNotReturningReference' );
+        $this->assertFalse( $parser->parse()->getMethod( 'foo' )->returnsReference() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserFlagsMethodAsReturnsReference()
+    {
+        $parser = new Parser( $this->createParserContext(), 'MethodReturnsReference' );
+        $this->assertTrue( $parser->parse()->getMethod( 'foo' )->returnsReference() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserSetsExpectedConcreteMethodStartLine()
     {
         $parser = new Parser( $this->createParserContext(), 'MethodLineNumbers' );

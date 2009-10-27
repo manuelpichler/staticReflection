@@ -483,6 +483,34 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testReturnsReferenceReturnsFalseByDefault()
+    {
+        $method = new StaticReflectionMethod( 'retRef', '', 0 );
+        $this->assertFalse( $method->returnsReference() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testReturnsReferenceReturnsTrueWhenItWasFlaggedWithReturnsReference()
+    {
+        $method = new StaticReflectionMethod( 'retRef', '', 0 );
+        $method->initReturnsReference();
+
+        $this->assertTrue( $method->returnsReference() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testInNamespaceAlwaysReturnsFalse()
     {
         $method = new StaticReflectionMethod( 'foo', '', 0 );
@@ -766,5 +794,20 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
         $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initParameters( array() );
         $method->initParameters( array() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitReturnsReferenceThrowsLogicExceptionWhenAlreadySet()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initReturnsReference();
+        $method->initReturnsReference();
     }
 }
