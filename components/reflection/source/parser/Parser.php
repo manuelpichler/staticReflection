@@ -371,6 +371,7 @@ class Parser
             switch ( $tokenType )
             {
                 case ParserTokens::T_STRING:
+                case ParserTokens::T_NAMESPACE:
                 case ParserTokens::T_NS_SEPARATOR:
                     $interfaces[] = $this->_parseInterface();
                     break;
@@ -403,7 +404,17 @@ class Parser
         $name = array();
 
         $this->_consumeComments();
-        if ( $this->_peek() === ParserTokens::T_NS_SEPARATOR )
+        if ( $this->_peek() === ParserTokens::T_NAMESPACE )
+        {
+            $this->_consumeToken( ParserTokens::T_NAMESPACE );
+
+            $name[] = '\\';
+            $name[] = $this->_namespace;
+            
+            $this->_consumeComments();
+            $name[] = $this->_consumeToken( ParserTokens::T_NS_SEPARATOR )->image;
+        }
+        else if ( $this->_peek() === ParserTokens::T_NS_SEPARATOR )
         {
             $name[] = $this->_next()->image;
         }

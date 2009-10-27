@@ -115,6 +115,38 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserHandlesNamespaceAliasSyntaxForParentClass()
+    {
+        $parser = new Parser( $this->createParserContext(), '\org\pdepend\ClassWithNamespaceAliasedParent' );
+        $parent = $parser->parse()->getParentClass();
+        
+        $this->assertEquals( 'org\pdepend\ClassWithNamespaceParentAliased', $parent->getName() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesNamespaceAliasSyntaxForImplementedInterface()
+    {
+        $parser     = new Parser( $this->createParserContext(), '\org\pdepend\ClassWithNamespaceAliasedInterface' );
+        $interfaces = $parser->parse()->getInterfaces();
+
+        $this->assertEquals( 'org\pdepend\InterfaceWithNamespaceAliased', $interfaces[0]->getName() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserHandlesClassWithImplementedInterface()
     {
         $parser = new Parser( $this->createParserContext(), 'ClassWithImplementedInterface' );
