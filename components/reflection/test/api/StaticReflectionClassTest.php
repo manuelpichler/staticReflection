@@ -480,6 +480,32 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testIsFinalReturnsFalseByDefault()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $this->assertFalse( $class->isFinal() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsFinalReturnsTrueWhenFinalModifierIsSet()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', \ReflectionClass::IS_FINAL );
+        $this->assertTrue( $class->isFinal() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testIsInterfaceAlwaysReturnsFalse()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
