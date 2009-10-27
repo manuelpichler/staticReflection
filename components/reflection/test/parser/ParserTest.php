@@ -628,7 +628,39 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
         $parser = new Parser( $this->createParserContext(), 'MethodWithParameters' );
         $method = $parser->parse()->getMethod( 'fooBar' );
 
-        $this->assertSame( 3, $method->getNumberOfParameters() );
+        $this->assertEquals( 3, $method->getNumberOfParameters() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserNotFlagsParameterAsPassedByReference()
+    {
+        $parser = new Parser( $this->createParserContext(), 'MethodWithParameters' );
+        $params = $parser->parse()->getMethod( 'fooBar' )->getParameters();
+
+        $this->assertFalse( $params[0]->isPassedByReference() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserFlagsParameterAsPassedByReference()
+    {
+        $parser = new Parser( $this->createParserContext(), 'MethodWithReferenceParameter' );
+        $params = $parser->parse()->getMethod( 'fooBar' )->getParameters();
+
+        $this->assertTrue( $params[0]->isPassedByReference() );
     }
 
     /**

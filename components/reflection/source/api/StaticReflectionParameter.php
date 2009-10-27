@@ -80,6 +80,13 @@ class StaticReflectionParameter extends \ReflectionParameter
     private $_declaringMethod = null;
 
     /**
+     * Is the reflected parameter passed by reference?
+     *
+     * @var boolean
+     */
+    private $_passedByReference = false;
+
+    /**
      * Constructs a new parameter instance.
      *
      * @param string  $name     Name of the parameter.
@@ -200,9 +207,32 @@ class StaticReflectionParameter extends \ReflectionParameter
 
     }
 
+    /**
+     * Returns <b>true</b> when the reflected parameter is passed by reference.
+     *
+     * @return boolean
+     */
     public function isPassedByReference()
     {
-        
+        return $this->_passedByReference;
+    }
+
+    /**
+     * Sets the passed by reference flag to <b>true</b>.
+     *
+     * @return void
+     * @access private
+     */
+    public function initPassedByReference()
+    {
+        if ( $this->_passedByReference === false )
+        {
+            $this->_passedByReference = true;
+        }
+        else
+        {
+            throw new \LogicException( 'Property passedByReference already set' );
+        }
     }
 
     public function __toString()

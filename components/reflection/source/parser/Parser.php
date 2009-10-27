@@ -607,7 +607,13 @@ class Parser
 
         $this->_parseOptionalDefaultValue();
 
-        $this->_parameters[] = new StaticReflectionParameter( $token->image, count( $this->_parameters ) );
+        $parameter = new StaticReflectionParameter( $token->image, count( $this->_parameters ) );
+        if ( $byRef )
+        {
+            $parameter->initPassedByReference();
+        }
+
+        $this->_parameters[] = $parameter;
 
         return true;
     }
@@ -624,8 +630,9 @@ class Parser
         $this->_consumeComments();
         switch ( $this->_peek() )
         {
-            case ParserTokens::T_NS_SEPARATOR:
             case ParserTokens::T_STRING:
+            case ParserTokens::T_NAMESPACE:
+            case ParserTokens::T_NS_SEPARATOR:
                 return $this->_parseClassOrInterfaceName();
         }
         return false;

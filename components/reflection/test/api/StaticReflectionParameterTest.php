@@ -95,12 +95,55 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
      * @group reflection
      * @group reflection::api
      * @group unittest
+     */
+    public function testIsPassedByReferenceReturnsFalseByDefault()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $this->assertFalse( $parameter->isPassedByReference() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsPassedByReferenceReturnsTrueWhenInitialized()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter->initPassedByReference();
+
+        $this->assertTrue( $parameter->isPassedByReference() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      * @expectedException \LogicException
      */
     public function testInitDeclaringMethodThrowsLogicExceptionWhenAlreadySet()
     {
-        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter = new StaticReflectionParameter( 'foo', 0 );
         $parameter->initDeclaringMethod( new \ReflectionMethod( __CLASS__, __FUNCTION__ ) );
         $parameter->initDeclaringMethod( new \ReflectionMethod( __CLASS__, __FUNCTION__ ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitPassedByReferenceThrowsLogicExceptionWhenAlreadySet()
+    {
+        $parameter = new StaticReflectionParameter( 'foo', 0 );
+        $parameter->initPassedByReference();
+        $parameter->initPassedByReference();
     }
 }
