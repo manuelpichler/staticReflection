@@ -150,10 +150,40 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testIsArrayReturnsTrueWhenConfigured()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter->initTypeHint( true );
+
+        $this->assertTrue( $parameter->isArray() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testGetClassReturnsNullByDefault()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $this->assertNull( $parameter->getClass() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetClassReturnsPreviousConfiguredClassInstance()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter->initTypeHint( $class = new \ReflectionClass( 'Iterator' ) );
+
+        $this->assertSame( $class, $parameter->getClass() );
     }
 
     /**
