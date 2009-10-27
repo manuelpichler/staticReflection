@@ -123,6 +123,33 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
      * @group reflection
      * @group reflection::api
      * @group unittest
+     */
+    public function testIsDefaultValueAvailableReturnsFalseByDefault()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $this->assertFalse( $parameter->isDefaultValueAvailable() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     * @expectedException \ReflectionException
+     */
+    public function testGetDefaultValueThrowsExceptionWhenNoDefaultValueExists()
+    {
+        $parameter = new StaticReflectionParameter( 'foo', 0 );
+        $parameter->getDefaultValue();
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      * @expectedException \LogicException
      */
     public function testInitDeclaringMethodThrowsLogicExceptionWhenAlreadySet()

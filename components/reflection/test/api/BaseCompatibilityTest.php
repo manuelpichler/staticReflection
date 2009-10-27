@@ -58,13 +58,20 @@ abstract class BaseCompatibilityTest extends \org\pdepend\reflection\BaseTest
      *
      * @return string
      */
-    protected function executeFailingMethod( $object, $method, $args )
+    protected function executeFailingMethod( $object, $method, $args = null )
     {
         try
         {
-            $args = func_get_args();
-            array_shift( $args );
-            array_shift( $args );
+            if ( func_num_args() === 2 )
+            {
+                $args = array();
+            }
+            else
+            {
+                $args = func_get_args();
+                array_shift( $args );
+                array_shift( $args );
+            }
 
             call_user_func_array( array( $object, $method ), $args );
         }

@@ -80,6 +80,13 @@ class StaticReflectionParameter extends \ReflectionParameter
     private $_declaringMethod = null;
 
     /**
+     * Is the reflected parameter optional or mandatory?
+     *
+     * @var boolean
+     */
+    private $_optional = false;
+
+    /**
      * Is the reflected parameter passed by reference?
      *
      * @var boolean
@@ -187,9 +194,16 @@ class StaticReflectionParameter extends \ReflectionParameter
         }
     }
 
+    /**
+     * Returns the default value of the reflected parameter or throws an
+     * exception when the parameter has no default value.
+     *
+     * @return mixed
+     * @throws \ReflectionException When the reflected parameter has no default.
+     */
     public function getDefaultValue()
     {
-
+        throw new \ReflectionException( 'Parameter is not optional' );
     }
 
     public function isArray()
@@ -199,12 +213,17 @@ class StaticReflectionParameter extends \ReflectionParameter
 
     public function isDefaultValueAvailable()
     {
-
+        return false;
     }
 
+    /**
+     * Returns <b>true</b> when the reflected parameter is optional.
+     *
+     * @return boolean
+     */
     public function isOptional()
     {
-
+        return $this->_optional;
     }
 
     /**
@@ -233,6 +252,21 @@ class StaticReflectionParameter extends \ReflectionParameter
         {
             throw new \LogicException( 'Property passedByReference already set' );
         }
+    }
+
+    /**
+     * Initializes the type hint for the reflected parameter.
+     *
+     * @param \ReflectionClass|boolean $typeHint Type hint for the reflected
+     *        method. A boolean <b>true</b> value means an array type-hint,
+     *        while a reflection class instance means a type type-hint.
+     *
+     * @return void
+     * @access private
+     */
+    public function initTypeHint( $typeHint )
+    {
+
     }
 
     public function __toString()

@@ -43,7 +43,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
 
-        $this->assertSame( $internal->getName(), $static->getName() );
+        $this->assertEquals( $internal->getName(), $static->getName() );
     }
 
     /**
@@ -58,7 +58,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
 
-        $this->assertSame( $internal->getPosition(), $static->getPosition() );
+        $this->assertEquals( $internal->getPosition(), $static->getPosition() );
     }
 
     /**
@@ -73,7 +73,25 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 2 );
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 2 );
 
-        $this->assertSame( $internal->getPosition(), $static->getPosition() );
+        $this->assertEquals( $internal->getPosition(), $static->getPosition() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetDefaultValueForParameterWithoutDefaultExceptionMessage()
+    {
+        $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
+        $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
+
+        $expected = $this->executeFailingMethod( $internal, 'getDefaultValue' );
+        $actual   = $this->executeFailingMethod( $static, 'getDefaultValue' );
+
+        $this->assertEquals( $expected, $actual );
     }
 
     /**

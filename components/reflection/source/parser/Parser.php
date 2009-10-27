@@ -612,6 +612,10 @@ class Parser
         {
             $parameter->initPassedByReference();
         }
+        if ( $typeHint )
+        {
+            $parameter->initTypeHint( $typeHint );
+        }
 
         $this->_parameters[] = $parameter;
 
