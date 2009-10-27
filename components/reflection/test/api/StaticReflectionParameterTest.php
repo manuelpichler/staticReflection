@@ -136,6 +136,32 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
      * @group reflection
      * @group reflection::api
      * @group unittest
+     */
+    public function testIsArrayReturnsFalseByDefault()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $this->assertFalse( $parameter->isArray() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetClassReturnsNullByDefault()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $this->assertNull( $parameter->getClass() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      * @expectedException \ReflectionException
      */
     public function testGetDefaultValueThrowsExceptionWhenNoDefaultValueExists()

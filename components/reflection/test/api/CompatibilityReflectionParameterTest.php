@@ -83,6 +83,36 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
+    public function testIsArrayForParameterWithoutTypeHint()
+    {
+        $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
+        $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
+
+        $this->assertSame( $internal->isArray(), $static->isArray() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetClassForParameterWithoutTypeHint()
+    {
+        $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
+        $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
+
+        $this->assertSame( $internal->getClass(), $static->getClass() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
     public function testGetDefaultValueForParameterWithoutDefaultExceptionMessage()
     {
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );

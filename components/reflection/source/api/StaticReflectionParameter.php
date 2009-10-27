@@ -154,9 +154,16 @@ class StaticReflectionParameter extends \ReflectionParameter
         
     }
 
+    /**
+     * Returns a <b>\ReflectionClass</b> instance representing the type of the
+     * reflected parameter or <b>null</b> when no type type-hint is used for this
+     * parameter.
+     *
+     * @return \ReflectionClass
+     */
     public function getClass()
     {
-
+        return null;
     }
 
     public function getDeclaringClass()
@@ -206,9 +213,15 @@ class StaticReflectionParameter extends \ReflectionParameter
         throw new \ReflectionException( 'Parameter is not optional' );
     }
 
+    /**
+     * Returns <b>true</b> when the reflected parameter was declared with an
+     * <b>array</b> type-hint.
+     *
+     * @return boolean
+     */
     public function isArray()
     {
-
+        return false;
     }
 
     public function isDefaultValueAvailable()
