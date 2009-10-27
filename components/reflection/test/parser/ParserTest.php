@@ -671,6 +671,54 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserSetsExpectedClassTypeHint()
+    {
+        $parser = new Parser( $this->createParserContext(), 'MethodWithClassParameter' );
+        $params = $parser->parse()->getMethod( 'fooBar' )->getParameters();
+
+        $this->assertType( StaticReflectionClass::TYPE, $params[0]->getClass() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesClassTypeHintWithAliasedDefaultNamespace()
+    {
+        $parser = new Parser( $this->createParserContext(), 'MethodWithAliasedDefaultNamespaceClassParameter' );
+        $params = $parser->parse()->getMethod( 'fooBar' )->getParameters();
+
+        $this->assertType( StaticReflectionClass::TYPE, $params[0]->getClass() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesClassTypeHintWithAliasedNamespace()
+    {
+        $parser = new Parser( $this->createParserContext(), 'org\pdepend\MethodWithAliasedNamespaceClassParameter' );
+        $params = $parser->parse()->getMethod( 'fooBar' )->getParameters();
+
+        $this->assertType( StaticReflectionClass::TYPE, $params[0]->getClass() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserSetsPropertyDocComment()
     {
         $parser = new Parser( $this->createParserContext(), 'PropertyWithComment' );
