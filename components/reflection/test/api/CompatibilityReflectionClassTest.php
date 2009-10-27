@@ -89,6 +89,36 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
+    public function testGetMethodsReturnsInheritProtectedMethods()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithInheritProtectedMethod' );
+        $static   = $this->createStaticClass( 'CompatClassWithInheritProtectedMethod' );
+
+        $this->assertEquals( count( $internal->getMethods() ), count( $static->getMethods() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetMethodsReturnsInheritPrivateMethods()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithInheritPrivateMethod' );
+        $static   = $this->createStaticClass( 'CompatClassWithInheritPrivateMethod' );
+
+        $this->assertEquals( count( $internal->getMethods() ), count( $static->getMethods() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
     public function testGetProperties()
     {
         $internal = $this->createInternalClass( 'CompatClassWithProperties' );

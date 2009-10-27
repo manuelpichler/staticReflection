@@ -192,6 +192,63 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testGetMethodsReturnsInheritPublicMethods()
+    {
+        $parent = new StaticReflectionClass( __CLASS__ . 'Parent', '', 0 );
+        $parent->initMethods( array( new StaticReflectionMethod( 'foo', '', \ReflectionMethod::IS_PUBLIC ) ) );
+
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initParentClass( $parent );
+        $class->initMethods( array( new StaticReflectionMethod( 'bar', '', \ReflectionMethod::IS_PUBLIC ) ) );
+
+        $this->assertSame( 2, count( $class->getMethods() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetMethodsReturnsInheritProtectedMethods()
+    {
+        $parent = new StaticReflectionClass( __CLASS__ . 'Parent', '', 0 );
+        $parent->initMethods( array( new StaticReflectionMethod( 'foo', '', \ReflectionMethod::IS_PROTECTED ) ) );
+
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initParentClass( $parent );
+        $class->initMethods( array( new StaticReflectionMethod( 'bar', '', \ReflectionMethod::IS_PUBLIC ) ) );
+
+        $this->assertSame( 2, count( $class->getMethods() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetMethodsReturnsInheritPrivateMethods()
+    {
+        $parent = new StaticReflectionClass( __CLASS__ . 'Parent', '', 0 );
+        $parent->initMethods( array( new StaticReflectionMethod( 'foo', '', \ReflectionMethod::IS_PRIVATE ) ) );
+
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initParentClass( $parent );
+        $class->initMethods( array( new StaticReflectionMethod( 'bar', '', \ReflectionMethod::IS_PUBLIC ) ) );
+
+        $this->assertSame( 2, count( $class->getMethods() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testGetMethodsReturnsLastMethodInInheritanceHierarchy()
     {
         $parent = new StaticReflectionClass( __CLASS__ . 'Parent', '', 0 );
