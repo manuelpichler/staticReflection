@@ -683,6 +683,9 @@ class Parser
         $this->_consumeComments();
         switch ( $this->_peek() )
         {
+            case ParserTokens::T_SELF:
+                $this->_consumeToken( ParserTokens::T_SELF );
+
             case ParserTokens::T_STRING:
                 $this->_consumeToken( ParserTokens::T_STRING );
 

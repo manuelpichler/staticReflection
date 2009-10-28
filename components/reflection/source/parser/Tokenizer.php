@@ -132,6 +132,17 @@ class Tokenizer
     );
 
     /**
+     * Mapping between PHP <b>T_STRING</b> token images and the internally used
+     * token identifier.
+     *
+     * @var array(string=>integer)
+     */
+    private $_tokenWordMap = array(
+        'parent'  =>  ParserTokens::T_PARENT,
+        'self'    =>  ParserTokens::T_SELF,
+    );
+
+    /**
      * @var array(\org\pdepend\reflection\Token)
      */
     private $_tokens = array();
@@ -270,11 +281,19 @@ class Tokenizer
         $startLine = $this->_startLine;
         $endLine   = $this->_updateStartLine( $token[1] );
 
-        if ( isset( $this->_tokenTypeMap[$token[0]] ) )
+        if ( $token[0] === T_STRING && isset( $this->_tokenWordMap[strtolower( $token[1] )] ) )
         {
-            return new Token( $offset, $this->_tokenTypeMap[$token[0]], $token[1], $startLine, $endLine );
+            $type = $this->_tokenWordMap[strtolower( $token[1] )];
         }
-        return null;
+        else if ( isset( $this->_tokenTypeMap[$token[0]] ) )
+        {
+            $type = $this->_tokenTypeMap[$token[0]];
+        }
+        else
+        {
+            return null;
+        }
+        return new Token( $offset, $type, $token[1], $startLine, $endLine );
     }
 
     /**

@@ -26,12 +26,13 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
     private $_source = '<?php
         class c
         {
-            function x()
+            function x( self $x )
             {
                 ?>}<?php
                 $x = "
 
                 ";
+                parent::x();
             }
         }';
 
@@ -89,7 +90,7 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
      */
     public function testTokenizerSetsCorrectStartLineNumbers()
     {
-        $expected = array( 2, 2, 3, 4, 4, 4, 4, 5, 7, 9, 10, 11 );
+        $expected = array( 2, 2, 3, 4, 4, 4, 4, 4, 4, 5, 7, 9, 10, 10, 10, 10, 10, 11, 12 );
         $actual   = array();
 
         while ( ( $token = $this->_fixture->next() ) !== Tokenizer::EOF )
@@ -111,7 +112,7 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
      */
     public function testTokenizerSetsCorrectEndLineNumbers()
     {
-        $expected = array( 2, 2, 3, 4, 4, 4, 4, 5, 7, 9, 10, 11 );
+        $expected = array( 2, 2, 3, 4, 4, 4, 4, 4, 4, 5, 7, 9, 10, 10, 10, 10, 10, 11, 12 );
         $actual   = array();
 
         while ( ( $token = $this->_fixture->next() ) !== Tokenizer::EOF )
@@ -120,5 +121,24 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
         }
 
         $this->assertSame( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \org\pdepend\reflection\parser\Tokenizer
+     * @covers \org\pdepend\reflection\parser\Token
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testTokenizerTranslatesTStringSelfIntoTSelf()
+    {
+        $tokenType = 0;
+        for ( $i = 0; $i < 7; ++$i )
+        {
+            $tokenType = $this->_fixture->next()->type;
+        }
+        $this->assertEquals( ParserTokens::T_SELF, $tokenType );
     }
 }
