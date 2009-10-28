@@ -139,6 +139,7 @@ class Tokenizer
      * @var array(string=>integer)
      */
     private $_tokenWordMap = array(
+        'null'    =>  ParserTokens::T_NULL,
         'parent'  =>  ParserTokens::T_PARENT,
         'self'    =>  ParserTokens::T_SELF,
     );

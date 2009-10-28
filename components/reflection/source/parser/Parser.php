@@ -695,6 +695,7 @@ class Parser
         $this->_consumeComments();
         switch ( $this->_peek() )
         {
+            case ParserTokens::T_NULL:
             case ParserTokens::T_SELF:
             case ParserTokens::T_PARENT:
             case ParserTokens::T_STRING:
@@ -782,6 +783,10 @@ class Parser
         {
             switch ( $tokenType )
             {
+                case ParserTokens::T_NULL;
+                    $this->_consumeToken( ParserTokens::T_NULL );
+                    return $value;
+
                 case ParserTokens::T_SELF:
                 case ParserTokens::T_PARENT:
                     $value = '__StaticReflectionConstantValue(';
@@ -792,7 +797,7 @@ class Parser
                     $this->_consumeComments();
                     $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
                     $value .= ')';
-                    break;
+                    return $value;
 
                 case ParserTokens::T_STRING:
                     $parts = $this->_parseIdentifier();
@@ -815,7 +820,7 @@ class Parser
                         $value .= $this->_createClassOrInterfaceName( $parts );
                     }
                     $value .= ')';
-                    break;
+                    return $value;
 
                 case ParserTokens::T_NAMESPACE;
                 case ParserTokens::T_NS_SEPARATOR;
@@ -830,7 +835,7 @@ class Parser
                         $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
                     }
                     $value .= ')';
-                    break;
+                    return $value;
 
                 case ParserTokens::T_DOC_COMMENT:
                     $this->_consumeToken( $tokenType );

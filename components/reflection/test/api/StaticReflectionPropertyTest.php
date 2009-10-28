@@ -25,18 +25,6 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
-    public function testStaticVersionIsCompatileWithNativeReflection()
-    {
-        $this->assertPublicApiEquals( 'ReflectionProperty', StaticReflectionProperty::TYPE );
-    }
-
-    /**
-     * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
-     * @group reflection
-     * @group reflection::api
-     * @group unittest
-     */
     public function testLeadingDollarInPropertyNameIsStripped()
     {
         $property = new StaticReflectionProperty( '$foo', '', StaticReflectionProperty::IS_PUBLIC );
@@ -80,6 +68,34 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
     {
         $property = new StaticReflectionProperty( 'foo', '/** @var int */', 0 );
         $this->assertSame( '/** @var int */', $property->getDocComment() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetValueReturnsNullByDefault()
+    {
+        $property = new StaticReflectionProperty( 'foo', '', 0 );
+        $this->assertNull( $property->getValue() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetValueReturnsConfiguredScalarDefaultValue()
+    {
+        $property = new StaticReflectionProperty( 'foo', '', 0 );
+        $property->initValue( 42 );
+
+        $this->assertSame( 42, $property->getValue() );
     }
 
     /**
@@ -256,5 +272,20 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
     {
         $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PUBLIC );
         $property->setAccessible( true );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitValueThrowsLogicExceptionWhenAlreadySet()
+    {
+        $property = new StaticReflectionProperty( 'foo', '', 0 );
+        $property->initValue( 23 );
+        $property->initValue( 42 );
     }
 }

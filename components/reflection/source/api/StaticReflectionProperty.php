@@ -79,6 +79,20 @@ class StaticReflectionProperty extends \ReflectionProperty
     private $_declaringClass = null;
 
     /**
+     * Default property value.
+     *
+     * @var mixed
+     */
+    private $_value = null;
+
+    /**
+     * Does the property declaration define a default value?
+     *
+     * @var boolean
+     */
+    private $_valueAvailable = false;
+
+    /**
      * @param string  $name
      * @param string  $docComment
      * @param integer $modifiers
@@ -268,7 +282,7 @@ class StaticReflectionProperty extends \ReflectionProperty
     {
         if ( $object === null )
         {
-            return null;
+            return $this->_value;
         }
         throw new \ReflectionException( 'Method getValue() is not supported' );
     }
@@ -284,6 +298,27 @@ class StaticReflectionProperty extends \ReflectionProperty
     public function setValue( $object, $value )
     {
         throw new \ReflectionException( 'Method setValue() is not supported' );
+    }
+
+    /**
+     * Initializes the default value of the reflected property.
+     *
+     * @param mixed $value Default property value.
+     *
+     * @return void
+     * @access private
+     */
+    public function initValue( $value )
+    {
+        if ( $this->_valueAvailable === false )
+        {
+            $this->_value          = $value;
+            $this->_valueAvailable = true;
+        }
+        else
+        {
+            throw new \LogicException( 'Property value already set' );
+        }
     }
 
     /**
