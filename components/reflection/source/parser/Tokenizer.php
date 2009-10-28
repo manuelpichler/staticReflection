@@ -48,11 +48,37 @@
 namespace org\pdepend\reflection\parser;
 
 /**
- * Source tokenizer.
+ * Simple tokenizer implementation that utilizes PHP's tokenizer extension to
+ * create a stream of {@link \org\pdepend\reflection\parser\Token} objects that
+ * can be processed by a parser implementation.
  *
- * @author  Manuel Pichler <mapi@pdepend.org>
- * @license Copyright by Manuel Pichler
- * @version $Revision$
+ * <code>
+ * namespace org\pdepend\reflection\parser
+ * {
+ *     $source = '<?php class Foo { private $_bar = 42; }';
+ *
+ *     $tokenizer = new Tokenizer( $source );
+ *     while ( $tokenizer->peek() !== Tokenizer::EOF )
+ *     {
+ *         $token = $tokenizer->next();
+ *         printf(
+ *             "Token(start=%d; end=%d; type=%d; image=%s)\n",
+ *             $token->startLine,
+ *             $token->endLine,
+ *             $token->type,
+ *             $token->image
+ *         );
+ *     }
+ * }
+ * </code>
+ *
+ * @category  PHP
+ * @package   org\pdepend\reflection\parser
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
 class Tokenizer
 {
@@ -128,7 +154,11 @@ class Tokenizer
     }
 
     /**
-     * @return \org\pdepend\reflection\parser\Token
+     * This method returns the next token from the token stream an moves the
+     * internal stream pointer to the next token. When no more tokens are
+     * available this method will return <b>EOF</b>.
+     *
+     * @return \org\pdepend\reflection\parser\Token|integer
      */
     public function next()
     {
@@ -138,7 +168,10 @@ class Tokenizer
     }
 
     /**
-     * @return \org\pdepend\reflection\parser\Token
+     * This method returns the next available token from the token stream. When
+     * no more tokens exist this method will return <b>EOF</b>.
+     *
+     * @return \org\pdepend\reflection\parser\Token|integer
      */
     public function peek()
     {
@@ -149,6 +182,13 @@ class Tokenizer
         return self::EOF;
     }
 
+    /**
+     * This method parses the given php source into a processable token stream.
+     *
+     * @param string $source The unparsed php source.
+     *
+     * @return void
+     */
     private function _tokenize( $source )
     {
         foreach ( token_get_all( $source ) as $offset => $token )
@@ -157,6 +197,14 @@ class Tokenizer
         }
     }
 
+    /**
+     * This method will create a token instance and add it to the token stream.
+     *
+     * @param integer      $offset Token offset within the raw token stream.
+     * @param string|array $token  Raw php token as returned by token_get_all().
+     *
+     * @return void
+     */
     private function _addToken( $offset, $token )
     {
         if ( ( $object = $this->_createToken( $offset, $token ) ) !== null )
@@ -165,6 +213,17 @@ class Tokenizer
         }
     }
 
+    /**
+     * This method takes a raw php token as it is returned by the function
+     * <b>token_get_all()</b> and translates it into an internally used token
+     * object. When no transformation rule exists for the given token this
+     * method will return <b>null</b>.
+     *
+     * @param integer      $offset Token offset within the raw token stream.
+     * @param string|array $token  Raw php token as returned by token_get_all().
+     *
+     * @return \org\pdepend\reflection\parser\Token
+     */
     private function _createToken( $offset, $token )
     {
         if ( is_string( $token ) )
@@ -174,6 +233,16 @@ class Tokenizer
         return $this->_createTokenFromArray( $offset, $token );
     }
 
+    /**
+     * This method creates a token instance from a raw strong token, when it is
+     * listed in the token translation map and return that object. In all other
+     * cases this method will simply return <b>null</b>.
+     *
+     * @param integer $offset Token offset within the raw token stream.
+     * @param string  $token  A raw php token string.
+     *
+     * @return \org\pdepend\reflection\parser\Token
+     */
     private function _createTokenFromString( $offset, $token )
     {
         $startLine = $this->_startLine;
@@ -186,6 +255,16 @@ class Tokenizer
         return null;
     }
 
+    /**
+     * This method creates token instance from the given raw php token, when its
+     * type is listed in the token type whitelist. Otherwise this method will
+     * simply return <b>null</b>.
+     *
+     * @param integer $offset Token offset within the raw token stream.
+     * @param array   $token  A raw php token array.
+     *
+     * @return \org\pdepend\reflection\parser\Token
+     */
     private function _createTokenFromArray( $offset, array $token )
     {
         $startLine = $this->_startLine;
@@ -198,6 +277,15 @@ class Tokenizer
         return null;
     }
 
+    /**
+     * This method updates the start line of the next token based on the number
+     * of newlines within the given source image. The return value contains the
+     * start line of the next token.
+     *
+     * @param string $image The source image of a token.
+     *
+     * @return integer
+     */
     private function _updateStartLine( $image )
     {
         return ( $this->_startLine += substr_count( $image, "\n" ) );
