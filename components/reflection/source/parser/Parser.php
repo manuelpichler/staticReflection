@@ -105,6 +105,13 @@ class Parser
      * @var array(string=>string)
      */
     private $_aliasMap = array();
+
+    /**
+     * Reference to the currently parsed class or interface.
+     *
+     * @var \org\pdepend\reflection\api\StaticReflectionInterface
+     */
+    private $_classOrInterface = null;
     
     /**
      * Parsed methods within a class or interface scope.
@@ -209,7 +216,7 @@ class Parser
 
     /**
      *
-     * @return \de\
+     * @return void
      */
     private function _parseNamespace()
     {
@@ -286,33 +293,35 @@ class Parser
      */
     private function _parseClassDeclaration( $docComment, $modifiers )
     {
-        $class = null;
+        $this->_classOrInterface = null;
 
         while ( is_object( $token = $this->_next() ) )
         {
             switch ( $token->type )
             {
                 case ParserTokens::T_STRING:
-                    $name  = $this->_createClassOrInterfaceName( array( $token->image ) );
-                    $class = new StaticReflectionClass( $name, $docComment, $modifiers );
+                    $name = $this->_createClassOrInterfaceName( array( $token->image ) );
+
+                    $this->_classOrInterface = new StaticReflectionClass( $name, $docComment, $modifiers );
                     break;
 
                 case ParserTokens::T_EXTENDS:
-                    $class->initParentClass( $this->_parseParentClass() );
+                    $this->_classOrInterface->initParentClass( $this->_parseParentClass() );
                     break;
 
                 case ParserTokens::T_IMPLEMENTS:
-                    $class->initInterfaces( $this->_parseInterfaceList() );
+                    $this->_classOrInterface->initInterfaces( $this->_parseInterfaceList() );
                     break;
 
                 case ParserTokens::T_SCOPE_OPEN:
                     $endLine = $this->_parseClassOrInterfaceScope();
 
-                    $class->initEndLine( $endLine );
-                    $class->initMethods( $this->_methods );
-                    $class->initConstants( $this->_constants );
-                    $class->initProperties( $this->_properties );
-                    return $class;
+                    $this->_classOrInterface->initEndLine( $endLine );
+                    $this->_classOrInterface->initMethods( $this->_methods );
+                    $this->_classOrInterface->initConstants( $this->_constants );
+                    $this->_classOrInterface->initProperties( $this->_properties );
+                    
+                    return $this->_classOrInterface;
             }
         }
         throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
@@ -323,28 +332,30 @@ class Parser
      */
     private function _parseInterfaceDeclaration( $docComment )
     {
-        $class = null;
+        $this->_classOrInterface = null;
 
         while ( is_object( $token = $this->_next() ) )
         {
             switch ( $token->type )
             {
                 case ParserTokens::T_STRING:
-                    $name  = $this->_createClassOrInterfaceName( array( $token->image ) );
-                    $class = new StaticReflectionInterface( $name, $docComment );
+                    $name = $this->_createClassOrInterfaceName( array( $token->image ) );
+
+                    $this->_classOrInterface = new StaticReflectionInterface( $name, $docComment );
                     break;
 
                 case ParserTokens::T_EXTENDS:
-                    $class->initInterfaces( $this->_parseInterfaceList() );
+                    $this->_classOrInterface->initInterfaces( $this->_parseInterfaceList() );
                     break;
 
                 case ParserTokens::T_SCOPE_OPEN:
                     $endLine = $this->_parseClassOrInterfaceScope( StaticReflectionMethod::IS_ABSTRACT );
 
-                    $class->initEndLine( $endLine );
-                    $class->initMethods( $this->_methods );
-                    $class->initConstants( $this->_constants );
-                    return $class;
+                    $this->_classOrInterface->initEndLine( $endLine );
+                    $this->_classOrInterface->initMethods( $this->_methods );
+                    $this->_classOrInterface->initConstants( $this->_constants );
+
+                    return $this->_classOrInterface;
             }
         }
         throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
