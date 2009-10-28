@@ -697,9 +697,12 @@ class Parser
         {
             case ParserTokens::T_NULL:
             case ParserTokens::T_SELF:
+            case ParserTokens::T_TRUE:
             case ParserTokens::T_FALSE:
             case ParserTokens::T_PARENT:
             case ParserTokens::T_STRING:
+            case ParserTokens::T_DNUMBER:
+            case ParserTokens::T_LNUMBER:
             case ParserTokens::T_NAMESPACE:
             case ParserTokens::T_NS_SEPARATOR:
                 $value = $this->_parseStaticScalar();
@@ -798,9 +801,19 @@ class Parser
                     $this->_consumeToken( ParserTokens::T_NULL );
                     return null;
 
+                case ParserTokens::T_TRUE:
+                    $this->_consumeToken( ParserTokens::T_TRUE );
+                    return true;
+
                 case ParserTokens::T_FALSE:
                     $this->_consumeToken( ParserTokens::T_FALSE );
                     return false;
+
+                case ParserTokens::T_DNUMBER:
+                    return (float) $this->_consumeToken( ParserTokens::T_DNUMBER )->image;
+
+                case ParserTokens::T_LNUMBER:
+                    return (int) $this->_consumeToken( ParserTokens::T_LNUMBER )->image;
 
                 case ParserTokens::T_SELF:
                 case ParserTokens::T_PARENT:

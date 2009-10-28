@@ -830,6 +830,54 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserHandlesPropertyWithTrueDefaultValue()
+    {
+        $parser   = new Parser( $this->createParserContext(), 'PropertyWithTrueDefaultValue' );
+        $property = $parser->parse()->getProperty( 'fooBar' );
+
+        $this->assertTrue( $property->getValue() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesPropertyWithFloatDefaultValue()
+    {
+        $parser   = new Parser( $this->createParserContext(), 'PropertyWithFloatDefaultValue' );
+        $property = $parser->parse()->getProperty( 'fooBar' );
+
+        $this->assertEquals( 3.14, $property->getValue(), '', 0.001 );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesPropertyWithIntegerDefaultValue()
+    {
+        $parser   = new Parser( $this->createParserContext(), 'PropertyWithIntegerDefaultValue' );
+        $property = $parser->parse()->getProperty( 'fooBar' );
+
+        $this->assertEquals( 42, $property->getValue() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserFlagsPropertyAsPrivate()
     {
         $parser = new Parser( $this->createParserContext(), 'PropertyPrivate' );

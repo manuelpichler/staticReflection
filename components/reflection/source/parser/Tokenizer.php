@@ -98,6 +98,7 @@ class Tokenizer
         T_CLASS                     =>  ParserTokens::T_CLASS,
         T_CONST                     =>  ParserTokens::T_CONST,
         T_CURLY_OPEN                =>  ParserTokens::T_SCOPE_OPEN,
+        T_DNUMBER                   =>  ParserTokens::T_DNUMBER,
         T_DOC_COMMENT               =>  ParserTokens::T_DOC_COMMENT,
         T_DOLLAR_OPEN_CURLY_BRACES  =>  ParserTokens::T_SCOPE_OPEN,
         T_FINAL                     =>  ParserTokens::T_FINAL,
@@ -105,6 +106,7 @@ class Tokenizer
         T_FUNCTION                  =>  ParserTokens::T_FUNCTION,
         T_IMPLEMENTS                =>  ParserTokens::T_IMPLEMENTS,
         T_INTERFACE                 =>  ParserTokens::T_INTERFACE,
+        T_LNUMBER                   =>  ParserTokens::T_LNUMBER,
         T_NAMESPACE                 =>  ParserTokens::T_NAMESPACE,
         T_NS_SEPARATOR              =>  ParserTokens::T_NS_SEPARATOR,
         T_PRIVATE                   =>  ParserTokens::T_PRIVATE,
@@ -143,6 +145,7 @@ class Tokenizer
         'null'    =>  ParserTokens::T_NULL,
         'parent'  =>  ParserTokens::T_PARENT,
         'self'    =>  ParserTokens::T_SELF,
+        'true'    =>  ParserTokens::T_TRUE,
     );
 
     /**
