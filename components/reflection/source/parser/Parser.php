@@ -105,7 +105,7 @@ class Parser
      * @var array(string=>string)
      */
     private $_aliasMap = array();
-
+    
     /**
      * Parsed methods within a class or interface scope.
      *
