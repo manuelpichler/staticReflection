@@ -126,6 +126,7 @@ class Tokenizer
         ')'  =>  ParserTokens::T_BLOCK_CLOSE,
         '('  =>  ParserTokens::T_BLOCK_OPEN,
         ','  =>  ParserTokens::T_COMMA,
+        '='  =>  ParserTokens::T_EQUAL,
         '}'  =>  ParserTokens::T_SCOPE_CLOSE,
         '{'  =>  ParserTokens::T_SCOPE_OPEN,
         ';'  =>  ParserTokens::T_SEMICOLON,

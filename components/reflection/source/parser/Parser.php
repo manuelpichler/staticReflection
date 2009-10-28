@@ -616,7 +616,12 @@ class Parser
 
         $token = $this->_consumeToken( ParserTokens::T_VARIABLE );
 
-        $this->_parseOptionalDefaultValue();
+        $this->_consumeComments();
+        if ( $this->_peek() === ParserTokens::T_EQUAL )
+        {
+            $this->_consumeToken( ParserTokens::T_EQUAL );
+            $this->_parseOptionalDefaultValue();
+        }
 
         $parameter = new StaticReflectionParameter( $token->image, count( $this->_parameters ) );
         if ( $byRef )
@@ -684,7 +689,8 @@ class Parser
         switch ( $this->_peek() )
         {
             case ParserTokens::T_SELF:
-                $this->_consumeToken( ParserTokens::T_SELF );
+            case ParserTokens::T_PARENT:
+                $this->_consumeToken( $this->_peek() );
 
             case ParserTokens::T_STRING:
                 $this->_consumeToken( ParserTokens::T_STRING );
@@ -730,26 +736,11 @@ class Parser
         $this->_consumeComments();
         $token = $this->_consumeToken( ParserTokens::T_VARIABLE );
 
-        while( ( $tokenType = $this->_peek() ) !== Tokenizer::EOF )
+        $this->_consumeComments();
+        if ( $this->_peek() === ParserTokens::T_EQUAL )
         {
-            switch ( $tokenType )
-            {
-                case ParserTokens::T_STATIC:
-                case ParserTokens::T_STRING:
-                case ParserTokens::T_NAMESPACE;
-                case ParserTokens::T_DOC_COMMENT:
-                case ParserTokens::T_NS_SEPARATOR;
-                    $this->_consumeToken( $tokenType );
-                    break;
-
-                case ParserTokens::T_BLOCK_OPEN:
-                    $this->_parseBlock();
-                    break;
-
-                case ParserTokens::T_COMMA:
-                case ParserTokens::T_SEMICOLON:
-                    break 2;
-            }
+            $this->_consumeToken( ParserTokens::T_EQUAL );
+            $this->_parseOptionalDefaultValue();
         }
         $this->_properties[] = new StaticReflectionProperty( $token->image, $docComment, $modifiers );
     }
@@ -769,10 +760,18 @@ class Parser
         $this->_consumeToken( ParserTokens::T_SEMICOLON );
     }
 
+    /**
+     * This method parses a single constant declaration.
+     *
+     * @return void
+     */
     private function _parseConstantDeclaration()
     {
         $this->_consumeComments();
         $token = $this->_consumeToken( ParserTokens::T_STRING );
+
+        $this->_consumeComments();
+        $this->_consumeToken( ParserTokens::T_EQUAL );
 
         $this->_parseStaticScalar();
         $this->_constants[$token->image] = null;

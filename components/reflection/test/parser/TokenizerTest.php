@@ -90,7 +90,7 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
      */
     public function testTokenizerSetsCorrectStartLineNumbers()
     {
-        $expected = array( 2, 2, 3, 4, 4, 4, 4, 4, 4, 5, 7, 9, 10, 10, 10, 10, 10, 11, 12 );
+        $expected = array( 2, 2, 3, 4, 4, 4, 4, 4, 4, 5, 7, 7, 9, 10, 10, 10, 10, 10, 11, 12 );
         $actual   = array();
 
         while ( ( $token = $this->_fixture->next() ) !== Tokenizer::EOF )
@@ -112,7 +112,7 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
      */
     public function testTokenizerSetsCorrectEndLineNumbers()
     {
-        $expected = array( 2, 2, 3, 4, 4, 4, 4, 4, 4, 5, 7, 9, 10, 10, 10, 10, 10, 11, 12 );
+        $expected = array( 2, 2, 3, 4, 4, 4, 4, 4, 4, 5, 7, 7, 9, 10, 10, 10, 10, 10, 11, 12 );
         $actual   = array();
 
         while ( ( $token = $this->_fixture->next() ) !== Tokenizer::EOF )
