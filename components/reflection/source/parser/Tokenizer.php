@@ -97,6 +97,7 @@ class Tokenizer
         T_AS                        =>  ParserTokens::T_AS,
         T_CLASS                     =>  ParserTokens::T_CLASS,
         T_CONST                     =>  ParserTokens::T_CONST,
+        T_CONSTANT_ENCAPSED_STRING  =>  ParserTokens::T_TEXT,
         T_CURLY_OPEN                =>  ParserTokens::T_SCOPE_OPEN,
         T_DNUMBER                   =>  ParserTokens::T_DNUMBER,
         T_DOC_COMMENT               =>  ParserTokens::T_DOC_COMMENT,

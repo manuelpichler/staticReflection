@@ -90,7 +90,8 @@ final class ParserTokens
           T_SCOPE_OPEN   = -29,
           T_STATIC       = -30,
           T_STRING       = -31,
-          T_TRUE         = -32,
-          T_USE          = -33,
-          T_VARIABLE     = -34;
+          T_TEXT         = -32,
+          T_TRUE         = -33,
+          T_USE          = -34,
+          T_VARIABLE     = -35;
 }
