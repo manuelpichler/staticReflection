@@ -697,6 +697,7 @@ class Parser
         {
             case ParserTokens::T_NULL:
             case ParserTokens::T_SELF:
+            case ParserTokens::T_FALSE:
             case ParserTokens::T_PARENT:
             case ParserTokens::T_STRING:
             case ParserTokens::T_NAMESPACE:
@@ -729,18 +730,28 @@ class Parser
         $this->_consumeToken( ParserTokens::T_SEMICOLON );
     }
 
+    /**
+     * Parses a single property declaration.
+     *
+     * @param string  $docComment The doc comment for the next property.
+     * @param integer $modifiers  The specified property modifiers.
+     *
+     * @return void
+     */
     private function _parsePropertyDeclaration( $docComment, $modifiers )
     {
         $this->_consumeComments();
         $token = $this->_consumeToken( ParserTokens::T_VARIABLE );
 
+        $property = new StaticReflectionProperty( $token->image, $docComment, $modifiers );
+
         $this->_consumeComments();
         if ( $this->_peek() === ParserTokens::T_EQUAL )
         {
             $this->_consumeToken( ParserTokens::T_EQUAL );
-            $this->_parseOptionalDefaultValue();
+            $property->initValue( $this->_parseOptionalDefaultValue() );
         }
-        $this->_properties[] = new StaticReflectionProperty( $token->image, $docComment, $modifiers );
+        $this->_properties[] = $property;
     }
 
     private function _parseConstantDeclarations()
@@ -785,7 +796,11 @@ class Parser
             {
                 case ParserTokens::T_NULL;
                     $this->_consumeToken( ParserTokens::T_NULL );
-                    return $value;
+                    return null;
+
+                case ParserTokens::T_FALSE:
+                    $this->_consumeToken( ParserTokens::T_FALSE );
+                    return false;
 
                 case ParserTokens::T_SELF:
                 case ParserTokens::T_PARENT:

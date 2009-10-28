@@ -814,6 +814,22 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserHandlesPropertyWithFalseDefaultValue()
+    {
+        $parser   = new Parser( $this->createParserContext(), 'PropertyWithFalseDefaultValue' );
+        $property = $parser->parse()->getProperty( 'fooBar' );
+
+        $this->assertFalse( $property->getValue() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserFlagsPropertyAsPrivate()
     {
         $parser = new Parser( $this->createParserContext(), 'PropertyPrivate' );
