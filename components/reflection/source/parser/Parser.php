@@ -411,6 +411,11 @@ class Parser
      */
     private function _parseClassOrInterfaceName()
     {
+        return $this->_createClassOrInterfaceName( $this->_parseIdentifier() );
+    }
+
+    private function _parseIdentifier()
+    {
         $name = array();
 
         $this->_consumeComments();
@@ -420,7 +425,7 @@ class Parser
 
             $name[] = '\\';
             $name[] = $this->_namespace;
-            
+
             $this->_consumeComments();
             $name[] = $this->_consumeToken( ParserTokens::T_NS_SEPARATOR )->image;
         }
@@ -446,7 +451,7 @@ class Parser
                 break;
             }
         }
-        return $this->_createClassOrInterfaceName( $name );
+        return $name;
     }
 
     private function _parseClassOrInterfaceScope( $defaultModifiers = 0 )
@@ -685,32 +690,24 @@ class Parser
      */
     private function _parseOptionalDefaultValue()
     {
+        $value = null;
+
         $this->_consumeComments();
         switch ( $this->_peek() )
         {
             case ParserTokens::T_SELF:
             case ParserTokens::T_PARENT:
-                $this->_consumeToken( $this->_peek() );
-
             case ParserTokens::T_STRING:
-                $this->_consumeToken( ParserTokens::T_STRING );
-
-                $this->_consumeComments();
-                if ( $this->_peek() === ParserTokens::T_STRING )
-                {
-                    $this->_consumeToken( ParserTokens::T_STRING );
-                }
-                break;
-
             case ParserTokens::T_NAMESPACE:
-                $this->_consumeToken( ParserTokens::T_NAMESPACE );
-                $this->_parseClassOrInterfaceName();
+            case ParserTokens::T_NS_SEPARATOR:
+                $value = $this->_parseStaticScalar();
                 break;
 
             case ParserTokens::T_BLOCK_OPEN:
                 $this->_parseBlock();
                 break;
         }
+        return $value;
     }
 
     private function _parsePropertyDeclarations( $docComment, $modifiers )
@@ -773,28 +770,76 @@ class Parser
         $this->_consumeComments();
         $this->_consumeToken( ParserTokens::T_EQUAL );
 
-        $this->_parseStaticScalar();
-        $this->_constants[$token->image] = null;
+        $this->_constants[$token->image] = $this->_parseStaticScalar();
     }
 
     private function _parseStaticScalar()
     {
+        $value = null;
+
         $this->_consumeComments();
         while( ( $tokenType = $this->_peek() ) !== Tokenizer::EOF )
         {
             switch ( $tokenType )
             {
-                case ParserTokens::T_STATIC:
+                case ParserTokens::T_SELF:
+                case ParserTokens::T_PARENT:
+                    $value = '__StaticReflectionConstantValue(';
+
+                    $value .= $this->_consumeToken( $this->_peek() )->image;
+                    $value .= '::';
+
+                    $this->_consumeComments();
+                    $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
+                    $value .= ')';
+                    break;
+
                 case ParserTokens::T_STRING:
+                    $parts = $this->_parseIdentifier();
+                    
+                    $this->_consumeComments();
+
+                    $value = '__StaticReflectionConstantValue(';
+                    if ( $this->_peek() === ParserTokens::T_STRING )
+                    {
+                        $value .= $this->_createClassOrInterfaceName( $parts );
+                        $value .= '::';
+                        $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
+                    }
+                    else if ( count( $parts ) === 1 )
+                    {
+                        $value .= array_shift( $parts );
+                    }
+                    else
+                    {
+                        $value .= $this->_createClassOrInterfaceName( $parts );
+                    }
+                    $value .= ')';
+                    break;
+
                 case ParserTokens::T_NAMESPACE;
-                case ParserTokens::T_DOC_COMMENT:
                 case ParserTokens::T_NS_SEPARATOR;
+                    $value = '__StaticReflectionConstantValue(';
+
+                    $value .= $this->_parseClassOrInterfaceName();
+
+                    $this->_consumeComments();
+                    if ( $this->_peek() === ParserTokens::T_STRING )
+                    {
+                        $value .= '::';
+                        $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
+                    }
+                    $value .= ')';
+                    break;
+
+                case ParserTokens::T_DOC_COMMENT:
                     $this->_consumeToken( $tokenType );
                     break;
 
                 case ParserTokens::T_COMMA:
                 case ParserTokens::T_SEMICOLON:
-                    return;
+                case ParserTokens::T_BLOCK_CLOSE:
+                    return $value;
 
                 default:
                     throw new UnexpectedTokenException(

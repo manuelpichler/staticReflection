@@ -916,7 +916,135 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
     public function testParserHandlesListOfClassConstants()
     {
         $parser = new Parser( $this->createParserContext(), 'ClassWithConstantList' );
-        $this->assertSame( 3, count($parser->parse()->getConstants() ) );
+        $this->assertEquals( 3, count( $parser->parse()->getConstants() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesClassConstantWithSelfConstantValue()
+    {
+        $parser = new Parser( $this->createParserContext(), 'ClassWithConstantValueOfSelf' );
+        $const  = $parser->parse()->getConstant( 'T_FOO' );
+
+        $this->assertEquals( '__StaticReflectionConstantValue(self::T_BAR)', $const );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesClassConstantWithParentConstantValue()
+    {
+        $parser = new Parser( $this->createParserContext(), 'ClassWithConstantValueOfParent' );
+        $const  = $parser->parse()->getConstant( 'T_FOO' );
+
+        $this->assertEquals( '__StaticReflectionConstantValue(parent::T_BAR)', $const );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesClassConstantWithClassConstantValue()
+    {
+        $parser = new Parser( $this->createParserContext(), 'foo\bar\ClassWithConstantValueOfClass' );
+        $const  = $parser->parse()->getConstant( 'T_FOO' );
+
+        $this->assertEquals( '__StaticReflectionConstantValue(Foo::T_FOO)', $const );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesClassConstantWithRelativeClassConstantValue()
+    {
+        $parser = new Parser( $this->createParserContext(), 'foo\bar\ClassWithConstantValueOfClass' );
+        $const  = $parser->parse()->getConstant( 'T_BAR' );
+
+        $this->assertEquals( '__StaticReflectionConstantValue(foo\bar\Bar::T_BAR)', $const );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesClassConstantWithNamespaceAliasedClassConstantValue()
+    {
+        $parser = new Parser( $this->createParserContext(), 'foo\bar\ClassWithConstantValueOfClass' );
+        $const  = $parser->parse()->getConstant( 'T_BAZ' );
+
+        $this->assertEquals( '__StaticReflectionConstantValue(foo\bar\Baz::T_BAZ)', $const );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesClassConstantWithGlobalConstantValue()
+    {
+        $parser = new Parser( $this->createParserContext(), 'foo\bar\ClassWithConstantValueOfClass' );
+        $const  = $parser->parse()->getConstant( 'T_FOOBAR' );
+
+        $this->assertEquals( '__StaticReflectionConstantValue(T_FOOBAR)', $const );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesClassConstantWithNamespaceConstantValue()
+    {
+        $parser = new Parser( $this->createParserContext(), 'foo\bar\ClassWithConstantValueOfClass' );
+        $const  = $parser->parse()->getConstant( 'T_BARFOO' );
+
+        $this->assertEquals( '__StaticReflectionConstantValue(foo\bar\baz\BARFOO)', $const );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesClassConstantWithAliasedNamespaceConstantValue()
+    {
+        $parser = new Parser( $this->createParserContext(), 'foo\bar\ClassWithConstantValueOfClass' );
+        $const  = $parser->parse()->getConstant( 'T_FOOBAZ' );
+
+        $this->assertEquals( '__StaticReflectionConstantValue(foo\bar\FOOBAZ)', $const );
     }
 
     /**
