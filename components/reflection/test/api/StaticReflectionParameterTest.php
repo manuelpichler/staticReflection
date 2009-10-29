@@ -139,6 +139,113 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testAllowsNullReturnsTrueWhenNoTypeHintWasSet()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $this->assertTrue( $parameter->allowsNull() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testAllowsNullReturnsFalseWhenArrayTypeHintWasSet()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter->initTypeHint( true );
+
+        $this->assertFalse( $parameter->allowsNull() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testAllowsNullReturnsFalseWhenArrayTypeHintAndDefaultValueWereSet()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter->initTypeHint( true );
+        $parameter->initDefaultValue( new DefaultValue( 42 ) );
+
+        $this->assertFalse( $parameter->allowsNull() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testAllowsNullReturnsTrueWhenArrayTypeHintAndNullDefaultValueWereSet()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter->initTypeHint( true );
+        $parameter->initDefaultValue( new DefaultValue( null ) );
+
+        $this->assertTrue( $parameter->allowsNull() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testAllowsNullReturnsFalseWhenClassTypeHintWasSet()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter->initTypeHint( new \ReflectionClass( __CLASS__ ) );
+
+        $this->assertFalse( $parameter->allowsNull() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testAllowsNullReturnsFalseWhenClassTypeHintAndDefaultValueWereSet()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter->initTypeHint( new \ReflectionClass( __CLASS__ ) );
+        $parameter->initDefaultValue( new DefaultValue( 42 ) );
+
+        $this->assertFalse( $parameter->allowsNull() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testAllowsNullReturnsTrueWhenClassTypeHintAndNullDefaultValueWereSet()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter->initTypeHint( new \ReflectionClass( __CLASS__ ) );
+        $parameter->initDefaultValue( new DefaultValue( null ) );
+
+        $this->assertTrue( $parameter->allowsNull() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testIsDefaultValueAvailableReturnsFalseByDefault()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );

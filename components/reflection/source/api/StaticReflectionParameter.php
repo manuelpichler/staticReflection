@@ -172,7 +172,11 @@ class StaticReflectionParameter extends \ReflectionParameter
 
     public function allowsNull()
     {
-        
+        if ( $this->_hasTypeHint() )
+        {
+            return ( $this->isDefaultValueAvailable() && is_null( $this->_defaultValue->getData() ) );
+        }
+        return true;
     }
 
     /**
@@ -331,14 +335,24 @@ class StaticReflectionParameter extends \ReflectionParameter
      */
     public function initTypeHint( $classOrBoolean )
     {
-        if ( $this->_array === false && $this->_class === null )
-        {
-            $this->_initTypeHint( $classOrBoolean );
-        }
-        else
+        if ( $this->_hasTypeHint() )
         {
             throw new \LogicException( 'Property typeHint already set' );
         }
+        else
+        {
+            $this->_initTypeHint( $classOrBoolean );
+        }
+    }
+
+    /**
+     * Returns <b>true</b> when a type hint exists for the reflected parameter.
+     *
+     * @return boolean
+     */
+    private function _hasTypeHint()
+    {
+        return ( $this->_array || is_object( $this->_class ) );
     }
 
     /**
