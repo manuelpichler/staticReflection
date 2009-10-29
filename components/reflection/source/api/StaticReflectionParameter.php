@@ -170,6 +170,12 @@ class StaticReflectionParameter extends \ReflectionParameter
         return $this->_position;
     }
 
+    /**
+     * Returns <b>true</b> when it is possible to pass the value <b>null</b> for
+     * the reflected parameter.
+     *
+     * @return boolean
+     */
     public function allowsNull()
     {
         if ( $this->_hasTypeHint() )
@@ -191,6 +197,12 @@ class StaticReflectionParameter extends \ReflectionParameter
         return $this->_class;
     }
 
+    /**
+     * Returns the class where the parent method of the reflected parameter is
+     * declared.
+     *
+     * @return \ReflectionClass
+     */
     public function getDeclaringClass()
     {
         return $this->_declaringMethod->getDeclaringClass();
