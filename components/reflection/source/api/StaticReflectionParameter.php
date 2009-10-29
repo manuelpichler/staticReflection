@@ -108,6 +108,13 @@ class StaticReflectionParameter extends \ReflectionParameter
     private $_passedByReference = false;
 
     /**
+     * Optional value object that holds the default parameter value.
+     *
+     * @var \org\pdepend\reflection\api\DefaultValue
+     */
+    private $_defaultValue = null;
+
+    /**
      * Constructs a new parameter instance.
      *
      * @param string  $name     Name of the parameter.
@@ -216,6 +223,17 @@ class StaticReflectionParameter extends \ReflectionParameter
     }
 
     /**
+     * Returns <b>true</b> when a default value is available for the reflected
+     * parameter.
+     *
+     * @return boolean
+     */
+    public function isDefaultValueAvailable()
+    {
+        return is_object( $this->_defaultValue );
+    }
+
+    /**
      * Returns the default value of the reflected parameter or throws an
      * exception when the parameter has no default value.
      *
@@ -224,6 +242,10 @@ class StaticReflectionParameter extends \ReflectionParameter
      */
     public function getDefaultValue()
     {
+        if ( $this->isDefaultValueAvailable() )
+        {
+            return $this->_defaultValue->getData();
+        }
         throw new \ReflectionException( 'Parameter is not optional' );
     }
 
@@ -238,6 +260,14 @@ class StaticReflectionParameter extends \ReflectionParameter
      */
     public function initDefaultValue( DefaultValue $defaultValue = null )
     {
+        if ( $this->isDefaultValueAvailable() )
+        {
+            throw new \LogicException( 'Property defaultValue already set' );
+        }
+        else
+        {
+            $this->_defaultValue = $defaultValue;
+        }
     }
 
     /**
@@ -249,11 +279,6 @@ class StaticReflectionParameter extends \ReflectionParameter
     public function isArray()
     {
         return $this->_array;
-    }
-
-    public function isDefaultValueAvailable()
-    {
-        return false;
     }
 
     /**

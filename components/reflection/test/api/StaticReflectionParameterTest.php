@@ -96,6 +96,21 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testGetDefaultValueReturnsConfiguredValue()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter->initDefaultValue( new DefaultValue( 42 ) );
+
+        $this->assertEquals( 42, $parameter->getDefaultValue() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testIsPassedByReferenceReturnsFalseByDefault()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
@@ -128,6 +143,21 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $this->assertFalse( $parameter->isDefaultValueAvailable() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsDefaultValueAvailableReturnsTrueWhenDefaultValueExists()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter->initDefaultValue( new DefaultValue( 42 ) );
+
+        $this->assertTrue( $parameter->isDefaultValueAvailable() );
     }
 
     /**
@@ -257,5 +287,20 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
         $parameter = new StaticReflectionParameter( 'foo', 0 );
         $parameter->initTypeHint( true );
         $parameter->initTypeHint( true );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitDefaultValueThrowsLogicExceptionWhenAlreadySet()
+    {
+        $parameter = new StaticReflectionParameter( 'foo', 0 );
+        $parameter->initDefaultValue( new DefaultValue( 23 ) );
+        $parameter->initDefaultValue( new DefaultValue( 23 ) );
     }
 }
