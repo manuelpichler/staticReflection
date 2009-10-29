@@ -727,6 +727,7 @@ class Parser
                 $this->_consumeToken( ParserTokens::T_ARRAY );
                 $this->_consumeComments();
                 $this->_parseBlock();
+                
                 return new DefaultValue( array() );
         }
         throw new UnexpectedTokenException(

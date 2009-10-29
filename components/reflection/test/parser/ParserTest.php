@@ -671,7 +671,23 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
-    public function testParserSetsExpectedClassTypeHint()
+    public function testParserSetsExpectedParameterArrayTypeHint()
+    {
+        $parser = new Parser( $this->createParserContext(), 'ParameterWithArrayTypeHint' );
+        $params = $parser->parse()->getMethod( 'fooBar' )->getParameters();
+
+        $this->assertTrue( $params[0]->isArray() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserSetsExpectedParameterClassTypeHint()
     {
         $parser = new Parser( $this->createParserContext(), 'MethodWithClassParameter' );
         $params = $parser->parse()->getMethod( 'fooBar' )->getParameters();
