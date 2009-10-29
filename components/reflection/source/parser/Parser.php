@@ -49,6 +49,7 @@ namespace org\pdepend\reflection\parser;
 
 use org\pdepend\reflection\interfaces\SourceResolver;
 
+use org\pdepend\reflection\api\DefaultValue;
 use org\pdepend\reflection\api\StaticReflectionClass;
 use org\pdepend\reflection\api\StaticReflectionMethod;
 use org\pdepend\reflection\api\StaticReflectionInterface;
@@ -621,14 +622,9 @@ class Parser
 
         $token = $this->_consumeToken( ParserTokens::T_VARIABLE );
 
-        $this->_consumeComments();
-        if ( $this->_peek() === ParserTokens::T_EQUAL )
-        {
-            $this->_consumeToken( ParserTokens::T_EQUAL );
-            $this->_parseOptionalDefaultValue();
-        }
-
         $parameter = new StaticReflectionParameter( $token->image, count( $this->_parameters ) );
+        $parameter->initDefaultValue( $this->_parseOptionalDefaultValue() );
+
         if ( $byRef )
         {
             $parameter->initPassedByReference();
@@ -686,12 +682,27 @@ class Parser
      * Parses an optional default as it can occure for property or parameter
      * nodes.
      *
-     * @return mixed
+     * @return \org\pdepend\reflection\api\DefaultValue
      */
     private function _parseOptionalDefaultValue()
     {
-        $value = null;
+        $this->_consumeComments();
+        if ( $this->_peek() === ParserTokens::T_EQUAL )
+        {
+            $this->_consumeToken( ParserTokens::T_EQUAL );
+            return $this->_parseDefaultValue();
+        }
+        return null;
+    }
 
+    /**
+     * Parses an optional default as it can occure for property or parameter
+     * nodes.
+     *
+     * @return mixed
+     */
+    private function _parseDefaultValue()
+    {
         $this->_consumeComments();
         switch ( $this->_peek() )
         {
@@ -706,14 +717,16 @@ class Parser
             case ParserTokens::T_LNUMBER:
             case ParserTokens::T_NAMESPACE:
             case ParserTokens::T_NS_SEPARATOR:
-                $value = $this->_parseStaticScalar();
-                break;
+                return new DefaultValue( $this->_parseStaticScalar() );
 
             case ParserTokens::T_BLOCK_OPEN:
                 $this->_parseBlock();
-                break;
+                return new DefaultValue( array() );
         }
-        return $value;
+        throw new UnexpectedTokenException(
+            $this->_next(),
+            $this->_context->getPathname( $this->_className )
+        );
     }
 
     private function _parsePropertyDeclarations( $docComment, $modifiers )
@@ -748,13 +761,8 @@ class Parser
         $token = $this->_consumeToken( ParserTokens::T_VARIABLE );
 
         $property = new StaticReflectionProperty( $token->image, $docComment, $modifiers );
-
-        $this->_consumeComments();
-        if ( $this->_peek() === ParserTokens::T_EQUAL )
-        {
-            $this->_consumeToken( ParserTokens::T_EQUAL );
-            $property->initValue( $this->_parseOptionalDefaultValue() );
-        }
+        $property->initValue( $this->_parseOptionalDefaultValue() );
+        
         $this->_properties[] = $property;
     }
 

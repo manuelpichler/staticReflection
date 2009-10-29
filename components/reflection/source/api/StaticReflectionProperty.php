@@ -90,7 +90,7 @@ class StaticReflectionProperty extends \ReflectionProperty
      *
      * @var boolean
      */
-    private $_valueAvailable = false;
+    private $_initialized = false;
 
     /**
      * @param string  $name
@@ -303,17 +303,20 @@ class StaticReflectionProperty extends \ReflectionProperty
     /**
      * Initializes the default value of the reflected property.
      *
-     * @param mixed $value Default property value.
+     * @param \org\pdepend\reflection\api\DefaultValue $value Default property value.
      *
      * @return void
      * @access private
      */
-    public function initValue( $value )
+    public function initValue( DefaultValue $value = null )
     {
-        if ( $this->_valueAvailable === false )
+        if ( $this->_initialized === false )
         {
-            $this->_value          = $value;
-            $this->_valueAvailable = true;
+            $this->_initialized = true;
+            if ( is_object( $value ) )
+            {
+                $this->_value = $value->getData();
+            }
         }
         else
         {

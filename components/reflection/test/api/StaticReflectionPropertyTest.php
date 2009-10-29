@@ -93,7 +93,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
     public function testGetValueReturnsConfiguredScalarDefaultValue()
     {
         $property = new StaticReflectionProperty( 'foo', '', 0 );
-        $property->initValue( 42 );
+        $property->initValue( new DefaultValue( 42 ) );
 
         $this->assertSame( 42, $property->getValue() );
     }
@@ -285,7 +285,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
     public function testInitValueThrowsLogicExceptionWhenAlreadySet()
     {
         $property = new StaticReflectionProperty( 'foo', '', 0 );
-        $property->initValue( 23 );
-        $property->initValue( 42 );
+        $property->initValue( new DefaultValue( 23 ) );
+        $property->initValue( new DefaultValue( 42 ) );
     }
 }

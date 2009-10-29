@@ -228,6 +228,19 @@ class StaticReflectionParameter extends \ReflectionParameter
     }
 
     /**
+     * Initializes the parameter default value when available.
+     *
+     * @param \org\pdepend\reflection\api\DefaultValue $defaultValue The defined
+     *        parameter default value or <b>null</b> when not available.
+     *
+     * @return void
+     * @access private
+     */
+    public function initDefaultValue( DefaultValue $defaultValue = null )
+    {
+    }
+
+    /**
      * Returns <b>true</b> when the reflected parameter was declared with an
      * <b>array</b> type-hint.
      *
