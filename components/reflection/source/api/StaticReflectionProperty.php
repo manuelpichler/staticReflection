@@ -131,7 +131,7 @@ class StaticReflectionProperty extends \ReflectionProperty
         }
         else
         {
-            throw new \ReflectionException( 'Declaring class was already set' );
+            throw new \LogicException( 'Property declaringClass already set' );
         }
     }
 

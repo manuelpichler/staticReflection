@@ -51,6 +51,34 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testGetDeclaringClassReturnsNullByDefault()
+    {
+        $property = new StaticReflectionProperty( 'bar', '', 0 );
+        $this->assertNull( $property->getDeclaringClass() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetDeclaringClassReturnsPreviousConfiguredInstance()
+    {
+        $property = new StaticReflectionProperty( 'bar', '', 0 );
+        $property->initDeclaringClass( $class = new \ReflectionClass( __CLASS__ ) );
+
+        $this->assertSame( $class, $property->getDeclaringClass() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testGetDocCommentReturnsFalseWhenCommentIsEmpty()
     {
         $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PUBLIC );
@@ -96,6 +124,27 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
         $property->initValue( new DefaultValue( 42 ) );
 
         $this->assertSame( 42, $property->getValue() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetModifiersReturnsExpectedBitfield()
+    {
+        $property = new StaticReflectionProperty(
+            'foo',
+            '',
+            \ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_STATIC
+        );
+
+        $this->assertSame(
+            \ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_STATIC,
+            $property->getModifiers()
+        );
     }
 
     /**
@@ -287,5 +336,20 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
         $property = new StaticReflectionProperty( 'foo', '', 0 );
         $property->initValue( new DefaultValue( 23 ) );
         $property->initValue( new DefaultValue( 42 ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitDeclaringClassThrowsLogicExceptionWhenAlreadySet()
+    {
+        $property = new StaticReflectionProperty( 'foo', '', 0 );
+        $property->initDeclaringClass( new \ReflectionClass( __CLASS__ ) );
+        $property->initDeclaringClass( new \ReflectionClass( __CLASS__ ) );
     }
 }
