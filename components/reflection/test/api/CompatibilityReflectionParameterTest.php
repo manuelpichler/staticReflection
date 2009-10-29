@@ -125,6 +125,96 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
     }
 
     /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testAllowsNullForParameterWithoutTypeHint()
+    {
+        $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 0 );
+        $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 0 );
+
+        $this->assertEquals( $internal->allowsNull(), $static->allowsNull() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testAllowsNullForParameterWithArrayTypeHint()
+    {
+        $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 1 );
+        $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 1 );
+
+        $this->assertEquals( $internal->allowsNull(), $static->allowsNull() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testAllowsNullForParameterWithClassTypeHint()
+    {
+        $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 2 );
+        $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 2 );
+
+        $this->assertEquals( $internal->allowsNull(), $static->allowsNull() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testAllowsNullForParameterWithArrayTypeHintAndDefaultValue()
+    {
+        $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 3 );
+        $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 3 );
+
+        $this->assertEquals( $internal->allowsNull(), $static->allowsNull() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testAllowsNullForParameterWithArrayTypeHintAndNullDefaultValue()
+    {
+        $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 4 );
+        $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 4 );
+
+        $this->assertEquals( $internal->allowsNull(), $static->allowsNull() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testAllowsNullForParameterWithClassTypeHintAndNullDefaultValue()
+    {
+        $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 5 );
+        $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 5 );
+
+        $this->assertEquals( $internal->allowsNull(), $static->allowsNull() );
+    }
+
+    /**
      * Creates an internal reflection parameter instance.
      *
      * @param string  $className  Name of the searched class.

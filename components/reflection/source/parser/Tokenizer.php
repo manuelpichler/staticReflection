@@ -94,6 +94,7 @@ class Tokenizer
      */
     private $_tokenTypeMap = array(
         T_ABSTRACT                  =>  ParserTokens::T_ABSTRACT,
+        T_ARRAY                     =>  ParserTokens::T_ARRAY,
         T_AS                        =>  ParserTokens::T_AS,
         T_CLASS                     =>  ParserTokens::T_CLASS,
         T_CONST                     =>  ParserTokens::T_CONST,

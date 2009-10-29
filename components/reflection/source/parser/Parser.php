@@ -651,6 +651,10 @@ class Parser
         $this->_consumeComments();
         switch ( $this->_peek() )
         {
+            case ParserTokens::T_ARRAY:
+                $this->_consumeToken( ParserTokens::T_ARRAY );
+                return true;
+
             case ParserTokens::T_STRING:
             case ParserTokens::T_NAMESPACE:
             case ParserTokens::T_NS_SEPARATOR:
@@ -719,7 +723,9 @@ class Parser
             case ParserTokens::T_NS_SEPARATOR:
                 return new DefaultValue( $this->_parseStaticScalar() );
 
-            case ParserTokens::T_BLOCK_OPEN:
+            case ParserTokens::T_ARRAY:
+                $this->_consumeToken( ParserTokens::T_ARRAY );
+                $this->_consumeComments();
                 $this->_parseBlock();
                 return new DefaultValue( array() );
         }
