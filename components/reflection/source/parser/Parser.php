@@ -559,6 +559,8 @@ class Parser
         $this->_consumeComments();
         $token = $this->_consumeToken( ParserTokens::T_STRING );
 
+        $this->_methods[] = new StaticReflectionMethod( $token->image, $docComment, $modifiers);
+
         $this->_parseMethodParameterList();
 
         $this->_consumeComments();
@@ -571,7 +573,7 @@ class Parser
             $endLine = $this->_parseScope()->endLine;
         }
 
-        $method = new StaticReflectionMethod( $token->image, $docComment, $modifiers);
+        $method = end( $this->_methods );
         $method->initStartLine( $startLine );
         $method->initEndLine( $endLine );
         $method->initParameters( $this->_parameters );
@@ -580,8 +582,6 @@ class Parser
         {
             $method->initReturnsReference();
         }
-
-        $this->_methods[] = $method;
     }
 
     /**
@@ -687,46 +687,6 @@ class Parser
         return false;
     }
 
-    /**
-     * Parses an optional default as it can occure for property or parameter
-     * nodes.
-     *
-     * @return \org\pdepend\reflection\api\DefaultValue
-     */
-    private function _parseOptionalDefaultValue()
-    {
-        $this->_consumeComments();
-        if ( $this->_peek() === ParserTokens::T_EQUAL )
-        {
-            $this->_consumeToken( ParserTokens::T_EQUAL );
-            return $this->_parseDefaultValue();
-        }
-        return null;
-    }
-
-    /**
-     * Parses an optional default as it can occure for property or parameter
-     * nodes.
-     *
-     * @return mixed
-     */
-    private function _parseDefaultValue()
-    {
-        $this->_consumeComments();
-        switch ( $this->_peek() )
-        {
-            case ParserTokens::T_ARRAY:
-                $this->_consumeToken( ParserTokens::T_ARRAY );
-                $this->_consumeComments();
-                $this->_parseBlock();
-                
-                return new DefaultValue( array() );
-
-            default:
-                return new DefaultValue( $this->_parseStaticScalar() );
-        }
-    }
-
     private function _parsePropertyDeclarations( $docComment, $modifiers )
     {
         $this->_consumeComments();
@@ -795,6 +755,83 @@ class Parser
         $this->_constants[$token->image] = $this->_parseStaticScalar();
     }
 
+    /**
+     * Parses an optional default as it can occure for property or parameter
+     * nodes.
+     *
+     * @return \org\pdepend\reflection\api\DefaultValue
+     */
+    private function _parseOptionalDefaultValue()
+    {
+        $this->_consumeComments();
+        if ( $this->_peek() === ParserTokens::T_EQUAL )
+        {
+            $this->_consumeToken( ParserTokens::T_EQUAL );
+            return $this->_parseDefaultValue();
+        }
+        return null;
+    }
+
+    /**
+     * Parses an optional default as it can occure for property or parameter
+     * nodes.
+     *
+     * @return \org\pdepend\reflection\api\DefaultValue
+     */
+    private function _parseDefaultValue()
+    {
+        return new DefaultValue( $this->_parseStaticScalarOrArray() );
+    }
+
+    private function _parseStaticScalarOrArray()
+    {
+        $this->_consumeComments();
+        if ( $this->_peek() === ParserTokens::T_ARRAY )
+        {
+            return $this->_parseStaticArray();
+        }
+        return $this->_parseStaticScalar();
+    }
+
+    private function _parseStaticArray()
+    {
+        $this->_consumeComments();
+        $this->_consumeToken( ParserTokens::T_ARRAY );
+
+        $this->_consumeComments();
+        $this->_consumeToken( ParserTokens::T_BLOCK_OPEN );
+
+        $array = array();
+
+        while ( ( $tokenType = $this->_peek() ) !== Tokenizer::EOF )
+        {
+            if ( $tokenType === ParserTokens::T_BLOCK_CLOSE )
+            {
+                break;
+            }
+
+            $keyOrValue = $this->_parseStaticScalarOrArray();
+
+            $this->_consumeComments();
+            if ( $this->_peek() === ParserTokens::T_COMMA )
+            {
+                $this->_consumeToken( ParserTokens::T_COMMA );
+                $array[] = $keyOrValue;
+            }
+            else if ( $this->_peek() !== ParserTokens::T_BLOCK_CLOSE )
+            {
+                $array[$keyOrValue] = $this->_parseStaticScalarOrArray();
+            }
+            
+            $this->_consumeComments();
+        }
+
+        $this->_consumeComments();
+        $this->_consumeToken( ParserTokens::T_BLOCK_CLOSE );
+
+        return $array;
+    }
+
     private function _parseStaticScalar()
     {
         $value = null;
@@ -812,6 +849,22 @@ class Parser
             case ParserTokens::T_CLASS_C:
                 $this->_consumeToken( ParserTokens::T_CLASS_C );
                 return $this->_classOrInterface->getName();
+
+            case ParserTokens::T_NS_C:
+                $this->_consumeToken( ParserTokens::T_NS_C );
+                return $this->_classOrInterface->getNamespaceName();
+
+            case ParserTokens::T_FUNCTION_C:
+                $this->_consumeToken( ParserTokens::T_FUNCTION_C );
+                return end( $this->_methods )->getName();
+
+            case ParserTokens::T_METHOD_C:
+                $this->_consumeToken( ParserTokens::T_METHOD_C );
+                return sprintf(
+                    '%s::%s',
+                    $this->_classOrInterface->getName(),
+                    end( $this->_methods )->getName()
+                );
 
             case ParserTokens::T_NULL;
                 $this->_consumeToken( ParserTokens::T_NULL );
@@ -845,6 +898,7 @@ class Parser
 
                 $this->_consumeComments();
                 $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
+               
                 $value .= ')';
                 return $value;
 
@@ -915,36 +969,6 @@ class Parser
             }
 
             if ( $scope === 0 )
-            {
-                return $token;
-            }
-        }
-        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
-    }
-
-    /**
-     * Temporary parse method until the parser supports static array parsing.
-     *
-     * @return \org\pdepend\reflection\parserToken
-     */
-    private function _parseBlock()
-    {
-        $block = 0;
-
-        while ( is_object( $token = $this->_next() ) )
-        {
-            switch ( $token->type )
-            {
-                case ParserTokens::T_BLOCK_OPEN:
-                    ++$block;
-                    break;
-
-                case ParserTokens::T_BLOCK_CLOSE:
-                    --$block;
-                    break;
-            }
-
-            if ( $block === 0 )
             {
                 return $token;
             }

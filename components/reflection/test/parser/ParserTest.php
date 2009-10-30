@@ -1216,6 +1216,54 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserHandlesMagicConstantNamespaceAsExpected()
+    {
+        $parser = new Parser( $this->createParserContext(), '\magic\constant\PropertyMagicConstantNamespace' );
+        $value  = $parser->parse()->getProperty( 'foo' )->getValue();
+
+        $this->assertEquals( 'magic\constant', $value );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesMagicConstantFunctionAsExpected()
+    {
+        $parser = new Parser( $this->createParserContext(), '\magic\constant\ParameterMagicConstantFunction' );
+        $params = $parser->parse()->getMethod( 'fooBar' )->getParameters();
+
+        $this->assertEquals( 'fooBar', $params[0]->getDefaultValue() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesMagicConstantMethodAsExpected()
+    {
+        $parser = new Parser( $this->createParserContext(), '\magic\constant\ParameterMagicConstantMethod' );
+        $params = $parser->parse()->getMethod( 'fooBar' )->getParameters();
+
+        $this->assertEquals( 'magic\constant\ParameterMagicConstantMethod::fooBar', $params[0]->getDefaultValue() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserNotEndsInEndlessLoopWhenTypeHintOnParsedClassIsUsed()
     {
         $parser = new Parser( $this->createParserContext(), 'foo\bar\ParameterWithTypeHintOnDeclaringClass' );

@@ -113,6 +113,36 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
+    public function testGetDefaultValueForMagicConstantFunction()
+    {
+        $internal = $this->createInternal( '\compat\CompatParameterMagicConstantFunction', 'fooBar', 0 );
+        $static   = $this->createStatic( '\compat\CompatParameterMagicConstantFunction', 'fooBar', 0 );
+
+        $this->assertEquals( $internal->getDefaultValue(), $static->getDefaultValue() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetDefaultValueForMagicConstantMethod()
+    {
+        $internal = $this->createInternal( '\compat\CompatParameterMagicConstantMethod', 'fooBar', 0 );
+        $static   = $this->createStatic( '\compat\CompatParameterMagicConstantMethod', 'fooBar', 0 );
+
+        $this->assertEquals( $internal->getDefaultValue(), $static->getDefaultValue() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
     public function testGetDefaultValueForParameterWithoutDefaultExceptionMessage()
     {
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
