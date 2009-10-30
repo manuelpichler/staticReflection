@@ -715,30 +715,16 @@ class Parser
         $this->_consumeComments();
         switch ( $this->_peek() )
         {
-            case ParserTokens::T_NULL:
-            case ParserTokens::T_SELF:
-            case ParserTokens::T_TEXT:
-            case ParserTokens::T_TRUE:
-            case ParserTokens::T_FALSE:
-            case ParserTokens::T_PARENT:
-            case ParserTokens::T_STRING:
-            case ParserTokens::T_DNUMBER:
-            case ParserTokens::T_LNUMBER:
-            case ParserTokens::T_NAMESPACE:
-            case ParserTokens::T_NS_SEPARATOR:
-                return new DefaultValue( $this->_parseStaticScalar() );
-
             case ParserTokens::T_ARRAY:
                 $this->_consumeToken( ParserTokens::T_ARRAY );
                 $this->_consumeComments();
                 $this->_parseBlock();
                 
                 return new DefaultValue( array() );
+
+            default:
+                return new DefaultValue( $this->_parseStaticScalar() );
         }
-        throw new UnexpectedTokenException(
-            $this->_next(),
-            $this->_context->getPathname( $this->_className )
-        );
     }
 
     private function _parsePropertyDeclarations( $docComment, $modifiers )
@@ -816,6 +802,10 @@ class Parser
         $this->_consumeComments();
         switch ( $this->_peek() )
         {
+            case ParserTokens::T_FILE:
+                $this->_consumeToken( ParserTokens::T_FILE );
+                return $this->_context->getPathname( $this->_className );
+
             case ParserTokens::T_NULL;
                 $this->_consumeToken( ParserTokens::T_NULL );
                 return null;

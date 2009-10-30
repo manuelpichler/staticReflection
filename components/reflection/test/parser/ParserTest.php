@@ -1167,6 +1167,23 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserHandlesMagicConstantFileAsExpected()
+    {
+        $context = $this->createParserContext();
+        $parser  = new Parser( $context, 'PropertyMagicConstantFile' );
+        $value   = $parser->parse()->getProperty( 'foo' )->getValue();
+
+        $this->assertEquals( $context->getPathname( 'PropertyMagicConstantFile' ), $value );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserNotEndsInEndlessLoopWhenTypeHintOnParsedClassIsUsed()
     {
         $parser = new Parser( $this->createParserContext(), 'foo\bar\ParameterWithTypeHintOnDeclaringClass' );
