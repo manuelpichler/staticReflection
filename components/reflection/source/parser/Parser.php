@@ -404,7 +404,12 @@ class Parser
      */
     private function _parseInterface()
     {
-        return $this->_context->getClass( $this->_parseClassOrInterfaceName() );
+        $className = $this->_parseClassOrInterfaceName();
+        if ( $className === $this->_classOrInterface->getName() )
+        {
+            return $this->_classOrInterface;
+        }
+        return $this->_context->getClass( $className );
     }
 
     /**

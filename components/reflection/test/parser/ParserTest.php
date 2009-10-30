@@ -1163,6 +1163,20 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\parser\Parser
      * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserNotEndsInEndlessLoopWhenTypeHintOnParsedClassIsUsed()
+    {
+        $parser = new Parser( $this->createParserContext(), 'foo\bar\ParameterWithTypeHintOnDeclaringClass' );
+        $parser->parse();
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
      * @covers \org\pdepend\reflection\exceptions\ParserException
      * @covers \org\pdepend\reflection\exceptions\EndOfTokenStreamException
      * @group reflection
