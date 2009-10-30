@@ -216,4 +216,40 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
 
         $this->assertSame( $internal->getParentClass(), $static->getParentClass() );
     }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetProperty()
+    {
+        $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
+        $static   = $this->createStaticClass( 'CompatInterfaceSimple' );
+
+        $expected = $this->executeFailingMethod( $internal, 'getProperty', 'foo' );
+        $actual   = $this->executeFailingMethod( $static, 'getProperty', 'foo' );
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetStaticPropertyValue()
+    {
+        $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
+        $static   = $this->createStaticClass( 'CompatInterfaceSimple' );
+
+        $expected = $this->executeFailingMethod( $internal, 'getStaticPropertyValue', 'foo' );
+        $actual   = $this->executeFailingMethod( $static, 'getStaticPropertyValue', 'foo' );
+
+        $this->assertEquals( $expected, $actual );
+    }
 }
