@@ -1184,6 +1184,38 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserHandlesMagicConstantLineAsExpected()
+    {
+        $parser = new Parser( $this->createParserContext(), 'PropertyMagicConstantLine' );
+        $value  = $parser->parse()->getProperty( 'foo' )->getValue();
+
+        $this->assertEquals( 4, $value );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesMagicConstantClassAsExpected()
+    {
+        $parser = new Parser( $this->createParserContext(), '\magic\constant\PropertyMagicConstantClass' );
+        $value  = $parser->parse()->getProperty( 'foo' )->getValue();
+
+        $this->assertEquals( 'magic\constant\PropertyMagicConstantClass', $value );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserNotEndsInEndlessLoopWhenTypeHintOnParsedClassIsUsed()
     {
         $parser = new Parser( $this->createParserContext(), 'foo\bar\ParameterWithTypeHintOnDeclaringClass' );

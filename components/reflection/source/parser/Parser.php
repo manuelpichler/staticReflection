@@ -806,6 +806,13 @@ class Parser
                 $this->_consumeToken( ParserTokens::T_FILE );
                 return $this->_context->getPathname( $this->_className );
 
+            case ParserTokens::T_LINE:
+                return $this->_consumeToken( ParserTokens::T_LINE )->startLine;
+
+            case ParserTokens::T_CLASS_C:
+                $this->_consumeToken( ParserTokens::T_CLASS_C );
+                return $this->_classOrInterface->getName();
+
             case ParserTokens::T_NULL;
                 $this->_consumeToken( ParserTokens::T_NULL );
                 return null;
