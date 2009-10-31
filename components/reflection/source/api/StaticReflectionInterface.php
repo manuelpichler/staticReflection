@@ -744,9 +744,13 @@ class StaticReflectionInterface extends \ReflectionClass
      */
     public function getStaticPropertyValue( $name, $default = null )
     {
-        throw new \ReflectionException(
-            sprintf( 'Class %s does not have a property named %s', $this->_name, $name )
-        );
+        if ( $default === null )
+        {
+            throw new \ReflectionException(
+                sprintf( 'Class %s does not have a property named %s', $this->_name, $name )
+            );
+        }
+        return $default;
     }
 
     /**

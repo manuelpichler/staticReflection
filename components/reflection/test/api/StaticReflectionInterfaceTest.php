@@ -849,6 +849,19 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testGetStaticPropertyValueWithDefaultValueArgumentReturnsInputArgument()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $this->assertSame( 42, $interface->getStaticPropertyValue( 'foo', 42 ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionInterface
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testIsInternalAlwaysReturnsFalse()
     {
         $interface = new StaticReflectionInterface( '\foo\Bar', '' );

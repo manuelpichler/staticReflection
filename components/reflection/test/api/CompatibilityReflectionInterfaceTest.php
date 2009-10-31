@@ -224,7 +224,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testGetProperty()
+    public function testGetPropertyForUnknownPropertyExceptionMessage()
     {
         $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
         $static   = $this->createStaticClass( 'CompatInterfaceSimple' );
@@ -242,7 +242,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testGetStaticPropertyValue()
+    public function testGetStaticPropertyValueForUnknownPropertyExceptionMessage()
     {
         $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
         $static   = $this->createStaticClass( 'CompatInterfaceSimple' );
@@ -251,5 +251,23 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $actual   = $this->executeFailingMethod( $static, 'getStaticPropertyValue', 'foo' );
 
         $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetStaticPropertyValueForUnknownPropertyWithDefaultValue()
+    {
+        $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
+        $static   = $this->createStaticClass( 'CompatInterfaceSimple' );
+
+        $this->assertEquals( 
+            $internal->getStaticPropertyValue( 'foo', 42 ),
+            $static->getStaticPropertyValue( 'foo', 42 )
+        );
     }
 }

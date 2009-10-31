@@ -149,6 +149,24 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
+    public function testGetStaticPropertyValueForKnownProperty()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithStaticProperties' );
+        $static   = $this->createStaticClass( 'CompatClassWithStaticProperties' );
+
+        $this->assertEquals( 
+            $internal->getStaticPropertyValue( 'foo' ),
+            $static->getStaticPropertyValue( 'foo' )
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
     public function testGetPropertyForUnknownPropertyExceptionMessage()
     {
         $internal = $this->createInternalClass( 'CompatClassWithoutProperties' );
@@ -156,6 +174,24 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
 
         $expected = $this->executeFailingMethod( $internal, 'getProperty', __FUNCTION__ );
         $actual   = $this->executeFailingMethod( $static, 'getProperty', __FUNCTION__ );;
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetStaticPropertyValueForUnknownPropertyExceptionMessage()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithoutProperties' );
+        $static   = $this->createStaticClass( 'CompatClassWithoutProperties' );
+
+        $expected = $this->executeFailingMethod( $internal, 'getStaticPropertyValue', 'foo' );
+        $actual   = $this->executeFailingMethod( $static, 'getStaticPropertyValue', 'foo' );
 
         $this->assertEquals( $expected, $actual );
     }
