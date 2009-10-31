@@ -611,7 +611,11 @@ class StaticReflectionMethod extends \ReflectionMethod
     {
         if ( $this->_staticVariables === null )
         {
-            $this->_staticVariables = $staticVariables;
+            $this->_staticVariables = array();
+            foreach ( $staticVariables as $name => $value )
+            {
+                $this->_staticVariables[ltrim( $name, '$' )] = $value;
+            }
         }
         else
         {

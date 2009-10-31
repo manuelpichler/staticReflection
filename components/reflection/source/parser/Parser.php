@@ -1022,7 +1022,7 @@ class Parser
     {
         $this->_consumeComments();
 
-        $name  = ltrim( $this->_consumeToken( ParserTokens::T_VARIABLE )->image, '$' );
+        $name  = $this->_consumeToken( ParserTokens::T_VARIABLE )->image;
         $value = $this->_parseOptionalDefaultValue();
 
         if ( is_object( $value ) )

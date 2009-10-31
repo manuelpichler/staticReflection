@@ -754,6 +754,51 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testGetStaticVariablesReturnsEmptyArrayByDefault()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $this->assertSame( array(), $method->getStaticVariables() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetStaticVariablesReturnsPreviousConfiguredVariables()
+    {
+        $staticVariables = array( 'foo' => 42, 'bar' => 23 );
+
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initStaticVariables( $staticVariables );
+
+        $this->assertSame( $staticVariables, $method->getStaticVariables() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testInitStaticVariablesStripsLeadingDollarCharacter()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initStaticVariables( array( '$foo' => 42, '$bar' => 23 ) );
+
+        $this->assertSame( array( 'foo' => 42, 'bar' => 23 ), $method->getStaticVariables() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testGetExtensionNameAlwaysReturnsFalse()
     {
         $method = new StaticReflectionMethod( 'foo', '', 0 );
@@ -888,5 +933,20 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
         $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initReturnsReference();
         $method->initReturnsReference();
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testInitStaticVariablesThrowsLogicExceptionWhenAlreadySet()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initStaticVariables( array() );
+        $method->initStaticVariables( array() );
     }
 }
