@@ -639,6 +639,127 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testIsSubclassOfReturnsFalseForClassWithoutParent()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $this->assertFalse( $class->isSubclassOf( 'Foo' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsSubclassOfReturnsFalseForClassWithOtherParent()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initParentClass( new StaticReflectionClass( 'Bar', '', 0 ) );
+
+        $this->assertFalse( $class->isSubclassOf( 'Foo' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsSubclassOfReturnsFalseForClassItSelf()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $this->assertFalse( $class->isSubclassOf( __CLASS__ ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsSubclassOfReturnsTrueForClassWithParent()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initParentClass( new StaticReflectionClass( 'Foo', '', 0 ) );
+
+        $this->assertTrue( $class->isSubclassOf( 'Foo' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsSubclassOfReturnsTrueForClassWithParentWithParent()
+    {
+        $parentParent = new StaticReflectionClass( 'ParentParent', '', 0 );
+
+        $parent = new StaticReflectionClass( 'Parent', '', 0 );
+        $parent->initParentClass( $parentParent );
+
+        $child = new StaticReflectionClass( __CLASS__, '', 0 );
+        $child->initParentClass( $parent );
+
+        $this->assertTrue( $child->isSubclassOf( 'ParentParent' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsSubclassOfReturnsTrueForClassWithParentCaseInsensitive()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initParentClass( new StaticReflectionClass( 'Foo', '', 0 ) );
+
+        $this->assertTrue( $class->isSubclassOf( 'FOO' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsSubclassOfReturnsTrueForClassWithParentAndLeadingBackslash()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initParentClass( new StaticReflectionClass( 'Foo', '', 0 ) );
+
+        $this->assertTrue( $class->isSubclassOf( '\Foo' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsSubclassOfReturnsTrueForImplementedInterface()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initInterfaces( array( new StaticReflectionInterface( 'Foo', '' ) ) );
+
+        $this->assertTrue( $class->isSubclassOf( 'Foo' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testIsInstantiableReturnsFalseForClassWithAbstractConstructor()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );

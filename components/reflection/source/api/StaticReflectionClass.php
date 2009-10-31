@@ -159,7 +159,15 @@ class StaticReflectionClass extends StaticReflectionInterface
      */
     public function isSubclassOf( $class )
     {
-
+        if ( $this->_parentClass === false )
+        {
+            return parent::isSubclassOf( $class );
+        }
+        else if ( strcasecmp( $this->_parentClass->getName(), ltrim( $class, '\\' ) ) === 0 )
+        {
+            return true;
+        }
+        return $this->_parentClass->isSubclassOf( $class );
     }
 
     /**

@@ -88,7 +88,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithProtectedConstructor' );
         $static   = $this->createStaticClass( 'CompatClassWithProtectedConstructor' );
 
-        $this->assertEquals( $internal->isInstantiable(), $static->isInstantiable() );
+        $this->assertSame( $internal->isInstantiable(), $static->isInstantiable() );
     }
 
     /**
@@ -103,7 +103,115 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithPrivateConstructor' );
         $static   = $this->createStaticClass( 'CompatClassWithPrivateConstructor' );
 
-        $this->assertEquals( $internal->isInstantiable(), $static->isInstantiable() );
+        $this->assertSame( $internal->isInstantiable(), $static->isInstantiable() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsSubclassOfForClassWithoutParent()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithoutParent' );
+        $static   = $this->createStaticClass( 'CompatClassWithoutParent' );
+
+        $this->assertSame(
+            $internal->isSubclassOf( 'stdClass' ),
+            $static->isSubclassOf( 'stdClass' )
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsSubclassOfOnClassItself()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithoutParent' );
+        $static   = $this->createStaticClass( 'CompatClassWithoutParent' );
+
+        $this->assertSame(
+            $internal->isSubclassOf( 'CompatClassWithoutParent' ),
+            $static->isSubclassOf( 'CompatClassWithoutParent' )
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsSubclassOfOnParentClass()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithParent' );
+        $static   = $this->createStaticClass( 'CompatClassWithParent' );
+
+        $this->assertSame(
+            $internal->isSubclassOf( 'CompatClassWithoutParent' ),
+            $static->isSubclassOf( 'CompatClassWithoutParent' )
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsSubclassOfOnParentClassCaseInsensitive()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithParent' );
+        $static   = $this->createStaticClass( 'CompatClassWithParent' );
+
+        $this->assertSame(
+            $internal->isSubclassOf( 'compatCLASSWithoutPARENT' ),
+            $static->isSubclassOf( 'compatCLASSWithoutPARENT' )
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsSubclassOfOnParentClassWithLeadingBackslash()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithParent' );
+        $static   = $this->createStaticClass( 'CompatClassWithParent' );
+
+        $this->assertSame(
+            $internal->isSubclassOf( '\CompatClassWithoutParent' ),
+            $static->isSubclassOf( '\CompatClassWithoutParent' )
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsSubclassOfOnImplementedInterface()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithImplementedInterface' );
+        $static   = $this->createStaticClass( 'CompatClassWithImplementedInterface' );
+
+        $this->assertSame(
+            $internal->isSubclassOf( 'CompatInterfaceSimple' ),
+            $static->isSubclassOf( 'CompatInterfaceSimple' )
+        );
     }
 
     /**
@@ -118,7 +226,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithoutParent' );
         $static   = $this->createStaticClass( 'CompatClassWithoutParent' );
 
-        $this->assertEquals( $internal->getParentClass(), $static->getParentClass() );
+        $this->assertSame( $internal->getParentClass(), $static->getParentClass() );
     }
 
     /**
