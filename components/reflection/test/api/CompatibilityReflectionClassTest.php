@@ -38,6 +38,81 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
+    public function testIsInstantiableForClassWithoutConstructor()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithoutConstructor' );
+        $static   = $this->createStaticClass( 'CompatClassWithoutConstructor' );
+
+        $this->assertEquals( $internal->isInstantiable(), $static->isInstantiable() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsInstantiableForClassWithConstructor()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithConstructor' );
+        $static   = $this->createStaticClass( 'CompatClassWithConstructor' );
+
+        $this->assertEquals( $internal->isInstantiable(), $static->isInstantiable() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsInstantiableForClassWithAbstractConstructor()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithAbstractConstructor' );
+        $static   = $this->createStaticClass( 'CompatClassWithAbstractConstructor' );
+
+        $this->assertEquals( $internal->isInstantiable(), $static->isInstantiable() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsInstantiableForClassWithProtectedConstructor()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithProtectedConstructor' );
+        $static   = $this->createStaticClass( 'CompatClassWithProtectedConstructor' );
+
+        $this->assertEquals( $internal->isInstantiable(), $static->isInstantiable() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsInstantiableForClassWithPrivateConstructor()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithPrivateConstructor' );
+        $static   = $this->createStaticClass( 'CompatClassWithPrivateConstructor' );
+
+        $this->assertEquals( $internal->isInstantiable(), $static->isInstantiable() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
     public function testGetParentClassForClassWithoutParent()
     {
         $internal = $this->createInternalClass( 'CompatClassWithoutParent' );
@@ -110,6 +185,93 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $static   = $this->createStaticClass( 'CompatClassWithInheritPrivateMethod' );
 
         $this->assertEquals( count( $internal->getMethods() ), count( $static->getMethods() ) );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetConstructorForClassWithoutConstructor()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithoutConstructor' );
+        $static   = $this->createStaticClass( 'CompatClassWithoutConstructor' );
+
+        $this->assertSame( $internal->getConstructor(), $static->getConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetConstructorForClassWithConstructor()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithConstructor' );
+        $static   = $this->createStaticClass( 'CompatClassWithConstructor' );
+
+        $this->assertEquals(
+            $internal->getConstructor()->getName(),
+            $static->getConstructor()->getName()
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetConstructorForClassWithPrivateConstructor()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithPrivateConstructor' );
+        $static   = $this->createStaticClass( 'CompatClassWithPrivateConstructor' );
+
+        $this->assertEquals(
+            $internal->getConstructor()->getName(),
+            $static->getConstructor()->getName()
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetConstructorForClassWithAbstractConstructor()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithAbstractConstructor' );
+        $static   = $this->createStaticClass( 'CompatClassWithAbstractConstructor' );
+
+        $this->assertEquals(
+            $internal->getConstructor()->getName(),
+            $static->getConstructor()->getName()
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetConstructorForClassWithInheritConstructor()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithInheritConstructor' );
+        $static   = $this->createStaticClass( 'CompatClassWithInheritConstructor' );
+
+        $this->assertEquals(
+            $internal->getConstructor()->getName(),
+            $static->getConstructor()->getName()
+        );
     }
 
     /**

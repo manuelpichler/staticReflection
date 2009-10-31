@@ -163,6 +163,24 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
+     * Checks if the class is instantiable.
+     *
+     * @return boolean
+     */
+    public function isInstantiable()
+    {
+        if ( $this->isAbstract() )
+        {
+            return false;
+        }
+        else if ( is_object( $constructor = $this->getConstructor() ) )
+        {
+            return ( $constructor->isPublic() && !$constructor->isAbstract() );
+        }
+        return true;
+    }
+
+    /**
      * Returns the parent of the reflected class or <b>false</b> when no parent
      * exists.
      *
@@ -257,9 +275,22 @@ class StaticReflectionClass extends StaticReflectionInterface
         return $result;
     }
 
+    /**
+     * Returns the constructor method of the reflected class or <b>null</b> when
+     * no constructor is available.
+     *
+     * @return \ReflectionMethod
+     */
     public function getConstructor()
     {
-        
+        foreach ( $this->getMethods() as $method )
+        {
+            if ( $method->isConstructor() )
+            {
+                return $method;
+            }
+        }
+        return null;
     }
 
     /**

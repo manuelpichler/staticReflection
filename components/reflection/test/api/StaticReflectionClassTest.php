@@ -338,6 +338,34 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testGetConstructorReturnsNullWhenNoConstructorExists()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $this->assertNull( $class->getConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetConstructorReturnsMethodNamedConstruct()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initMethods( array( new StaticReflectionMethod( '__construct', '', 0 ) ) );
+
+        $this->assertNotNull( $class->getConstructor() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testGetPropertyReturnsDirectlyDeclaredProperty()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
@@ -544,6 +572,94 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
         $class->initProperties( array( $prop ) );
 
         $this->assertNull( $class->getStaticPropertyValue( 'foo', 42 ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsInstantiableReturnsTrueForClassWithoutConstructor()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $this->assertTrue( $class->isInstantiable() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsInstantiableReturnsTrueForClassWithConstructor()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initMethods( array( new StaticReflectionMethod( '__construct', '', StaticReflectionMethod::IS_PUBLIC ) ) );
+
+        $this->assertTrue( $class->isInstantiable() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsInstantiableReturnsFalseForClassWithProtectedConstructor()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initMethods( array( new StaticReflectionMethod( '__construct', '', StaticReflectionMethod::IS_PROTECTED ) ) );
+
+        $this->assertFalse( $class->isInstantiable() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsInstantiableReturnsFalseForClassWithPrivateConstructor()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initMethods( array( new StaticReflectionMethod( '__construct', '', StaticReflectionMethod::IS_PRIVATE ) ) );
+
+        $this->assertFalse( $class->isInstantiable() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsInstantiableReturnsFalseForClassWithAbstractConstructor()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initMethods( array( new StaticReflectionMethod( '__construct', '', StaticReflectionMethod::IS_ABSTRACT ) ) );
+
+        $this->assertFalse( $class->isInstantiable() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsInstantiableReturnsFalseForAbstractClass()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', StaticReflectionClass::IS_EXPLICIT_ABSTRACT );
+        $class->initMethods( array( new StaticReflectionMethod( '__construct', '', StaticReflectionMethod::IS_PUBLIC ) ) );
+
+        $this->assertFalse( $class->isInstantiable() );
     }
 
     /**
