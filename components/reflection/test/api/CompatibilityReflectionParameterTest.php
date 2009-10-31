@@ -98,6 +98,81 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
+    public function testIsOptionalForParameterWithoutDefaultValue()
+    {
+        $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
+        $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
+
+        $this->assertSame( $internal->isOptional(), $static->isOptional() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsOptionalForParameterWithDefaultValue()
+    {
+        $internal = $this->createInternal( 'CompatParameter', 'fooBar', 1 );
+        $static   = $this->createStatic( 'CompatParameter', 'fooBar', 1 );
+
+        $this->assertSame( $internal->isOptional(), $static->isOptional() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsOptionalForParameterWithDefaultValueAndNotOptionalFollowingParameter()
+    {
+        $internal = $this->createInternal( 'CompatParametersOptional', 'fooBar', 0 );
+        $static   = $this->createStatic( 'CompatParametersOptional', 'fooBar', 0 );
+
+        $this->assertSame( $internal->isOptional(), $static->isOptional() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsOptionalForParameterWithDefaultValueAndOptionalFollowingParameter()
+    {
+        $internal = $this->createInternal( 'CompatParametersOptional', 'fooBar', 2 );
+        $static   = $this->createStatic( 'CompatParametersOptional', 'fooBar', 2 );
+
+        $this->assertSame( $internal->isOptional(), $static->isOptional() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testIsOptionalForParameterWithNullDefaultValue()
+    {
+        $internal = $this->createInternal( 'CompatParametersOptional', 'fooBar', 2 );
+        $static   = $this->createStatic( 'CompatParametersOptional', 'fooBar', 2 );
+
+        $this->assertSame( $internal->isOptional(), $static->isOptional() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
     public function testGetClassForParameterWithoutTypeHint()
     {
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );

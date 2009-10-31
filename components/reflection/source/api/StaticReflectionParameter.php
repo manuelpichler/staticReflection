@@ -304,7 +304,34 @@ class StaticReflectionParameter extends \ReflectionParameter
      */
     public function isOptional()
     {
-        return $this->_optional;
+        if ( $this->isDefaultValueAvailable() )
+        {
+            return $this->_isOptionalByFollowingParameters();
+        }
+        return false;
+    }
+
+    /**
+     * Returns <b>true</b> when this parameter is not implicit mandatory because
+     * one of the following parameters is mandatory.
+     *
+     * @return boolean
+     */
+    private function _isOptionalByFollowingParameters()
+    {
+        $behindCurrentParameter = false;
+        foreach ( $this->_declaringMethod->getParameters() as $parameter )
+        {
+            if ( $parameter === $this )
+            {
+                $behindCurrentParameter = true;
+            }
+            else if ( $behindCurrentParameter && !$parameter->isDefaultValueAvailable() )
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**

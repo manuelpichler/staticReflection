@@ -139,6 +139,100 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testIsOptionalReturnsFalseWhenNoDefaultValueIsAvailable()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initParameters( array( $parameter ) );
+
+        $this->assertFalse( $parameter->isOptional() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsOptionalReturnsTrueWhenDefaultValueIsAvailable()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter->initDefaultValue( new DefaultValue( 42 ) );
+
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initParameters( array( $parameter ) );
+
+        $this->assertTrue( $parameter->isOptional() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsOptionalReturnsTrueWhenNullDefaultValueIsAvailable()
+    {
+        $parameter = new StaticReflectionParameter( '_foo', 0 );
+        $parameter->initDefaultValue( new DefaultValue( null ) );
+
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initParameters( array( $parameter ) );
+
+        $this->assertTrue( $parameter->isOptional() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsOptionalReturnsFalseWhenDefaultValueIsAvailableButNoOptionalParamFollows()
+    {
+        $param0 = new StaticReflectionParameter( '_foo', 0 );
+        $param0->initDefaultValue( new DefaultValue( 42 ) );
+
+        $param1 = new StaticReflectionParameter( '_bar', 0 );
+
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initParameters( array( $param0, $param1 ) );
+
+        $this->assertFalse( $param0->isOptional() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsOptionalReturnsTrueWhenDefaultValueIsAvailableAndOptionalParamFollows()
+    {
+        $param0 = new StaticReflectionParameter( '_foo', 0 );
+        $param0->initDefaultValue( new DefaultValue( 42 ) );
+
+        $param1 = new StaticReflectionParameter( '_bar', 0 );
+        $param1->initDefaultValue( new DefaultValue( 23 ) );
+
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initParameters( array( $param0, $param1 ) );
+
+        $this->assertTrue( $param0->isOptional() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testAllowsNullReturnsTrueWhenNoTypeHintWasSet()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
