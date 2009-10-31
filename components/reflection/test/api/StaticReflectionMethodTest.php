@@ -675,6 +675,85 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testGetNumberOfRequiredParametersReturnsZeroForMethodWithZeroParameters()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initParameters( array() );
+
+        $this->assertEquals( 0, $method->getNumberOfRequiredParameters() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetNumberOfRequiredParametersReturnsZeroForMethodWithOptionalParametersOnly()
+    {
+        $param0 = new StaticReflectionParameter( 'foo', 0 );
+        $param0->initDefaultValue( new DefaultValue( 42 ) );
+
+        $param1 = new StaticReflectionParameter( 'bar', 1 );
+        $param1->initDefaultValue( new DefaultValue( 23 ) );
+
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initParameters( array( $param0, $param1 ) );
+
+        $this->assertEquals( 0, $method->getNumberOfRequiredParameters() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetNumberOfRequiredParametersReturnsExpectedValueForMethodWithoutOptionalParameters()
+    {
+        $params = array(
+            new StaticReflectionParameter( 'foo', 0 ),
+            new StaticReflectionParameter( 'bar', 1 )
+        );
+
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initParameters( $params );
+
+        $this->assertEquals( 2, $method->getNumberOfRequiredParameters() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetNumberOfRequiredParametersReturnsTwoForMethodWithPartialOptionalParameters()
+    {
+        $param0 = new StaticReflectionParameter( 'foo', 0 );
+        $param0->initDefaultValue( new DefaultValue( 42 ) );
+
+        $param1 = new StaticReflectionParameter( 'bar', 1 );
+
+        $param2 = new StaticReflectionParameter( 'baz', 2 );
+        $param2->initDefaultValue( new DefaultValue( 23 ) );
+
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->initParameters( array( $param0, $param1, $param2 ) );
+
+        $this->assertEquals( 2, $method->getNumberOfRequiredParameters() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testGetExtensionNameAlwaysReturnsFalse()
     {
         $method = new StaticReflectionMethod( 'foo', '', 0 );

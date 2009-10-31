@@ -376,7 +376,61 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
         $static   = $this->createStatic( 'CompatMethodInClassWithoutNamespace', 'fooBar' );
 
-        $this->assertEquals( $internal->inNamespace(), $static->inNamespace() );
+        $this->assertSame( $internal->inNamespace(), $static->inNamespace() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetNumberOfRequiredParametersWhereFirstParameterIsMandatory()
+    {
+        $internal = $this->createInternal( 'CompatParameter', 'fooBar' );
+        $static   = $this->createStatic( 'CompatParameter', 'fooBar' );
+
+        $this->assertEquals(
+            $internal->getNumberOfRequiredParameters(),
+            $static->getNumberOfRequiredParameters()
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetNumberOfRequiredParametersWhereSecondParameterIsMandatory()
+    {
+        $internal = $this->createInternal( 'CompatParametersOptional', 'fooBar' );
+        $static   = $this->createStatic( 'CompatParametersOptional', 'fooBar' );
+
+        $this->assertEquals(
+            $internal->getNumberOfRequiredParameters(),
+            $static->getNumberOfRequiredParameters()
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetNumberOfRequiredParametersForMethodWithoutParameters()
+    {
+        $internal = $this->createInternal( 'CompatMethodWithoutParameters', 'fooBar' );
+        $static   = $this->createStatic( 'CompatMethodWithoutParameters', 'fooBar' );
+
+        $this->assertEquals(
+            $internal->getNumberOfRequiredParameters(),
+            $static->getNumberOfRequiredParameters()
+        );
     }
 
     /**

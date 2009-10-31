@@ -492,9 +492,23 @@ class StaticReflectionMethod extends \ReflectionMethod
         return count( $this->getParameters() );
     }
 
+    /**
+     * Returns the total number of parameters that are mandatory for the reflected
+     * method.
+     *
+     * @return integer
+     */
     public function getNumberOfRequiredParameters()
     {
-
+        $numberOfRequiredParameters = 0;
+        foreach ( $this->getParameters() as $parameter )
+        {
+            if ( !$parameter->isOptional() )
+            {
+                ++$numberOfRequiredParameters;
+            }
+        }
+        return $numberOfRequiredParameters;
     }
 
     /**
