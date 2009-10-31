@@ -790,6 +790,49 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testIsIterateableReturnsFalseByDefault()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $this->assertFalse( $class->isIterateable() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsIterateableReturnsTrueForClassThatImplementsTraversable()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initInterfaces( array( new StaticReflectionInterface( 'Traversable', '' ) ) );
+
+        $this->assertTrue( $class->isIterateable() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsIterateableReturnsTrueForAbstractClassThatImplementsTraversable()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', StaticReflectionClass::IS_EXPLICIT_ABSTRACT );
+        $class->initInterfaces( array( new StaticReflectionInterface( 'Traversable', '' ) ) );
+
+        $this->assertTrue( $class->isIterateable() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testIsAbstractReturnsFalseWhenModifierIsNotSet()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );

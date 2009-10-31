@@ -333,9 +333,15 @@ class StaticReflectionInterface extends \ReflectionClass
         return false;
     }
 
+    /**
+     * This method will return <b>true</b> when the reflected object is a class
+     * and implements the interface <b>Traversable</b>.
+     *
+     * @return boolean
+     */
     public function isIterateable()
     {
-        
+        return false;
     }
 
     /**

@@ -189,6 +189,17 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
+     * This method will return <b>true</b> when the reflected object is a class
+     * and implements the interface <b>Traversable</b>.
+     *
+     * @return boolean
+     */
+    public function isIterateable()
+    {
+        return $this->isSubclassOf( 'Traversable' );
+    }
+
+    /**
      * Returns the parent of the reflected class or <b>false</b> when no parent
      * exists.
      *

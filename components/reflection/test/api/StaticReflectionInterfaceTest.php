@@ -953,6 +953,34 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testIsIterateableReturnsFalseByDefault()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $this->assertFalse( $interface->isIterateable() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionInterface
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testIsIterateableReturnsFalseForClassThatImplementsTraversable()
+    {
+        $interface = new StaticReflectionInterface( __CLASS__, '' );
+        $interface->initInterfaces( array( new StaticReflectionInterface( 'Traversable', '' ) ) );
+
+        $this->assertFalse( $interface->isIterateable() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionInterface
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testGetStartLineReturnsExpectedValue()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
