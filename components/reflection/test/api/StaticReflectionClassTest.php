@@ -483,6 +483,76 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
+    public function testGetStaticPropertiesReturnsExpectedKeyValueArray()
+    {
+        $prop0 = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_STATIC);
+        $prop0->initValue( new DefaultValue( 42 ) );
+
+        $prop1 = new StaticReflectionProperty( 'bar', '', StaticReflectionProperty::IS_STATIC);
+
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initProperties( array( $prop0, $prop1 ) );
+
+        $this->assertEquals( array( 'foo' => 42, 'bar' => null ), $class->getStaticProperties() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetStaticPropertyValueReturnsExpectedValue()
+    {
+        $prop = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_STATIC);
+        $prop->initValue( new DefaultValue( 42 ) );
+
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initProperties( array( $prop ) );
+
+        $this->assertEquals( 42, $class->getStaticPropertyValue( 'foo' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetStaticPropertyValueReturnsExpectedDefaultValue()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+
+        $this->assertEquals( 42, $class->getStaticPropertyValue( 'foo', 42 ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetStaticPropertyValueReturnsNullEvenWhenDefaultValueWasGiven()
+    {
+        $prop = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_STATIC);
+        $prop->initValue( new DefaultValue( null ) );
+
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initProperties( array( $prop ) );
+
+        $this->assertNull( $class->getStaticPropertyValue( 'foo', 42 ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
     public function testIsAbstractReturnsFalseWhenModifierIsNotSet()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
@@ -581,6 +651,20 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->getProperty( 'foo' );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     * @expectedException \ReflectionException
+     */
+    public function testGetStaticPropertyValueThrowsExceptionWhenNoPropertyForTheGivenNameExists()
+    {
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->getStaticPropertyValue( 'foo' );
     }
 
     /**

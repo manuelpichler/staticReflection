@@ -182,6 +182,24 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
+    public function testGetStaticPropertyValueForNullPropertyWithDefaultValue()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithStaticProperties' );
+        $static   = $this->createStaticClass( 'CompatClassWithStaticProperties' );
+
+        $this->assertEquals(
+            $internal->getStaticPropertyValue( 'baz', 42 ),
+            $static->getStaticPropertyValue( 'baz', 42 )
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
     public function testGetPropertyForUnknownPropertyExceptionMessage()
     {
         $internal = $this->createInternalClass( 'CompatClassWithoutProperties' );

@@ -240,7 +240,7 @@ class StaticReflectionClass extends StaticReflectionInterface
         {
             $result = $this->_collectMethodFromParentClass( $method, $result );
         }
-        return $this->prepareCollectedMethods( $filter, $result );
+        return $this->prepareCollectedObjects( $filter, $result );
     }
 
     private function _collectMethodFromParentClass( \ReflectionMethod $method, array $result )
@@ -299,7 +299,7 @@ class StaticReflectionClass extends StaticReflectionInterface
      */
     public function getProperties( $filter = -1 )
     {
-        return array_values( $this->_collectProperties() );
+        return $this->prepareCollectedObjects( $filter, $this->_collectProperties() );
     }
 
     /**
@@ -403,7 +403,7 @@ class StaticReflectionClass extends StaticReflectionInterface
     public function getStaticPropertyValue( $name, $default = null )
     {
         $properties = $this->getStaticProperties();
-        if ( isset( $properties[$name] ) )
+        if ( array_key_exists( $name, $properties ) )
         {
             return $properties[$name];
         }

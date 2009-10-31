@@ -594,7 +594,7 @@ class StaticReflectionInterface extends \ReflectionClass
      */
     public function getMethods( $filter = -1 )
     {
-        return $this->prepareCollectedMethods( $filter, $this->collectMethods() );
+        return $this->prepareCollectedObjects( $filter, $this->collectMethods() );
     }
 
     protected function collectMethods()
@@ -644,23 +644,23 @@ class StaticReflectionInterface extends \ReflectionClass
         return $result;
     }
 
-    protected function prepareCollectedMethods( $filter, array $methods )
+    protected function prepareCollectedObjects( $filter, array $objects )
     {
         if ( $filter === -1 )
         {
-            return array_values( $methods );
+            return array_values( $objects );
         }
-        return $this->_filterCollectedMethods( $filter, $methods );
+        return $this->_filterCollectedObjects( $filter, $objects );
     }
 
-    private function _filterCollectedMethods( $filter, array $methods )
+    private function _filterCollectedObjects( $filter, array $objects )
     {
         $result = array();
-        foreach ( $methods as $method )
+        foreach ( $objects as $object )
         {
-            if ( ( $method->getModifiers() & $filter ) === $filter )
+            if ( ( $object->getModifiers() & $filter ) === $filter )
             {
-                $result[] = $method;
+                $result[] = $object;
             }
         }
         return $result;
