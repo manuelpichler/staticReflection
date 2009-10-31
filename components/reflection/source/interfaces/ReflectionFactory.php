@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   org\pdepend\reflection\interfaces
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,33 +45,11 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection;
+namespace org\pdepend\reflection\interfaces;
 
-use \org\pdepend\reflection\parser\Parser;
-use \org\pdepend\reflection\parser\ParserContext;
-use org\pdepend\reflection\interfaces\ReflectionBuilder;
-
-class StaticReflectionBuilder implements ReflectionBuilder
+interface ReflectionFactory
 {
-    /**
-     *
-     * @var \org\pdepend\reflection\parser\ParserContext
-     */
-    private $_context = null;
+    function canBuildClass( $class );
 
-    public function __construct( ParserContext $context )
-    {
-        $this->_context = $context;
-    }
-
-    public function canBuildClass( $className )
-    {
-        return true;
-    }
-
-    public function buildClass( $className )
-    {
-        $parser = new Parser( $this->_context, $className );
-        return $parser->parse();
-    }
+    function buildClass( $class );
 }

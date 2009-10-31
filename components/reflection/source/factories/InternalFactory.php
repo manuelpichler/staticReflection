@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\interfaces
+ * @package   org\pdepend\reflection
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,11 +45,19 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection\interfaces;
+namespace org\pdepend\reflection\factories;
 
-interface ReflectionBuilder
+use org\pdepend\reflection\interfaces\ReflectionFactory;
+
+class InternalFactory implements ReflectionFactory
 {
-    function canBuildClass( $class );
+    public function canBuildClass( $class )
+    {
+        return class_exists( $class, false );
+    }
 
-    function buildClass( $class );
+    public function buildClass( $class )
+    {
+        return new \ReflectionClass( $class );
+    }
 }

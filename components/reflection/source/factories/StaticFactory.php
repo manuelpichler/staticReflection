@@ -45,19 +45,33 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection;
+namespace org\pdepend\reflection\factories;
 
-use org\pdepend\reflection\interfaces\ReflectionBuilder;
+use \org\pdepend\reflection\parser\Parser;
+use \org\pdepend\reflection\parser\ParserContext;
+use org\pdepend\reflection\interfaces\ReflectionFactory;
 
-class InternalReflectionBuilder implements ReflectionBuilder
+class StaticFactory implements ReflectionFactory
 {
-    public function canBuildClass( $class )
+    /**
+     *
+     * @var \org\pdepend\reflection\parser\ParserContext
+     */
+    private $_context = null;
+
+    public function __construct( ParserContext $context )
     {
-        return class_exists( $class, false );
+        $this->_context = $context;
     }
 
-    public function buildClass( $class )
+    public function canBuildClass( $className )
     {
-        return new \ReflectionClass( $class );
+        return true;
+    }
+
+    public function buildClass( $className )
+    {
+        $parser = new Parser( $this->_context, $className );
+        return $parser->parse();
     }
 }

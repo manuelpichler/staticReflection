@@ -47,7 +47,7 @@
 
 namespace org\pdepend\reflection;
 
-use org\pdepend\reflection\interfaces\ReflectionBuilder;
+use org\pdepend\reflection\interfaces\ReflectionFactory;
 
 class ReflectionSession
 {
@@ -57,7 +57,7 @@ class ReflectionSession
      */
     private $_builders = array();
 
-    public function addBuilder( ReflectionBuilder $builder )
+    public function addFactory( ReflectionFactory $builder )
     {
         $this->_builders[] = $builder;
     }

@@ -1,6 +1,9 @@
 <?php
 namespace org\pdepend\reflection;
 
+use org\pdepend\reflection\parser\ParserContext;
+use org\pdepend\reflection\factories\StaticFactory;
+
 require_once 'PHPUnit/Framework/TestCase.php';
 
 abstract class BaseTest extends \PHPUnit_Framework_TestCase
@@ -109,8 +112,8 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         $session  = new ReflectionSession();
         $resolver = $this->_createSourceResolver();
 
-        $context = new parser\ParserContext( $session, $resolver );
-        $session->addBuilder( new StaticReflectionBuilder( $context ) );
+        $context = new ParserContext( $session, $resolver );
+        $session->addFactory( new StaticFactory( $context ) );
 
         return $context;
     }
