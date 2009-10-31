@@ -143,6 +143,13 @@ class Parser
     private $_parameters = array();
 
     /**
+     * Static variables declared within a method's body.
+     *
+     * @var array(string=>mixed)
+     */
+    private $_staticVariables = array();
+
+    /**
      * Constructs a new parser instance.
      *
      * @param \org\pdepend\reflection\parser\ParserContext $context
@@ -553,6 +560,8 @@ class Parser
      */
     private function _parseMethodDeclaration( $docComment, $modifiers )
     {
+        $this->_staticVariables = array();
+
         $startLine  = $this->_consumeToken( ParserTokens::T_FUNCTION )->startLine;
         $returnsRef = $this->_parseOptionalByReference();
 
@@ -577,6 +586,7 @@ class Parser
         $method->initStartLine( $startLine );
         $method->initEndLine( $endLine );
         $method->initParameters( $this->_parameters );
+        $method->initStaticVariables( $this->_staticVariables );
 
         if ( $returnsRef )
         {
@@ -968,6 +978,14 @@ class Parser
                 case ParserTokens::T_SCOPE_CLOSE:
                     --$scope;
                     break;
+
+                case ParserTokens::T_STATIC:
+                    $this->_consumeComments();
+                    if ( $this->_peek() === ParserTokens::T_VARIABLE )
+                    {
+                        $this->_parseStaticVariables();
+                    }
+                    break;
             }
 
             if ( $scope === 0 )
@@ -976,6 +994,45 @@ class Parser
             }
         }
         throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
+    }
+
+    private function _parseStaticVariables()
+    {
+        do
+        {
+            $this->_parseStaticVariable();
+            $this->_consumeComments();
+
+            if ( $this->_peek() === ParserTokens::T_COMMA )
+            {
+                $this->_consumeToken( ParserTokens::T_COMMA );
+                $this->_consumeComments();
+            }
+            else
+            {
+                break;
+            }
+        }
+        while ( $this->_peek() === ParserTokens::T_VARIABLE );
+
+        $this->_consumeToken( ParserTokens::T_SEMICOLON );
+    }
+
+    private function _parseStaticVariable()
+    {
+        $this->_consumeComments();
+
+        $name  = ltrim( $this->_consumeToken( ParserTokens::T_VARIABLE )->image, '$' );
+        $value = $this->_parseOptionalDefaultValue();
+
+        if ( is_object( $value ) )
+        {
+            $this->_staticVariables[$name] = $value->getData();
+        }
+        else
+        {
+            $this->_staticVariables[$name] = null;
+        }
     }
 
     /**

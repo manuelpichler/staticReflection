@@ -95,6 +95,13 @@ class StaticReflectionMethod extends \ReflectionMethod
     private $_parameters = null;
 
     /**
+     * List of static variables declared for the reflected method.
+     *
+     * @var array(string=>mixed)
+     */
+    private $_staticVariables = null;
+
+    /**
      * The start line number of the reflected method.
      *
      * @var integer
@@ -580,9 +587,36 @@ class StaticReflectionMethod extends \ReflectionMethod
         }
     }
 
+    /**
+     * Returns an array with all static variables declared within the reflected
+     * method.
+     *
+     * @return array(string=>mixed)
+     */
     public function getStaticVariables()
     {
-        
+        return (array) $this->_staticVariables;
+    }
+
+    /**
+     * Initializes the static variable array for the reflected method.
+     *
+     * @param array(string=>mixed) $staticVariables Static variables declared in
+     *        the reflected method.
+     *
+     * @return void
+     * @access private
+     */
+    public function initStaticVariables( array $staticVariables )
+    {
+        if ( $this->_staticVariables === null )
+        {
+            $this->_staticVariables = $staticVariables;
+        }
+        else
+        {
+            throw new \LogicException( 'Property staticVariables already set' );
+        }
     }
 
     /**

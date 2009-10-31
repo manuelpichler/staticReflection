@@ -440,6 +440,36 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
+    public function testGetStaticVariablesForClassWithoutStaticVariables()
+    {
+        $internal = $this->createInternal( 'CompatMethodWithoutStaticVariables', 'fooBar' );
+        $static   = $this->createStatic( 'CompatMethodWithoutStaticVariables', 'fooBar' );
+
+        $this->assertSame( $internal->getStaticVariables(), $static->getStaticVariables() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetStaticVariablesForClassWithStaticVariables()
+    {
+        $internal = $this->createInternal( 'CompatMethodWithStaticVariables', 'fooBar' );
+        $static   = $this->createStatic( 'CompatMethodWithStaticVariables', 'fooBar' );
+
+        $this->assertEquals( $internal->getStaticVariables(), $static->getStaticVariables() );
+    }
+
+    /**
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
     public function testGetExtension()
     {
         $internal = $this->createInternal( 'CompatMethodInClassWithoutNamespace', 'fooBar' );

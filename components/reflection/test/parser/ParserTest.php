@@ -1274,6 +1274,37 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @return void
      * @covers \org\pdepend\reflection\parser\Parser
      * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserSetsEmptyArrayWhenNotStaticVariablesExistsInMethod()
+    {
+        $parser = new Parser( $this->createParserContext(), 'MethodWithoutStaticVariables' );
+        $this->assertSame( array(), $parser->parse()->getMethod( 'fooBar' )->getStaticVariables() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserSetsExpectedArrayWhenStaticVariablesExistsInMethod()
+    {
+        $parser = new Parser( $this->createParserContext(), 'MethodWithStaticVariables' );
+        $this->assertSame(
+            array( 'x' => null, 'y' => null ),
+            $parser->parse()->getMethod( 'fooBar' )->getStaticVariables()
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
      * @covers \org\pdepend\reflection\exceptions\ParserException
      * @covers \org\pdepend\reflection\exceptions\EndOfTokenStreamException
      * @group reflection
