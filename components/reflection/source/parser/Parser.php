@@ -894,8 +894,8 @@ class Parser
                 $value = '__StaticReflectionConstantValue(';
 
                 $value .= $this->_consumeToken( $this->_peek() )->image;
-                $value .= '::';
-
+                $this->_consumeComments();
+                $value .= $this->_consumeToken( ParserTokens::T_DOUBLE_COLON )->image;
                 $this->_consumeComments();
                 $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
                
@@ -908,10 +908,11 @@ class Parser
                 $this->_consumeComments();
 
                 $value = '__StaticReflectionConstantValue(';
-                if ( $this->_peek() === ParserTokens::T_STRING )
+                if ( $this->_peek() === ParserTokens::T_DOUBLE_COLON )
                 {
                     $value .= $this->_createClassOrInterfaceName( $parts );
-                    $value .= '::';
+                    $value .= $this->_consumeToken( ParserTokens::T_DOUBLE_COLON )->image;
+                    $this->_consumeComments();
                     $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
                 }
                 else if ( count( $parts ) === 1 )
@@ -932,9 +933,10 @@ class Parser
                 $value .= $this->_parseClassOrInterfaceName();
 
                 $this->_consumeComments();
-                if ( $this->_peek() === ParserTokens::T_STRING )
+                if ( $this->_peek() === ParserTokens::T_DOUBLE_COLON )
                 {
-                    $value .= '::';
+                    $value .= $this->_consumeToken( ParserTokens::T_DOUBLE_COLON )->image;
+                    $this->_consumeComments();
                     $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
                 }
                 $value .= ')';

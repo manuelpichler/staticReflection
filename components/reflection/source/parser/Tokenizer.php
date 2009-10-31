@@ -104,6 +104,7 @@ class Tokenizer
         T_DNUMBER                   =>  ParserTokens::T_DNUMBER,
         T_DOC_COMMENT               =>  ParserTokens::T_DOC_COMMENT,
         T_DOLLAR_OPEN_CURLY_BRACES  =>  ParserTokens::T_SCOPE_OPEN,
+        T_DOUBLE_COLON              =>  ParserTokens::T_DOUBLE_COLON,
         T_FILE                      =>  ParserTokens::T_FILE,
         T_FINAL                     =>  ParserTokens::T_FINAL,
         T_EXTENDS                   =>  ParserTokens::T_EXTENDS,
