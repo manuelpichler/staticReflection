@@ -391,4 +391,40 @@ class StaticReflectionClass extends StaticReflectionInterface
             $this->_properties[$property->getName()] = $property;
         }
     }
+
+    /**
+     * Gets the static property values.
+     *
+     * @param string $name    The property name.
+     * @param mixed  $default Optional default value.
+     *
+     * @return mixed
+     */
+    public function getStaticPropertyValue( $name, $default = null )
+    {
+        $properties = $this->getStaticProperties();
+        if ( isset( $properties[$name] ) )
+        {
+            return $properties[$name];
+        }
+        return parent::getStaticPropertyValue( $name, $default );
+    }
+
+    /**
+     * Get the static properties.
+     *
+     * @return array(string=>mixed)
+     */
+    public function getStaticProperties()
+    {
+        $properties = array();
+        foreach ( $this->_collectProperties() as $name => $property )
+        {
+            if ( $property->isStatic() )
+            {
+                $properties[$name] = $property->getValue();
+            }
+        }
+        return $properties;
+    }
 }
