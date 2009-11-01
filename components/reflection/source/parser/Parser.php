@@ -174,12 +174,28 @@ class Parser
      */
     public function parse()
     {
-        $this->_tokenizer = new Tokenizer( $this->_context->getSource( $this->_className ) );
+        foreach ( $this->_parse() as $class )
+        {
+            if ( strcasecmp( $this->_className, $class->getName() ) === 0 )
+            {
+                return $class;
+            }
+        }
+        throw new \ReflectionException( 'Class ' . $this->_className . ' does not exist' );
+    }
 
+    /**
+     * @return array(\org\pdepend\reflection\api\StaticReflectionInterface)
+     */
+    private function _parse()
+    {
+        $this->_tokenizer = new Tokenizer( file_get_contents( $this->_pathName ) );
+
+        $class      = null;
+        $classes    = array();
         $modifiers  = 0;
         $docComment = '';
 
-        $class = null;
         while ( is_object( $token = $this->_next() ) )
         {
             switch ( $token->type )
@@ -206,28 +222,28 @@ class Parser
 
                 case ParserTokens::T_CLASS:
                     $class = $this->_parseClassDeclaration( $docComment, $modifiers );
-                    $class->initStartLine( $token->startLine );
-
-                    $modifiers  = 0;
-                    $docComment = '';
                     break;
 
                 case ParserTokens::T_INTERFACE:
                     $class = $this->_parseInterfaceDeclaration( $docComment );
-                    $class->initStartLine( $token->startLine );
-                    
-                    $modifiers  = 0;
-                    $docComment = '';
                     break;
             }
 
-            if ( $class !== null && $class->getName() === $this->_className )
+            if ( $class === null )
             {
-                $class->initFileName( $this->_pathName );
-                return $class;
+                continue;
             }
+
+            $class->initStartLine( $token->startLine );
+            $class->initFileName( $this->_pathName );
+
+            array_push( $classes, $class );
+
+            $class      = null;
+            $modifiers  = 0;
+            $docComment = '';
         }
-        throw new \ReflectionException( 'Class ' . $this->_className . ' does not exist' );
+        return $classes;
     }
 
     /**

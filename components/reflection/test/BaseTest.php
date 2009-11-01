@@ -124,7 +124,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         $resolver->expects( $this->any() )
             ->method( 'getPathnameForClass' )
             ->will( $this->returnCallback( array( $this, 'getPathnameForClass' ) ) );
-        $resolver->expects( $this->atLeastOnce() )
+        $resolver->expects( $this->never() )
             ->method( 'getSourceForClass' )
             ->will( $this->returnCallback( array( $this, 'getSourceForClass' ) ) );
         return $resolver;
