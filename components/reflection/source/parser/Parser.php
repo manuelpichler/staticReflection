@@ -171,12 +171,12 @@ class Parser
      */
     public function parseClass( $className )
     {
-        $normalizedClassName = mb_strtolower( ltrim( $className, '\\' ) );
-        $this->_pathName     = $this->_context->getPathname( $className );
+        $normalizedName = $this->_normalizeName( $className );
 
-        foreach ( $this->_parse() as $class )
+        $classes = $this->parseFile( $this->_context->getPathname( $className ) );
+        foreach ( $classes as $class )
         {
-            if ( mb_strtolower( $class->getName() ) === $normalizedClassName )
+            if ( $this->_normalizeName( $class->getName() ) === $normalizedName )
             {
                 return $class;
             }
@@ -184,12 +184,23 @@ class Parser
         throw new \ReflectionException( 'Class ' . $className . ' does not exist' );
     }
 
+    public function parseFile( $pathName )
+    {
+        $this->_pathName = $pathName;
+        return $this->parseSource( file_get_contents( $this->_pathName ) );
+    }
+
+    public function parseSource( $source )
+    {
+        return $this->_parse( $source );
+    }
+
     /**
      * @return array(\org\pdepend\reflection\api\StaticReflectionInterface)
      */
-    private function _parse()
+    private function _parse( $source )
     {
-        $this->_tokenizer = new Tokenizer( file_get_contents( $this->_pathName ) );
+        $this->_tokenizer = new Tokenizer( $source );
 
         $class      = null;
         $classes    = array();
@@ -1122,5 +1133,21 @@ class Parser
             return $token;
         }
         return null;
+    }
+
+    /**
+     * Normalizes a class or interface name.
+     *
+     * @param string $name A class or interface name.
+     *
+     * @return string
+     */
+    private function _normalizeName( $name )
+    {
+        if ( function_exists( 'mb_strtolower' ) )
+        {
+            return ltrim( mb_strtolower( $name ), '\\' );
+        }
+        return ltrim( strtolower( $name ), '\\' );
     }
 }
