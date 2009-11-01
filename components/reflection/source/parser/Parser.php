@@ -80,13 +80,6 @@ class Parser
     private $_context = null;
 
     /**
-     * Name of the searched class.
-     *
-     * @var string
-     */
-    private $_className = null;
-
-    /**
      * The source file path name.
      *
      * @var string
@@ -163,7 +156,7 @@ class Parser
      */
     public function __construct( ParserContext $context )
     {
-        $this->_context   = $context;
+        $this->_context = $context;
     }
 
     /**
