@@ -854,12 +854,17 @@ class Parser
             $this->_consumeComments();
             if ( $this->_peek() === ParserTokens::T_COMMA )
             {
-                $this->_consumeToken( ParserTokens::T_COMMA );
                 $array[] = $keyOrValue;
             }
             else if ( $this->_peek() !== ParserTokens::T_BLOCK_CLOSE )
             {
                 $array[$keyOrValue] = $this->_parseStaticScalarOrArray();
+            }
+            
+            $this->_consumeComments();
+            if ( $this->_peek() === ParserTokens::T_COMMA )
+            {
+                $this->_consumeToken( ParserTokens::T_COMMA );
             }
             
             $this->_consumeComments();
@@ -1148,6 +1153,8 @@ class Parser
         {
             return ltrim( mb_strtolower( $name ), '\\' );
         }
+        // @codeCoverageIgnoreStart
         return ltrim( strtolower( $name ), '\\' );
+        // @codeCoverageIgnoreEnd
     }
 }

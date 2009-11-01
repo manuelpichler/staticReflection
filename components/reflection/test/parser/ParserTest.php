@@ -860,6 +860,22 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
+    public function testParserHandlesPropertyWithHashArrayDefaultValue()
+    {
+        $class    = $this->_parseClass( 'PropertyWithHashArrayDefaultValue' );
+        $property = $class->getProperty( 'hash' );
+
+        $this->assertSame( array( 'foo' => 42, 'bar' => null, 23 => true ), $property->getValue() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
     public function testParserHandlesPropertyWithNullDefaultValue()
     {
         $class    = $this->_parseClass( 'PropertyWithNullDefaultValue' );
@@ -1325,9 +1341,10 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserSetsEmptyArrayWhenNotStaticVariablesExistsInMethod()
     {
-        $class = $this->_parseClass( 'MethodWithoutStaticVariables' );
+        $class  = $this->_parseClass( 'MethodWithoutStaticVariables' );
+        $method = $class->getMethod( 'fooBar' );
         
-        $this->assertSame( array(), $class->getMethod( 'fooBar' )->getStaticVariables() );
+        $this->assertSame( array(), $method->getStaticVariables() );
     }
 
     /**
@@ -1340,11 +1357,50 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserSetsExpectedArrayWhenStaticVariablesExistsInMethod()
     {
-        $class = $this->_parseClass( 'MethodWithStaticVariables' );
+        $class  = $this->_parseClass( 'MethodWithStaticVariables' );
+        $method = $class->getMethod( 'fooBar' );
         
         $this->assertSame(
             array( 'x' => null, 'y' => null ),
-            $class->getMethod( 'fooBar' )->getStaticVariables()
+            $method->getStaticVariables()
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserSetsExpectedStaticVariablesWithDefaultValue()
+    {
+        $class  = $this->_parseClass( 'MethodWithStaticVariablesWithDefaultValues' );
+        $method = $class->getMethod( 'fooBar' );
+
+        $this->assertSame(
+            array( 'foo' => 42, 'bar' => null, 'baz' => false ),
+            $method->getStaticVariables()
+        );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserSetsExpectedStaticVariablesFromCommaSeparatedList()
+    {
+        $class  = $this->_parseClass( 'MethodWithStaticVariablesFromCommaSeparatedList' );
+        $method = $class->getMethod( 'fooBar' );
+
+        $this->assertSame(
+            array( 'foo' => 42, 'bar' => null, 'baz' => false ),
+            $method->getStaticVariables()
         );
     }
 
@@ -1362,6 +1418,22 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
     public function testParserThrowsExceptionForInvalidClassDeclaration()
     {
         $this->_parseClass( 'InvalidClassDeclaration' );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\parser\Parser
+     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \org\pdepend\reflection\exceptions\ParserException
+     * @covers \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     */
+    public function testParserThrowsExceptionForInvalidConstantDeclaration()
+    {
+        $this->_parseClass( 'InvalidClassConstantDeclaration' );
     }
 
     /**
