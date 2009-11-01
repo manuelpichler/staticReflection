@@ -346,7 +346,7 @@ class Parser
                     break;
 
                 case ParserTokens::T_EXTENDS:
-                    $this->_classOrInterface->initParentClass( $this->_parseParentClass() );
+                    $this->_classOrInterface->initParentClass( $this->_parseClassOrInterface() );
                     break;
 
                 case ParserTokens::T_IMPLEMENTS:
@@ -402,14 +402,6 @@ class Parser
     }
 
     /**
-     * @return \ReflectionClass
-     */
-    private function _parseParentClass()
-    {
-        return $this->_context->getClass( $this->_parseClassOrInterfaceName() );
-    }
-
-    /**
      * @return array(\ReflectionClass)
      */
     private function _parseInterfaceList()
@@ -423,7 +415,7 @@ class Parser
                 case ParserTokens::T_STRING:
                 case ParserTokens::T_NAMESPACE:
                 case ParserTokens::T_NS_SEPARATOR:
-                    $interfaces[] = $this->_parseInterface();
+                    $interfaces[] = $this->_parseClassOrInterface();
                     break;
 
                 case ParserTokens::T_IMPLEMENTS:
@@ -441,7 +433,7 @@ class Parser
     /**
      * @return \ReflectionClass
      */
-    private function _parseInterface()
+    private function _parseClassOrInterface()
     {
         $className = $this->_parseClassOrInterfaceName();
         if ( $className === $this->_classOrInterface->getName() )
@@ -555,7 +547,7 @@ class Parser
                     break;
 
                 case ParserTokens::T_CONST:
-                    $this->_parseConstantDeclarations();
+                    $this->_parseConstantDefinitions();
                     break;
 
                 case ParserTokens::T_FUNCTION:
@@ -608,7 +600,7 @@ class Parser
         }
         else
         {
-            $endLine = $this->_parseScope()->endLine;
+            $endLine = $this->_parseMethodBody()->endLine;
         }
 
         $method = end( $this->_methods );
@@ -702,7 +694,7 @@ class Parser
             case ParserTokens::T_STRING:
             case ParserTokens::T_NAMESPACE:
             case ParserTokens::T_NS_SEPARATOR:
-                return $this->_parseInterface();
+                return $this->_parseClassOrInterface();
         }
         return false;
     }
@@ -726,6 +718,17 @@ class Parser
         return false;
     }
 
+    /**
+     * This method parses a variable, comma separated list of properties. All
+     * parsed properties will be stored in the parser property <b>$_properties</b>.
+     *
+     * @param string  $docComment The doc comment for the next property.
+     * @param integer $modifiers  The specified property modifiers.
+     *
+     * @return void
+     * @throws \org\pdepend\reflection\exceptions\ParserException When any
+     *         error occured during body parsing.
+     */
     private function _parsePropertyDeclarations( $docComment, $modifiers )
     {
         $this->_consumeComments();
@@ -745,12 +748,19 @@ class Parser
     }
 
     /**
-     * Parses a single property declaration.
+     * Parses a single property declaration. A variable declaration consists at
+     * least of a variable name. Additionally it can contain a default value
+     * definition.
+     *
+     * All parsed properties will be stored in the parser property
+     * <b>$_properties</b>.
      *
      * @param string  $docComment The doc comment for the next property.
      * @param integer $modifiers  The specified property modifiers.
      *
      * @return void
+     * @throws \org\pdepend\reflection\exceptions\ParserException When any
+     *         error occured during body parsing.
      */
     private function _parsePropertyDeclaration( $docComment, $modifiers )
     {
@@ -763,27 +773,46 @@ class Parser
         $this->_properties[] = $property;
     }
 
-    private function _parseConstantDeclarations()
+    /**
+     * This method parses a variable amount of constant definitions. A single
+     * <b>const</b> can contain various constant definitions, separated by
+     * a comma.
+     * 
+     * All found constant definitions will be stored in the parser's property
+     * <b>$_constants</b>.
+     * 
+     * @return void
+     * @throws \org\pdepend\reflection\exceptions\ParserException When any
+     *         error occured during body parsing.
+     */
+    private function _parseConstantDefinitions()
     {
         $this->_consumeToken( ParserTokens::T_CONST );
-        $this->_parseConstantDeclaration();
+        $this->_parseConstantDefinition();
 
         $this->_consumeComments();
         while ( ($tokenType = $this->_peek() ) === ParserTokens::T_COMMA )
         {
             $this->_consumeToken( ParserTokens::T_COMMA );
-            $this->_parseConstantDeclaration();
+            $this->_parseConstantDefinition();
             $this->_consumeComments();
         }
         $this->_consumeToken( ParserTokens::T_SEMICOLON );
     }
 
     /**
-     * This method parses a single constant declaration.
+     * This method parses a single constant declaration. A constant definitions
+     * consists of a constant identifier, a <b>T_EQUAL</b> token and any valid
+     * static scalar value.
+     *
+     * The parsed constant will be stored in the property <b>$_constants</b>.
      *
      * @return void
+     * @throws \org\pdepend\reflection\exceptions\ParserException When any
+     *         error occured during body parsing.
+     * @see \org\pdepend\reflection\parser\Parser::_parseStaticScalar()
      */
-    private function _parseConstantDeclaration()
+    private function _parseConstantDefinition()
     {
         $this->_consumeComments();
         $token = $this->_consumeToken( ParserTokens::T_STRING );
@@ -796,9 +825,12 @@ class Parser
 
     /**
      * Parses an optional default as it can occure for property or parameter
-     * nodes.
+     * nodes. The return value of this method will be <b>null</b> when no
+     * default value exists.
      *
      * @return \org\pdepend\reflection\api\DefaultValue
+     * @throws \org\pdepend\reflection\exceptions\ParserException When any
+     *         error occured during body parsing.
      */
     private function _parseOptionalDefaultValue()
     {
@@ -816,12 +848,22 @@ class Parser
      * nodes.
      *
      * @return \org\pdepend\reflection\api\DefaultValue
+     * @throws \org\pdepend\reflection\exceptions\ParserException When any
+     *         error occured during body parsing.
      */
     private function _parseDefaultValue()
     {
         return new DefaultValue( $this->_parseStaticScalarOrArray() );
     }
 
+    /**
+     * This method parses any valid static scalar value as it can be used for
+     * constant, parameter or property default values.
+     *
+     * @return mixed
+     * @throws \org\pdepend\reflection\exceptions\ParserException When any
+     *         error occured during body parsing.
+     */
     private function _parseStaticScalarOrArray()
     {
         $this->_consumeComments();
@@ -832,6 +874,17 @@ class Parser
         return $this->_parseStaticScalar();
     }
 
+    /**
+     * This method parses a static array. Static arrays can be found as default
+     * value for method parameters or class property default values.
+     *
+     * @return array
+     * @throws \org\pdepend\reflection\exceptions\ParserException When any
+     *         error occured during body parsing.
+     * @throws \org\pdepend\reflection\exceptions\EndOfTokenStreamException When
+     *         this method does not find any token left on the current token
+     *         stream.
+     */
     private function _parseStaticArray()
     {
         $this->_consumeComments();
@@ -876,10 +929,19 @@ class Parser
         return $array;
     }
 
+    /**
+     * This method parses a single static scalar value as it can be found as
+     * constant default value or as default value for properties or parameters.
+     *
+     * @return mixed
+     * @throws \org\pdepend\reflection\exceptions\ParserException When any
+     *         error occured during body parsing.
+     * @throws \org\pdepend\reflection\exceptions\EndOfTokenStreamException When
+     *         this method does not find any token left on the current token
+     *         stream.
+     */
     private function _parseStaticScalar()
     {
-        $value = null;
-
         $this->_consumeComments();
         switch ( $this->_peek() )
         {
@@ -991,7 +1053,18 @@ class Parser
         }
     }
 
-    private function _parseScope()
+    /**
+     * This method parses the body of a method. It expects that the first token
+     * found on the token stream is of type <b>T_SCOPE_OPEN</b>.
+     *
+     * @return \org\pdepend\reflection\parser\Token
+     * @throws \org\pdepend\reflection\exceptions\ParserException When any
+     *         error occured during body parsing.
+     * @throws \org\pdepend\reflection\exceptions\EndOfTokenStreamException When
+     *         this method reaches the end of the token stream and the parsed
+     *         method body is still open.
+     */
+    private function _parseMethodBody()
     {
         $this->_consumeComments();
         $this->_consumeToken( ParserTokens::T_SCOPE_OPEN );
@@ -1027,6 +1100,21 @@ class Parser
         throw new EndOfTokenStreamException( $this->_pathName );
     }
 
+    /**
+     * This method parses a variable amount of static variables as they can be
+     * declared in the body of a function or method. These variables will be
+     * stored in the parser's property <b>$_staticVariables</b>.
+     *
+     * <code>
+     * function foo()
+     * {
+     *     static $foo = 42, $bar;
+     *     static $baz = true;
+     * }
+     * </code>
+     *
+     * @return void
+     */
     private function _parseStaticVariables()
     {
         do
@@ -1049,6 +1137,21 @@ class Parser
         $this->_consumeToken( ParserTokens::T_SEMICOLON );
     }
 
+    /**
+     * This method parses a single static variable as it can be declared in the
+     * body of a function or method. The parsed variable will be stored in the
+     * <b>$_staticVariables</b> property of this parser.
+     *
+     * <code>
+     * function foo()
+     * {
+     *     static $foo = 42, $bar;
+     *     static $baz = true;
+     * }
+     * </code>
+     *
+     * @return void
+     */
     private function _parseStaticVariable()
     {
         $this->_consumeComments();
