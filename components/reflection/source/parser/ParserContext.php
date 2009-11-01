@@ -47,8 +47,9 @@
 
 namespace org\pdepend\reflection\parser;
 
-use \org\pdepend\reflection\ReflectionSession;
-use \org\pdepend\reflection\interfaces\SourceResolver;
+use org\pdepend\reflection\ReflectionSession;
+use org\pdepend\reflection\ReflectionClassProxy;
+use org\pdepend\reflection\interfaces\SourceResolver;
 
 class ParserContext
 {
@@ -78,6 +79,11 @@ class ParserContext
         $this->_resolver = $resolver;
     }
 
+    public function getResolver()
+    {
+        return $this->_resolver;
+    }
+
     /**
      * Returns a reflection instance for the given class/interface name.
      *
@@ -87,7 +93,7 @@ class ParserContext
      */
     public function getClass( $className )
     {
-        return $this->_session->getClass( $className );
+        return new ReflectionClassProxy( $this->_session, $className );
     }
 
     /**

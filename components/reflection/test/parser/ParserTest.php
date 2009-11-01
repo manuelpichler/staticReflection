@@ -83,7 +83,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
         $class       = $this->_parseClass( 'ClassWithParentClass' );
         $parentClass = $class->getParentClass();
 
-        $this->assertType( StaticReflectionInterface::TYPE, $parentClass );
+        $this->assertType( '\ReflectionClass', $parentClass );
     }
 
     /**
@@ -161,7 +161,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
         $class      = $this->_parseClass( 'ClassWithImplementedInterface' );
         $interfaces = $class->getInterfaces();
 
-        $this->assertType( StaticReflectionInterface::TYPE, $interfaces[0] );
+        $this->assertType( '\ReflectionClass', $interfaces[0] );
     }
 
     /**
@@ -207,7 +207,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
         $class      = $this->_parseClass( 'InterfaceWithParentInterface' );
         $interfaces = $class->getInterfaces();
 
-        $this->assertType( StaticReflectionInterface::TYPE, $interfaces[0] );
+        $this->assertType( '\ReflectionClass', $interfaces[0] );
     }
 
     /**
@@ -728,7 +728,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
         $method = $class->getMethod( 'fooBar' );
         $params = $method->getParameters();
 
-        $this->assertType( StaticReflectionClass::TYPE, $params[0]->getClass() );
+        $this->assertType( '\ReflectionClass', $params[0]->getClass() );
     }
 
     /**
@@ -745,7 +745,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
         $method = $class->getMethod( 'fooBar' );
         $params = $method->getParameters();
 
-        $this->assertType( StaticReflectionClass::TYPE, $params[0]->getClass() );
+        $this->assertType( '\ReflectionClass', $params[0]->getClass() );
     }
 
     /**
@@ -762,7 +762,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
         $method = $class->getMethod( 'fooBar' );
         $params = $method->getParameters();
 
-        $this->assertType( StaticReflectionClass::TYPE, $params[0]->getClass() );
+        $this->assertType( '\ReflectionClass', $params[0]->getClass() );
     }
 
     /**

@@ -72,6 +72,6 @@ class StaticFactory implements ReflectionFactory
     public function buildClass( $className )
     {
         $parser = new Parser( $this->_context );
-        return $parser->parseClass( $className );
+        return $parser->parseClass( $className, $this->_context->getResolver() );
     }
 }

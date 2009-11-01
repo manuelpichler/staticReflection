@@ -110,7 +110,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
     protected function createParserContext()
     {
         $session  = new ReflectionSession();
-        $resolver = $this->_createSourceResolver();
+        $resolver = $this->createSourceResolver();
 
         $context = new ParserContext( $session, $resolver );
         $session->addFactory( new StaticFactory( $context ) );
@@ -118,7 +118,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         return $context;
     }
 
-    private function _createSourceResolver()
+    protected function createSourceResolver()
     {
         $resolver = $this->getMock( 'org\pdepend\reflection\interfaces\SourceResolver' );
         $resolver->expects( $this->any() )
