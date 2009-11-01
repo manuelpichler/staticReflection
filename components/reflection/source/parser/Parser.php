@@ -942,6 +942,10 @@ class Parser
         $this->_consumeComments();
         switch ( $this->_peek() )
         {
+            case ParserTokens::T_DIR:
+                $this->_consumeToken( ParserTokens::T_DIR );
+                return dirname( $this->_pathName );
+
             case ParserTokens::T_FILE:
                 $this->_consumeToken( ParserTokens::T_FILE );
                 return $this->_pathName;

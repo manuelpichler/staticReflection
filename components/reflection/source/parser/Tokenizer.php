@@ -101,6 +101,7 @@ class Tokenizer
         T_CONST                     =>  ParserTokens::T_CONST,
         T_CONSTANT_ENCAPSED_STRING  =>  ParserTokens::T_TEXT,
         T_CURLY_OPEN                =>  ParserTokens::T_SCOPE_OPEN,
+        T_DIR                       =>  ParserTokens::T_DIR,
         T_DNUMBER                   =>  ParserTokens::T_DNUMBER,
         T_DOC_COMMENT               =>  ParserTokens::T_DOC_COMMENT,
         T_DOLLAR_OPEN_CURLY_BRACES  =>  ParserTokens::T_SCOPE_OPEN,
