@@ -49,22 +49,6 @@ class DynamicSourceResolver implements SourceResolver
             }
         }
     }
-
-    /**
-     * Returns the source of the file where the given class is defined.
-     *
-     * @param string $className
-     *
-     * @return string
-     */
-    public function getSourceForClass( $className )
-    {
-        if ( isset( $this->_classNameToFileMap[$className] ) )
-        {
-            return file_get_contents( $this->_classNameToFileMap[$className] );
-        }
-        throw new LogicException( 'Cannot locate source for class: ' . $className );
-    }
 }
 
 $resolver = new DynamicSourceResolver( __DIR__ . '/test', 'org\pdepend\reflection' );

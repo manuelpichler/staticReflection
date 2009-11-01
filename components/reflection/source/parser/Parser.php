@@ -431,6 +431,10 @@ class Parser
     }
 
     /**
+     * This method parses a single class or interface reference. Such a reference
+     * can be the currently class self or any other class inside or outside of
+     * the currently parsed source.
+     *
      * @return \ReflectionClass
      */
     private function _parseClassOrInterface()

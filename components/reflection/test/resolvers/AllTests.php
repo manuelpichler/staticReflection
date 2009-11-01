@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\interfaces
+ * @package   org\pdepend\reflection\resolvers
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,25 +45,46 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection\interfaces;
+namespace org\pdepend\reflection\resolvers;
+
+require_once 'PHPUnit/Framework.php';
+
+require_once 'AutoloadArrayResolverTest.php';
 
 /**
- * Base interface for a source resolver.
+ * Main test suite.
  *
- * @author  Manuel Pichler <mapi@pdepend.org>
- * @license Copyright by Manuel Pichler
- * @version $Revision$
+ * @category  PHP
+ * @package   org\pdepend\reflection\resolvers
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-interface SourceResolver
+class AllTests extends \PHPUnit_Framework_TestSuite
 {
     /**
-     * Returns the file pathname where the given class is defined.
-     *
-     * @param string $className
-     *
-     * @return string
-     * @throws \org\pdepend\reflection\exceptions\PathnameNotFoundException When
-     *         not match can be found for the given class name.
+     * Constructs a new test suite instance.
      */
-    function getPathnameForClass( $className );
+    public function __construct()
+    {
+        $this->setName( 'org::pdepend::reflection::resolvers::AllTests' );
+
+        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
+            realpath( dirname( __FILE__ ) . '/../../source/' )
+        );
+
+        $this->addTestSuite( '\org\pdepend\reflection\resolvers\AutoloadArrayResolverTest' );
+    }
+
+    /**
+     * Returns a test suite instance.
+     *
+     * @return PHPUnit_Framework_TestSuite
+     */
+    public static function suite()
+    {
+        return new AllTests();
+    }
 }

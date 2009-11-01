@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\interfaces
+ * @package   org\pdepend\reflection\exceptions
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,25 +45,29 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection\interfaces;
+namespace org\pdepend\reflection\exceptions;
 
 /**
- * Base interface for a source resolver.
+ * This type of exception will be thrown when it is not possible to resolve
+ * the pathname for a given class or interface.
  *
- * @author  Manuel Pichler <mapi@pdepend.org>
- * @license Copyright by Manuel Pichler
- * @version $Revision$
+ * @category  PHP
+ * @package   org\pdepend\reflection\exceptions
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
-interface SourceResolver
+class PathnameNotFoundException extends \ReflectionException
 {
     /**
-     * Returns the file pathname where the given class is defined.
+     * Constructs a new exception instance.
      *
-     * @param string $className
-     *
-     * @return string
-     * @throws \org\pdepend\reflection\exceptions\PathnameNotFoundException When
-     *         not match can be found for the given class name.
+     * @param string $className Name of the searched class or interface.
      */
-    function getPathnameForClass( $className );
+    public function __construct( $className )
+    {
+        parent::__construct( 'Cannot resolve a pathname for class ' . $className );
+    }
 }

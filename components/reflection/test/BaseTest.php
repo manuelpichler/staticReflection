@@ -124,23 +124,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         $resolver->expects( $this->any() )
             ->method( 'getPathnameForClass' )
             ->will( $this->returnCallback( array( $this, 'getPathnameForClass' ) ) );
-        $resolver->expects( $this->never() )
-            ->method( 'getSourceForClass' )
-            ->will( $this->returnCallback( array( $this, 'getSourceForClass' ) ) );
         return $resolver;
-    }
-
-    /**
-     * This method will return the source code of the source file where the
-     * given class is defined.
-     *
-     * @param string $className Name of the search class.
-     *
-     * @return string
-     */
-    public function getSourceForClass( $className )
-    {
-        return file_get_contents( $this->getPathnameForClass( $className ) );
     }
 
     public static function autoload( $className )

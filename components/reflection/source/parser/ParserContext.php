@@ -91,18 +91,6 @@ class ParserContext
     }
 
     /**
-     * Returns the source code for the given class/interface.
-     *
-     * @param string $className Name of the currently searched class/interface.
-     *
-     * @return string
-     */
-    public function getSource( $className )
-    {
-        return $this->_resolver->getSourceForClass( $className );
-    }
-
-    /**
      * Returns the pathname of source file for the given class/interface.
      *
      * @param string $className Name of the currently searched class/interface.

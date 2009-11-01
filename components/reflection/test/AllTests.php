@@ -10,6 +10,7 @@ namespace org\pdepend\reflection;
 require_once 'PHPUnit/Framework.php';
 
 require_once 'parser/AllTests.php';
+require_once 'resolvers/AllTests.php';
 
 require_once 'api/CompatibilityReflectionClassTest.php';
 require_once 'api/CompatibilityReflectionInterfaceTest.php';
@@ -43,6 +44,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
         );
 
         $this->addTest( parser\AllTests::suite() );
+        $this->addTest( resolvers\AllTests::suite() );
 
         $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionClassTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionInterfaceTest' );
