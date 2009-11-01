@@ -1067,31 +1067,41 @@ class Parser
     }
 
     /**
-     * @param array(string) $parts
+     * This method creates a qualified class/interface name from the given
+     * identifier fragments array. This means that the method will expand
+     * namespace aliases and local class names into full qualified class names
+     * within the currently parsed namespace.
+     *
+     * @param array(string) $identifierFragments Array with string tokens that
+     *        were found during identifier parsing.
      *
      * @return string
      */
-    private function _createClassOrInterfaceName( array $parts )
+    private function _createClassOrInterfaceName( array $identifierFragments )
     {
-        if ( isset( $this->_aliasMap[$parts[0]] ) )
+        if ( isset( $this->_aliasMap[$identifierFragments[0]] ) )
         {
-            $parts[0] = $this->_aliasMap[$parts[0]];
+            $identifierFragments[0] = $this->_aliasMap[$identifierFragments[0]];
         }
-        else if ( $parts[0] === '\\' )
+        else if ( $identifierFragments[0] !== '\\' )
         {
-            array_shift( $parts );
+            array_unshift( $identifierFragments, $this->_namespace, '\\' );
         }
-        else
-        {
-            array_unshift( $parts, $this->_namespace, '\\' );
-        }
-        return trim( join( '', $parts ), '\\' );
+        return trim( join( '', $identifierFragments ), '\\' );
     }
 
     /**
-     * @param integer $tokenType
+     * This method consumes the next token from the underlying token stream.
+     * Then it checks that the found token is of the given type and throws an
+     * exception when actual and expected token type do not match.
+     *
+     * @param integer $tokenType The expected token type.
      *
      * @return \org\pdepend\reflection\parser\Token
+     * @throws \org\pdepend\reflection\exceptions\EndOfTokenStreamException When
+     *         the end of the token stream was reached and no next token exists.
+     * @throws \org\pdepend\reflection\exceptions\UnexpectedTokenException When
+     *         the found token type and the expected token type do not match.
      */
     private function _consumeToken( $tokenType )
     {
@@ -1106,6 +1116,13 @@ class Parser
         return $token;
     }
 
+    /**
+     * Consumes a variable amount of comment tokens at the current token stream
+     * position. The return value of this method contains the comment image of
+     * the last consumed comment or an empty string when no comment was found.
+     *
+     * @return string
+     */
     private function _consumeComments()
     {
         $comment = '';
@@ -1117,7 +1134,10 @@ class Parser
     }
 
     /**
-     * @return \org\pdepend\reflection\parser\Token
+     * This method returns the type code of the next available token or the
+     * <b>Tokenizer::EOF</b> flag when no next token exists.
+     *
+     * @return integer
      */
     private function _peek()
     {
@@ -1129,6 +1149,9 @@ class Parser
     }
 
     /**
+     * This method returns the next available token instance or <b>null</b> when
+     * no next token exists.
+     *
      * @return \org\pdepend\reflection\parser\Token
      */
     private function _next()
