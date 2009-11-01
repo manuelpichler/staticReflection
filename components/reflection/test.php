@@ -69,5 +69,5 @@ class DynamicSourceResolver implements SourceResolver
 
 $resolver = new DynamicSourceResolver( __DIR__ . '/test', 'org\pdepend\reflection' );
 
-$parser = new Parser( $resolver, $className );
-var_dump( $parser->parse() );
+$parser = new Parser( $resolver );
+var_dump( $parser->parseClass( $className ) );

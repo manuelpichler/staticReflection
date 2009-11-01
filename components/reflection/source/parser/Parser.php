@@ -160,28 +160,28 @@ class Parser
      * Constructs a new parser instance.
      *
      * @param \org\pdepend\reflection\parser\ParserContext $context
-     * @param string                                       $className
      */
-    public function __construct( ParserContext $context, $className )
+    public function __construct( ParserContext $context )
     {
         $this->_context   = $context;
-        $this->_className = trim( $className, '\\' );
-        $this->_pathName  = $this->_context->getPathname( $this->_className );
     }
 
     /**
      * @return \org\pdepend\reflection\api\StaticReflectionInterface
      */
-    public function parse()
+    public function parseClass( $className )
     {
+        $normalizedClassName = mb_strtolower( ltrim( $className, '\\' ) );
+        $this->_pathName     = $this->_context->getPathname( $className );
+
         foreach ( $this->_parse() as $class )
         {
-            if ( strcasecmp( $this->_className, $class->getName() ) === 0 )
+            if ( mb_strtolower( $class->getName() ) === $normalizedClassName )
             {
                 return $class;
             }
         }
-        throw new \ReflectionException( 'Class ' . $this->_className . ' does not exist' );
+        throw new \ReflectionException( 'Class ' . $className . ' does not exist' );
     }
 
     /**
