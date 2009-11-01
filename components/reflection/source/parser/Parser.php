@@ -87,6 +87,13 @@ class Parser
     private $_className = null;
 
     /**
+     * The source file path name.
+     *
+     * @var string
+     */
+    private $_pathName = null;
+
+    /**
      * The used source tokenizer.
      *
      * @var \org\pdepend\reflection\parser\Tokenizer
@@ -159,6 +166,7 @@ class Parser
     {
         $this->_context   = $context;
         $this->_className = trim( $className, '\\' );
+        $this->_pathName  = $this->_context->getPathname( $this->_className );
     }
 
     /**
@@ -215,7 +223,7 @@ class Parser
 
             if ( $class !== null && $class->getName() === $this->_className )
             {
-                $class->initFileName( $this->_context->getPathname( $this->_className ) );
+                $class->initFileName( $this->_pathName );
                 return $class;
             }
         }
@@ -248,13 +256,10 @@ class Parser
                     return $token;
 
                 default:
-                    throw new UnexpectedTokenException(
-                        $token,
-                        $this->_context->getPathname( $this->_className )
-                    );
+                    throw new UnexpectedTokenException( $token, $this->_pathName );
             }
         }
-        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_pathName );
     }
 
     private function _parseUseStatements()
@@ -293,7 +298,7 @@ class Parser
                     return $token;
             }
         }
-        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_pathName );
     }
 
     /**
@@ -332,7 +337,7 @@ class Parser
                     return $this->_classOrInterface;
             }
         }
-        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_pathName );
     }
 
     /**
@@ -366,7 +371,7 @@ class Parser
                     return $this->_classOrInterface;
             }
         }
-        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_pathName );
     }
 
     /**
@@ -403,7 +408,7 @@ class Parser
                     break;
             }
         }
-        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_pathName );
     }
 
     /**
@@ -541,13 +546,10 @@ class Parser
                     break;
 
                 default:
-                    throw new UnexpectedTokenException(
-                        $this->_next(),
-                        $this->_context->getPathname( $this->_className )
-                    );
+                    throw new UnexpectedTokenException( $this->_next(), $this->_pathName );
             }
         }
-        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_pathName );
     }
 
     /**
@@ -851,7 +853,7 @@ class Parser
         {
             case ParserTokens::T_FILE:
                 $this->_consumeToken( ParserTokens::T_FILE );
-                return $this->_context->getPathname( $this->_className );
+                return $this->_pathName;
 
             case ParserTokens::T_LINE:
                 return $this->_consumeToken( ParserTokens::T_LINE )->startLine;
@@ -953,10 +955,7 @@ class Parser
                 return $value;
 
             default:
-                throw new UnexpectedTokenException(
-                    $this->_next(),
-                    $this->_context->getPathname( $this->_className )
-                );
+                throw new UnexpectedTokenException( $this->_next(), $this->_pathName );
         }
     }
 
@@ -993,7 +992,7 @@ class Parser
                 return $token;
             }
         }
-        throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
+        throw new EndOfTokenStreamException( $this->_pathName );
     }
 
     private function _parseStaticVariables()
@@ -1066,14 +1065,11 @@ class Parser
     {
         if ( is_object( $token = $this->_next() ) === false )
         {
-            throw new EndOfTokenStreamException( $this->_context->getPathname( $this->_className ) );
+            throw new EndOfTokenStreamException( $this->_pathName );
         }
         if ( $token->type !==  $tokenType )
         {
-            throw new UnexpectedTokenException(
-                $token,
-                $this->_context->getPathname( $this->_className )
-            );
+            throw new UnexpectedTokenException( $token, $this->_pathName );
         }
         return $token;
     }
