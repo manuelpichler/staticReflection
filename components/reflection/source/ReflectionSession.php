@@ -47,30 +47,61 @@
 
 namespace org\pdepend\reflection;
 
+use org\pdepend\reflection\interfaces\SourceResolver;
 use org\pdepend\reflection\interfaces\ReflectionClassFactory;
 
 class ReflectionSession
 {
     /**
      *
-     * @var array(\org\pdepend\reflection\ReflectionBuilder)
+     * @var \org\pdepend\reflection\interfaces\SourceResolver
      */
-    private $_builders = array();
+    private $_resolver = null;
 
-    public function addFactory( ReflectionClassFactory $builder )
+    public function setResolver( SourceResolver $resolver )
     {
-        $this->_builders[] = $builder;
+        $this->_resolver = $resolver;
     }
 
+    /**
+     *
+     * @param string $className
+     *
+     * @return \ReflectionClass
+     */
     public function getClass( $className )
     {
-        foreach ( $this->_builders as $builder )
+        $factories = $this->_createFactories();
+        foreach ( $factories as $factory )
         {
-            if ( $builder->hasClass( $className ) )
+            if ( $factory->hasClass( $className ) )
             {
-                return $builder->createClass( $className );
+                return $factory->createClass( $className );
             }
         }
-        throw new \ReflectionException( 'Cannot resolve class ' . $className );
+        throw new \ReflectionException( 'Class ' . $className . ' does not exist' );
+    }
+
+    private function _createFactories()
+    {
+        $factories = array(
+            new factories\InternalReflectionClassFactory(),
+            new factories\StaticReflectionClassFactory( $this, $this->_resolver )
+        );
+        return $factories;
+    }
+}
+
+
+class ReflectionQuery
+{
+    public function findByDirectory( $directory )
+    {
+
+    }
+
+    public function findByFile( $file )
+    {
+        $parser = new parser\Parser(  );
     }
 }

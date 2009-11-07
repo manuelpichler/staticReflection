@@ -108,6 +108,20 @@ class AutoloadArrayResolver implements SourceResolver
     }
 
     /**
+     * This method will return <b>true</b> when this resolver knows a source
+     * file for a class with the given <b>$className</b>. Otherwise this method
+     * will return <b>false</b>.
+     *
+     * @param string $className Name of the searched class that should.
+     *
+     * @return boolean
+     */
+    public function hasPathnameForClass( $className )
+    {
+        return isset( $this->_autoload[$this->_normalizeName( $className )] );
+    }
+
+    /**
      * Returns the file pathname where the given class is defined.
      *
      * @param string $className
@@ -118,7 +132,7 @@ class AutoloadArrayResolver implements SourceResolver
      */
     public function getPathnameForClass( $className )
     {
-        if ( isset( $this->_autoload[$this->_normalizeName( $className )] ) )
+        if ( $this->hasPathnameForClass( $className ) )
         {
             return $this->_autoload[$this->_normalizeName( $className )];
         }
