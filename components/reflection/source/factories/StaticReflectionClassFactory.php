@@ -47,6 +47,7 @@
 
 namespace org\pdepend\reflection\factories;
 
+use org\pdepend\reflection\ReflectionClassCache;
 use org\pdepend\reflection\parser\Parser;
 use org\pdepend\reflection\interfaces\ParserContext;
 use org\pdepend\reflection\interfaces\SourceResolver;
@@ -67,27 +68,37 @@ use org\pdepend\reflection\interfaces\ReflectionClassFactory;
 class StaticReflectionClassFactory implements ReflectionClassFactory
 {
     /**
+     * The used parser context.
      *
      * @var \org\pdepend\reflection\interfaces\ParserContext
      */
     private $_context = null;
 
     /**
+     * The used source resolver that returns the source file for a given class
+     * or interface name.
      *
      * @var \org\pdepend\reflection\interfaces\SourceResolver
      */
     private $_resolver = null;
 
     /**
+     * A simple cache class which holds already parsed and created reflection
+     * class instances.
      *
      * @var \org\pdepend\reflection\factories\ReflectionClassCache
      */
     private $_classCache = null;
 
     /**
+     * Constructs a new static reflection factory.
      *
-     * @param \org\pdepend\reflection\interfaces\ParserContext  $context  Current session.
-     * @param \org\pdepend\reflection\interfaces\SourceResolver $resolver Used source resolver.
+     * @param \org\pdepend\reflection\interfaces\ParserContext  $context  Current
+     *        context the will be used by the static reflection parser to retrieve
+     *        additional data during the parsing process.
+     * @param \org\pdepend\reflection\interfaces\SourceResolver $resolver Used
+     *        source resolver that will return a file name for a given class or
+     *        interface name.
      */
     public function __construct( ParserContext $context, SourceResolver $resolver )
     {
@@ -97,6 +108,14 @@ class StaticReflectionClassFactory implements ReflectionClassFactory
         $this->_classCache = new ReflectionClassCache();
     }
 
+    /**
+     * This method will return <b>true</b> when the concrete reflection factory
+     * knows a class or interface for the given name.
+     *
+     * @param string $className Full qualified name of the searched class.
+     *
+     * @return boolean
+     */
     public function hasClass( $className )
     {
         if ( $this->_classCache->has( $className ) )
@@ -106,12 +125,17 @@ class StaticReflectionClassFactory implements ReflectionClassFactory
         return $this->_resolver->hasPathnameForClass( $className );
     }
 
+    /**
+     * This method creates a <b>\ReflectionClass</b> instance for a class or
+     * interfact that matches the given name. It will throw an exception when
+     * no matching class or interface exists.
+     *
+     * @param string $className Full qualified name of the searched class.
+     *
+     * @return boolean
+     * @throws \ReflectionException When no class with the given name exists.
+     */
     public function createClass( $className )
-    {
-        return $this->_createOrReturnClass( $className );
-    }
-
-    private function _createOrReturnClass( $className )
     {
         if ( $this->_classCache->has( $className ) )
         {
@@ -120,73 +144,41 @@ class StaticReflectionClassFactory implements ReflectionClassFactory
         return $this->_createClass( $className );
     }
 
+    /**
+     * This method will force a source file parsing and then it returns a
+     * reflection class for a class or interface named <b>$className</b>.
+     *
+     * @param string $className Full qualified name of the searched class.
+     *
+     * @return boolean
+     * @throws \ReflectionException When no class with the given name exists.
+     */
     private function _createClass( $className )
+    {
+        $this->_parseFileForClass( $className );
+        if ( $this->_classCache->has( $className ) )
+        {
+            return $this->_classCache->restore( $className );
+        }
+        throw new \ReflectionException( 'Class ' . $className . ' does not exist' );
+    }
+
+    /**
+     * This method parses all classes within the source file where a class or
+     * interface that matches <b>$className</b> is declared. All found reflection
+     * objects will be stored in the internal cache for later reuse.
+     *
+     * @param string $className Full qualified name of the searched class.
+     *
+     * @return void
+     */
+    private function _parseFileForClass( $className )
     {
         $parser  = new Parser( $this->_context );
         $classes = $parser->parseFile( $this->_resolver->getPathnameForClass( $className ) );
         foreach ( $classes as $class )
         {
             $this->_classCache->store( $class );
-        }   
-        return $this->_classCache->restore( $className );
-    }
-}
-
-class ReflectionClassCache
-{
-    private $_classes = array();
-
-    /**
-     * This method checks if a class for the given <b>$className</b> already
-     * exists in the cache.
-     *
-     * @param string $className Name of the searched class.
-     *
-     * @return boolean
-     */
-    public function has( $className )
-    {
-        return isset( $this->_classes[$this->_normalizeClassName( $className )] );
-    }
-
-    /**
-     * This method will restore a previously created reflection class instance
-     * for the given <b>$className</b>.
-     *
-     * @param string $className Name of the searched class.
-     *
-     * @return \ReflectionClass
-     */
-    public function restore( $className )
-    {
-        if ( $this->has( $className ) )
-        {
-            return $this->_classes[$this->_normalizeClassName( $className )];
         }
-        throw new \LogicException( 'Class ' . $className . ' does not exist' );
-    }
-
-    /**
-     * This method stores the given reflection class within the cache.
-     *
-     * @param \ReflectionClass $class The newly created reflection class.
-     *
-     * @return void
-     */
-    public function store( \ReflectionClass $class )
-    {
-        $this->_classes[$this->_normalizeClassName( $class->getName() )] = $class;
-    }
-
-    /**
-     * Normalizes a class or interface name.
-     *
-     * @param string $className A class or interface name.
-     *
-     * @return string
-     */
-    private function _normalizeClassName( $className )
-    {
-        return ltrim( strtolower( $className ), '\\' );
     }
 }

@@ -62,8 +62,101 @@ require_once 'BaseTest.php';
  */
 class StaticReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
 {
-    public function testFoo()
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\factories\StaticReflectionClassFactory
+     * @group reflection
+     * @group reflection::factories
+     * @group unittest
+     */
+    public function testHasClassReturnsFalseForClassThatDoesNotExist()
     {
-        $factory = new StaticReflectionClassFactory();
+        $resolver = $this->createResolver();
+        $resolver->expects( $this->once() )
+            ->method( 'hasPathnameForClass' )
+            ->with( $this->equalTo( __CLASS__ ) )
+            ->will( $this->returnValue( false ) );
+
+        $factory = new StaticReflectionClassFactory( $this->createContext(), $resolver );
+        $this->assertFalse( $factory->hasClass( __CLASS__ ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\factories\StaticReflectionClassFactory
+     * @group reflection
+     * @group reflection::factories
+     * @group unittest
+     */
+    public function testHasClassReturnsTrueForClassThatExists()
+    {
+        $resolver = $this->createResolver();
+        $resolver->expects( $this->once() )
+            ->method( 'hasPathnameForClass' )
+            ->with( $this->equalTo( __CLASS__ ) )
+            ->will( $this->returnValue( true ) );
+
+        $factory = new StaticReflectionClassFactory( $this->createContext(), $resolver );
+        $this->assertTrue( $factory->hasClass( __CLASS__ ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\factories\StaticReflectionClassFactory
+     * @group reflection
+     * @group reflection::factories
+     * @group unittest
+     */
+    public function testHasClassReturnsTrueWhenClassForTheGivenNameWasAlreadyParsed()
+    {
+        $factory = new StaticReflectionClassFactory( $this->createContext(), $this->createResolver() );
+        $factory->createClass( 'ClassOneInFile' );
+
+        $this->assertTrue( $factory->hasClass( 'ClassTwoInFile' ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\factories\StaticReflectionClassFactory
+     * @group reflection
+     * @group reflection::factories
+     * @group unittest
+     */
+    public function testCreateClassReturnsReflectionClassForClassThatExists()
+    {
+        $factory = new StaticReflectionClassFactory( $this->createContext(), $this->createResolver() );
+        $class   = $factory->createClass( '\org\pdepend\reflection\ClassSimple' );
+
+        $this->assertType( '\ReflectionClass', $class );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\factories\StaticReflectionClassFactory
+     * @group reflection
+     * @group reflection::factories
+     * @group unittest
+     */
+    public function testCreateClassReturnsReflectionClassForPreviousParsedFile()
+    {
+        $factory = new StaticReflectionClassFactory( $this->createContext(), $this->createResolver() );
+        $factory->createClass( 'ClassOneInFile' );
+
+        $class = $factory->createClass( 'ClassTwoInFile' );
+        $this->assertType( '\ReflectionClass', $class );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\factories\StaticReflectionClassFactory
+     * @group reflection
+     * @group reflection::factories
+     * @group unittest
+     * @expectedException \ReflectionException
+     */
+    public function testCreateClassThrowsExceptionForClassThatDoesNotExists()
+    {
+        $factory = new StaticReflectionClassFactory( $this->createContext(), $this->createResolver() );
+        $factory->createClass( '\org\pdepend\reflection\ClassMissing' );
     }
 }
