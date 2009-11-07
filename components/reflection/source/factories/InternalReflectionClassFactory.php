@@ -49,7 +49,20 @@ namespace org\pdepend\reflection\factories;
 
 use org\pdepend\reflection\interfaces\ReflectionFactory;
 
-class InternalFactory implements ReflectionFactory
+/**
+ * This reflection factory implementation uses the PHP's internal reflection
+ * api implementation. It utilizes <b>class_exists(..., false)</b> to validate
+ * class existance.
+ *
+ * @category  PHP
+ * @package   org\pdepend\reflection\factories
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ */
+class InternalReflectionClassFactory implements ReflectionFactory
 {
     public function hasClass( $className )
     {
