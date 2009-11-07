@@ -47,12 +47,10 @@
 
 namespace org\pdepend\reflection\factories;
 
-use org\pdepend\reflection\interfaces\ReflectionClassFactory;
+require_once 'BaseTest.php';
 
 /**
- * This reflection factory implementation uses the PHP's internal reflection
- * api implementation. It utilizes <b>class_exists(..., false)</b> to validate
- * class existance.
+ * Test cases for the interface reflection factory.
  *
  * @category  PHP
  * @package   org\pdepend\reflection\factories
@@ -62,33 +60,60 @@ use org\pdepend\reflection\interfaces\ReflectionClassFactory;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class InternalReflectionClassFactory implements ReflectionClassFactory
+class InternalReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
 {
     /**
-     * This method will return <b>true</b> when the concrete reflection factory
-     * knows a class or interface for the given name.
-     *
-     * @param string $className Full qualified name of the searched class.
-     *
-     * @return boolean
+     * @return void
+     * @covers \org\pdepend\reflection\factories\InternalReflectionClassFactory
+     * @group reflection
+     * @group reflection::factories
+     * @group unittest
      */
-    public function hasClass( $className )
+    public function testHasClassReturnsFalseForClassThatDoesNotExist()
     {
-        return class_exists( $className, false );
+        $factory = new InternalReflectionClassFactory();
+        $this->assertFalse( $factory->hasClass( '__' . __CLASS__ . '__' ) );
     }
 
     /**
-     * This method creates a <b>\ReflectionClass</b> instance for a class or
-     * interfact that matches the given name. It will throw an exception when
-     * no matching class or interface exists.
-     *
-     * @param string $className Full qualified name of the searched class.
-     *
-     * @return boolean
-     * @throws \ReflectionException
+     * @return void
+     * @covers \org\pdepend\reflection\factories\InternalReflectionClassFactory
+     * @group reflection
+     * @group reflection::factories
+     * @group unittest
      */
-    public function createClass( $class )
+    public function testHasClassReturnsTrueForClassThatExist()
     {
-        return new \ReflectionClass( $class );
+        $factory = new InternalReflectionClassFactory();
+        $this->assertTrue( $factory->hasClass( __CLASS__ ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\factories\InternalReflectionClassFactory
+     * @group reflection
+     * @group reflection::factories
+     * @group unittest
+     */
+    public function testCreateClassReturnsReflectionClassForClassThatExists()
+    {
+        $factory = new InternalReflectionClassFactory();
+        $class   = $factory->createClass( __CLASS__ );
+
+        $this->assertType( '\ReflectionClass', $class );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\factories\InternalReflectionClassFactory
+     * @group reflection
+     * @group reflection::factories
+     * @group unittest
+     * @expectedException \ReflectionException
+     */
+    public function testCreateClassThrowsExceptionForClassThatDoesNotExists()
+    {
+        $factory = new InternalReflectionClassFactory();
+        $factory->createClass( '__' . __CLASS__ . '__' );
     }
 }

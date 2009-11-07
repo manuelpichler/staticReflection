@@ -60,7 +60,25 @@ namespace org\pdepend\reflection\interfaces;
  */
 interface ReflectionClassFactory
 {
+    /**
+     * This method will return <b>true</b> when the concrete reflection factory
+     * knows a class or interface for the given name.
+     *
+     * @param string $className Full qualified name of the searched class.
+     *
+     * @return boolean
+     */
     function hasClass( $className );
 
+    /**
+     * This method creates a <b>\ReflectionClass</b> instance for a class or
+     * interfact that matches the given name. It will throw an exception when
+     * no matching class or interface exists.
+     *
+     * @param string $className Full qualified name of the searched class.
+     *
+     * @return boolean
+     * @throws \ReflectionException
+     */
     function createClass( $className );
 }
