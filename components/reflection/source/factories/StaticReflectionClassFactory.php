@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   org\pdepend\reflection\factories
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -53,6 +53,18 @@ use org\pdepend\reflection\ReflectionClassProxy;
 use org\pdepend\reflection\interfaces\ReflectionFactory;
 use org\pdepend\reflection\interfaces\SourceResolver;
 
+/**
+ * This reflection factory utilizes the PHP tokenizer extension to provide a
+ * runtime independent version of reflection classes.
+ *
+ * @category  PHP
+ * @package   org\pdepend\reflection\factories
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ */
 class StaticReflectionClassFactory implements ReflectionFactory
 {
     /**
