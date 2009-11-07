@@ -160,29 +160,17 @@ class Parser
     }
 
     /**
-     * @return \org\pdepend\reflection\api\StaticReflectionInterface
+     * @return array(\org\pdepend\reflection\api\StaticReflectionInterface)
      */
-    public function parseClass( $className )
-    {
-        $normalizedName = $this->_normalizeName( $className );
-
-        $classes = $this->parseFile( $this->_context->getPathname( $className ) );
-        foreach ( $classes as $class )
-        {
-            if ( $this->_normalizeName( $class->getName() ) === $normalizedName )
-            {
-                return $class;
-            }
-        }
-        throw new \ReflectionException( 'Class ' . $className . ' does not exist' );
-    }
-
     public function parseFile( $pathName )
     {
         $this->_pathName = $pathName;
         return $this->parseSource( file_get_contents( $this->_pathName ) );
     }
 
+    /**
+     * @return array(\org\pdepend\reflection\api\StaticReflectionInterface)
+     */
     public function parseSource( $source )
     {
         return $this->_parse( $source );

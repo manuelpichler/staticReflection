@@ -79,11 +79,6 @@ class ParserContext
         $this->_resolver = $resolver;
     }
 
-    public function getResolver()
-    {
-        return $this->_resolver;
-    }
-
     /**
      * Returns a reflection instance for the given class/interface name.
      *

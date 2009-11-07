@@ -71,7 +71,34 @@ class StaticFactory implements ReflectionFactory
 
     public function buildClass( $className )
     {
-        $parser = new Parser( $this->_context );
-        return $parser->parseClass( $className, $this->_context->getResolver() );
+        return $this->_createClass( $className );
+    }
+
+    private function _createClass( $className )
+    {
+        $normalizedName = $this->_normalizeName( $className );
+
+        $parser  = new Parser( $this->_context );
+        $classes = $parser->parseFile( $this->_context->getPathname( $className ) );
+        foreach ( $classes as $class )
+        {
+            if ( $this->_normalizeName( $class->getName() ) === $normalizedName )
+            {
+                return $class;
+            }
+        }
+        throw new \ReflectionException( 'Class ' . $className . ' does not exist' );
+    }
+
+    /**
+     * Normalizes a class or interface name.
+     *
+     * @param string $name A class or interface name.
+     *
+     * @return string
+     */
+    private function _normalizeName( $name )
+    {
+        return ltrim( strtolower( $name ), '\\' );
     }
 }

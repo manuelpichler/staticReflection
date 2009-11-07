@@ -1236,7 +1236,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
         $value   = $class->getProperty( 'foo' )->getValue();
 
         $this->assertEquals( 
-            dirname( $context->getPathname( 'PropertyMagicConstantDir' ) ),
+            dirname( $this->getPathnameForClass( 'PropertyMagicConstantDir' ) ),
             $value
         );
     }
@@ -1251,11 +1251,10 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesMagicConstantFileAsExpected()
     {
-        $context = $this->createParserContext();
-        $class   = $this->_parseClass( 'PropertyMagicConstantFile' );
-        $value   = $class->getProperty( 'foo' )->getValue();
+        $class = $this->_parseClass( 'PropertyMagicConstantFile' );
+        $value = $class->getProperty( 'foo' )->getValue();
 
-        $this->assertEquals( $context->getPathname( 'PropertyMagicConstantFile' ), $value );
+        $this->assertEquals( $this->getPathnameForClass( 'PropertyMagicConstantFile' ), $value );
     }
 
     /**
@@ -1633,20 +1632,6 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
     }
 
     /**
-     * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @group reflection
-     * @group reflection::parser
-     * @group unittest
-     * @expectedException \ReflectionException
-     */
-    public function testParserThrowsExceptionWhenRequestClassDoesNotExist()
-    {
-        $this->_parseClass( 'NoClassDefined' );
-    }
-
-    /**
      * This method creates a parser instance with a default context and tries to
      * parse the class for the given class name.
      *
@@ -1656,7 +1641,9 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     private function _parseClass( $className )
     {
-        $parser = new Parser( $this->createParserContext() );
-        return $parser->parseClass( $className );
+        $parser  = new Parser( $this->createParserContext() );
+        $classes = $parser->parseFile( $this->getPathnameForClass( $className ) );
+        
+        return $classes[0];
     }
 }
