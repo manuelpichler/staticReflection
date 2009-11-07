@@ -56,7 +56,7 @@ class InternalFactory implements ReflectionFactory
         return class_exists( $className, false );
     }
 
-    public function buildClass( $class )
+    public function createClass( $class )
     {
         return new \ReflectionClass( $class );
     }

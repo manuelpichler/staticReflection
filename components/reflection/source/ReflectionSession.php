@@ -68,7 +68,7 @@ class ReflectionSession
         {
             if ( $builder->hasClass( $className ) )
             {
-                return $builder->buildClass( $className );
+                return $builder->createClass( $className );
             }
         }
         throw new \ReflectionException( 'Cannot resolve class ' . $className );

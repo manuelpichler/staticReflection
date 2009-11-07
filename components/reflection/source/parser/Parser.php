@@ -423,7 +423,7 @@ class Parser
         {
             return $this->_classOrInterface;
         }
-        return $this->_reflectionFactory->buildClass( $className );
+        return $this->_reflectionFactory->createClass( $className );
     }
 
     /**

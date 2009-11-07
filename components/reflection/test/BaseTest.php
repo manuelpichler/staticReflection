@@ -131,7 +131,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
     {
         $factory = $this->getMock( 'org\pdepend\reflection\interfaces\ReflectionFactory' );
         $factory->expects( $this->any() )
-            ->method( 'buildClass' )
+            ->method( 'createClass' )
             ->will( $this->returnCallback( array( $this, 'getClassByName' ) ) );
 
         return $factory;

@@ -82,7 +82,7 @@ class StaticFactory implements ReflectionFactory
         return true;
     }
 
-    public function buildClass( $className )
+    public function createClass( $className )
     {
         return $this->_createOrReturnClass( $className );
     }

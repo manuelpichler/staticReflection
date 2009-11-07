@@ -51,5 +51,5 @@ interface ReflectionFactory
 {
     function hasClass( $className );
 
-    function buildClass( $class );
+    function createClass( $class );
 }
