@@ -60,7 +60,7 @@ require_once 'BaseTest.php';
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class StaticReflectionFactoryTest extends \org\pdepend\reflection\BaseTest
+class StaticReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
 {
     public function testFoo()
     {

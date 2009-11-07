@@ -49,7 +49,7 @@ namespace org\pdepend\reflection\factories;
 
 require_once 'PHPUnit/Framework.php';
 
-require_once 'StaticReflectionFactoryTest.php';
+require_once 'StaticReflectionClassFactoryTest.php';
 
 /**
  * Main test suite.
@@ -75,7 +75,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
-        $this->addTestSuite( '\org\pdepend\reflection\factories\StaticReflectionFactoryTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\factories\StaticReflectionClassFactoryTest' );
     }
 
     /**

@@ -47,7 +47,7 @@
 
 namespace org\pdepend\reflection\interfaces;
 
-interface ReflectionFactory
+interface ReflectionClassFactory
 {
     function hasClass( $className );
 

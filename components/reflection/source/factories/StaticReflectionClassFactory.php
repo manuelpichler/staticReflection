@@ -50,7 +50,7 @@ namespace org\pdepend\reflection\factories;
 use org\pdepend\reflection\parser\Parser;
 use org\pdepend\reflection\ReflectionSession;
 use org\pdepend\reflection\ReflectionClassProxy;
-use org\pdepend\reflection\interfaces\ReflectionFactory;
+use org\pdepend\reflection\interfaces\ReflectionClassFactory;
 use org\pdepend\reflection\interfaces\SourceResolver;
 
 /**
@@ -65,7 +65,7 @@ use org\pdepend\reflection\interfaces\SourceResolver;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class StaticReflectionClassFactory implements ReflectionFactory
+class StaticReflectionClassFactory implements ReflectionClassFactory
 {
     /**
      *

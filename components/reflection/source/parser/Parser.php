@@ -47,7 +47,7 @@
 
 namespace org\pdepend\reflection\parser;
 
-use org\pdepend\reflection\interfaces\ReflectionFactory;
+use org\pdepend\reflection\interfaces\ReflectionClassFactory;
 
 use org\pdepend\reflection\api\DefaultValue;
 use org\pdepend\reflection\api\StaticReflectionClass;
@@ -73,9 +73,9 @@ class Parser
 {
     /**
      * 
-     * @var \org\pdepend\reflection\interfaces\ReflectionFactory
+     * @var \org\pdepend\reflection\interfaces\ReflectionClassFactory
      */
-    private $_reflectionFactory = null;
+    private $_ReflectionClassFactory = null;
 
     /**
      * The source file path name.
@@ -150,11 +150,11 @@ class Parser
     /**
      * Constructs a new parser instance.
      *
-     * @param \org\pdepend\reflection\interfaces\ReflectionFactory $factory
+     * @param \org\pdepend\reflection\interfaces\ReflectionClassFactory $factory
      */
-    public function __construct( ReflectionFactory $factory )
+    public function __construct( ReflectionClassFactory $factory )
     {
-        $this->_reflectionFactory = $factory;
+        $this->_ReflectionClassFactory = $factory;
     }
 
     /**
@@ -423,7 +423,7 @@ class Parser
         {
             return $this->_classOrInterface;
         }
-        return $this->_reflectionFactory->createClass( $className );
+        return $this->_ReflectionClassFactory->createClass( $className );
     }
 
     /**

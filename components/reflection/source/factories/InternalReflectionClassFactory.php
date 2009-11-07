@@ -47,7 +47,7 @@
 
 namespace org\pdepend\reflection\factories;
 
-use org\pdepend\reflection\interfaces\ReflectionFactory;
+use org\pdepend\reflection\interfaces\ReflectionClassFactory;
 
 /**
  * This reflection factory implementation uses the PHP's internal reflection
@@ -62,7 +62,7 @@ use org\pdepend\reflection\interfaces\ReflectionFactory;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class InternalReflectionClassFactory implements ReflectionFactory
+class InternalReflectionClassFactory implements ReflectionClassFactory
 {
     public function hasClass( $className )
     {
