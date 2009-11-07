@@ -64,6 +64,6 @@ class StaticReflectionFactoryTest extends \org\pdepend\reflection\BaseTest
 {
     public function testFoo()
     {
-        $factory = new StaticFactory();
+        $factory = new StaticReflectionClassFactory();
     }
 }

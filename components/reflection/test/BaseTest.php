@@ -1,7 +1,7 @@
 <?php
 namespace org\pdepend\reflection;
 
-use org\pdepend\reflection\factories\StaticFactory;
+use org\pdepend\reflection\factories\StaticReflectionClassFactory;
 
 require_once 'PHPUnit/Framework/TestCase.php';
 
