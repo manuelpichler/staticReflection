@@ -47,7 +47,6 @@
 
 namespace org\pdepend\reflection;
 
-use org\pdepend\reflection\interfaces\ParserContext;
 use org\pdepend\reflection\interfaces\SourceResolver;
 use org\pdepend\reflection\interfaces\ReflectionClassFactory;
 
@@ -68,8 +67,6 @@ class ReflectionSession
      * @var array(org\pdepend\reflection\interfaces\ReflectionClassFactory)
      */
     private $_classFactories = array();
-
-    private $_running = false;
 
     /**
      * Creates the default reflection session implementation. This setup tries
@@ -94,9 +91,8 @@ class ReflectionSession
     public static function createDefaultSession( SourceResolver $resolver )
     {
         $session = new ReflectionSession();
-        $session->setResolver( $resolver );
         $session->addClassFactory( new factories\InternalReflectionClassFactory() );
-        $session->addClassFactory( new factories\StaticReflectionClassFactory( new ProxyParserContext( $session ), $resolver ) );
+        $session->addClassFactory( new factories\StaticReflectionClassFactory( new ReflectionClassProxyContext( $session ), $resolver ) );
 
         return $session;
     }
@@ -117,77 +113,76 @@ class ReflectionSession
         $this->_resolver = $resolver;
     }
 
+    /**
+     * This method can be used to configure a custom process stack for the
+     * reflection session. You can add various reflection factories that will
+     * be asked in their add order if they can create a reflection class.
+     *
+     * @param \org\pdepend\reflection\interfaces\ReflectionClassFactory $classFactory A
+     *        class factory that can be used as source for a reflection class
+     *        instance.
+     *
+     * @return void
+     */
     public function addClassFactory( ReflectionClassFactory $classFactory )
     {
         $this->_classFactories[] = $classFactory;
     }
 
+    /**
+     * Shortcut method that allows direct access to a class or interface by its
+     * full qualified name.
+     *
+     * <code>
+     * $class = $session->getClass( '\org\pdepend\reflection\ReflectionSession' );
+     *
+     * echo 'Class:     ', $class->getShortName(), PHP_EOL,
+     *      'Namespace: ', $class->getNamespaceName(), PHP_EOL,
+     *      'File:      ', $class->getFileName(), PHP_EOL;
+     * </code>
+     *
+     * @param string $className The full qualified name of the search class.
+     *
+     * @return \ReflectionClass
+     * @throws \ReflectionException When no matching class or interface for the
+     *         given name exists.
+     */
+    public function getClass( $className )
+    {
+        return $this->createClassQuery()->findByName( $className );
+    }
+
+    /**
+     * This method creates class query instance which allows direct access to
+     * classes or interfaces by their name.
+     *
+     * @return \org\pdepend\reflection\queries\ReflectionClassQuery
+     */
+    public function createClassQuery()
+    {
+        return new queries\ReflectionClassQuery( $this->_classFactories );
+    }
+
+    /**
+     * This method creates file query instance which allows access to all
+     * classes and interfaces declared within a given file.
+     *
+     * @return \org\pdepend\reflection\queries\ReflectionFileQuery
+     */
     public function createFileQuery()
     {
-        return new queries\ReflectionFileQuery( new ProxyParserContext( $this ) );
+        return new queries\ReflectionFileQuery( new ReflectionClassProxyContext( $this ) );
     }
 
+    /**
+     * This method creates directory query instance which allows access to all
+     * classes and interfaces declared in all files that can be found in a given
+     * directory.
+     *
+     * @return \org\pdepend\reflection\queries\ReflectionDirectoryQuery
+     */
     public function createDirectoryQuery()
     {
-        return new queries\ReflectionDirectoryQuery( new ProxyParserContext( $this ) );
-    }
-
-    /**
-     *
-     * @param string $className
-     *
-     * @return \ReflectionClass
-     */
-    public function getClass( $className )
-    {
-        if ( $this->_running )
-        {
-            return new ReflectionClassProxy( $this, $className );
-        }
-
-        $this->_running = true;
-        $class = $this->_getClass( $className );
-        $this->_running = false;
-
-        return $class;
-    }
-
-    /**
-     *
-     * @param string $className
-     *
-     * @return \ReflectionClass
-     */
-    private function _getClass( $className )
-    {
-        foreach ( $this->_classFactories as $factory )
-        {
-            if ( $factory->hasClass( $className ) )
-            {
-                return $factory->createClass( $className );
-            }
-        }
-        throw new \ReflectionException( 'Class ' . $className . ' does not exist' );
-    }
-}
-
-class ProxyParserContext implements ParserContext
-{
-    private $_session = null;
-
-    public function __construct( ReflectionSession $session )
-    {
-        $this->_session = $session;
-    }
-
-    /**
-     *
-     * @param string $className
-     *
-     * @return \ReflectionClass
-     */
-    public function getClass( $className )
-    {
-        return new ReflectionClassProxy( $this->_session, $className );
+        return new queries\ReflectionDirectoryQuery( new ReflectionClassProxyContext( $this ) );
     }
 }
