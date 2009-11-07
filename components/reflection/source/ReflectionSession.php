@@ -47,20 +47,89 @@
 
 namespace org\pdepend\reflection;
 
+use org\pdepend\reflection\interfaces\ParserContext;
 use org\pdepend\reflection\interfaces\SourceResolver;
 use org\pdepend\reflection\interfaces\ReflectionClassFactory;
 
 class ReflectionSession
 {
     /**
+     * The source file resolver that will be used by the static reflection
+     * implementation to retrieve the source file name for a given class name.
      *
      * @var \org\pdepend\reflection\interfaces\SourceResolver
      */
     private $_resolver = null;
 
-    public function setResolver( SourceResolver $resolver )
+    /**
+     * The configured class factory stack. The session will ask each factory
+     * for a given name in the order they were added.
+     *
+     * @var array(org\pdepend\reflection\interfaces\ReflectionClassFactory)
+     */
+    private $_classFactories = array();
+
+    private $_running = false;
+
+    /**
+     * Creates the default reflection session implementation. This setup tries
+     * to provide an optimal combination between static and internal reflection
+     * implementations.
+     *
+     * When ever possible this setup uses PHP's internal reflection api, when
+     * it is not possible to retrieve a class with this implementation the
+     * static implementation will be used to create a reflection class instance.
+     * 
+     * This solution should provide the best mix between speed and flexibility
+     * without poluting the class scope with uneccessary class definitions.
+     *
+     * @param \org\pdepend\reflection\interfaces\SourceResolver $resolver The
+     *        source file resolver that will be used by the static reflection
+     *        implementation to retrieve the source file name for a given class
+     *        name.
+     *
+     * @return \org\pdepend\reflection\ReflectionSession
+     * @todo Implement and document the null termination
+     */
+    public static function createDefaultSession( SourceResolver $resolver )
+    {
+        $session = new ReflectionSession();
+        $session->setResolver( $resolver );
+        $session->addClassFactory( new factories\InternalReflectionClassFactory() );
+        $session->addClassFactory( new factories\StaticReflectionClassFactory( new ProxyParserContext( $session ), $resolver ) );
+
+        return $session;
+    }
+
+    /**
+     * Sets the source resolver that will be used to find a source code file for
+     * a given class name.
+     *
+     * @param \org\pdepend\reflection\interfaces\SourceResolver $resolver The
+     *        source file resolver that will be used by the static reflection
+     *        implementation to retrieve the source file name for a given class
+     *        name.
+     *
+     * @return void
+     */
+    protected function setResolver( SourceResolver $resolver )
     {
         $this->_resolver = $resolver;
+    }
+
+    public function addClassFactory( ReflectionClassFactory $classFactory )
+    {
+        $this->_classFactories[] = $classFactory;
+    }
+
+    public function createFileQuery()
+    {
+        return new queries\ReflectionFileQuery( new ProxyParserContext( $this ) );
+    }
+
+    public function createDirectoryQuery()
+    {
+        return new queries\ReflectionDirectoryQuery( new ProxyParserContext( $this ) );
     }
 
     /**
@@ -71,8 +140,27 @@ class ReflectionSession
      */
     public function getClass( $className )
     {
-        $factories = $this->_createFactories();
-        foreach ( $factories as $factory )
+        if ( $this->_running )
+        {
+            return new ReflectionClassProxy( $this, $className );
+        }
+
+        $this->_running = true;
+        $class = $this->_getClass( $className );
+        $this->_running = false;
+
+        return $class;
+    }
+
+    /**
+     *
+     * @param string $className
+     *
+     * @return \ReflectionClass
+     */
+    private function _getClass( $className )
+    {
+        foreach ( $this->_classFactories as $factory )
         {
             if ( $factory->hasClass( $className ) )
             {
@@ -81,27 +169,25 @@ class ReflectionSession
         }
         throw new \ReflectionException( 'Class ' . $className . ' does not exist' );
     }
-
-    private function _createFactories()
-    {
-        $factories = array(
-            new factories\InternalReflectionClassFactory(),
-            new factories\StaticReflectionClassFactory( $this, $this->_resolver )
-        );
-        return $factories;
-    }
 }
 
-
-class ReflectionQuery
+class ProxyParserContext implements ParserContext
 {
-    public function findByDirectory( $directory )
-    {
+    private $_session = null;
 
+    public function __construct( ReflectionSession $session )
+    {
+        $this->_session = $session;
     }
 
-    public function findByFile( $file )
+    /**
+     *
+     * @param string $className
+     *
+     * @return \ReflectionClass
+     */
+    public function getClass( $className )
     {
-        $parser = new parser\Parser(  );
+        return new ReflectionClassProxy( $this->_session, $className );
     }
 }

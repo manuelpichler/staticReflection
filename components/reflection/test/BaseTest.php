@@ -115,7 +115,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
      */
     public function getClassByName( $className )
     {
-        $parser  = new parser\Parser( $this->createFactory() );
+        $parser  = new parser\Parser( $this->createContext() );
         $classes = $parser->parseFile( $this->getPathnameForClass( $className ) );
 
         foreach ( $classes as $class )
@@ -137,9 +137,14 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         return $factory;
     }
 
-    protected function createSession()
+    protected function createContext()
     {
-        return $this->getMock( 'org\pdepend\reflection\ReflectionSession' );
+        $session = $this->getMock( 'org\pdepend\reflection\interfaces\ParserContext' );
+        $session->expects( $this->any() )
+            ->method( 'getClass' )
+            ->will( $this->returnCallback( array( $this, 'getClassByName' ) ) );
+
+        return $session;
     }
 
     protected function createResolver()

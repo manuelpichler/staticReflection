@@ -1,0 +1,87 @@
+org::pdepend::reflection - Alternative Reflection for PHP
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+:Author:   Manuel Pichler
+:Revision: $Revision$
+:Date:     $Date$
+
+Design Description
+==================
+
+Purpose of Alternative Reflection package
+-----------------------------------------
+
+The purpose of the reflection package is to provide a reflection
+implementation for PHP that is compatible with PHP's internal reflection
+api, but does not require any runtime information about a reflected source
+artifact. This allows to analyse a class or interface without loading it
+into the applications class scope.
+
+Design
+======
+
+The component provides a simple single point of entry interface that can
+be used to as a replacement for direct ``ReflectionClass`` instantiations
+with productive code. This single point of entry forms the facade class
+``ReflectionSession``.
+
+
+How to use
+==========
+
+Retrieving known class by name
+------------------------------
+
+The following code fragment shows how to retrieve a class by its name: The
+use case example uses one of the buildin path resolvers to find the source
+file for the searched class. ::
+
+  <?php
+  use org\pdepend\reflection\ReflectionSession;
+
+  $session = new ReflectionSession();
+  $session->addPathResolver( new NamespacePathResolver() );
+
+  $class = $session->findByClassName( '\org\pdepend\reflection\parser\Parser' );
+
+
+Retrieving an internal class by name
+------------------------------------
+
+The following example shows how to retrieve a reflection class instance of
+an internal PHP class/interface. ::
+
+  <?php
+  use org\pdepend\reflection\ReflectionSession;
+
+  $session = new ReflectionSession();
+
+  $class = $session->findByClassName( '\Iterator' );
+
+
+Retrieving all classes within a file
+------------------------------------
+
+The following example shows howto use the reflection class to retrieve
+reflection class instances for all classes/interfaces declared within a
+single file. ::
+
+  <?php
+  use org\pdepend\reflection\ReflectionSession;
+
+  $session = new ReflectionSession();
+  $classes = $session->findByFile( '/home/mapi/projects/pdepend/PHP/Depend.php' );
+
+
+Retrieving all classes within a directory
+-----------------------------------------
+
+The following example shows how to use a the reflection session to retrieve
+reflection class instances for all classes/interface declared within the
+specified source directory. ::
+
+  <?php
+  use org\pdepend\reflection\ReflectionSession;
+
+  $session = new ReflectionSession();
+  $classes = $session->findByDirectory( '/home/mapi/projects/pdepend' );
+

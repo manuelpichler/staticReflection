@@ -48,10 +48,9 @@
 namespace org\pdepend\reflection\factories;
 
 use org\pdepend\reflection\parser\Parser;
-use org\pdepend\reflection\ReflectionSession;
-use org\pdepend\reflection\ReflectionClassProxy;
-use org\pdepend\reflection\interfaces\ReflectionClassFactory;
+use org\pdepend\reflection\interfaces\ParserContext;
 use org\pdepend\reflection\interfaces\SourceResolver;
+use org\pdepend\reflection\interfaces\ReflectionClassFactory;
 
 /**
  * This reflection factory utilizes the PHP tokenizer extension to provide a
@@ -69,9 +68,9 @@ class StaticReflectionClassFactory implements ReflectionClassFactory
 {
     /**
      *
-     * @var \org\pdepend\reflection\ReflectionSession
+     * @var \org\pdepend\reflection\interfaces\ParserContext
      */
-    private $_session = null;
+    private $_context = null;
 
     /**
      *
@@ -79,19 +78,32 @@ class StaticReflectionClassFactory implements ReflectionClassFactory
      */
     private $_resolver = null;
 
-    private $_registry = array();
+    /**
+     *
+     * @var \org\pdepend\reflection\factories\ReflectionClassCache
+     */
+    private $_classCache = null;
 
-    private $_parsing = false;
-
-    public function __construct( ReflectionSession $session, SourceResolver $resolver )
+    /**
+     *
+     * @param \org\pdepend\reflection\interfaces\ParserContext  $context  Current session.
+     * @param \org\pdepend\reflection\interfaces\SourceResolver $resolver Used source resolver.
+     */
+    public function __construct( ParserContext $context, SourceResolver $resolver )
     {
-        $this->_session  = $session;
+        $this->_context  = $context;
         $this->_resolver = $resolver;
+
+        $this->_classCache = new ReflectionClassCache();
     }
 
     public function hasClass( $className )
     {
-        return true;
+        if ( $this->_classCache->has( $className ) )
+        {
+            return true;
+        }
+        return $this->_resolver->hasPathnameForClass( $className );
     }
 
     public function createClass( $className )
@@ -101,48 +113,80 @@ class StaticReflectionClassFactory implements ReflectionClassFactory
 
     private function _createOrReturnClass( $className )
     {
-        if ( $this->_parsing )
+        if ( $this->_classCache->has( $className ) )
         {
-            return new ReflectionClassProxy( $this->_session, $className );
+            return $this->_classCache->restore( $className );
         }
-        
-        $normalizedName = $this->_normalizeName( $className );
-        if ( !isset( $this->_registry[$normalizedName] ) )
-        {
-            $this->_createClass( $className );
-        }
-        if ( isset( $this->_registry[$normalizedName] ) )
-        {
-            return $this->_registry[$normalizedName];
-        }
-        throw new \ReflectionException( 'Class ' . $className . ' does not exist' );
+        return $this->_createClass( $className );
     }
 
     private function _createClass( $className )
     {
-        $this->_parsing = true;
-
-        $parser  = new Parser( $this );
+        $parser  = new Parser( $this->_context );
         $classes = $parser->parseFile( $this->_resolver->getPathnameForClass( $className ) );
         foreach ( $classes as $class )
         {
-            $this->_registry[$this->_normalizeName( $class->getName() )] = $class;
-        }
+            $this->_classCache->store( $class );
+        }   
+        return $this->_classCache->restore( $className );
+    }
+}
 
-        $this->_parsing = false;
-        
-        return $this->_registry;
+class ReflectionClassCache
+{
+    private $_classes = array();
+
+    /**
+     * This method checks if a class for the given <b>$className</b> already
+     * exists in the cache.
+     *
+     * @param string $className Name of the searched class.
+     *
+     * @return boolean
+     */
+    public function has( $className )
+    {
+        return isset( $this->_classes[$this->_normalizeClassName( $className )] );
+    }
+
+    /**
+     * This method will restore a previously created reflection class instance
+     * for the given <b>$className</b>.
+     *
+     * @param string $className Name of the searched class.
+     *
+     * @return \ReflectionClass
+     */
+    public function restore( $className )
+    {
+        if ( $this->has( $className ) )
+        {
+            return $this->_classes[$this->_normalizeClassName( $className )];
+        }
+        throw new \LogicException( 'Class ' . $className . ' does not exist' );
+    }
+
+    /**
+     * This method stores the given reflection class within the cache.
+     *
+     * @param \ReflectionClass $class The newly created reflection class.
+     *
+     * @return void
+     */
+    public function store( \ReflectionClass $class )
+    {
+        $this->_classes[$this->_normalizeClassName( $class->getName() )] = $class;
     }
 
     /**
      * Normalizes a class or interface name.
      *
-     * @param string $name A class or interface name.
+     * @param string $className A class or interface name.
      *
      * @return string
      */
-    private function _normalizeName( $name )
+    private function _normalizeClassName( $className )
     {
-        return ltrim( strtolower( $name ), '\\' );
+        return ltrim( strtolower( $className ), '\\' );
     }
 }

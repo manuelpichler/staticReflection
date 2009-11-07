@@ -47,14 +47,13 @@
 
 namespace org\pdepend\reflection\parser;
 
-use org\pdepend\reflection\interfaces\ReflectionClassFactory;
-
 use org\pdepend\reflection\api\DefaultValue;
 use org\pdepend\reflection\api\StaticReflectionClass;
 use org\pdepend\reflection\api\StaticReflectionMethod;
 use org\pdepend\reflection\api\StaticReflectionInterface;
 use org\pdepend\reflection\api\StaticReflectionParameter;
 use org\pdepend\reflection\api\StaticReflectionProperty;
+use org\pdepend\reflection\interfaces\ParserContext;
 use org\pdepend\reflection\exceptions\EndOfTokenStreamException;
 use org\pdepend\reflection\exceptions\UnexpectedTokenException;
 
@@ -73,9 +72,9 @@ class Parser
 {
     /**
      * 
-     * @var \org\pdepend\reflection\interfaces\ReflectionClassFactory
+     * @var \org\pdepend\reflection\interfaces\ParserContext
      */
-    private $_ReflectionClassFactory = null;
+    private $_context = null;
 
     /**
      * The source file path name.
@@ -150,11 +149,11 @@ class Parser
     /**
      * Constructs a new parser instance.
      *
-     * @param \org\pdepend\reflection\interfaces\ReflectionClassFactory $factory
+     * @param \org\pdepend\reflection\interfaces\ParserContext $context
      */
-    public function __construct( ReflectionClassFactory $factory )
+    public function __construct( ParserContext $context )
     {
-        $this->_ReflectionClassFactory = $factory;
+        $this->_context = $context;
     }
 
     /**
@@ -423,7 +422,7 @@ class Parser
         {
             return $this->_classOrInterface;
         }
-        return $this->_ReflectionClassFactory->createClass( $className );
+        return $this->_context->getClass( $className );
     }
 
     /**

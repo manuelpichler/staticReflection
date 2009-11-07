@@ -1640,7 +1640,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     private function _parseClass( $className )
     {
-        $parser  = new Parser( $this->createFactory() );
+        $parser  = new Parser( $this->createContext() );
         $classes = $parser->parseFile( $this->getPathnameForClass( $className ) );
         
         return $classes[0];
