@@ -9,6 +9,7 @@ namespace org\pdepend\reflection;
 
 require_once 'PHPUnit/Framework.php';
 
+require_once 'factories/AllTests.php';
 require_once 'parser/AllTests.php';
 require_once 'resolvers/AllTests.php';
 
@@ -43,6 +44,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../source/' )
         );
 
+        $this->addTest( factories\AllTests::suite() );
         $this->addTest( parser\AllTests::suite() );
         $this->addTest( resolvers\AllTests::suite() );
 

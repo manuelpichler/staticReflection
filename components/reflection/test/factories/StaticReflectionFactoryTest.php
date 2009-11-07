@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   org\pdepend\reflection\factories
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,32 +45,25 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection;
+namespace org\pdepend\reflection\factories;
 
-use org\pdepend\reflection\interfaces\ReflectionFactory;
+require_once 'BaseTest.php';
 
-class ReflectionSession
+/**
+ * Test cases for the static reflection factory.
+ *
+ * @category  PHP
+ * @package   org\pdepend\reflection\factories
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ */
+class StaticReflectionFactoryTest extends \org\pdepend\reflection\BaseTest
 {
-    /**
-     *
-     * @var array(\org\pdepend\reflection\ReflectionBuilder)
-     */
-    private $_builders = array();
-
-    public function addFactory( ReflectionFactory $builder )
+    public function testFoo()
     {
-        $this->_builders[] = $builder;
-    }
-
-    public function getClass( $className )
-    {
-        foreach ( $this->_builders as $builder )
-        {
-            if ( $builder->hasClass( $className ) )
-            {
-                return $builder->buildClass( $className );
-            }
-        }
-        throw new \ReflectionException( 'Cannot resolve class ' . $className );
+        $factory = new StaticFactory();
     }
 }

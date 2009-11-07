@@ -49,7 +49,7 @@ namespace org\pdepend\reflection\interfaces;
 
 interface ReflectionFactory
 {
-    function canBuildClass( $class );
+    function hasClass( $className );
 
     function buildClass( $class );
 }

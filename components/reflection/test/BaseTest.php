@@ -1,7 +1,6 @@
 <?php
 namespace org\pdepend\reflection;
 
-use org\pdepend\reflection\parser\ParserContext;
 use org\pdepend\reflection\factories\StaticFactory;
 
 require_once 'PHPUnit/Framework/TestCase.php';
@@ -107,18 +106,43 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         throw new \ErrorException( 'Cannot locate pathname for class: ' . $className );
     }
 
-    protected function createParserContext()
+    /**
+     * Will trigger an additional parsing process for the given class.
+     *
+     * @param string $className Name of the searched class.
+     *
+     * @return \ReflectionClass
+     */
+    public function getClassByName( $className )
     {
-        $session  = new ReflectionSession();
-        $resolver = $this->createSourceResolver();
+        $parser  = new parser\Parser( $this->createFactory() );
+        $classes = $parser->parseFile( $this->getPathnameForClass( $className ) );
 
-        $context = new ParserContext( $session, $resolver );
-        $session->addFactory( new StaticFactory( $context ) );
-
-        return $context;
+        foreach ( $classes as $class )
+        {
+            if ( $class->getName() === $className )
+            {
+                return $class;
+            }
+        }
     }
 
-    protected function createSourceResolver()
+    protected function createFactory()
+    {
+        $factory = $this->getMock( 'org\pdepend\reflection\interfaces\ReflectionFactory' );
+        $factory->expects( $this->any() )
+            ->method( 'buildClass' )
+            ->will( $this->returnCallback( array( $this, 'getClassByName' ) ) );
+
+        return $factory;
+    }
+
+    protected function createSession()
+    {
+        return $this->getMock( 'org\pdepend\reflection\ReflectionSession' );
+    }
+
+    protected function createResolver()
     {
         $resolver = $this->getMock( 'org\pdepend\reflection\interfaces\SourceResolver' );
         $resolver->expects( $this->any() )

@@ -47,47 +47,79 @@
 
 namespace org\pdepend\reflection\factories;
 
-use \org\pdepend\reflection\parser\Parser;
-use \org\pdepend\reflection\parser\ParserContext;
+use org\pdepend\reflection\parser\Parser;
+use org\pdepend\reflection\ReflectionSession;
+use org\pdepend\reflection\ReflectionClassProxy;
 use org\pdepend\reflection\interfaces\ReflectionFactory;
+use org\pdepend\reflection\interfaces\SourceResolver;
 
 class StaticFactory implements ReflectionFactory
 {
     /**
      *
-     * @var \org\pdepend\reflection\parser\ParserContext
+     * @var \org\pdepend\reflection\ReflectionSession
      */
-    private $_context = null;
+    private $_session = null;
 
-    public function __construct( ParserContext $context )
+    /**
+     *
+     * @var \org\pdepend\reflection\interfaces\SourceResolver
+     */
+    private $_resolver = null;
+
+    private $_registry = array();
+
+    private $_parsing = false;
+
+    public function __construct( ReflectionSession $session, SourceResolver $resolver )
     {
-        $this->_context = $context;
+        $this->_session  = $session;
+        $this->_resolver = $resolver;
     }
 
-    public function canBuildClass( $className )
+    public function hasClass( $className )
     {
         return true;
     }
 
     public function buildClass( $className )
     {
-        return $this->_createClass( $className );
+        return $this->_createOrReturnClass( $className );
+    }
+
+    private function _createOrReturnClass( $className )
+    {
+        if ( $this->_parsing )
+        {
+            return new ReflectionClassProxy( $this->_session, $className );
+        }
+        
+        $normalizedName = $this->_normalizeName( $className );
+        if ( !isset( $this->_registry[$normalizedName] ) )
+        {
+            $this->_createClass( $className );
+        }
+        if ( isset( $this->_registry[$normalizedName] ) )
+        {
+            return $this->_registry[$normalizedName];
+        }
+        throw new \ReflectionException( 'Class ' . $className . ' does not exist' );
     }
 
     private function _createClass( $className )
     {
-        $normalizedName = $this->_normalizeName( $className );
+        $this->_parsing = true;
 
-        $parser  = new Parser( $this->_context );
-        $classes = $parser->parseFile( $this->_context->getPathname( $className ) );
+        $parser  = new Parser( $this );
+        $classes = $parser->parseFile( $this->_resolver->getPathnameForClass( $className ) );
         foreach ( $classes as $class )
         {
-            if ( $this->_normalizeName( $class->getName() ) === $normalizedName )
-            {
-                return $class;
-            }
+            $this->_registry[$this->_normalizeName( $class->getName() )] = $class;
         }
-        throw new \ReflectionException( 'Class ' . $className . ' does not exist' );
+
+        $this->_parsing = false;
+        
+        return $this->_registry;
     }
 
     /**

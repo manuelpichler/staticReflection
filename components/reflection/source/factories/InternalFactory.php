@@ -51,9 +51,9 @@ use org\pdepend\reflection\interfaces\ReflectionFactory;
 
 class InternalFactory implements ReflectionFactory
 {
-    public function canBuildClass( $class )
+    public function hasClass( $className )
     {
-        return class_exists( $class, false );
+        return class_exists( $className, false );
     }
 
     public function buildClass( $class )

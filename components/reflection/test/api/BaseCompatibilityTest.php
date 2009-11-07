@@ -43,7 +43,7 @@ abstract class BaseCompatibilityTest extends \org\pdepend\reflection\BaseTest
      */
     protected function createStaticClass( $className )
     {
-        $parser  = new Parser( $this->createParserContext() );
+        $parser  = new Parser( $this->createFactory() );
         $classes = $parser->parseFile( $this->getPathnameForClass( $className ) );
         return $classes[0];
     }

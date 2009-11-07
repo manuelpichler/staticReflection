@@ -1231,9 +1231,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     public function testParserHandlesMagicConstantDirAsExpected()
     {
-        $context = $this->createParserContext();
-        $class   = $this->_parseClass( 'PropertyMagicConstantDir' );
-        $value   = $class->getProperty( 'foo' )->getValue();
+        $class = $this->_parseClass( 'PropertyMagicConstantDir' );
+        $value = $class->getProperty( 'foo' )->getValue();
 
         $this->assertEquals( 
             dirname( $this->getPathnameForClass( 'PropertyMagicConstantDir' ) ),
@@ -1641,7 +1640,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      */
     private function _parseClass( $className )
     {
-        $parser  = new Parser( $this->createParserContext() );
+        $parser  = new Parser( $this->createFactory() );
         $classes = $parser->parseFile( $this->getPathnameForClass( $className ) );
         
         return $classes[0];

@@ -31,7 +31,7 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
                 ?>}<?php
                 $x = "
 
-                ";
+                " . " " .
                 parent::x();
             }
         }';

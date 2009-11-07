@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\parser
+ * @package   org\pdepend\reflection\factories
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,61 +45,46 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection\parser;
+namespace org\pdepend\reflection\factories;
 
-use org\pdepend\reflection\ReflectionSession;
-use org\pdepend\reflection\ReflectionClassProxy;
-use org\pdepend\reflection\interfaces\SourceResolver;
+require_once 'PHPUnit/Framework.php';
 
-class ParserContext
+require_once 'StaticReflectionFactoryTest.php';
+
+/**
+ * Main test suite.
+ *
+ * @category  PHP
+ * @package   org\pdepend\reflection\factories
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ */
+class AllTests extends \PHPUnit_Framework_TestSuite
 {
     /**
-     * The currently used reflection session instance.
-     *
-     * @var \org\pdepend\reflection\ReflectionSession
+     * Constructs a new test suite instance.
      */
-    private $_session = null;
-
-    /**
-     * The configured source resolver.
-     *
-     * @var \org\pdepend\reflection\interfaces\SourceResolver
-     */
-    private $_resolver = null;
-
-    /**
-     * Constructs a new parser context.
-     *
-     * @param ReflectionSession $session  The currently used reflection session.
-     * @param SourceResolver    $resolver The static source resolver.
-     */
-    public function __construct( ReflectionSession $session, SourceResolver $resolver )
+    public function __construct()
     {
-        $this->_session  = $session;
-        $this->_resolver = $resolver;
+        $this->setName( 'org::pdepend::reflection::factories::AllTests' );
+
+        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
+            realpath( dirname( __FILE__ ) . '/../../source/' )
+        );
+
+        $this->addTestSuite( '\org\pdepend\reflection\factories\StaticReflectionFactoryTest' );
     }
 
     /**
-     * Returns a reflection instance for the given class/interface name.
+     * Returns a test suite instance.
      *
-     * @param string $className Name of the searched class/interface.
-     *
-     * @return \ReflectionClass
+     * @return PHPUnit_Framework_TestSuite
      */
-    public function getClass( $className )
+    public static function suite()
     {
-        return new ReflectionClassProxy( $this->_session, $className );
-    }
-
-    /**
-     * Returns the pathname of source file for the given class/interface.
-     *
-     * @param string $className Name of the currently searched class/interface.
-     *
-     * @return string
-     */
-    public function getPathname( $className )
-    {
-        return $this->_resolver->getPathnameForClass( $className );
+        return new AllTests();
     }
 }

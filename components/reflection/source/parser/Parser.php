@@ -47,7 +47,7 @@
 
 namespace org\pdepend\reflection\parser;
 
-use org\pdepend\reflection\interfaces\SourceResolver;
+use org\pdepend\reflection\interfaces\ReflectionFactory;
 
 use org\pdepend\reflection\api\DefaultValue;
 use org\pdepend\reflection\api\StaticReflectionClass;
@@ -72,12 +72,10 @@ use org\pdepend\reflection\exceptions\UnexpectedTokenException;
 class Parser
 {
     /**
-     * Configured parser context that will be used to retrieve source information
-     * and dependent class or interfaces.
-     *
-     * @var \org\pdepend\reflection\parser\ParserContext
+     * 
+     * @var \org\pdepend\reflection\interfaces\ReflectionFactory
      */
-    private $_context = null;
+    private $_reflectionFactory = null;
 
     /**
      * The source file path name.
@@ -152,11 +150,11 @@ class Parser
     /**
      * Constructs a new parser instance.
      *
-     * @param \org\pdepend\reflection\parser\ParserContext $context
+     * @param \org\pdepend\reflection\interfaces\ReflectionFactory $factory
      */
-    public function __construct( ParserContext $context )
+    public function __construct( ReflectionFactory $factory )
     {
-        $this->_context = $context;
+        $this->_reflectionFactory = $factory;
     }
 
     /**
@@ -425,7 +423,7 @@ class Parser
         {
             return $this->_classOrInterface;
         }
-        return $this->_context->getClass( $className );
+        return $this->_reflectionFactory->buildClass( $className );
     }
 
     /**
@@ -1253,23 +1251,5 @@ class Parser
             return $token;
         }
         return null;
-    }
-
-    /**
-     * Normalizes a class or interface name.
-     *
-     * @param string $name A class or interface name.
-     *
-     * @return string
-     */
-    private function _normalizeName( $name )
-    {
-        if ( function_exists( 'mb_strtolower' ) )
-        {
-            return ltrim( mb_strtolower( $name ), '\\' );
-        }
-        // @codeCoverageIgnoreStart
-        return ltrim( strtolower( $name ), '\\' );
-        // @codeCoverageIgnoreEnd
     }
 }
