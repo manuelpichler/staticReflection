@@ -9,20 +9,10 @@ namespace org\pdepend\reflection;
 
 require_once 'PHPUnit/Framework.php';
 
+require_once 'api/AllTests.php';
 require_once 'factories/AllTests.php';
 require_once 'parser/AllTests.php';
 require_once 'resolvers/AllTests.php';
-
-require_once 'api/CompatibilityReflectionClassTest.php';
-require_once 'api/CompatibilityReflectionInterfaceTest.php';
-require_once 'api/CompatibilityReflectionMethodTest.php';
-require_once 'api/CompatibilityReflectionParameterTest.php';
-require_once 'api/CompatibilityReflectionPropertyTest.php';
-require_once 'api/StaticReflectionClassTest.php';
-require_once 'api/StaticReflectionInterfaceTest.php';
-require_once 'api/StaticReflectionMethodTest.php';
-require_once 'api/StaticReflectionParameterTest.php';
-require_once 'api/StaticReflectionPropertyTest.php';
 
 /**
  * Main test suite.
@@ -44,20 +34,10 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../source/' )
         );
 
+        $this->addTest( api\AllTests::suite() );
         $this->addTest( factories\AllTests::suite() );
         $this->addTest( parser\AllTests::suite() );
         $this->addTest( resolvers\AllTests::suite() );
-
-        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionClassTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionInterfaceTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionMethodTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionParameterTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionPropertyTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionClassTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionInterfaceTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionMethodTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionParameterTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionPropertyTest' );
     }
 
     /**
