@@ -47,9 +47,20 @@
 
 namespace org\pdepend\reflection\interfaces;
 
+/**
+ * Base interface for a reflection class factory.
+ *
+ * @category  PHP
+ * @package   org\pdepend\reflection\interfaces
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ */
 interface ReflectionClassFactory
 {
     function hasClass( $className );
 
-    function createClass( $class );
+    function createClass( $className );
 }
