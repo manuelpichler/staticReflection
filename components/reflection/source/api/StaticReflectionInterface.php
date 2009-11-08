@@ -374,6 +374,14 @@ class StaticReflectionInterface extends \ReflectionClass
         return array_key_exists( $name, $this->getConstants() );
     }
 
+    /**
+     * Returns the value of a constant for the given <b>$name</b> or <b>false</b>
+     * when no matching constant exists.
+     *
+     * @param string $name Name of the searched constant.
+     *
+     * @return mixed
+     */
     public function getConstant( $name )
     {
         if ( $this->hasConstant( $name ) )
@@ -384,11 +392,26 @@ class StaticReflectionInterface extends \ReflectionClass
         return false;
     }
 
+    /**
+     * Returns an array with constants defined in this or one of its parent
+     * classes.
+     *
+     * @return array(string=>mixed)
+     */
     public function getConstants()
     {
         return $this->_collectConstants( $this, (array) $this->_constants );
     }
 
+    /**
+     * Collects all constants from the given class when they are not present in
+     * the given <b>$result</b> array.
+     *
+     * @param \ReflectionClass     $class  The context class.
+     * @param array(string=>mixed) $result Previous collected constants
+     *
+     * @return array(string=>mixed)
+     */
     private function _collectConstants( \ReflectionClass $class, array $result )
     {
         foreach ( $class->getInterfaces() as $interface )
@@ -471,8 +494,8 @@ class StaticReflectionInterface extends \ReflectionClass
     /**
      * Collects recursive all implemented/extended interfaces.
      *
-     * @param array(\ReflectionClass)         $interfaces    Input interface list.
-     * @param array(string=>\ReflectionClass) $interfaceList Result list
+     * @param array(\ReflectionClass)         $interfaces     Input interface list.
+     * @param array(string=>\ReflectionClass) &$interfaceList Result list
      *
      * @return array(\ReflectionClass)
      */
@@ -490,7 +513,9 @@ class StaticReflectionInterface extends \ReflectionClass
     }
 
     /**
-     * @param array(\ReflectionClass) $interfaces
+     * Initializes the parent interfaces of this interface instance.
+     *
+     * @param array(\ReflectionClass) $interfaces List of parent interfaces.
      *
      * @return void
      * @access private
@@ -610,6 +635,12 @@ class StaticReflectionInterface extends \ReflectionClass
         return $this->prepareCollectedObjects( $filter, $this->collectMethods() );
     }
 
+    /**
+     * Returns an array with all methods declared in the inheritence hierarchy
+     * of the current interface.
+     *
+     * @return array(\ReflectionMethod)
+     */
     protected function collectMethods()
     {
         $result = $this->_collectMethods( (array) $this->_methods );
