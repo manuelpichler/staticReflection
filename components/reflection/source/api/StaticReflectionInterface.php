@@ -50,9 +50,13 @@ namespace org\pdepend\reflection\api;
 /**
  * Static interface implementation.
  *
- * @author  Manuel Pichler <mapi@pdepend.org>
- * @license Copyright by Manuel Pichler
- * @version $Revision$
+ * @category  PHP
+ * @package   org\pdepend\reflection\api
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
 class StaticReflectionInterface extends \ReflectionClass
 {
@@ -595,6 +599,9 @@ class StaticReflectionInterface extends \ReflectionClass
     /**
      * Returns an array with all methods within the inheritence hierarchy of this
      * class or interface.
+     * 
+     * @param integer $filter Optional bitfield describing the modifiers a returned
+     *        method must have.
      *
      * @return array(\ReflectionMethod)
      */
@@ -723,6 +730,12 @@ class StaticReflectionInterface extends \ReflectionClass
     }
 
     /**
+     * Returns an array with all properties declared/defined in this interface.
+     * This value will always be an empty array.
+     *
+     * @param integer $filter Optional bitfield describing the modifiers a returned
+     *        property must have.
+     *
      * @return array(\ReflectionProperty)
      */
     public function getProperties( $filter = -1 )
