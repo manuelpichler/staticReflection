@@ -63,24 +63,32 @@ class StaticReflectionClass extends StaticReflectionInterface
     const TYPE = __CLASS__;
 
     /**
+     * Bitfield with class modifiers.
+     *
      * @var integer
      */
     private $_modifiers = 0;
 
     /**
+     * Optional parent class.
+     *
      * @var \ReflectionClass
      */
     private $_parentClass = false;
 
     /**
+     * Array with properties defined/declared in the context class.
+     *
      * @var array(string=>\ReflectionProperty)
      */
     private $_properties = null;
 
     /**
-     * @param string  $name
-     * @param string  $docComment
-     * @param integer $modifiers
+     * Constructs a new reflection class instance.
+     *
+     * @param string  $name       The qualified class name.
+     * @param string  $docComment Doc comment for this class.
+     * @param integer $modifiers  Modifiers for this class.
      */
     public function __construct( $name, $docComment, $modifiers )
     {
@@ -235,6 +243,12 @@ class StaticReflectionClass extends StaticReflectionInterface
         }
     }
 
+    /**
+     * Returns an array with constants defined in this or one of its parent
+     * classes.
+     *
+     * @return array(string=>mixed)
+     */
     public function getConstants()
     {
         if ( $this->_parentClass === false )
@@ -244,6 +258,15 @@ class StaticReflectionClass extends StaticReflectionInterface
         return $this->_collectConstants( $this->_parentClass, parent::getConstants() );
     }
 
+    /**
+     * Collects all constants from the given class when they are not present in
+     * the given <b>$result</b> array.
+     *
+     * @param \ReflectionClass     $class  The context class.
+     * @param array(string=>mixed) $result Previous collected constants
+     *
+     * @return array(string=>mixed)
+     */
     private function _collectConstants( \ReflectionClass $class, array $result )
     {
         foreach ( $class->getConstants() as $name => $value )
@@ -274,6 +297,14 @@ class StaticReflectionClass extends StaticReflectionInterface
         return $this->_collectMethodsFromParentClass( $filter );
     }
 
+    /**
+     * Will collect all methods from a parent class.
+     *
+     * @param integer $filter Optional bitfield with modifiers that a collected
+     *        method must match to.
+     *
+     * @return array(\ReflectionMethod)
+     */
     private function _collectMethodsFromParentClass( $filter )
     {
         $result = parent::collectMethods();
@@ -284,6 +315,14 @@ class StaticReflectionClass extends StaticReflectionInterface
         return $this->prepareCollectedObjects( $filter, $result );
     }
 
+    /**
+     * Will add the given method to the list of available methods.
+     *
+     * @param \ReflectionMethod        $method The currently reflected method
+     * @param array(\ReflectionMethod) $result List with already found methods.
+     *
+     * @return array(\ReflectionMethod)
+     */
     private function _collectMethodFromParentClass( \ReflectionMethod $method, array $result )
     {
         $name = strtolower( $method->getName() );
@@ -329,7 +368,10 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
-     * @param string $name
+     * Returns a property for the given name or throws an exception when no such
+     * property exists.
+     *
+     * @param string $name Name of the searched property.
      *
      * @return \ReflectionProperty
      */
