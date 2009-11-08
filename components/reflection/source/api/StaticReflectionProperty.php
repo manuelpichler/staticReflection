@@ -50,9 +50,13 @@ namespace org\pdepend\reflection\api;
 /**
  * Static property implementation.
  *
- * @author  Manuel Pichler <mapi@pdepend.org>
- * @license Copyright by Manuel Pichler
- * @version $Revision$
+ * @category  PHP
+ * @package   org\pdepend\reflection\api
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org
  */
 class StaticReflectionProperty extends \ReflectionProperty
 {
@@ -93,9 +97,11 @@ class StaticReflectionProperty extends \ReflectionProperty
     private $_initialized = false;
 
     /**
-     * @param string  $name
-     * @param string  $docComment
-     * @param integer $modifiers
+     * Constructs a new reflection property instance.
+     *
+     * @param string  $name       Name of the current property.
+     * @param string  $docComment Optional doc comment for this property.
+     * @param integer $modifiers  Modifier for this property.
      */
     public function __construct( $name, $docComment, $modifiers )
     {
@@ -337,6 +343,11 @@ class StaticReflectionProperty extends \ReflectionProperty
         throw new \ReflectionException( 'Method setAccessible() is not supported' );
     }
 
+    /**
+     * Returns a string representation of this property.
+     *
+     * @return string
+     */
     public function __toString()
     {
         return '';
