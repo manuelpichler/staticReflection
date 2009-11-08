@@ -50,6 +50,17 @@ namespace org\pdepend\reflection;
 use org\pdepend\reflection\interfaces\SourceResolver;
 use org\pdepend\reflection\interfaces\ReflectionClassFactory;
 
+/**
+ * Primary facade of the reflection component.
+ *
+ * @category  PHP
+ * @package   org\pdepend\reflection
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ */
 class ReflectionSession
 {
     /**
