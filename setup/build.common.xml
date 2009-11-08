@@ -77,25 +77,29 @@
         </exec>
     </target>
 
-    <target name="tag" depends="init">
+    <!--
+        Automatically creates a repopositoy tag when all tests have passed.
+    -->
+    <target name="tag" depends="init-repository-properties,init-tag-properties">
 
-        <buildnumber />
+        <property name="tag.repo" value="${repository}/tags/${ant.project.name}" />
+        <property name="tag.name" value="${build.year}-kw${build.week}-qa-build${build.number}" />
         
         <!--
-        <exec dir="${basedir}"
-              executable="svn">
-            <arg line="copy" />
-            <arg line="." />
-            <arg line="${repository}/tags/${ant.project.name}/${build.year}-kw${build.week}-qa-build${build.number}" />
+        <exec dir="${basedir}" executable="svn">
+            <arg line="copy . ${tag.repo}/${tag.name}" />
         </exec>
         -->
-        <echo message="svn copy . ${repository}/tags/${ant.project.name}/${build.year}-kw${build.week}-qa-build${build.number}" />
+        <echo message="svn copy . ${tag.repo}/${tag.name}" />
     </target>
 
-    <target name="init" depends="prepare">
+    <!--
+        Initializes some properties based on the source repository.
+    -->
+    <target name="init-repository-properties" depends="prepare">
+
         <exec executable="svn" dir="${basedir}" output="${builddir}/~svn-info.xml">
-            <arg line="info" />
-            <arg line="--xml" />
+            <arg line="info --xml" />
         </exec>
 
         <xmlproperty file="${builddir}/~svn-info.xml"
@@ -103,6 +107,16 @@
                      collapseAttributes="true" />
 
         <property name="repository" value="${info.entry.repository.root}" />
+
+
+    </target>
+
+    <!--
+        Initializes some properties required for automatic tagging
+    -->
+    <target name="init-tag-properties">
+
+        <buildnumber />
 
         <tstamp>
             <format property="build.year" pattern="yyyy" />
