@@ -657,6 +657,15 @@ class StaticReflectionInterface extends \ReflectionClass
         return $result;
     }
 
+    /**
+     * Prepares the given array and returns a filtered version of the given
+     * object list.
+     *
+     * @param integer        $filter  Bitfield with required object modifiers.
+     * @param array(objects) $objects List of ast objects.
+     *
+     * @return array(objects)
+     */
     protected function prepareCollectedObjects( $filter, array $objects )
     {
         if ( $filter === -1 )
@@ -666,6 +675,14 @@ class StaticReflectionInterface extends \ReflectionClass
         return $this->_filterCollectedObjects( $filter, $objects );
     }
 
+    /**
+     * Filters the given array against the given filter bitfield.
+     *
+     * @param integer        $filter  Bitfield with required object modifiers.
+     * @param array(objects) $objects List of ast objects.
+     *
+     * @return array(objects)
+     */
     private function _filterCollectedObjects( $filter, array $objects )
     {
         $result = array();
@@ -903,6 +920,11 @@ class StaticReflectionInterface extends \ReflectionClass
         throw new \ReflectionException( 'Method newInstanceArgs() is not supported' );
     }
 
+    /**
+     * Returns a string representation of this reflection instance.
+     *
+     * @return string
+     */
     public function __toString()
     {
         return '';
