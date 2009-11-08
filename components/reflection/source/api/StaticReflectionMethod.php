@@ -50,12 +50,19 @@ namespace org\pdepend\reflection\api;
 /**
  * Static method implementation.
  *
- * @author  Manuel Pichler <mapi@pdepend.org>
- * @license Copyright by Manuel Pichler
- * @version $Revision$
+ * @category  PHP
+ * @package   org\pdepend\reflection\api
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
 class StaticReflectionMethod extends \ReflectionMethod
 {
+    /**
+     * The type of this class.
+     */
     const TYPE = __CLASS__;
 
     /**
@@ -116,9 +123,11 @@ class StaticReflectionMethod extends \ReflectionMethod
     private $_endLine = -1;
 
     /**
-     * @param string  $name
-     * @param string  $docComment
-     * @param integer $modifiers
+     * Constructs a new reflection method instance.
+     *
+     * @param string  $name       The method name.
+     * @param string  $docComment Doc comment declared for this method
+     * @param integer $modifiers  Bitfield with method modifiers.
      */
     public function __construct( $name, $docComment, $modifiers )
     {
@@ -224,7 +233,7 @@ class StaticReflectionMethod extends \ReflectionMethod
      * @return void
      * @access private
      */
-    public function _setModifiers( $modifiers )
+    private function _setModifiers( $modifiers )
     {
         $expected = self::IS_PRIVATE | self::IS_PROTECTED | self::IS_PUBLIC
                   | self::IS_STATIC  | self::IS_ABSTRACT  | self::IS_FINAL;
@@ -521,8 +530,8 @@ class StaticReflectionMethod extends \ReflectionMethod
     /**
      * Initializes the parameters declared for the reflected method.
      *
-     * @param array(\org\pdepend\reflection\api\StaticReflectionParameter) $parameters
-     *        Allowed parameters for the reflected method.
+     * @param array(\org\pdepend\reflection\api\StaticReflectionParameter) $parameters Array
+     *        with allowed parameters for the reflected method.
      *
      * @return void
      * @access private
@@ -542,8 +551,8 @@ class StaticReflectionMethod extends \ReflectionMethod
     /**
      * Initializes the parameters declared for the reflected method.
      *
-     * @param array(\org\pdepend\reflection\api\StaticReflectionParameter) $parameters
-     *        Allowed parameters for the reflected method.
+     * @param array(\org\pdepend\reflection\api\StaticReflectionParameter) $parameters Array
+     *        with allowed parameters for the reflected method.
      *
      * @return void
      */
@@ -675,6 +684,8 @@ class StaticReflectionMethod extends \ReflectionMethod
 
     /**
      * Returns the prototype of the context function.
+     *
+     * @return \ReflectionMethod
      */
     public function getPrototype()
     {
