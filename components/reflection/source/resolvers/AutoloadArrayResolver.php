@@ -124,7 +124,7 @@ class AutoloadArrayResolver implements SourceResolver
     /**
      * Returns the file pathname where the given class is defined.
      *
-     * @param string $className
+     * @param string $className Name of the searched class that should.
      *
      * @return string
      * @throws \org\pdepend\reflection\exceptions\PathnameNotFoundException When
