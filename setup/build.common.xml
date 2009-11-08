@@ -2,9 +2,10 @@
 <project name="common-ant-targets" basedir=".">
 
     <!--
-        Some common settings for a project.
+        Some common settings for all project.
     -->
     <property name="builddir" value="${basedir}/build" />
+    <property name="coding.standard" value="PDepend2" />
 
     <target name="dist" depends="build,tag" description="Default distribution build" />
 
@@ -31,7 +32,7 @@
         - Static code analysis
         - Lint checks
     -->
-    <target name="test" depends="prepare,lint,alltest,unittest" />
+    <target name="test" depends="prepare,checkstyle,lint,alltest,unittest" />
 
     <!--
         Performance syntax error checks on the project sources.
@@ -54,9 +55,7 @@
         or compatibility tests. 
     -->
     <target name="alltest">
-        <exec dir="${basedir}/test"
-              failonerror="true"
-              executable="phpunit">
+        <exec dir="${basedir}/test" failonerror="true" executable="phpunit">
             <arg line="AllTests.php" />
         </exec>
     </target>
@@ -66,14 +65,25 @@
         the project sources.
     -->
     <target name="unittest">
-        <exec dir="${basedir}/test"
-              failonerror="true"
-              executable="phpunit">
+        <exec dir="${basedir}/test" failonerror="true" executable="phpunit">
             <arg line="--group unittest" />
             <arg line="--coverage-html   ${basedir}/build/coverage" />
             <arg line="--coverage-clover ${basedir}/build/logs/clover.xml" />
             <arg line="--log-junit       ${basedir}/build/logs/junit.xml" />
             <arg line="AllTests.php" />
+        </exec>
+    </target>
+
+    <!--
+        Validates that the project code is compatible with the project's coding
+        conventions.
+    -->
+    <target name="checkstyle">
+        <exec dir="${basedir}" failonerror="true" executable="phpcs">
+            <arg line="--standard=${coding.standard}" />
+            <arg line="--report=checkstyle" />
+            <arg line="--report-file=${basedir}/build/logs/checkstyle.xml" />
+            <arg line="${basedir}/source" />
         </exec>
     </target>
 
