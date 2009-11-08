@@ -47,8 +47,25 @@
 
 namespace org\pdepend\reflection\exceptions;
 
+/**
+ * This type of exception will be thrown by the parser when it reaches the end
+ * of the token stream before it should end.
+ *
+ * @category  PHP
+ * @package   org\pdepend\reflection\exceptions
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
+ */
 class EndOfTokenStreamException extends ParserException
 {
+    /**
+     * Constructs a new exception instance.
+     *
+     * @param string $fileName Name of the currently parsed file.
+     */
     public function __construct( $fileName )
     {
         parent::__construct( 'Unexpected end of token stream in file ' . $fileName );
