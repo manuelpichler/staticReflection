@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="buzz2ee-commons" basedir=".">
+<project name="common-ant-targets" basedir=".">
 
     <!--
-        Some common settings for all buzz2ee sub projects.
+        Some common settings for a project.
     -->
     <property name="builddir" value="${basedir}/build" />
 
-    <target name="dist" depends="build,tag" description="Default distribution build: Buzz2EE commons" />
+    <target name="dist" depends="build,tag" description="Default distribution build" />
 
     <target name="clean">
         <delete dir="${builddir}" includeemptydirs="true" />
@@ -23,21 +23,53 @@
         <mkdir dir="${builddir}/coverage" />
     </target>
 
-    <target name="test" depends="prepare,lint,unittest" />
+    <!--
+        Tests several aspects of the project.
 
+        - Unit Tests
+        - Other Tests
+        - Static code analysis
+        - Lint checks
+    -->
+    <target name="test" depends="prepare,lint,alltest,unittest" />
+
+    <!--
+        Performance syntax error checks on the project sources.
+    -->
     <target name="lint">
         <apply executable="php" failonerror="true">
             <arg value="-l" />
             <fileset dir="${basedir}/source">
                 <include name="**/*.php" />
             </fileset>
+            <fileset dir="${basedir}/test">
+                <include name="**/*.php" />
+                <exclude name="_source/**" />
+            </fileset>
         </apply>
     </target>
 
+    <!--
+        Executes all tests for a project, includes unit, functional, integration
+        or compatibility tests. 
+    -->
+    <target name="alltest">
+        <exec dir="${basedir}/test"
+              failonerror="true"
+              executable="phpunit">
+            <arg line="AllTests.php" />
+        </exec>
+    </target>
+
+    <!--
+        Executes all unittests for a project and collects the coverage data for
+        the project sources.
+    -->
     <target name="unittest">
         <exec dir="${basedir}/test"
               failonerror="true"
               executable="phpunit">
+            <arg line="--group unittest" />
             <arg line="--coverage-html   ${basedir}/build/coverage" />
             <arg line="--coverage-clover ${basedir}/build/logs/clover.xml" />
             <arg line="--log-junit       ${basedir}/build/logs/junit.xml" />
@@ -46,15 +78,18 @@
     </target>
 
     <target name="tag" depends="init">
+
+        <buildnumber />
+        
         <!--
         <exec dir="${basedir}"
               executable="svn">
             <arg line="copy" />
             <arg line="." />
-            <arg line="${repository}/tags/${ant.project.name}/${build.year}-kw${build.week}-qa-rev${revision}" />
+            <arg line="${repository}/tags/${ant.project.name}/${build.year}-kw${build.week}-qa-build${build.number}" />
         </exec>
         -->
-        <echo message="svn copy . ${repository}/tags/${ant.project.name}/${build.year}-kw${build.week}-qa-rev${revision}" />
+        <echo message="svn copy . ${repository}/tags/${ant.project.name}/${build.year}-kw${build.week}-qa-build${build.number}" />
     </target>
 
     <target name="init">
@@ -68,7 +103,6 @@
                      collapseAttributes="true" />
 
         <property name="repository" value="${info.entry.repository.root}" />
-        <property name="revision" value="${info.entry.commit.revision}" />
 
         <tstamp>
             <format property="build.year" pattern="yyyy" />
