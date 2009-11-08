@@ -50,7 +50,7 @@ namespace org\pdepend\reflection;
 require_once 'BaseTest.php';
 
 /**
- * Test case for the reflection session class.
+ * Test case for the reflection class cache.
  *
  * @category  PHP
  * @package   org\pdepend\reflection
@@ -60,6 +60,60 @@ require_once 'BaseTest.php';
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class ReflectionSessionTest extends BaseTest
+class ReflectionClassCacheTest extends BaseTest
 {
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionClassCache
+     * @group reflection
+     * @group unittest
+     */
+    public function testHasReturnsFalseWhenNoMatchingClassExists()
+    {
+        $cache = new ReflectionClassCache();
+        $this->assertFalse( $cache->has( __CLASS__ ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionClassCache
+     * @group reflection
+     * @group unittest
+     */
+    public function testHasReturnsTrueWhenMatchingClassExists()
+    {
+        $cache = new ReflectionClassCache();
+        $cache->store( new \ReflectionClass( __CLASS__ ) );
+
+        $this->assertTrue( $cache->has( __CLASS__ ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionClassCache
+     * @group reflection
+     * @group unittest
+     */
+    public function testRestoreReturnsPreviousRegisteredClassInstance()
+    {
+        $class = new \ReflectionClass( __CLASS__ );
+        
+        $cache = new ReflectionClassCache();
+        $cache->store( $class );
+
+        $this->assertSame( $class, $cache->restore( __CLASS__ ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionClassCache
+     * @group reflection
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testRestoreThrowsLogicExceptionWhenNoMatchingClassExists()
+    {
+        $cache = new ReflectionClassCache();
+        $cache->restore( __CLASS__ );
+    }
 }
