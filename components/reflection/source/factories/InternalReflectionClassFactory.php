@@ -87,8 +87,8 @@ class InternalReflectionClassFactory implements ReflectionClassFactory
      * @return boolean
      * @throws \ReflectionException
      */
-    public function createClass( $class )
+    public function createClass( $className )
     {
-        return new \ReflectionClass( $class );
+        return new \ReflectionClass( $className );
     }
 }
