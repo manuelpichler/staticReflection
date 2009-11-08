@@ -409,6 +409,9 @@ class ReflectionClassProxy extends \ReflectionClass
      * Returns an array with all methods within the inheritence hierarchy of this
      * class or interface.
      *
+     * @param integer $filter Optional bitfield describing the modifiers a returned
+     *        method must have.
+     *
      * @return array(\ReflectionMethod)
      */
     public function getMethods( $filter = -1 )
@@ -443,6 +446,9 @@ class ReflectionClassProxy extends \ReflectionClass
     /**
      * Returns all properties declared on the current class or one of it's
      * parents.
+     *
+     * @param integer $filter Optional bitfield describing the modifiers a returned
+     *        property must have.
      *
      * @return array(\ReflectionProperty)
      */
@@ -566,6 +572,11 @@ class ReflectionClassProxy extends \ReflectionClass
         return $this->_getProxySubject()->newInstanceArgs( $args );
     }
 
+    /**
+     * Returns a string representation of the underlying class or interface.
+     *
+     * @return string
+     */
     public function __toString()
     {
         return $this->_getProxySubject()->__toString();
