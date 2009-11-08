@@ -48,25 +48,36 @@
 namespace org\pdepend\reflection\parser;
 
 /**
- * Simple token object.
+ * Simple value object that represents a source token.
  *
- * @author  Manuel Pichler <mapi@pdepend.org>
- * @license Copyright by Manuel Pichler
- * @version $Revision$
+ * @category  PHP
+ * @package   org\pdepend\reflection\parser
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2008-2009 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   Release: @package_version@
+ * @link      http://pdepend.org/
  */
 class Token
 {
     /**
+     * Real token offset within the token array returned by the php function
+     * <b>token_get_all()</b>.
+     *
      * @var integer
      */
     public $offset = 0;
 
     /**
+     * The type or identifier of this token.
+     *
      * @var integer
      */
     public $type = 0;
 
     /**
+     * The textual token representation.
+     *
      * @var string
      */
     public $image = null;
@@ -86,11 +97,13 @@ class Token
     public $endLine = 0;
 
     /**
-     * @param integer $offset
-     * @param integer $type
-     * @param string  $image
-     * @param integer $startLine
-     * @param integer $endLine
+     * Constructs a new token instan ce.
+     *
+     * @param integer $offset    The original token offset.
+     * @param integer $type      The internal token identifier.
+     * @param string  $image     The textual representation of this token.
+     * @param integer $startLine The token start line within the source file.
+     * @param integer $endLine   The token end line within the source file.
      */
     public function __construct( $offset, $type, $image, $startLine, $endLine )
     {
@@ -104,6 +117,8 @@ class Token
     // @codeCoverageIgnoreStart
 
     /**
+     * Returns a string representation of this token.
+     * 
      * @return string
      */
     public function __toString()
