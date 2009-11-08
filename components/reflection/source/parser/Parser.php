@@ -71,6 +71,8 @@ use org\pdepend\reflection\exceptions\UnexpectedTokenException;
 class Parser
 {
     /**
+     * The used parsing context that will be used to retriev reflection
+     * interfaces or classes the currently parsed class depends on.
      * 
      * @var \org\pdepend\reflection\interfaces\ParserContext
      */
@@ -149,7 +151,9 @@ class Parser
     /**
      * Constructs a new parser instance.
      *
-     * @param \org\pdepend\reflection\interfaces\ParserContext $context
+     * @param \org\pdepend\reflection\interfaces\ParserContext $context The used
+     *        parsing context that will be used to retriev reflection interfaces
+     *        or classes the currently parsed class depends on.
      */
     public function __construct( ParserContext $context )
     {
@@ -157,6 +161,12 @@ class Parser
     }
 
     /**
+     * Parses the given file and returns reflection class instances for all
+     * found classes or interfaces.
+     *
+     * @param string $pathName The pathname of file which contains the class or
+     *        interface that must be parsed by the parser.
+     *
      * @return array(\org\pdepend\reflection\api\StaticReflectionInterface)
      */
     public function parseFile( $pathName )
@@ -166,6 +176,12 @@ class Parser
     }
 
     /**
+     * Parses the given source code and returns reflection class instances for
+     * all found classes or interfaces.
+     *
+     * @param string $source The source code of a php file that must be parsed
+     *        by the parser.
+     *
      * @return array(\org\pdepend\reflection\api\StaticReflectionInterface)
      */
     public function parseSource( $source )
@@ -174,7 +190,15 @@ class Parser
     }
 
     /**
+     * This method parses the given source code and returns instances of
+     * <b>\ReflectionClass</b> for all detected interfaces or classes.
+     *
+     * @param string $source The source code of a php file that must be parsed
+     *        by the parser.
+     *
      * @return array(\org\pdepend\reflection\api\StaticReflectionInterface)
+     * @throws \org\pdepend\reflection\exceptions\ParserException When the parser
+     *         detects an error during the parsing process.
      */
     private function _parse( $source )
     {
@@ -236,8 +260,19 @@ class Parser
     }
 
     /**
+     * This method parses a namespace declaration in both syntax versions that
+     * are valid for PHP. The one terminated with a semicolon and the one with
+     * surrounding curly braces. The parsed namespace will be stored in a local
+     * property and will be used as default namespace for all interfaces and
+     * classes that are parsed later.
      *
      * @return void
+     * @throws \org\pdepend\reflection\exceptions\UnexpectedTokenException When
+     *         this method detects a token within the token stream that is not
+     *         allowed within a namespace declaration.
+     * @throws \org\pdepend\reflection\exceptions\EndOfTokenStreamException When
+     *         this method reaches the end of the token stream before it finds
+     *         the final token <b>;</b> or <b>{</b>.
      */
     private function _parseNamespace()
     {
@@ -267,6 +302,22 @@ class Parser
         throw new EndOfTokenStreamException( $this->_pathName );
     }
 
+    /**
+     * This method parses a variable list of use statements.
+     *
+     * <code>
+     * use foo\bar,
+     *     foobar as f,
+     *     foo\baz as fb;
+     * </code>
+     *
+     * @return void
+     * @throws \org\pdepend\reflection\exceptions\ParserException When the parser
+     *         detects an error during the parsing process.
+     * @throws \org\pdepend\reflection\exceptions\EndOfTokenStreamException When
+     *         this method reaches the end of the underlying token stream before
+     *         it completes the currently parsed use statement.
+     */
     private function _parseUseStatements()
     {
         do
@@ -276,6 +327,27 @@ class Parser
         while ( $token->type === ParserTokens::T_COMMA );
     }
 
+    /**
+     * This method parses a single use statement with an optional alias
+     * declaration.
+     *
+     * <code>
+     * use foo\bar;
+     * </code>
+     *
+     * Or with an alias:
+     *
+     * <code>
+     * use foo\bar as fb;
+     * </code>
+     *
+     * @return \org\pdepend\reflection\parser\Token
+     * @throws \org\pdepend\reflection\exceptions\ParserException When the parser
+     *         detects an error during the parsing process.
+     * @throws \org\pdepend\reflection\exceptions\EndOfTokenStreamException When
+     *         this method reaches the end of the underlying token stream before
+     *         it completes the currently parsed use statement.
+     */
     private function _parseUseStatement()
     {
         $namespace = '';
@@ -307,7 +379,21 @@ class Parser
     }
 
     /**
+     * This method parses a complete class declartion, starting from its name,
+     * an optional parent class, implemented interface and its body with methods,
+     * properties and constants.
+     *
+     * @param string  $docComment The content of a doc comment token found
+     *        directly before the the <b>class</b> keyword.
+     * @param integer $modifiers  Optional modifier like <b>abstract</b> or
+     *        <b>final</b> that belong to the currently parsed class.
+     *
      * @return \org\pdepend\reflection\api\StaticReflectionClass
+     * @throws \org\pdepend\reflection\exceptions\ParserException When the parser
+     *         detects an error during the parsing process.
+     * @throws \org\pdepend\reflection\exceptions\EndOfTokenStreamException When
+     *         this method reaches the end of the underlying token stream before
+     *         it completes the currently parsed class declaration.
      */
     private function _parseClassDeclaration( $docComment, $modifiers )
     {
@@ -346,7 +432,18 @@ class Parser
     }
 
     /**
+     * Parses a complement interface declaration with the interface name,
+     * optional parent interfaces and the interface body.
+     *
+     * @param string $docComment The content of a doc comment token found
+     *        directly before the the <b>interface</b> keyword.
+     *
      * @return \org\pdepend\reflection\api\StaticReflectionInterface
+     * @throws \org\pdepend\reflection\exceptions\ParserException When the parser
+     *         detects an error during the parsing process.
+     * @throws \org\pdepend\reflection\exceptions\EndOfTokenStreamException When
+     *         this method reaches the end of the token stream before it has
+     *         completed the current interface declaration.
      */
     private function _parseInterfaceDeclaration( $docComment )
     {
@@ -380,7 +477,17 @@ class Parser
     }
 
     /**
+     * This method parses a list of interfaces names as they can occure after
+     * the <b>implements</b> keyword within a class declaration or the
+     * <b>extends</b> keyword in an interface definition. It returns an array
+     * with <b>\ReflectionClass</b> instances for all parsed interface names.
+     *
      * @return array(\ReflectionClass)
+     * @throws \org\pdepend\reflection\exceptions\ParserException When the parser
+     *         detects an error during the parsing process.
+     * @throws \org\pdepend\reflection\exceptions\EndOfTokenStreamException When
+     *         this method reaches the end of the underlying token stream before
+     *         it completes the interface list parsing process.
      */
     private function _parseInterfaceList()
     {
@@ -414,6 +521,8 @@ class Parser
      * the currently parsed source.
      *
      * @return \ReflectionClass
+     * @throws \org\pdepend\reflection\exceptions\ParserException When the parser
+     *         detects an error during the parsing process.
      */
     private function _parseClassOrInterface()
     {
@@ -426,13 +535,29 @@ class Parser
     }
 
     /**
+     * This method parses a valid PHP class or interface name. This implementation
+     * supports simple PHP < 5.3 names, but also full qualified PHP 5.3 names
+     * with namespace.
+     *
      * @return string
+     * @throws \org\pdepend\reflection\exceptions\ParserException When the parser
+     *         detects an error during the parsing process.
      */
     private function _parseClassOrInterfaceName()
     {
         return $this->_createClassOrInterfaceName( $this->_parseIdentifier() );
     }
 
+    /**
+     * This method parses a valid PHP identifier for classes, interfaces,
+     * constants or functions. It will handles simple PHP < 5.3 identifies, but
+     * also namespaced class names, function calls or constant references. The
+     * returned array contains all tokens that are part of the identifier.
+     *
+     * @return array(string)
+     * @throws \org\pdepend\reflection\exceptions\ParserException When the parser
+     *         detects an error during the identifier parsing process.
+     */
     private function _parseIdentifier()
     {
         $name = array();
@@ -473,6 +598,22 @@ class Parser
         return $name;
     }
 
+    /**
+     * This method parses the body of a class or interface. When this method has
+     * reached the end of the body it will return the line number of the closing
+     * curly brace.
+     *
+     * @param integer $defaultModifiers Optional default modifiers for detected
+     *        methods or properties within the class or interface body.
+     *
+     * @return integer
+     * @throws \org\pdepend\reflection\exceptions\UnexpectedTokenException When
+     *         the parser detects an unexpected token within the body of the
+     *         currently parsed class or interface.
+     * @throws \org\pdepend\reflection\exceptions\EndOfTokenStreamException When
+     *         the parser reaches the end of the token stream before it has
+     *         reached the end of the class or interface body.
+     */
     private function _parseClassOrInterfaceScope( $defaultModifiers = 0 )
     {
         $this->_methods    = array();
@@ -1018,8 +1159,8 @@ class Parser
                 $value .= ')';
                 return $value;
 
-            case ParserTokens::T_NAMESPACE;
-            case ParserTokens::T_NS_SEPARATOR;
+            case ParserTokens::T_NAMESPACE:
+            case ParserTokens::T_NS_SEPARATOR:
                 $value = '__StaticReflectionConstantValue(';
 
                 $value .= $this->_parseClassOrInterfaceName();
@@ -1033,10 +1174,8 @@ class Parser
                 }
                 $value .= ')';
                 return $value;
-
-            default:
-                throw new UnexpectedTokenException( $this->_next(), $this->_pathName );
         }
+        throw new UnexpectedTokenException( $this->_next(), $this->_pathName );
     }
 
     /**
