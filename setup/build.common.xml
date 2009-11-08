@@ -92,7 +92,7 @@
         <echo message="svn copy . ${repository}/tags/${ant.project.name}/${build.year}-kw${build.week}-qa-build${build.number}" />
     </target>
 
-    <target name="init">
+    <target name="init" depends="prepare">
         <exec executable="svn" dir="${basedir}" output="${builddir}/~svn-info.xml">
             <arg line="info" />
             <arg line="--xml" />
