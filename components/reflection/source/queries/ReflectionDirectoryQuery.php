@@ -86,7 +86,7 @@ class ReflectionDirectoryQuery extends ReflectionQuery
     public function findByDirectory( $directory )
     {
         $classes = array();
-        foreach ( $this->_createIterator($directory) as $fileInfo )
+        foreach ( $this->_createIterator( $directory ) as $fileInfo )
         {
             if ( $fileInfo->isFile() === false )
             {
