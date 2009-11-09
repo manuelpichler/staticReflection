@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   org\pdepend\reflection\queries
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,23 +45,17 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection;
+namespace org\pdepend\reflection\queries;
 
 require_once 'PHPUnit/Framework.php';
 
-require_once 'api/AllTests.php';
-require_once 'factories/AllTests.php';
-require_once 'parser/AllTests.php';
-require_once 'queries/AllTests.php';
-require_once 'resolvers/AllTests.php';
-
-require_once 'ReflectionClassCacheTest.php';
+require_once 'ReflectionClassQueryTest.php';
 
 /**
- * Main component test suite
+ * Main test suite.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   org\pdepend\reflection\queries
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -75,19 +69,13 @@ class AllTests extends \PHPUnit_Framework_TestSuite
      */
     public function __construct()
     {
-        $this->setName( 'org::pdepend::reflection::AllTests' );
+        $this->setName( 'org::pdepend::reflection::queries::AllTests' );
 
         \PHPUnit_Util_Filter::addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../source/' )
+            realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassCacheTest' );
-
-        $this->addTest( api\AllTests::suite() );
-        $this->addTest( factories\AllTests::suite() );
-        $this->addTest( parser\AllTests::suite() );
-        $this->addTest( queries\AllTests::suite() );
-        $this->addTest( resolvers\AllTests::suite() );
+        $this->addTestSuite( '\org\pdepend\reflection\queries\ReflectionClassQueryTest' );
     }
 
     /**

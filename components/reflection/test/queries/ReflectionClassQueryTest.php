@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   org\pdepend\reflection\queries
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,58 +45,82 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection;
+namespace org\pdepend\reflection\queries;
 
-require_once 'PHPUnit/Framework.php';
-
-require_once 'api/AllTests.php';
-require_once 'factories/AllTests.php';
-require_once 'parser/AllTests.php';
-require_once 'queries/AllTests.php';
-require_once 'resolvers/AllTests.php';
-
-require_once 'ReflectionClassCacheTest.php';
+require_once 'BaseTest.php';
 
 /**
- * Main component test suite
+ * Test cases for the reflection class query.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   org\pdepend\reflection\queries
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class AllTests extends \PHPUnit_Framework_TestSuite
+class ReflectionClassQueryTest extends \org\pdepend\reflection\BaseTest
 {
     /**
-     * Constructs a new test suite instance.
+     * @return void
+     * @covers \org\pdepend\reflection\queries\ReflectionClassQuery
+     * @group reflection
+     * @group reflection::queries
+     * @group unittest
      */
-    public function __construct()
+    public function testFindByNameStopsProcessingWhenFactoryCanHandleTheClass()
     {
-        $this->setName( 'org::pdepend::reflection::AllTests' );
+        $factory1 = $this->createFactory();
+        $factory1->expects( $this->once() )
+            ->method( 'hasClass' )
+            ->with( $this->equalTo( 'QueryClass' ) )
+            ->will( $this->returnValue( true ) );
 
-        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../source/' )
-        );
+        $factory2 = $this->createFactory();
+        $factory2->expects( $this->never() )
+            ->method( 'hasClass' );
 
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassCacheTest' );
-
-        $this->addTest( api\AllTests::suite() );
-        $this->addTest( factories\AllTests::suite() );
-        $this->addTest( parser\AllTests::suite() );
-        $this->addTest( queries\AllTests::suite() );
-        $this->addTest( resolvers\AllTests::suite() );
+        $query = new ReflectionClassQuery( array( $factory1, $factory2 ) );
+        $query->findByName( 'QueryClass' );
     }
 
     /**
-     * Returns a test suite instance.
-     *
-     * @return PHPUnit_Framework_TestSuite
+     * @return void
+     * @covers \org\pdepend\reflection\queries\ReflectionClassQuery
+     * @group reflection
+     * @group reflection::queries
+     * @group unittest
      */
-    public static function suite()
+    public function testFindByNameIteratesOverAllRegisteredFactories()
     {
-        return new AllTests();
+        $factory1 = $this->createFactory();
+        $factory1->expects( $this->once() )
+            ->method( 'hasClass' )
+            ->with( $this->equalTo( 'QueryClass' ) )
+            ->will( $this->returnValue( false ) );
+
+        $factory2 = $this->createFactory();
+        $factory2->expects( $this->once() )
+            ->method( 'hasClass' )
+            ->with( $this->equalTo( 'QueryClass' ) )
+            ->will( $this->returnValue( true ) );
+
+        $query = new ReflectionClassQuery( array( $factory1, $factory2 ) );
+        $query->findByName( 'QueryClass' );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\queries\ReflectionClassQuery
+     * @group reflection
+     * @group reflection::queries
+     * @group unittest
+     * @expectedException \ReflectionException
+     */
+    public function testFindByNameThrowsExceptionWhenNoMatchingClassExists()
+    {
+        $query = new ReflectionClassQuery( array() );
+        $query->findByName( __CLASS__ );
     }
 }
