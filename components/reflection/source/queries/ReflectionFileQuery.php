@@ -73,6 +73,11 @@ namespace org\pdepend\reflection\queries;
 class ReflectionFileQuery extends ReflectionQuery
 {
     /**
+     * The type of this class.
+     */
+    const TYPE = __CLASS__;
+
+    /**
      * Parses all classes and interfaces within the given source code file and
      * returns a <b>\ReflectionClass</b> instance for each of that items.
      *

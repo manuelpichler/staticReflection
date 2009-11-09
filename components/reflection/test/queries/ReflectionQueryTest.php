@@ -93,7 +93,7 @@ abstract class ReflectionQueryTest extends \org\pdepend\reflection\BaseTest
     protected function createSymlink( $source )
     {
         $this->_temp = sys_get_temp_dir() . '/' . uniqid( get_called_class() ) . '.php';
-        if ( function_exists( 'link' ) )
+        if ( function_exists( 'symlink' ) )
         {
             symlink( $source, $this->_temp );
         }

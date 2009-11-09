@@ -82,10 +82,23 @@ class InternalReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTes
      * @group reflection::factories
      * @group unittest
      */
-    public function testHasClassReturnsTrueForClassThatExist()
+    public function testHasClassReturnsTrueForClassThatExists()
     {
         $factory = new InternalReflectionClassFactory();
         $this->assertTrue( $factory->hasClass( __CLASS__ ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\factories\InternalReflectionClassFactory
+     * @group reflection
+     * @group reflection::factories
+     * @group unittest
+     */
+    public function testHasClassReturnsTrueForInterfaceThatExists()
+    {
+        $factory = new InternalReflectionClassFactory();
+        $this->assertTrue( $factory->hasClass( '\Iterator' ) );
     }
 
     /**

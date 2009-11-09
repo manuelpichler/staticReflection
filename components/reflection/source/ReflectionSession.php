@@ -64,14 +64,6 @@ use org\pdepend\reflection\interfaces\ReflectionClassFactory;
 class ReflectionSession
 {
     /**
-     * The source file resolver that will be used by the static reflection
-     * implementation to retrieve the source file name for a given class name.
-     *
-     * @var \org\pdepend\reflection\interfaces\SourceResolver
-     */
-    private $_resolver = null;
-
-    /**
      * The configured class factory stack. The session will ask each factory
      * for a given name in the order they were added.
      *
@@ -106,22 +98,6 @@ class ReflectionSession
         $session->addClassFactory( new factories\StaticReflectionClassFactory( new ReflectionClassProxyContext( $session ), $resolver ) );
 
         return $session;
-    }
-
-    /**
-     * Sets the source resolver that will be used to find a source code file for
-     * a given class name.
-     *
-     * @param \org\pdepend\reflection\interfaces\SourceResolver $resolver The
-     *        source file resolver that will be used by the static reflection
-     *        implementation to retrieve the source file name for a given class
-     *        name.
-     *
-     * @return void
-     */
-    protected function setResolver( SourceResolver $resolver )
-    {
-        $this->_resolver = $resolver;
     }
 
     /**

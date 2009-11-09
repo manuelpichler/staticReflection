@@ -62,8 +62,16 @@ require_once 'PHPUnit/Framework/TestCase.php';
  */
 abstract class BaseTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * Is autoloading already initialized?
+     *
+     * @var boolean
+     */
     private static $_initialized = false;
 
+    /**
+     * Constructs a new test instance.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -135,6 +143,33 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * This method will return <b>true</b> a source file for the given class
+     * name exists.
+     *
+     * @param string $className Name of the searched class.
+     *
+     * @return string
+     */
+    public function hasPathnameForClass( $className )
+    {
+        $localName = explode( '\\', $className );
+        $localName = array_pop( $localName );
+
+        $files = new \RecursiveIteratorIterator(
+            new \RecursiveDirectoryIterator( __DIR__ . '/_source' )
+        );
+
+        foreach ( $files as $file )
+        {
+            if ( pathinfo( $file->getFilename(), PATHINFO_FILENAME ) == $localName )
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * This method will return the pathname of the source file for the given
      * class.
      *
@@ -182,6 +217,11 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         }
     }
 
+    /**
+     * Creates a mocked reflection factory instance.
+     *
+     * @return \org\pdepend\reflection\interfaces\ReflectionClassFactory
+     */
     protected function createFactory()
     {
         $factory = $this->getMock( 'org\pdepend\reflection\interfaces\ReflectionClassFactory' );
@@ -192,6 +232,11 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         return $factory;
     }
 
+    /**
+     * Creates a mocked parser context instance.
+     *
+     * @return \org\pdepend\reflection\interfaces\ParserContext
+     */
     protected function createContext()
     {
         $session = $this->getMock( 'org\pdepend\reflection\interfaces\ParserContext' );
@@ -202,13 +247,29 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         return $session;
     }
 
+    /**
+     * Creates a mocked source resolver instance.
+     *
+     * @return \org\pdepend\reflection\interfaces\SourceResolver
+     */
     protected function createResolver()
     {
         $resolver = $this->getMock( 'org\pdepend\reflection\interfaces\SourceResolver' );
         $resolver->expects( $this->any() )
             ->method( 'getPathnameForClass' )
             ->will( $this->returnCallback( array( $this, 'getPathnameForClass' ) ) );
+        
         return $resolver;
+    }
+
+    /**
+     * Creates a mocked reflection session instance
+     *
+     * @return \org\pdepend\reflection\ReflectionSession
+     */
+    protected function createSession()
+    {
+        return $this->getMock( 'org\pdepend\reflection\ReflectionSession' );
     }
 
     public static function autoload( $className )

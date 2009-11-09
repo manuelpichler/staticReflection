@@ -62,6 +62,11 @@ namespace org\pdepend\reflection;
 class ReflectionClassProxy extends \ReflectionClass
 {
     /**
+     * The type of this class.
+     */
+    const TYPE = __CLASS__;
+
+    /**
      * The currently used reflection session instance.
      *
      * @var \org\pdepend\reflection\ReflectionSession

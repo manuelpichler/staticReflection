@@ -55,7 +55,9 @@ require_once 'parser/AllTests.php';
 require_once 'queries/AllTests.php';
 require_once 'resolvers/AllTests.php';
 
+require_once 'ReflectionSessionTest.php';
 require_once 'ReflectionClassCacheTest.php';
+require_once 'ReflectionClassProxyContextTest.php';
 
 /**
  * Main component test suite
@@ -82,12 +84,15 @@ class AllTests extends \PHPUnit_Framework_TestSuite
         );
 
         $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassCacheTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassProxyContextTest' );
 
         $this->addTest( api\AllTests::suite() );
         $this->addTest( factories\AllTests::suite() );
         $this->addTest( parser\AllTests::suite() );
         $this->addTest( queries\AllTests::suite() );
         $this->addTest( resolvers\AllTests::suite() );
+
+        $this->addTestSuite( '\org\pdepend\reflection\ReflectionSessionTest' );
     }
 
     /**

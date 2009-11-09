@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\queries
+ * @package   org\pdepend\reflection
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,84 +45,32 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection\queries;
+namespace org\pdepend\reflection;
+
+require_once 'BaseTest.php';
 
 /**
- * This query class allows access to reflection class instances for all classes
- * and interfaces declared in a given directory.
- *
- * <code>
- * $query   = $session->createDirectoryQuery();
- * $classes = $query->findByDirectory( __DIR__ . '/source' );
- *
- * foreach ( $classes as $class )
- * {
- *     echo 'Class: ', $class->getShortName(), PHP_EOL,
- *          'File:  ', $class->getFileName(), PHP_EOL,
- *          '-- ', PHP_EOL;
- * }
- * </code>
+ * Test case for the reflection proxy parser context.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\queries
+ * @package   org\pdepend\reflection
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class ReflectionDirectoryQuery extends ReflectionQuery
+class ReflectionClassProxyContextTest extends BaseTest
 {
     /**
-     * The type of this class.
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionClassProxyContext
+     * @group reflection
+     * @group unittest
      */
-    const TYPE = __CLASS__;
-
-    /**
-     * This method will create reflection class instances for all interfaces
-     * and classes that can be found in the source code files within the given
-     * directory.
-     *
-     * @param string $directory The source directory that is the target of the
-     *        class search.
-     *
-     * @return array(\ReflectionClass)
-     */
-    public function findByDirectory( $directory )
+    public function testGetClassReturnsProxyReflectionClassInstance()
     {
-        if ( file_exists( $directory ) === false || is_file( $directory ) )
-        {
-            throw new \LogicException( 'Invalid or not existant directory ' . $directory );
-        }
-
-        $classes = array();
-        foreach ( $this->_createIterator( $directory ) as $fileInfo )
-        {
-            if ( $fileInfo->isFile() === false )
-            {
-                continue;
-            }
-            foreach ( $this->parseFile( $fileInfo->getRealpath() ) as $class )
-            {
-                $classes[] = $class;
-            }
-        }
-        return $classes;
-    }
-
-    /**
-     * This method returns a iterator with all files that could be found within
-     * the given source directory.
-     *
-     * @param string $directory The source directory that is the target of the
-     *        class search.
-     *
-     * @return Iterator
-     */
-    private function _createIterator( $directory )
-    {
-        return new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator( $directory )
-        );
+        $context = new ReflectionClassProxyContext( $this->createSession() );
+        $this->assertType( ReflectionClassProxy::TYPE, $context->getClass( 'Foo' ) );
     }
 }

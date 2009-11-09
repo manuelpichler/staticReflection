@@ -62,4 +62,134 @@ require_once 'BaseTest.php';
  */
 class ReflectionSessionTest extends BaseTest
 {
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSession
+     * @group reflection
+     * @group unittest
+     */
+    public function testCreateDefaultSessionCreatesExpectedFactoryStack()
+    {
+        $resolver = $this->createResolver();
+        $resolver->expects( $this->once() )
+            ->method( 'hasPathnameForClass' )
+            ->with( $this->equalTo( 'SessionSimpleClass' ) )
+            ->will( $this->returnValue( true ) );
+
+        $session = ReflectionSession::createDefaultSession( $resolver );
+
+        $query = $session->createClassQuery();
+        $class = $query->findByName( 'SessionSimpleClass' );
+
+        $this->assertEquals( 'SessionSimpleClass', $class->getName() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSession
+     * @group reflection
+     * @group unittest
+     */
+    public function testCreateDefaultSessionCreatesExpectedFactoryStackWithInternalApiFirst()
+    {
+        $session = ReflectionSession::createDefaultSession( $this->createResolver() );
+
+        $query = $session->createClassQuery();
+        $class = $query->findByName( 'Iterator' );
+
+        $this->assertTrue( $class->isInternal() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSession
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetClassExecutesConfiguredReflectionClassFactory()
+    {
+        $factory = $this->getMock( '\org\pdepend\reflection\interfaces\ReflectionClassFactory' );
+        $factory->expects( $this->once() )
+            ->method( 'hasClass' )
+            ->with( $this->equalTo( __CLASS__ ) )
+            ->will( $this->returnValue( true ) );
+        $factory->expects( $this->once() )
+            ->method( 'createClass' )
+            ->with( $this->equalTo( __CLASS__ ) )
+            ->will( $this->returnValue( $this ) );
+
+        $session = new ReflectionSession();
+        $session->addClassFactory( $factory );
+
+        $this->assertSame( $this, $session->getClass( __CLASS__ ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSession
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetClassExecutesConfiguredReflectionClassFactoriesInAddOrder()
+    {
+        $factory1 = $this->getMock( '\org\pdepend\reflection\interfaces\ReflectionClassFactory' );
+        $factory1->expects( $this->once() )
+            ->method( 'hasClass' )
+            ->with( $this->equalTo( __CLASS__ ) )
+            ->will( $this->returnValue( false ) );
+        $factory1->expects( $this->never() )
+            ->method( 'createClass' );
+
+        $factory2 = $this->getMock( '\org\pdepend\reflection\interfaces\ReflectionClassFactory' );
+        $factory2->expects( $this->once() )
+            ->method( 'hasClass' )
+            ->with( $this->equalTo( __CLASS__ ) )
+            ->will( $this->returnValue( true ) );
+        $factory2->expects( $this->once() )
+            ->method( 'createClass' )
+            ->with( $this->equalTo( __CLASS__ ) )
+            ->will( $this->returnValue( $this ) );
+
+        $session = new ReflectionSession();
+        $session->addClassFactory( $factory1 );
+        $session->addClassFactory( $factory2 );
+
+        $this->assertSame( $this, $session->getClass( __CLASS__ ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSession
+     * @group reflection
+     * @group unittest
+     */
+    public function testCreateClassQueryReturnsAnObjectOfExpectedType()
+    {
+        $session = new ReflectionSession();
+        $this->assertType( queries\ReflectionClassQuery::TYPE, $session->createClassQuery() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSession
+     * @group reflection
+     * @group unittest
+     */
+    public function testCreateFileQueryReturnsAnObjectOfExpectedType()
+    {
+        $session = new ReflectionSession();
+        $this->assertType( queries\ReflectionFileQuery::TYPE, $session->createFileQuery() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSession
+     * @group reflection
+     * @group unittest
+     */
+    public function testCreateDirectoryQueryReturnsAnObjectOfExpectedType()
+    {
+        $session = new ReflectionSession();
+        $this->assertType( queries\ReflectionDirectoryQuery::TYPE, $session->createDirectoryQuery() );
+    }
 }

@@ -71,6 +71,11 @@ namespace org\pdepend\reflection\queries;
 class ReflectionClassQuery
 {
     /**
+     * The type of the class.
+     */
+    const TYPE = __CLASS__;
+
+    /**
      * Stack of valid reflection class factories
      *
      * @var array(\org\pdepend\reflection\interfaces\ReflectionClassFactory)
