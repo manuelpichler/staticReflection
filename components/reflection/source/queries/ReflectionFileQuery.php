@@ -82,6 +82,10 @@ class ReflectionFileQuery extends ReflectionQuery
      */
     public function findByFile( $pathName )
     {
+        if ( file_exists( $pathName ) === false || is_file( $pathName ) === false )
+        {
+            throw new \LogicException( 'Invalid or not existant file ' . $pathName );
+        }
         return $this->parseFile( $pathName );
     }
 }
