@@ -85,6 +85,11 @@ class ReflectionDirectoryQuery extends ReflectionQuery
      */
     public function findByDirectory( $directory )
     {
+        if ( file_exists( $directory ) === false || is_file( $directory ) )
+        {
+            throw new \LogicException( 'Invalid or not existant directory ' . $directory );
+        }
+
         $classes = array();
         foreach ( $this->_createIterator( $directory ) as $fileInfo )
         {

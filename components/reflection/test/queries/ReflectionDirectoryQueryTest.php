@@ -47,10 +47,10 @@
 
 namespace org\pdepend\reflection\queries;
 
-require_once 'BaseTest.php';
+require_once 'ReflectionQueryTest.php';
 
 /**
- * Abstract base class for the file system based queries.
+ * Test cases for the reflection directory query.
  *
  * @category  PHP
  * @package   org\pdepend\reflection\queries
@@ -60,47 +60,69 @@ require_once 'BaseTest.php';
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-abstract class ReflectionQueryTest extends \org\pdepend\reflection\BaseTest
+class ReflectionDirectoryQueryTest extends ReflectionQueryTest
 {
     /**
-     * Temporary file name.
-     *
-     * @var string
-     */
-    private $_temp = null;
-
-    /**
-     * Clears temporary test resources.
-     *
      * @return void
+     * @covers \org\pdepend\reflection\queries\ReflectionQuery
+     * @covers \org\pdepend\reflection\queries\ReflectionDirectoryQuery
+     * @group reflection
+     * @group reflection::queries
+     * @group unittest
      */
-    protected function tearDown()
+    public function testFindByDirectoryReturnsExpectedResultArrayOfClasses()
     {
-        if ( $this->_temp !== null && file_exists( $this->_temp ) )
-        {
-            unlink( $this->_temp );
-        }
-        parent::tearDown();
+        $query  = new ReflectionDirectoryQuery( $this->createContext() );
+        $result = $query->findByDirectory( dirname( $this->getPathnameForClass( 'QueryClass' ) ) );
+
+        $this->assertEquals( 1, count( $result ) );
     }
 
     /**
-     * Creates a symlink for a given file or directory.
-     *
-     * @param string $source The input file or directory.
-     *
-     * @return string
+     * @return void
+     * @covers \org\pdepend\reflection\queries\ReflectionQuery
+     * @covers \org\pdepend\reflection\queries\ReflectionDirectoryQuery
+     * @group reflection
+     * @group reflection::queries
+     * @group unittest
      */
-    protected function createSymlink( $source )
+    public function testFindByDirectoryReturnsExpectedResultArrayOfClassesForDirectorySymlink()
     {
-        $this->_temp = sys_get_temp_dir() . '/' . uniqid( get_called_class() ) . '.php';
-        if ( function_exists( 'link' ) )
-        {
-            symlink( $source, $this->_temp );
-        }
-        if ( file_exists( $this->_temp ) === false )
-        {
-            $this->markTestSkipped( 'Cannot create symlink' );
-        }
-        return $this->_temp;
+        $link = $this->createSymlink( dirname( $this->getPathnameForClass( 'QueryClass' ) ) );
+
+        $query  = new ReflectionDirectoryQuery( $this->createContext() );
+        $result = $query->findByDirectory( $link );
+
+        $this->assertEquals( 1, count( $result ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\queries\ReflectionQuery
+     * @covers \org\pdepend\reflection\queries\ReflectionDirectoryQuery
+     * @group reflection
+     * @group reflection::queries
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testFindByDirectoryThrowsExceptionWhenGivenDirectoryIsFile()
+    {
+        $query  = new ReflectionDirectoryQuery( $this->createContext() );
+        $query->findByDirectory( __FILE__ );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\queries\ReflectionQuery
+     * @covers \org\pdepend\reflection\queries\ReflectionDirectoryQuery
+     * @group reflection
+     * @group reflection::queries
+     * @group unittest
+     * @expectedException \LogicException
+     */
+    public function testFindByDirectoryThrowsExceptionWhenGivenDirectoryNotExists()
+    {
+        $query  = new ReflectionDirectoryQuery( $this->createContext() );
+        $query->findByDirectory( __DIR__ . '/foobar' );
     }
 }
