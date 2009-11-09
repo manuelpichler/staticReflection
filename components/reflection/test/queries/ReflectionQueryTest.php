@@ -47,10 +47,10 @@
 
 namespace org\pdepend\reflection\queries;
 
-require_once 'ReflectionQueryTest.php';
+require_once 'BaseTest.php';
 
 /**
- * Test cases for the reflection file query.
+ * Abstract base class for the file system based queries.
  *
  * @category  PHP
  * @package   org\pdepend\reflection\queries
@@ -60,69 +60,58 @@ require_once 'ReflectionQueryTest.php';
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class ReflectionFileQueryTest extends ReflectionQueryTest
+abstract class ReflectionQueryTest extends \org\pdepend\reflection\BaseTest
 {
     /**
-     * @return void
-     * @covers \org\pdepend\reflection\queries\ReflectionQuery
-     * @covers \org\pdepend\reflection\queries\ReflectionFileQuery
-     * @group reflection
-     * @group reflection::queries
-     * @group unittest
+     * Temporary file name.
+     *
+     * @var string
      */
-    public function testFindByFileReturnsExpectedResultArrayOfClasses()
-    {
-        $query  = new ReflectionFileQuery( $this->createContext() );
-        $result = $query->findByFile( $this->getPathnameForClass( 'QueryClass' ) );
+    private $_temp = null;
 
-        $this->assertEquals( 1, count( $result ) );
+    /**
+     * Clears temporary test resources.
+     *
+     * @return void
+     */
+    protected function tearDown()
+    {
+        if ( $this->_temp !== null && file_exists( $this->_temp ) )
+        {
+            unlink( $this->_temp );
+        }
+        parent::tearDown();
     }
 
     /**
-     * @return void
-     * @covers \org\pdepend\reflection\queries\ReflectionQuery
-     * @covers \org\pdepend\reflection\queries\ReflectionFileQuery
-     * @group reflection
-     * @group reflection::queries
-     * @group unittest
+     * Creates a symlink for a given file or directory.
+     *
+     * @param string $source The input file or directory.
+     *
+     * @return string
      */
-    public function testFindByFileWorksWithSymlinkedFile()
+    protected function createSymlink( $source )
     {
-        $link = $this->createSymlink( $this->getPathnameForClass( 'QueryClass' ) );
-
-        $query  = new ReflectionFileQuery( $this->createContext() );
-        $result = $query->findByFile( $link );
-
-        $this->assertEquals( 1, count( $result ) );
-    }
-
-    /**
-     * @return void
-     * @covers \org\pdepend\reflection\queries\ReflectionQuery
-     * @covers \org\pdepend\reflection\queries\ReflectionFileQuery
-     * @group reflection
-     * @group reflection::queries
-     * @group unittest
-     * @expectedException \LogicException
-     */
-    public function testFindByNameThrowsExceptionWhenFileIsDirectory()
-    {
-        $query  = new ReflectionFileQuery( $this->createContext() );
-        $query->findByFile( __DIR__ );
-    }
-
-    /**
-     * @return void
-     * @covers \org\pdepend\reflection\queries\ReflectionQuery
-     * @covers \org\pdepend\reflection\queries\ReflectionFileQuery
-     * @group reflection
-     * @group reflection::queries
-     * @group unittest
-     * @expectedException \LogicException
-     */
-    public function testFindByNameThrowsExceptionWhenNotExistantFileIsGiven()
-    {
-        $query  = new ReflectionFileQuery( $this->createContext() );
-        $query->findByFile( __FILE__ . '.fail' );
+        $this->_temp = sys_get_temp_dir() . '/' . uniqid( get_called_class() ) . '.php';
+        if ( function_exists( 'link' ) )
+        {
+            if ( is_dir( $source ) )
+            {
+                mkdir( $this->_temp . '.file' );
+                link( $this->_temp . '.file', $this->_temp );
+                rmdir( $this->_temp . '.file' );
+            }
+            else
+            {
+                copy( $source, $this->_temp . '.file' );
+                link( $this->_temp . '.file', $this->_temp );
+                unlink( $this->_temp . '.file' );
+            }
+        }
+        if ( file_exists( $this->_temp ) === false )
+        {
+            $this->markTestSkipped( 'Cannot create symlink' );
+        }
+        return $this->_temp;
     }
 }

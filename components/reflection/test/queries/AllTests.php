@@ -50,6 +50,7 @@ namespace org\pdepend\reflection\queries;
 require_once 'PHPUnit/Framework.php';
 
 require_once 'ReflectionClassQueryTest.php';
+require_once 'ReflectionDirectoryQueryTest.php';
 require_once 'ReflectionFileQueryTest.php';
 
 /**
@@ -77,6 +78,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
         );
 
         $this->addTestSuite( '\org\pdepend\reflection\queries\ReflectionClassQueryTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\queries\ReflectionDirectoryQueryTest' );
         $this->addTestSuite( '\org\pdepend\reflection\queries\ReflectionFileQueryTest' );
     }
 
