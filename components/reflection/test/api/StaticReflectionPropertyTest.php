@@ -322,6 +322,69 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @group reflection
      * @group reflection::api
      * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForPublicStaticProperty()
+    {
+        $property = new StaticReflectionProperty( 
+            'foo',
+            false,
+            StaticReflectionProperty::IS_PUBLIC | StaticReflectionProperty::IS_STATIC
+        );
+
+        $expected = 'Property [ public static $foo ]';
+        $actual   = $property->__toString();
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForProtectedStaticProperty()
+    {
+        $property = new StaticReflectionProperty(
+            'foo',
+            false,
+            StaticReflectionProperty::IS_PROTECTED | StaticReflectionProperty::IS_STATIC
+        );
+
+        $expected = 'Property [ protected static $foo ]';
+        $actual   = $property->__toString();
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForPrivateStaticProperty()
+    {
+        $property = new StaticReflectionProperty(
+            'foo',
+            false,
+            StaticReflectionProperty::IS_PRIVATE | StaticReflectionProperty::IS_STATIC
+        );
+
+        $expected = 'Property [ private static $foo ]';
+        $actual   = $property->__toString();
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      * @expectedException \ReflectionException
      */
     public function testConstructorThrowsExceptionWhenInvalidModifierIsGiven()
