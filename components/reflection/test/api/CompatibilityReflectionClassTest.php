@@ -452,7 +452,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testGetStaticPropertyValueForNullPropertyWithDefaultValue()
+    public function testGetStaticPropertyValueForNullPropertyWithStaticReflectionValue()
     {
         $internal = $this->createInternalClass( 'CompatClassWithStaticProperties' );
         $static   = $this->createStaticClass( 'CompatClassWithStaticProperties' );

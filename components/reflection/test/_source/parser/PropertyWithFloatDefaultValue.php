@@ -1,5 +1,5 @@
 <?php
-class PropertyWithFloatDefaultValue
+class PropertyWithFloatStaticReflectionValue
 {
     protected $fooBar = 3.14;
 }

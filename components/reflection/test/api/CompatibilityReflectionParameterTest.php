@@ -98,7 +98,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testIsOptionalForParameterWithoutDefaultValue()
+    public function testIsOptionalForParameterWithoutStaticReflectionValue()
     {
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
@@ -113,7 +113,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testIsOptionalForParameterWithDefaultValue()
+    public function testIsOptionalForParameterWithStaticReflectionValue()
     {
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 1 );
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 1 );
@@ -128,7 +128,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testIsOptionalForParameterWithDefaultValueAndNotOptionalFollowingParameter()
+    public function testIsOptionalForParameterWithStaticReflectionValueAndNotOptionalFollowingParameter()
     {
         $internal = $this->createInternal( 'CompatParametersOptional', 'fooBar', 0 );
         $static   = $this->createStatic( 'CompatParametersOptional', 'fooBar', 0 );
@@ -143,7 +143,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testIsOptionalForParameterWithDefaultValueAndOptionalFollowingParameter()
+    public function testIsOptionalForParameterWithStaticReflectionValueAndOptionalFollowingParameter()
     {
         $internal = $this->createInternal( 'CompatParametersOptional', 'fooBar', 2 );
         $static   = $this->createStatic( 'CompatParametersOptional', 'fooBar', 2 );
@@ -158,7 +158,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testIsOptionalForParameterWithNullDefaultValue()
+    public function testIsOptionalForParameterWithNullStaticReflectionValue()
     {
         $internal = $this->createInternal( 'CompatParametersOptional', 'fooBar', 2 );
         $static   = $this->createStatic( 'CompatParametersOptional', 'fooBar', 2 );
@@ -188,7 +188,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testGetDefaultValueForMagicConstantFunction()
+    public function testgetDefaultValueForMagicConstantFunction()
     {
         $internal = $this->createInternal( '\compat\CompatParameterMagicConstantFunction', 'fooBar', 0 );
         $static   = $this->createStatic( '\compat\CompatParameterMagicConstantFunction', 'fooBar', 0 );
@@ -203,7 +203,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testGetDefaultValueForMagicConstantMethod()
+    public function testgetDefaultValueForMagicConstantMethod()
     {
         $internal = $this->createInternal( '\compat\CompatParameterMagicConstantMethod', 'fooBar', 0 );
         $static   = $this->createStatic( '\compat\CompatParameterMagicConstantMethod', 'fooBar', 0 );
@@ -218,7 +218,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testGetDefaultValueForParameterWithoutDefaultExceptionMessage()
+    public function testgetDefaultValueForParameterWithoutDefaultExceptionMessage()
     {
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
@@ -281,7 +281,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testAllowsNullForParameterWithArrayTypeHintAndDefaultValue()
+    public function testAllowsNullForParameterWithArrayTypeHintAndStaticReflectionValue()
     {
         $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 3 );
         $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 3 );
@@ -296,7 +296,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testAllowsNullForParameterWithArrayTypeHintAndNullDefaultValue()
+    public function testAllowsNullForParameterWithArrayTypeHintAndNullStaticReflectionValue()
     {
         $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 4 );
         $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 4 );
@@ -311,7 +311,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testAllowsNullForParameterWithClassTypeHintAndNullDefaultValue()
+    public function testAllowsNullForParameterWithClassTypeHintAndNullStaticReflectionValue()
     {
         $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 5 );
         $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 5 );

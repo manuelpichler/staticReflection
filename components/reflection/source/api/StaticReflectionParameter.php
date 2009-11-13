@@ -114,9 +114,9 @@ class StaticReflectionParameter extends \ReflectionParameter
     /**
      * Optional value object that holds the default parameter value.
      *
-     * @var \org\pdepend\reflection\api\DefaultValue
+     * @var \org\pdepend\reflection\api\StaticReflectionValue
      */
-    private $_defaultValue = null;
+    private $_StaticReflectionValue = null;
 
     /**
      * Constructs a new parameter instance.
@@ -184,7 +184,7 @@ class StaticReflectionParameter extends \ReflectionParameter
     {
         if ( $this->_hasTypeHint() )
         {
-            return ( $this->isDefaultValueAvailable() && is_null( $this->_defaultValue->getData() ) );
+            return ( $this->isDefaultValueAvailable() && is_null( $this->_StaticReflectionValue->getData() ) );
         }
         return true;
     }
@@ -250,7 +250,7 @@ class StaticReflectionParameter extends \ReflectionParameter
      */
     public function isDefaultValueAvailable()
     {
-        return is_object( $this->_defaultValue );
+        return is_object( $this->_StaticReflectionValue );
     }
 
     /**
@@ -264,7 +264,7 @@ class StaticReflectionParameter extends \ReflectionParameter
     {
         if ( $this->isDefaultValueAvailable() )
         {
-            return $this->_defaultValue->getData();
+            return $this->_StaticReflectionValue->getData();
         }
         throw new \ReflectionException( 'Parameter is not optional' );
     }
@@ -272,21 +272,21 @@ class StaticReflectionParameter extends \ReflectionParameter
     /**
      * Initializes the parameter default value when available.
      *
-     * @param \org\pdepend\reflection\api\DefaultValue $defaultValue The defined
+     * @param \org\pdepend\reflection\api\StaticReflectionValue $StaticReflectionValue The defined
      *        parameter default value or <b>null</b> when not available.
      *
      * @return void
      * @access private
      */
-    public function initDefaultValue( DefaultValue $defaultValue = null )
+    public function initStaticReflectionValue( StaticReflectionValue $StaticReflectionValue = null )
     {
         if ( $this->isDefaultValueAvailable() )
         {
-            throw new \LogicException( 'Property defaultValue already set' );
+            throw new \LogicException( 'Property StaticReflectionValue already set' );
         }
         else
         {
-            $this->_defaultValue = $defaultValue;
+            $this->_StaticReflectionValue = $StaticReflectionValue;
         }
     }
 
@@ -437,7 +437,7 @@ class StaticReflectionParameter extends \ReflectionParameter
             $this->isOptional() ? 'optional' : 'required',
             $this->_getOptionalTypeHint(),
             $this->getName(),
-            $this->_getOptionalDefaultValue()
+            $this->_getOptionalStaticReflectionValue()
         );
     }
 
@@ -466,11 +466,11 @@ class StaticReflectionParameter extends \ReflectionParameter
      * 
      * @return string
      */
-    private function _getOptionalDefaultValue()
+    private function _getOptionalStaticReflectionValue()
     {
         if ( $this->isDefaultValueAvailable() )
         {
-            return ' = ' . $this->_defaultValue->__toString();
+            return ' = ' . $this->_StaticReflectionValue->__toString();
         }
         return '';
     }

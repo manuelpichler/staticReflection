@@ -1,5 +1,5 @@
 <?php
-class PropertyWithHashArrayDefaultValue
+class PropertyWithHashArrayStaticReflectionValue
 {
     protected $hash = array(
         'foo' => 42,

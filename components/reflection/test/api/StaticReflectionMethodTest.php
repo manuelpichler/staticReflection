@@ -693,10 +693,10 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
     public function testGetNumberOfRequiredParametersReturnsZeroForMethodWithOptionalParametersOnly()
     {
         $param0 = new StaticReflectionParameter( 'foo', 0 );
-        $param0->initDefaultValue( new DefaultValue( 42 ) );
+        $param0->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
         $param1 = new StaticReflectionParameter( 'bar', 1 );
-        $param1->initDefaultValue( new DefaultValue( 23 ) );
+        $param1->initStaticReflectionValue( new StaticReflectionValue( 23 ) );
 
         $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initParameters( array( $param0, $param1 ) );
@@ -734,12 +734,12 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
     public function testGetNumberOfRequiredParametersReturnsTwoForMethodWithPartialOptionalParameters()
     {
         $param0 = new StaticReflectionParameter( 'foo', 0 );
-        $param0->initDefaultValue( new DefaultValue( 42 ) );
+        $param0->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
         $param1 = new StaticReflectionParameter( 'bar', 1 );
 
         $param2 = new StaticReflectionParameter( 'baz', 2 );
-        $param2->initDefaultValue( new DefaultValue( 23 ) );
+        $param2->initStaticReflectionValue( new StaticReflectionValue( 23 ) );
 
         $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initParameters( array( $param0, $param1, $param2 ) );

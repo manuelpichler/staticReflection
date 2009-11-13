@@ -47,7 +47,7 @@
 
 namespace org\pdepend\reflection\parser;
 
-use org\pdepend\reflection\api\DefaultValue;
+use org\pdepend\reflection\api\StaticReflectionValue;
 use org\pdepend\reflection\api\StaticReflectionClass;
 use org\pdepend\reflection\api\StaticReflectionMethod;
 use org\pdepend\reflection\api\StaticReflectionInterface;
@@ -782,7 +782,7 @@ class Parser
         $token = $this->_consumeToken( ParserTokens::T_VARIABLE );
 
         $parameter = new StaticReflectionParameter( $token->image, count( $this->_parameters ) );
-        $parameter->initDefaultValue( $this->_parseOptionalDefaultValue() );
+        $parameter->initStaticReflectionValue( $this->_parseOptionalStaticReflectionValue() );
 
         if ( $byRef )
         {
@@ -891,7 +891,7 @@ class Parser
         $token = $this->_consumeToken( ParserTokens::T_VARIABLE );
 
         $property = new StaticReflectionProperty( $token->image, $docComment, $modifiers );
-        $property->initValue( $this->_parseOptionalDefaultValue() );
+        $property->initValue( $this->_parseOptionalStaticReflectionValue() );
         
         $this->_properties[] = $property;
     }
@@ -951,17 +951,17 @@ class Parser
      * nodes. The return value of this method will be <b>null</b> when no
      * default value exists.
      *
-     * @return \org\pdepend\reflection\api\DefaultValue
+     * @return \org\pdepend\reflection\api\StaticReflectionValue
      * @throws \org\pdepend\reflection\exceptions\ParserException When any
      *         error occured during body parsing.
      */
-    private function _parseOptionalDefaultValue()
+    private function _parseOptionalStaticReflectionValue()
     {
         $this->_consumeComments();
         if ( $this->_peek() === ParserTokens::T_EQUAL )
         {
             $this->_consumeToken( ParserTokens::T_EQUAL );
-            return $this->_parseDefaultValue();
+            return $this->_parseStaticReflectionValue();
         }
         return null;
     }
@@ -970,13 +970,13 @@ class Parser
      * Parses an optional default as it can occure for property or parameter
      * nodes.
      *
-     * @return \org\pdepend\reflection\api\DefaultValue
+     * @return \org\pdepend\reflection\api\StaticReflectionValue
      * @throws \org\pdepend\reflection\exceptions\ParserException When any
      *         error occured during body parsing.
      */
-    private function _parseDefaultValue()
+    private function _parseStaticReflectionValue()
     {
-        return new DefaultValue( $this->_parseStaticScalarOrArray() );
+        return new StaticReflectionValue( $this->_parseStaticScalarOrArray() );
     }
 
     /**
@@ -1282,7 +1282,7 @@ class Parser
         $this->_consumeComments();
 
         $name  = $this->_consumeToken( ParserTokens::T_VARIABLE )->image;
-        $value = $this->_parseOptionalDefaultValue();
+        $value = $this->_parseOptionalStaticReflectionValue();
 
         if ( is_object( $value ) )
         {

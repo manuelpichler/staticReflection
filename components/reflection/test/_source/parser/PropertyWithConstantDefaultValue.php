@@ -1,5 +1,5 @@
 <?php
-class PropertyWithConstantDefaultValue
+class PropertyWithConstantStaticReflectionValue
 {
     public $foo = T_FOO;
 }

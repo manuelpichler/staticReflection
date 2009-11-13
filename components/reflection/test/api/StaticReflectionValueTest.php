@@ -64,92 +64,92 @@ class StaticReflectionValueTest extends \org\pdepend\reflection\BaseTest
 {
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
     public function testToStringForNull()
     {
-        $value = new DefaultValue( null );
+        $value = new StaticReflectionValue( null );
         $this->assertEquals( 'NULL', $value->__toString() );
     }
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
     public function testToStringForArray()
     {
-        $value = new DefaultValue( array() );
+        $value = new StaticReflectionValue( array() );
         $this->assertEquals( 'Array', $value->__toString() );
     }
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
     public function testToStringForBooleanTrue()
     {
-        $value = new DefaultValue( true );
+        $value = new StaticReflectionValue( true );
         $this->assertEquals( 'true', $value->__toString() );
     }
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
     public function testToStringForBooleanFalse()
     {
-        $value = new DefaultValue( false );
+        $value = new StaticReflectionValue( false );
         $this->assertEquals( 'false', $value->__toString() );
     }
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
     public function testToStringForFloat()
     {
-        $value = new DefaultValue( 3.14 );
+        $value = new StaticReflectionValue( 3.14 );
         $this->assertEquals( '3.14', $value->__toString() );
     }
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
     public function testToStringForInteger()
     {
-        $value = new DefaultValue( 42 );
+        $value = new StaticReflectionValue( 42 );
         $this->assertEquals( '42', $value->__toString() );
     }
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
     public function testToStringForString()
     {
-        $value = new DefaultValue( 'Hello World' );
+        $value = new StaticReflectionValue( 'Hello World' );
         $this->assertEquals( "'Hello World'", $value->__toString() );
     }
 }

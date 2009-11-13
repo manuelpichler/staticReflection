@@ -96,10 +96,10 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
-    public function testGetDefaultValueReturnsConfiguredValue()
+    public function testgetDefaultValueReturnsConfiguredValue()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
-        $parameter->initDefaultValue( new DefaultValue( 42 ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
         $this->assertEquals( 42, $parameter->getDefaultValue() );
     }
@@ -139,7 +139,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
-    public function testIsOptionalReturnsFalseWhenNoDefaultValueIsAvailable()
+    public function testIsOptionalReturnsFalseWhenNoStaticReflectionValueIsAvailable()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
 
@@ -151,16 +151,16 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
-    public function testIsOptionalReturnsTrueWhenDefaultValueIsAvailable()
+    public function testIsOptionalReturnsTrueWhenStaticReflectionValueIsAvailable()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
-        $parameter->initDefaultValue( new DefaultValue( 42 ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
         $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initParameters( array( $parameter ) );
@@ -170,16 +170,16 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
-    public function testIsOptionalReturnsTrueWhenNullDefaultValueIsAvailable()
+    public function testIsOptionalReturnsTrueWhenNullStaticReflectionValueIsAvailable()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
-        $parameter->initDefaultValue( new DefaultValue( null ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( null ) );
 
         $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initParameters( array( $parameter ) );
@@ -189,16 +189,16 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
-    public function testIsOptionalReturnsFalseWhenDefaultValueIsAvailableButNoOptionalParamFollows()
+    public function testIsOptionalReturnsFalseWhenStaticReflectionValueIsAvailableButNoOptionalParamFollows()
     {
         $param0 = new StaticReflectionParameter( '_foo', 0 );
-        $param0->initDefaultValue( new DefaultValue( 42 ) );
+        $param0->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
         $param1 = new StaticReflectionParameter( '_bar', 0 );
 
@@ -210,19 +210,19 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
-    public function testIsOptionalReturnsTrueWhenDefaultValueIsAvailableAndOptionalParamFollows()
+    public function testIsOptionalReturnsTrueWhenStaticReflectionValueIsAvailableAndOptionalParamFollows()
     {
         $param0 = new StaticReflectionParameter( '_foo', 0 );
-        $param0->initDefaultValue( new DefaultValue( 42 ) );
+        $param0->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
         $param1 = new StaticReflectionParameter( '_bar', 0 );
-        $param1->initDefaultValue( new DefaultValue( 23 ) );
+        $param1->initStaticReflectionValue( new StaticReflectionValue( 23 ) );
 
         $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initParameters( array( $param0, $param1 ) );
@@ -260,34 +260,34 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
-    public function testAllowsNullReturnsFalseWhenArrayTypeHintAndDefaultValueWereSet()
+    public function testAllowsNullReturnsFalseWhenArrayTypeHintAndStaticReflectionValueWereSet()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $parameter->initTypeHint( true );
-        $parameter->initDefaultValue( new DefaultValue( 42 ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
         $this->assertFalse( $parameter->allowsNull() );
     }
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
-    public function testAllowsNullReturnsTrueWhenArrayTypeHintAndNullDefaultValueWereSet()
+    public function testAllowsNullReturnsTrueWhenArrayTypeHintAndNullStaticReflectionValueWereSet()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $parameter->initTypeHint( true );
-        $parameter->initDefaultValue( new DefaultValue( null ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( null ) );
 
         $this->assertTrue( $parameter->allowsNull() );
     }
@@ -309,34 +309,34 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
-    public function testAllowsNullReturnsFalseWhenClassTypeHintAndDefaultValueWereSet()
+    public function testAllowsNullReturnsFalseWhenClassTypeHintAndStaticReflectionValueWereSet()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $parameter->initTypeHint( new \ReflectionClass( __CLASS__ ) );
-        $parameter->initDefaultValue( new DefaultValue( 42 ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
         $this->assertFalse( $parameter->allowsNull() );
     }
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
-    public function testAllowsNullReturnsTrueWhenClassTypeHintAndNullDefaultValueWereSet()
+    public function testAllowsNullReturnsTrueWhenClassTypeHintAndNullStaticReflectionValueWereSet()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $parameter->initTypeHint( new \ReflectionClass( __CLASS__ ) );
-        $parameter->initDefaultValue( new DefaultValue( null ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( null ) );
 
         $this->assertTrue( $parameter->allowsNull() );
     }
@@ -348,7 +348,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
-    public function testIsDefaultValueAvailableReturnsFalseByDefault()
+    public function testisDefaultValueAvailableReturnsFalseByDefault()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $this->assertFalse( $parameter->isDefaultValueAvailable() );
@@ -356,16 +356,16 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
-    public function testIsDefaultValueAvailableReturnsTrueWhenDefaultValueExists()
+    public function testisDefaultValueAvailableReturnsTrueWhenStaticReflectionValueExists()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
-        $parameter->initDefaultValue( new DefaultValue( 42 ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
         $this->assertTrue( $parameter->isDefaultValueAvailable() );
     }
@@ -456,7 +456,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
@@ -466,7 +466,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
     {
         $parameter = new StaticReflectionParameter( 'foo', 0 );
         $parameter->initDeclaringMethod( new \ReflectionMethod( __CLASS__, __FUNCTION__ ) );
-        $parameter->initDefaultValue( new DefaultValue( 42 ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
         $this->assertEquals( 'Parameter #0 [ <optional> $foo = 42 ]', $parameter->__toString() );
     }
@@ -509,7 +509,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
@@ -520,7 +520,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
         $parameter = new StaticReflectionParameter( 'foo', 0 );
         $parameter->initDeclaringMethod( new \ReflectionMethod( __CLASS__, __FUNCTION__ ) );
         $parameter->initTypeHint( true );
-        $parameter->initDefaultValue( new DefaultValue( null ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( null ) );
 
         $expected = 'Parameter #0 [ <optional> array or NULL $foo = NULL ]';
         $actual   = $parameter->__toString();
@@ -530,7 +530,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
@@ -541,7 +541,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
         $parameter = new StaticReflectionParameter( 'foo', 0 );
         $parameter->initDeclaringMethod( new \ReflectionMethod( __CLASS__, __FUNCTION__ ) );
         $parameter->initTypeHint( new \ReflectionClass( __CLASS__ ) );
-        $parameter->initDefaultValue( new DefaultValue( null ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( null ) );
 
         $expected = sprintf( 'Parameter #0 [ <optional> %s or NULL $foo = NULL ]', __CLASS__ );
         $actual   = $parameter->__toString();
@@ -551,7 +551,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
@@ -562,7 +562,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
         $parameter = new StaticReflectionParameter( 'foo', 0 );
         $parameter->initDeclaringMethod( new \ReflectionMethod( __CLASS__, __FUNCTION__ ) );
         $parameter->initTypeHint( true );
-        $parameter->initDefaultValue( new DefaultValue( array( __CLASS__ ) ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( array( __CLASS__ ) ) );
 
         $expected = 'Parameter #0 [ <optional> array $foo = Array ]';
         $actual   = $parameter->__toString();
@@ -578,7 +578,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
      * @group unittest
      * @expectedException \ReflectionException
      */
-    public function testGetDefaultValueThrowsExceptionWhenNoDefaultValueExists()
+    public function testgetDefaultValueThrowsExceptionWhenNoStaticReflectionValueExists()
     {
         $parameter = new StaticReflectionParameter( 'foo', 0 );
         $parameter->getDefaultValue();
@@ -651,10 +651,10 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
      * @group unittest
      * @expectedException \LogicException
      */
-    public function testInitDefaultValueThrowsLogicExceptionWhenAlreadySet()
+    public function testInitStaticReflectionValueThrowsLogicExceptionWhenAlreadySet()
     {
         $parameter = new StaticReflectionParameter( 'foo', 0 );
-        $parameter->initDefaultValue( new DefaultValue( 23 ) );
-        $parameter->initDefaultValue( new DefaultValue( 23 ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( 23 ) );
+        $parameter->initStaticReflectionValue( new StaticReflectionValue( 23 ) );
     }
 }

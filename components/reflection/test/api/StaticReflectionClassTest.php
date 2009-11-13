@@ -514,7 +514,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
     public function testGetStaticPropertiesReturnsExpectedKeyValueArray()
     {
         $prop0 = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_STATIC);
-        $prop0->initValue( new DefaultValue( 42 ) );
+        $prop0->initValue( new StaticReflectionValue( 42 ) );
 
         $prop1 = new StaticReflectionProperty( 'bar', '', StaticReflectionProperty::IS_STATIC);
 
@@ -534,7 +534,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
     public function testGetStaticPropertyValueReturnsExpectedValue()
     {
         $prop = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_STATIC);
-        $prop->initValue( new DefaultValue( 42 ) );
+        $prop->initValue( new StaticReflectionValue( 42 ) );
 
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initProperties( array( $prop ) );
@@ -549,7 +549,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
-    public function testGetStaticPropertyValueReturnsExpectedDefaultValue()
+    public function testGetStaticPropertyValueReturnsExpectedStaticReflectionValue()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
 
@@ -563,10 +563,10 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::api
      * @group unittest
      */
-    public function testGetStaticPropertyValueReturnsNullEvenWhenDefaultValueWasGiven()
+    public function testGetStaticPropertyValueReturnsNullEvenWhenStaticReflectionValueWasGiven()
     {
         $prop = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_STATIC);
-        $prop->initValue( new DefaultValue( null ) );
+        $prop->initValue( new StaticReflectionValue( null ) );
 
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initProperties( array( $prop ) );

@@ -1,5 +1,5 @@
 <?php
-class PropertyWithNullDefaultValue
+class PropertyWithNullStaticReflectionValue
 {
     protected $fooBar = null;
 }

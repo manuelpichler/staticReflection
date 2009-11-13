@@ -1,5 +1,5 @@
 <?php
-class PropertyWithTrueDefaultValue
+class PropertyWithTrueStaticReflectionValue
 {
     private $fooBar = true;
 }

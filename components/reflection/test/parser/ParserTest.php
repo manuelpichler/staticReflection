@@ -1392,7 +1392,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::parser
      * @group unittest
      */
-    public function testParserSetsExpectedStaticVariablesWithDefaultValue()
+    public function testParserSetsExpectedStaticVariablesWithStaticReflectionValue()
     {
         $class  = $this->_parseClass( 'MethodWithStaticVariablesWithDefaultValues' );
         $method = $class->getMethod( 'fooBar' );

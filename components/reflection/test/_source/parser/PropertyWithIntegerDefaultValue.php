@@ -1,5 +1,5 @@
 <?php
-class PropertyWithIntegerDefaultValue
+class PropertyWithIntegerStaticReflectionValue
 {
     public $fooBar = 42;
 }

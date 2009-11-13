@@ -59,7 +59,7 @@ namespace org\pdepend\reflection\api;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class DefaultValue
+class StaticReflectionValue
 {
     /**
      * The scalar default value.

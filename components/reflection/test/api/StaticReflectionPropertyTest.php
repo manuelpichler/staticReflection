@@ -113,16 +113,16 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
      * @group reflection::api
      * @group unittest
      */
-    public function testGetValueReturnsConfiguredScalarDefaultValue()
+    public function testGetValueReturnsConfiguredScalarStaticReflectionValue()
     {
         $property = new StaticReflectionProperty( 'foo', '', 0 );
-        $property->initValue( new DefaultValue( 42 ) );
+        $property->initValue( new StaticReflectionValue( 42 ) );
 
         $this->assertSame( 42, $property->getValue() );
     }
@@ -326,7 +326,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionValue
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
      * @group reflection::api
@@ -336,8 +336,8 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
     public function testInitValueThrowsLogicExceptionWhenAlreadySet()
     {
         $property = new StaticReflectionProperty( 'foo', '', 0 );
-        $property->initValue( new DefaultValue( 23 ) );
-        $property->initValue( new DefaultValue( 42 ) );
+        $property->initValue( new StaticReflectionValue( 23 ) );
+        $property->initValue( new StaticReflectionValue( 42 ) );
     }
 
     /**

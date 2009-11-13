@@ -309,12 +309,12 @@ class StaticReflectionProperty extends \ReflectionProperty
     /**
      * Initializes the default value of the reflected property.
      *
-     * @param \org\pdepend\reflection\api\DefaultValue $value Default property value.
+     * @param \org\pdepend\reflection\api\StaticReflectionValue $value Default property value.
      *
      * @return void
      * @access private
      */
-    public function initValue( DefaultValue $value = null )
+    public function initValue( StaticReflectionValue $value = null )
     {
         if ( $this->_initialized === false )
         {

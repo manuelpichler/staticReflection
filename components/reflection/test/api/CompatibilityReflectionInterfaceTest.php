@@ -260,7 +260,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      * @group reflection::api
      * @group compatibilitytest
      */
-    public function testGetStaticPropertyValueForUnknownPropertyWithDefaultValue()
+    public function testGetStaticPropertyValueForUnknownPropertyWithStaticReflectionValue()
     {
         $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
         $static   = $this->createStaticClass( 'CompatInterfaceSimple' );
