@@ -432,6 +432,150 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
      * @group reflection
      * @group reflection::api
      * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForMandatoryParameter()
+    {
+        $parameter = new StaticReflectionParameter( 'foo', 0 );
+        
+        $this->assertEquals( 'Parameter #0 [ <required> $foo ]', $parameter->__toString() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForParameterAtThirdPosition()
+    {
+        $parameter = new StaticReflectionParameter( 'foo', 2 );
+
+        $this->assertEquals( 'Parameter #2 [ <required> $foo ]', $parameter->__toString() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForOptionalParameter()
+    {
+        $parameter = new StaticReflectionParameter( 'foo', 0 );
+        $parameter->initDeclaringMethod( new \ReflectionMethod( __CLASS__, __FUNCTION__ ) );
+        $parameter->initDefaultValue( new DefaultValue( 42 ) );
+
+        $this->assertEquals( 'Parameter #0 [ <optional> $foo = 42 ]', $parameter->__toString() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForMandatoryParameterWithArrayTypeHint()
+    {
+        $parameter = new StaticReflectionParameter( 'foo', 0 );
+        $parameter->initTypeHint( true );
+
+        $expected = 'Parameter #0 [ <required> array $foo ]';
+        $actual   = $parameter->__toString();
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForMandatoryParameterWithClassTypeHint()
+    {
+        $parameter = new StaticReflectionParameter( 'foo', 0 );
+        $parameter->initTypeHint( new \ReflectionClass( __CLASS__ ) );
+
+        $expected = sprintf( 'Parameter #0 [ <required> %s $foo ]', __CLASS__ );
+        $actual   = $parameter->__toString();
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForOptionalNullParameterWithArrayTypeHint()
+    {
+        $parameter = new StaticReflectionParameter( 'foo', 0 );
+        $parameter->initDeclaringMethod( new \ReflectionMethod( __CLASS__, __FUNCTION__ ) );
+        $parameter->initTypeHint( true );
+        $parameter->initDefaultValue( new DefaultValue( null ) );
+
+        $expected = 'Parameter #0 [ <optional> array or NULL $foo = NULL ]';
+        $actual   = $parameter->__toString();
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForOptionalNullParameterWithClassTypeHint()
+    {
+        $parameter = new StaticReflectionParameter( 'foo', 0 );
+        $parameter->initDeclaringMethod( new \ReflectionMethod( __CLASS__, __FUNCTION__ ) );
+        $parameter->initTypeHint( new \ReflectionClass( __CLASS__ ) );
+        $parameter->initDefaultValue( new DefaultValue( null ) );
+
+        $expected = sprintf( 'Parameter #0 [ <optional> %s or NULL $foo = NULL ]', __CLASS__ );
+        $actual   = $parameter->__toString();
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForOptionalArrayParameterWithTypeHint()
+    {
+        $parameter = new StaticReflectionParameter( 'foo', 0 );
+        $parameter->initDeclaringMethod( new \ReflectionMethod( __CLASS__, __FUNCTION__ ) );
+        $parameter->initTypeHint( true );
+        $parameter->initDefaultValue( new DefaultValue( array( __CLASS__ ) ) );
+
+        $expected = 'Parameter #0 [ <optional> array $foo = Array ]';
+        $actual   = $parameter->__toString();
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionParameter
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      * @expectedException \ReflectionException
      */
     public function testGetDefaultValueThrowsExceptionWhenNoDefaultValueExists()

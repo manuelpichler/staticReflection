@@ -49,16 +49,18 @@ namespace org\pdepend\reflection\api;
 
 require_once 'PHPUnit/Framework.php';
 
-require_once 'api/CompatibilityReflectionClassTest.php';
-require_once 'api/CompatibilityReflectionInterfaceTest.php';
-require_once 'api/CompatibilityReflectionMethodTest.php';
-require_once 'api/CompatibilityReflectionParameterTest.php';
-require_once 'api/CompatibilityReflectionPropertyTest.php';
-require_once 'api/StaticReflectionClassTest.php';
-require_once 'api/StaticReflectionInterfaceTest.php';
-require_once 'api/StaticReflectionMethodTest.php';
-require_once 'api/StaticReflectionParameterTest.php';
-require_once 'api/StaticReflectionPropertyTest.php';
+require_once 'CompatibilityReflectionClassTest.php';
+require_once 'CompatibilityReflectionInterfaceTest.php';
+require_once 'CompatibilityReflectionMethodTest.php';
+require_once 'CompatibilityReflectionParameterTest.php';
+require_once 'CompatibilityReflectionPropertyTest.php';
+
+require_once 'StaticReflectionClassTest.php';
+require_once 'StaticReflectionInterfaceTest.php';
+require_once 'StaticReflectionMethodTest.php';
+require_once 'StaticReflectionParameterTest.php';
+require_once 'StaticReflectionPropertyTest.php';
+require_once 'StaticReflectionValueTest.php';
 
 /**
  * Test suite for the static reflection api subpackage.
@@ -84,6 +86,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
+        $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionValueTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionClassTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionInterfaceTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionMethodTest' );

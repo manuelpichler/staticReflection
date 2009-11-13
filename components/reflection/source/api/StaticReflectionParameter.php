@@ -431,6 +431,47 @@ class StaticReflectionParameter extends \ReflectionParameter
      */
     public function __toString()
     {
-        
+        return sprintf(
+            'Parameter #%d [ <%s> %s$%s%s ]',
+            $this->getPosition(),
+            $this->isOptional() ? 'optional' : 'required',
+            $this->_getOptionalTypeHint(),
+            $this->getName(),
+            $this->_getOptionalDefaultValue()
+        );
+    }
+
+    /**
+     * Returns the string representation of the parameter's type hint or an
+     * empty string when no type hint exists.
+     *
+     * @return string
+     */
+    private function _getOptionalTypeHint()
+    {
+        if ( is_object( $this->getClass() ) )
+        {
+            return $this->getClass()->getName() . ( $this->allowsNull() ? ' or NULL ' : ' ' );
+        }
+        else if ( $this->isArray() )
+        {
+            return 'array ' . ( $this->allowsNull() ? 'or NULL ' : '' );
+        }
+        return '';
+    }
+
+    /**
+     * Returns the string representation of the parameter's default value or an
+     * empty string when no default value exists.
+     * 
+     * @return string
+     */
+    private function _getOptionalDefaultValue()
+    {
+        if ( $this->isDefaultValueAvailable() )
+        {
+            return ' = ' . $this->_defaultValue->__toString();
+        }
+        return '';
     }
 }

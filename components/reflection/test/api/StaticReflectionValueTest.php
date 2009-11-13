@@ -36,7 +36,7 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category  PHP
+ * @category  StaticAnalysis
  * @package   org\pdepend\reflection\api
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
@@ -47,11 +47,12 @@
 
 namespace org\pdepend\reflection\api;
 
+require_once 'BaseTest.php';
+
 /**
- * This class is used a container for optional property or parameter default
- * values. 
+ * Test cases for the reflection value class.
  *
- * @category  PHP
+ * @category  StaticAnalysis
  * @package   org\pdepend\reflection\api
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2008-2009 Manuel Pichler. All rights reserved.
@@ -59,58 +60,96 @@ namespace org\pdepend\reflection\api;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class DefaultValue
+class StaticReflectionValueTest extends \org\pdepend\reflection\BaseTest
 {
     /**
-     * The scalar default value.
-     *
-     * @var mixed
+     * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      */
-    private $_data = null;
-
-    /**
-     * Constructs a new default value instance.
-     *
-     * @param mixed $data The scalar default value.
-     */
-    public function __construct( $data )
+    public function testToStringForNull()
     {
-        $this->_data = $data;
+        $value = new DefaultValue( null );
+        $this->assertEquals( 'NULL', $value->__toString() );
     }
 
     /**
-     * Returns the raw default data.
-     *
-     * @return mixed
+     * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      */
-    public function getData()
+    public function testToStringForArray()
     {
-        return $this->_data;
+        $value = new DefaultValue( array() );
+        $this->assertEquals( 'Array', $value->__toString() );
     }
 
     /**
-     * Returns a string representation of the encapsulated value.
-     *
-     * @return string
+     * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      */
-    public function __toString()
+    public function testToStringForBooleanTrue()
     {
-        if ( is_array( $this->_data ) )
-        {
-            return 'Array';
-        }
-        else if ( is_bool( $this->_data ) )
-        {
-            return ( $this->_data ? 'true' : 'false' );
-        }
-        else if ( is_null( $this->_data ) )
-        {
-            return 'NULL';
-        }
-        else if ( is_string( $this->_data ) )
-        {
-            return "'" . str_replace( "'", "\\'", $this->_data ) . "'";
-        }
-        return (string) $this->_data;
+        $value = new DefaultValue( true );
+        $this->assertEquals( 'true', $value->__toString() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringForBooleanFalse()
+    {
+        $value = new DefaultValue( false );
+        $this->assertEquals( 'false', $value->__toString() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringForFloat()
+    {
+        $value = new DefaultValue( 3.14 );
+        $this->assertEquals( '3.14', $value->__toString() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringForInteger()
+    {
+        $value = new DefaultValue( 42 );
+        $this->assertEquals( '42', $value->__toString() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringForString()
+    {
+        $value = new DefaultValue( 'Hello World' );
+        $this->assertEquals( "'Hello World'", $value->__toString() );
     }
 }
