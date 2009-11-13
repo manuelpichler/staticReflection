@@ -925,6 +925,155 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
      * @group reflection
      * @group reflection::api
      * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForClass()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initFileName( '/bar/Foo.php' );
+        $class->initStartLine( 23 );
+        $class->initEndLine( 42 );
+
+        $actual   = $class->__toString();
+        $expected = 'Class [ <user> class Foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23-42' . PHP_EOL . PHP_EOL .
+                    '  - Constants [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Properties [0] {'  . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Methods [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForClassMarkedAsAbstract()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', StaticReflectionClass::IS_EXPLICIT_ABSTRACT );
+        $class->initFileName( '/bar/Foo.php' );
+        $class->initStartLine( 23 );
+        $class->initEndLine( 42 );
+
+        $actual   = $class->__toString();
+        $expected = 'Class [ <user> abstract class Foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23-42' . PHP_EOL . PHP_EOL .
+                    '  - Constants [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Properties [0] {'  . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Methods [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForClassWithParent()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initParentClass( new StaticReflectionClass( 'Bar', '', 0 ) );
+        $class->initFileName( '/bar/Foo.php' );
+        $class->initStartLine( 23 );
+        $class->initEndLine( 42 );
+
+        $actual   = $class->__toString();
+        $expected = 'Class [ <user> class Foo extends Bar ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23-42' . PHP_EOL . PHP_EOL .
+                    '  - Constants [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Properties [0] {'  . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Methods [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForClassWithImplementedInterfaces()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initInterfaces( array( new StaticReflectionInterface( 'Bar', '', 0 ) ) );
+        $class->initFileName( '/bar/Foo.php' );
+        $class->initStartLine( 23 );
+        $class->initEndLine( 42 );
+
+        $actual   = $class->__toString();
+        $expected = 'Class [ <user> class Foo implements Bar ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23-42' . PHP_EOL . PHP_EOL .
+                    '  - Constants [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Properties [0] {'  . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Methods [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForClassWithProperties()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initFileName( '/bar/Foo.php' );
+        $class->initStartLine( 23 );
+        $class->initEndLine( 42 );
+        $class->initProperties(
+            array(
+                new StaticReflectionProperty( '_foo', '', StaticReflectionProperty::IS_PRIVATE )
+            )
+        );
+
+        $actual   = $class->__toString();
+        $expected = 'Class [ <user> class Foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23-42' . PHP_EOL . PHP_EOL .
+                    '  - Constants [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Properties [1] {'  . PHP_EOL .
+                    '    Property [ <default> private $_foo ]' . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Methods [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      * @expectedException \ReflectionException
      */
     public function testGetPropertyThrowsExceptionWhenNoPropertyForTheGivenNameExists()

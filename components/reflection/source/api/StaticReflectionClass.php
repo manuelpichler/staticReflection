@@ -523,4 +523,67 @@ class StaticReflectionClass extends StaticReflectionInterface
         }
         return $properties;
     }
+
+    /**
+     * Returns a string representation of the currently reflected class.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf(
+            'Class [ <user> %sclass %s%s%s ] %s',
+            $this->isAbstract() ? 'abstract ' : '',
+            $this->getShortName(),
+            $this->parentClassToString(),
+            $this->implementedInterfacesToString(),
+            $this->bodyToString()
+        );
+    }
+
+    /**
+     * Returns a string representation of the parent class or an empty string
+     * when no parent was declared.
+     *
+     * @return string
+     */
+    protected function parentClassToString()
+    {
+        if ( $this->getParentClass() === false )
+        {
+            return '';
+        }
+        return ' extends ' . $this->getParentClass()->getName();
+    }
+
+    /**
+     * This method returns a string representation of the parent interfaces or
+     * an empty string when the reflected class does not declare any parents.
+     *
+     * @return string
+     */
+    protected function implementedInterfacesToString()
+    {
+        if ( count( $this->getInterfaceNames() ) === 0 )
+        {
+            return '';
+        }
+        return ' implements ' . join( ', ', $this->getInterfaceNames() );
+    }
+
+    /**
+     * This method returns a string representation of all properties declared
+     * for the currently reflected interface.
+     *
+     * @return string
+     */
+    protected function propertiesToString()
+    {
+        $string = '';
+        foreach ( $this->getProperties() as $property )
+        {
+            $string .= $property->__toString( '    ' ) . PHP_EOL;
+        }
+        return $string;
+    }
 }

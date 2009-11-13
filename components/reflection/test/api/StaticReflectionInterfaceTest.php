@@ -1010,6 +1010,147 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @group reflection
      * @group reflection::api
      * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForInterface()
+    {
+        $interface = new StaticReflectionInterface( 'Foo', '' );
+        $interface->initFileName( '/bar/Foo.php' );
+        $interface->initStartLine( 23 );
+        $interface->initEndLine( 42 );
+
+        $actual   = $interface->__toString();
+        $expected = 'Interface [ <user> interface Foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23-42' . PHP_EOL . PHP_EOL .
+                    '  - Constants [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Properties [0] {'  . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Methods [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionInterface
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForInterfaceWithConstants()
+    {
+        $interface = new StaticReflectionInterface( 'Foo', '' );
+        $interface->initFileName( '/bar/Foo.php' );
+        $interface->initStartLine( 23 );
+        $interface->initEndLine( 42 );
+        $interface->initConstants(
+            array( 'T_FOO' => 42, 'T_BAR' => 3.14, 'T_BAZ' => true )
+        );
+
+        $actual   = $interface->__toString();
+        $expected = 'Interface [ <user> interface Foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23-42' . PHP_EOL . PHP_EOL .
+                    '  - Constants [3] {' . PHP_EOL .
+                    '    Constant [ integer T_FOO ] { 42 }' . PHP_EOL .
+                    '    Constant [ double T_BAR ] { 3.14 }' . PHP_EOL .
+                    '    Constant [ boolean T_BAZ ] { true }' . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Properties [0] {'  . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Methods [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionInterface
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForInterfaceWithMethods()
+    {
+        $modifiers = StaticReflectionMethod::IS_ABSTRACT | StaticReflectionMethod::IS_PUBLIC;
+
+        $method1 = new StaticReflectionMethod( 'x', '', $modifiers );
+        $method1->initStartLine( 27 );
+        $method1->initEndLine( 27 );
+
+        $method2 = new StaticReflectionMethod( 'y', '', $modifiers );
+        $method2->initStartLine( 32 );
+        $method2->initEndLine( 32 );
+
+        $interface = new StaticReflectionInterface( 'Foo', '' );
+        $interface->initFileName( '/bar/Foo.php' );
+        $interface->initStartLine( 23 );
+        $interface->initEndLine( 42 );
+        $interface->initMethods( array( $method1, $method2 ) );
+
+        $actual   = $interface->__toString();
+        $expected = 'Interface [ <user> interface Foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23-42' . PHP_EOL . PHP_EOL .
+                    '  - Constants [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Properties [0] {'  . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Methods [2] {' . PHP_EOL .
+                    '    Method [ <user> abstract public method x ] {' . PHP_EOL .
+                    '      @@ /bar/Foo.php 27 - 27' . PHP_EOL .
+                    '    }' . PHP_EOL .
+                    '    Method [ <user> abstract public method y ] {' . PHP_EOL .
+                    '      @@ /bar/Foo.php 32 - 32' . PHP_EOL .
+                    '    }' . PHP_EOL .
+                    '  }' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionInterface
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForInterfaceWithParentInterfaces()
+    {
+        $interface = new StaticReflectionInterface( 'Foo', '' );
+        $interface->initFileName( '/bar/Foo.php' );
+        $interface->initStartLine( 23 );
+        $interface->initEndLine( 42 );
+        $interface->initInterfaces(
+            array(
+                new StaticReflectionInterface( 'Bar', '' ),
+                new StaticReflectionInterface( 'Baz', '' )
+            )
+        );
+
+        $actual   = $interface->__toString();
+        $expected = 'Interface [ <user> interface Foo extends Bar, Baz ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23-42' . PHP_EOL . PHP_EOL .
+                    '  - Constants [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Properties [0] {'  . PHP_EOL .
+                    '  }' . PHP_EOL . PHP_EOL .
+                    '  - Methods [0] {' . PHP_EOL .
+                    '  }' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionInterface
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      * @expectedException \ReflectionException
      */
     public function testGetMethodThrowsExceptionWhenNoMatchingMethodExists()

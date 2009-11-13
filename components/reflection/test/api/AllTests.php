@@ -89,8 +89,8 @@ class AllTests extends \PHPUnit_Framework_TestSuite
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionValueTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionParameterTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionPropertyTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionClassTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionInterfaceTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionClassTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionMethodTest' );
 
         $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionClassTest' );

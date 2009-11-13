@@ -702,8 +702,9 @@ class StaticReflectionMethod extends \ReflectionMethod
         $indent = ( func_num_args() === 0 ? '' : func_get_arg( 0 ) );
 
         return sprintf(
-            '%sMethod [ <user> %s%s%s%s%s method %s ] {%s%s  @@ %s %d - %d%s%s%s}',
+            '%sMethod [ <user> %s%s%s%s%s%s method %s ] {%s%s  @@ %s %d - %d%s%s%s}',
             ( func_num_args() === 0 ? '' : func_get_arg( 0 ) ),
+            $this->isAbstract() ? 'abstract ' : '',
             $this->isFinal() ? 'final ' : '',
             $this->isStatic() ? 'static ' : '',
             $this->isPublic() ? 'public' : '',

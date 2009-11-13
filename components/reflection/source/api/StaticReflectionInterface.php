@@ -958,6 +958,108 @@ class StaticReflectionInterface extends \ReflectionClass
      */
     public function __toString()
     {
+        return sprintf(
+            'Interface [ <user> interface %s%s ] %s',
+            $this->getShortName(),
+            $this->implementedInterfacesToString(),
+            $this->bodyToString()
+        );
+    }
+
+    /**
+     * This method returns a string representation of the parent interfaces or
+     * an empty string when the reflected interface does not declare any parents.
+     *
+     * @return string
+     */
+    protected function implementedInterfacesToString()
+    {
+        if ( count( $this->getInterfaceNames() ) === 0 )
+        {
+            return '';
+        }
+        return ' extends ' . join( ', ', $this->getInterfaceNames() );
+    }
+
+    /**
+     * This method creates a string representation of all defined constants,
+     * methods and properties on the currently reflected class or interface.
+     *
+     * @return string
+     */
+    protected function bodyToString()
+    {
+        return sprintf(
+            '{' . PHP_EOL .
+            '  @@ %s %d-%d' . PHP_EOL . PHP_EOL .
+            '  - Constants [%d] {' . PHP_EOL .
+            '%s' .
+            '  }' . PHP_EOL . PHP_EOL .
+            '  - Properties [%d] {' . PHP_EOL .
+            '%s' .
+            '  }' . PHP_EOL . PHP_EOL .
+            '  - Methods [%d] {' . PHP_EOL .
+            '%s' .
+            '  }' . PHP_EOL .
+            '}',
+            $this->getFileName(),
+            $this->getStartLine(),
+            $this->getEndLine(),
+            count( $this->getConstants() ),
+            $this->constantsToString(),
+            count( $this->getProperties() ),
+            $this->propertiesToString(),
+            count( $this->getMethods() ),
+            $this->methodsToString()
+        );
+    }
+
+    /**
+     * This method returns a string representation of all constants defined
+     * for the currently reflected interface.
+     *
+     * @return string
+     */
+    protected function constantsToString()
+    {
+        $string = '';
+        foreach ( $this->getConstants() as $name => $value )
+        {
+            $string .= sprintf(
+                '    Constant [ %s %s ] { %s }%s',
+                gettype( $value ),
+                $name,
+                is_bool( $value ) ? ( $value ? 'true' : 'false' ) : $value,
+                PHP_EOL
+            );
+        }
+        return $string;
+    }
+
+    /**
+     * This method returns a string representation of all properties declared
+     * for the currently reflected interface.
+     *
+     * @return string
+     */
+    protected function propertiesToString()
+    {
         return '';
+    }
+
+    /**
+     * This method returns a string representation of all methods declared
+     * for the currently reflected interface.
+     *
+     * @return string
+     */
+    protected function methodsToString()
+    {
+        $string = '';
+        foreach ( $this->getMethods() as $method )
+        {
+            $string .= $method->__toString( '    ' ) . PHP_EOL;
+        }
+        return $string;
     }
 }
