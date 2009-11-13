@@ -57,6 +57,7 @@ require_once 'resolvers/AllTests.php';
 
 require_once 'ReflectionSessionTest.php';
 require_once 'ReflectionClassCacheTest.php';
+require_once 'ReflectionClassProxyTest.php';
 require_once 'ReflectionClassProxyContextTest.php';
 
 /**
@@ -83,6 +84,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../source/' )
         );
 
+        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassProxyTest' );
         $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassCacheTest' );
         $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassProxyContextTest' );
 

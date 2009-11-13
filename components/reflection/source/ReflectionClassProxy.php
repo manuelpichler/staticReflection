@@ -556,7 +556,7 @@ class ReflectionClassProxy extends \ReflectionClass
      *
      * @return object
      */
-    public function newInstance( $args )
+    public function newInstance( $args = null )
     {
         $arguments = func_get_args();
         $callback  = array( $this->_getProxySubject(), 'newInstance' );
