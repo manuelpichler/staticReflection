@@ -151,6 +151,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
@@ -169,6 +170,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
@@ -187,6 +189,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
@@ -207,6 +210,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
@@ -256,6 +260,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
@@ -272,6 +277,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
@@ -303,6 +309,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
@@ -319,6 +326,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api
@@ -348,6 +356,7 @@ class StaticReflectionParameterTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
      * @covers \org\pdepend\reflection\api\StaticReflectionParameter
      * @group reflection
      * @group reflection::api

@@ -84,16 +84,17 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
-        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionClassTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionInterfaceTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionMethodTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionParameterTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionPropertyTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionClassTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionInterfaceTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionMethodTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionParameterTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionPropertyTest' );
+
+        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionClassTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionInterfaceTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionMethodTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionParameterTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionPropertyTest' );
     }
 
     /**

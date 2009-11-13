@@ -113,6 +113,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
      * @group reflection::api
@@ -325,6 +326,7 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
+     * @covers \org\pdepend\reflection\api\DefaultValue
      * @covers \org\pdepend\reflection\api\StaticReflectionProperty
      * @group reflection
      * @group reflection::api

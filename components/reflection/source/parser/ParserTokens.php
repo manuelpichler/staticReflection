@@ -47,6 +47,8 @@
 
 namespace org\pdepend\reflection\parser;
 
+// @codeCoverageIgnoreStart
+
 /**
  * The default parser tokens.
  *
@@ -108,3 +110,5 @@ final class ParserTokens
           T_USE          = -43,
           T_VARIABLE     = -44;
 }
+
+// @codeCoverageIgnoreEnd

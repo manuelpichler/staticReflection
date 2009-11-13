@@ -47,6 +47,8 @@
 
 namespace org\pdepend\reflection\interfaces;
 
+// @codeCoverageIgnoreStart
+
 /**
  * Base interface for a reflection class factory.
  *
@@ -82,3 +84,5 @@ interface ReflectionClassFactory
      */
     function createClass( $className );
 }
+
+// @codeCoverageIgnoreEnd

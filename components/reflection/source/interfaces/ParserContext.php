@@ -47,6 +47,8 @@
 
 namespace org\pdepend\reflection\interfaces;
 
+// @codeCoverageIgnoreStart
+
 /**
  * Base interface for a parser context. An object of this type is used by the
  * parser to retrieve class or interface instances on which the currently parsed
@@ -72,3 +74,5 @@ interface ParserContext
      */
     function getClass( $className );
 }
+
+// @codeCoverageIgnoreEnd

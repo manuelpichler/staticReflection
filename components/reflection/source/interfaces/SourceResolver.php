@@ -47,6 +47,8 @@
 
 namespace org\pdepend\reflection\interfaces;
 
+// @codeCoverageIgnoreStart
+
 /**
  * Base interface for a source resolver.
  *
@@ -82,3 +84,5 @@ interface SourceResolver
      */
     function getPathnameForClass( $className );
 }
+
+// @codeCoverageIgnoreEnd
