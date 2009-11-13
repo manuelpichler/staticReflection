@@ -1082,7 +1082,7 @@ class StaticReflectionInterfaceTest extends \org\pdepend\reflection\BaseTest
      * @group unittest
      * @expectedException \ReflectionException
      */
-    public function testNewInstanceArgsThrowsNptSupportedException()
+    public function testNewInstanceArgsThrowsNotSupportedException()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->newInstanceArgs();
