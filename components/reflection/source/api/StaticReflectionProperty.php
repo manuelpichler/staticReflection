@@ -350,6 +350,14 @@ class StaticReflectionProperty extends \ReflectionProperty
      */
     public function __toString()
     {
-        return '';
+        return sprintf(
+            'Property [ %s%s%s%s%s$%s ]',
+            $this->isStatic() ? '' : '<default> ',
+            $this->isPublic() ? 'public ' : '',
+            $this->isPrivate() ? 'private ' : '',
+            $this->isProtected() ? 'protected ' : '',
+            $this->isStatic() ? 'static ' : '',
+            $this->getName()
+        );
     }
 }

@@ -271,6 +271,57 @@ class StaticReflectionPropertyTest extends \org\pdepend\reflection\BaseTest
      * @group reflection
      * @group reflection::api
      * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForPublicProperty()
+    {
+        $property = new StaticReflectionProperty( 'foo', false, StaticReflectionProperty::IS_PUBLIC );
+
+        $expected = 'Property [ <default> public $foo ]';
+        $actual   = $property->__toString();
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForProtectedProperty()
+    {
+        $property = new StaticReflectionProperty( 'foo', false, StaticReflectionProperty::IS_PROTECTED );
+
+        $expected = 'Property [ <default> protected $foo ]';
+        $actual   = $property->__toString();
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForPrivateProperty()
+    {
+        $property = new StaticReflectionProperty( 'foo', false, StaticReflectionProperty::IS_PRIVATE );
+
+        $expected = 'Property [ <default> private $foo ]';
+        $actual   = $property->__toString();
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionProperty
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      * @expectedException \ReflectionException
      */
     public function testConstructorThrowsExceptionWhenInvalidModifierIsGiven()
