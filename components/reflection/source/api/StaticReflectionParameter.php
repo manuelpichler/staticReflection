@@ -432,7 +432,8 @@ class StaticReflectionParameter extends \ReflectionParameter
     public function __toString()
     {
         return sprintf(
-            'Parameter #%d [ <%s> %s$%s%s ]',
+            '%sParameter #%d [ <%s> %s$%s%s ]',
+            ( func_num_args() === 0 ? '' : func_get_arg( 0 ) ),
             $this->getPosition(),
             $this->isOptional() ? 'optional' : 'required',
             $this->_getOptionalTypeHint(),

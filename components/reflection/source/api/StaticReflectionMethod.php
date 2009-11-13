@@ -699,6 +699,68 @@ class StaticReflectionMethod extends \ReflectionMethod
      */
     public function __toString()
     {
-        return '';
+        $indent = ( func_num_args() === 0 ? '' : func_get_arg( 0 ) );
+
+        return sprintf(
+            '%sMethod [ <user> %s%s%s%s%s method %s ] {%s%s  @@ %s %d - %d%s%s%s}',
+            ( func_num_args() === 0 ? '' : func_get_arg( 0 ) ),
+            $this->isFinal() ? 'final ' : '',
+            $this->isStatic() ? 'static ' : '',
+            $this->isPublic() ? 'public' : '',
+            $this->isPrivate() ? 'private' : '',
+            $this->isProtected() ? 'protected' : '',
+            $this->getName(),
+            PHP_EOL,
+            $indent,
+            $this->getFileName(),
+            $this->getStartLine(),
+            $this->getEndLine(),
+            $this->_getOptionalParameters( $indent ),
+            PHP_EOL,
+            $indent
+        );
+    }
+
+    /**
+     * Returns a string representation of the method's parameters or an empty
+     * string when the reflected method does not have any parameters.
+     *
+     * @param string $indent Indention of the reflected method.
+     *
+     * @return string
+     */
+    private function _getOptionalParameters( $indent )
+    {
+        if ( $this->getNumberOfParameters() === 0 )
+        {
+            return '';
+        }
+        return sprintf(
+            '%s%s%s  - Parameters [%d] {%s%s%s  }',
+            PHP_EOL,
+            PHP_EOL,
+            $indent,
+            $this->getNumberOfParameters(),
+            $this->_getParametersString( $indent ),
+            PHP_EOL,
+            $indent
+        );
+    }
+
+    /**
+     * Returns a string representation of all method parameters.
+     *
+     * @param string $indent Indention of the reflected method.
+     *
+     * @return string
+     */
+    private function _getParametersString( $indent )
+    {
+        $string = '';
+        foreach ( $this->getParameters() as $parameter )
+        {
+            $string .= PHP_EOL . $indent . '    ' . $parameter->__toString();
+        }
+        return $string;
     }
 }

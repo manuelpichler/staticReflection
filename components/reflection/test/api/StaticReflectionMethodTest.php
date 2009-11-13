@@ -824,6 +824,326 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @group reflection
      * @group reflection::api
      * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForPublicMethod()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initFileName( '/bar/Foo.php' );
+
+        $method = new StaticReflectionMethod( 'foo', '', StaticReflectionMethod::IS_PUBLIC );
+        $method->initDeclaringClass( $class );
+        $method->initStartLine( 23 );
+        $method->initEndLine( 42 );
+
+        $actual   = $method->__toString();
+        $expected = 'Method [ <user> public method foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23 - 42' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForProtectedMethod()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initFileName( '/bar/Foo.php' );
+
+        $method = new StaticReflectionMethod( 'foo', '', StaticReflectionMethod::IS_PROTECTED );
+        $method->initDeclaringClass( $class );
+        $method->initStartLine( 23 );
+        $method->initEndLine( 42 );
+
+        $actual   = $method->__toString();
+        $expected = 'Method [ <user> protected method foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23 - 42' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForPrivateMethod()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initFileName( '/bar/Foo.php' );
+
+        $method = new StaticReflectionMethod( 'foo', '', StaticReflectionMethod::IS_PRIVATE );
+        $method->initDeclaringClass( $class );
+        $method->initStartLine( 23 );
+        $method->initEndLine( 42 );
+
+        $actual   = $method->__toString();
+        $expected = 'Method [ <user> private method foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23 - 42' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForPublicStaticMethod()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initFileName( '/bar/Foo.php' );
+
+        $method = new StaticReflectionMethod(
+            'foo',
+            '',
+            StaticReflectionMethod::IS_PUBLIC | StaticReflectionMethod::IS_STATIC
+        );
+        $method->initDeclaringClass( $class );
+        $method->initStartLine( 23 );
+        $method->initEndLine( 42 );
+
+        $actual   = $method->__toString();
+        $expected = 'Method [ <user> static public method foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23 - 42' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForPublicFinalMethod()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initFileName( '/bar/Foo.php' );
+
+        $method = new StaticReflectionMethod(
+            'foo',
+            '',
+            StaticReflectionMethod::IS_PUBLIC | StaticReflectionMethod::IS_FINAL
+        );
+        $method->initDeclaringClass( $class );
+        $method->initStartLine( 23 );
+        $method->initEndLine( 42 );
+
+        $actual   = $method->__toString();
+        $expected = 'Method [ <user> final public method foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23 - 42' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForProtectedFinalMethod()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initFileName( '/bar/Foo.php' );
+
+        $method = new StaticReflectionMethod(
+            'foo',
+            '',
+            StaticReflectionMethod::IS_PROTECTED | StaticReflectionMethod::IS_FINAL
+        );
+        $method->initDeclaringClass( $class );
+        $method->initStartLine( 23 );
+        $method->initEndLine( 42 );
+
+        $actual   = $method->__toString();
+        $expected = 'Method [ <user> final protected method foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23 - 42' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForPrivateFinalMethod()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initFileName( '/bar/Foo.php' );
+
+        $method = new StaticReflectionMethod(
+            'foo',
+            '',
+            StaticReflectionMethod::IS_PRIVATE | StaticReflectionMethod::IS_FINAL
+        );
+        $method->initDeclaringClass( $class );
+        $method->initStartLine( 23 );
+        $method->initEndLine( 42 );
+
+        $actual   = $method->__toString();
+        $expected = 'Method [ <user> final private method foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23 - 42' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForPublicStaticFinalMethod()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initFileName( '/bar/Foo.php' );
+
+        $method = new StaticReflectionMethod(
+            'foo',
+            '',
+            StaticReflectionMethod::IS_PUBLIC |
+            StaticReflectionMethod::IS_STATIC |
+            StaticReflectionMethod::IS_FINAL
+        );
+        $method->initDeclaringClass( $class );
+        $method->initStartLine( 23 );
+        $method->initEndLine( 42 );
+
+        $actual   = $method->__toString();
+        $expected = 'Method [ <user> final static public method foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23 - 42' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForProtectedStaticFinalMethod()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initFileName( '/bar/Foo.php' );
+
+        $method = new StaticReflectionMethod(
+            'foo',
+            '',
+            StaticReflectionMethod::IS_PROTECTED |
+            StaticReflectionMethod::IS_STATIC |
+            StaticReflectionMethod::IS_FINAL
+        );
+        $method->initDeclaringClass( $class );
+        $method->initStartLine( 23 );
+        $method->initEndLine( 42 );
+
+        $actual   = $method->__toString();
+        $expected = 'Method [ <user> final static protected method foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23 - 42' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForPrivateStaticFinalMethod()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initFileName( '/bar/Foo.php' );
+
+        $method = new StaticReflectionMethod(
+            'foo',
+            '',
+            StaticReflectionMethod::IS_PRIVATE |
+            StaticReflectionMethod::IS_STATIC |
+            StaticReflectionMethod::IS_FINAL
+        );
+        $method->initDeclaringClass( $class );
+        $method->initStartLine( 23 );
+        $method->initEndLine( 42 );
+
+        $actual   = $method->__toString();
+        $expected = 'Method [ <user> final static private method foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23 - 42' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testToStringReturnsExpectedResultForMethodWithParameters()
+    {
+        $class = new StaticReflectionClass( 'Foo', '', 0 );
+        $class->initFileName( '/bar/Foo.php' );
+
+        $method = new StaticReflectionMethod( 'foo', '', StaticReflectionMethod::IS_PUBLIC );
+        $method->initDeclaringClass( $class );
+        $method->initStartLine( 23 );
+        $method->initEndLine( 42 );
+
+        $method->initParameters(
+            array(
+                new StaticReflectionParameter( 'x', 0 ),
+                new StaticReflectionParameter( 'y', 1 ),
+            )
+        );
+
+        $actual   = $method->__toString();
+        $expected = 'Method [ <user> public method foo ] {' . PHP_EOL .
+                    '  @@ /bar/Foo.php 23 - 42' . PHP_EOL . PHP_EOL .
+                    '  - Parameters [2] {' . PHP_EOL .
+                    '    Parameter #0 [ <required> $x ]' . PHP_EOL .
+                    '    Parameter #1 [ <required> $y ]' . PHP_EOL .
+                    '  }' . PHP_EOL .
+                    '}';
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      * @expectedException \ReflectionException
      */
     public function testConstructorThrowsExceptionWhenInvalidModifierWasGiven()
