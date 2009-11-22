@@ -98,7 +98,7 @@ class ReflectionDirectoryQuery extends ReflectionQuery
         $classes = array();
         foreach ( $this->_createIterator( $directory ) as $fileInfo )
         {
-            if ( $fileInfo->isFile() === false )
+            if ( $this->_isInvalid( $fileInfo ) )
             {
                 continue;
             }
@@ -124,5 +124,19 @@ class ReflectionDirectoryQuery extends ReflectionQuery
         return new \RecursiveIteratorIterator(
             new \RecursiveDirectoryIterator( $directory )
         );
+    }
+ 
+    /**
+     * Will return <b>true</b> when the given file object should not be
+     * accepted.
+     *
+     * @param \SplFileInfo $fileInfo The currently parsed file info object.
+     *
+     * @return boolean
+     */
+    private function _isInvalid( \SplFileInfo $fileInfo )
+    {
+        $pattern = DIRECTORY_SEPARATOR . '.';
+        return !$fileInfo->isFile() || is_int( strpos( $fileInfo->getRealpath(), $pattern ) );
     }
 }
