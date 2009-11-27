@@ -106,6 +106,22 @@ class ReflectionSessionTest extends BaseTest
      * @group reflection
      * @group unittest
      */
+    public function testCreateDefaultSessionCreatesExpectedFactoryStackWithNullFactory()
+    {
+        $session = ReflectionSession::createDefaultSession( $this->createResolver() );
+
+        $query = $session->createClassQuery();
+        $class = $query->findByName( __METHOD__ );
+
+        $this->assertFalse( $class->isInternal() || $class->isUserDefined() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSession
+     * @group reflection
+     * @group unittest
+     */
     public function testGetClassExecutesConfiguredReflectionClassFactory()
     {
         $factory = $this->getMock( '\org\pdepend\reflection\interfaces\ReflectionClassFactory' );

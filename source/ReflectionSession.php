@@ -96,6 +96,7 @@ class ReflectionSession
         $session = new ReflectionSession();
         $session->addClassFactory( new factories\InternalReflectionClassFactory() );
         $session->addClassFactory( new factories\StaticReflectionClassFactory( new ReflectionClassProxyContext( $session ), $resolver ) );
+        $session->addClassFactory( new factories\NullReflectionClassFactory() );
 
         return $session;
     }
