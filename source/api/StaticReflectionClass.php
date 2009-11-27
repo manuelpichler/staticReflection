@@ -60,6 +60,9 @@ namespace org\pdepend\reflection\api;
  */
 class StaticReflectionClass extends StaticReflectionInterface
 {
+    /**
+     * The type of this class.
+     */
     const TYPE = __CLASS__;
 
     /**
