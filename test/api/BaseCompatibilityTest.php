@@ -30,7 +30,10 @@ abstract class BaseCompatibilityTest extends \org\pdepend\reflection\BaseTest
      */
     protected function createInternalClass( $className )
     {
-        $this->includeClass( $className );
+        if ( !class_exists( $className ) && !interface_exists( $className ) )
+        {
+            $this->includeClass( $className );
+        }
         return new \ReflectionClass( $className );
     }
 

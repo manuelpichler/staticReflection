@@ -591,6 +591,7 @@ class StaticReflectionInterface extends \ReflectionClass
      * @param string $name The method name to reflect.
      *
      * @return \ReflectionMethod
+     * @throws \ReflectionException When no methods exists for the given name.
      */
     public function getMethod( $name )
     {
@@ -844,7 +845,7 @@ class StaticReflectionInterface extends \ReflectionClass
     }
 
     /**
-     * Get the starting line number. 
+     * Get the starting line number.
      *
      * @return integer
      */

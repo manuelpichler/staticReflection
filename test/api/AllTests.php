@@ -49,12 +49,14 @@ namespace org\pdepend\reflection\api;
 
 require_once 'PHPUnit/Framework.php';
 
+require_once 'CompatibilityNullReflectionClassTest.php';
 require_once 'CompatibilityReflectionClassTest.php';
 require_once 'CompatibilityReflectionInterfaceTest.php';
 require_once 'CompatibilityReflectionMethodTest.php';
 require_once 'CompatibilityReflectionParameterTest.php';
 require_once 'CompatibilityReflectionPropertyTest.php';
 
+require_once 'NullReflectionClassTest.php';
 require_once 'StaticReflectionClassTest.php';
 require_once 'StaticReflectionInterfaceTest.php';
 require_once 'StaticReflectionMethodTest.php';
@@ -86,6 +88,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
+        $this->addTestSuite( '\org\pdepend\reflection\api\NullReflectionClassTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionValueTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionParameterTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionPropertyTest' );
@@ -93,6 +96,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionClassTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\StaticReflectionMethodTest' );
 
+        $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityNullReflectionClassTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionClassTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionInterfaceTest' );
         $this->addTestSuite( '\org\pdepend\reflection\api\CompatibilityReflectionMethodTest' );
