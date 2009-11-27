@@ -47,7 +47,7 @@
 
 namespace org\pdepend\reflection;
 
-require_once 'BaseTest.php';
+require_once __DIR__ . '/BaseTest.php';
 
 /**
  * Test case for the reflection session class.
@@ -142,6 +142,37 @@ class ReflectionSessionTest extends BaseTest
         $class = $query->findByName( __METHOD__ );
 
         $this->assertFalse( $class->isUserDefined() || $class->isInternal() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSession
+     * @group reflection
+     * @group unittest
+     */
+    public function testCreateInternalSessionCreatesExpectedExceptionStackWithInternalFactory()
+    {
+        $session = ReflectionSession::createInternalSession();
+
+        $query = $session->createClassQuery();
+        $class = $query->findByName( __CLASS__ );
+
+        $this->assertType( '\ReflectionClass', $class );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSession
+     * @group reflection
+     * @group unittest
+     * @expectedException \ReflectionException
+     */
+    public function testCreateInternalSessionStackForUnknownClass()
+    {
+        $session = ReflectionSession::createInternalSession();
+
+        $query = $session->createClassQuery();
+        $query->findByName( __METHOD__ );
     }
 
     /**

@@ -131,6 +131,22 @@ class ReflectionSession
     }
 
     /**
+     * This factory method creates a reflection session instance that is a simple
+     * wrapper around PHP's internal reflection api. It does not rely on any
+     * parsing or suggestions and can only create reflection class instances for
+     * existing classes and/or interfaces.
+     *
+     * @return \org\pdepend\reflection\ReflectionSession
+     */
+    public static function createInternalSession()
+    {
+        $session = new ReflectionSession();
+        $session->addClassFactory( new factories\InternalReflectionClassFactory() );
+
+        return $session;
+    }
+
+    /**
      * This method can be used to configure a custom process stack for the
      * reflection session. You can add various reflection factories that will
      * be asked in their add order if they can create a reflection class.
