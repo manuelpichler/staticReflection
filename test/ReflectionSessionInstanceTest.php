@@ -47,22 +47,10 @@
 
 namespace org\pdepend\reflection;
 
-require_once 'PHPUnit/Framework.php';
-
-require_once __DIR__ . '/api/AllTests.php';
-require_once __DIR__ . '/factories/AllTests.php';
-require_once __DIR__ . '/parser/AllTests.php';
-require_once __DIR__ . '/queries/AllTests.php';
-require_once __DIR__ . '/resolvers/AllTests.php';
-
-require_once __DIR__ . '/ReflectionSessionTest.php';
-require_once __DIR__ . '/ReflectionSessionInstanceTest.php';
-require_once __DIR__ . '/ReflectionClassCacheTest.php';
-require_once __DIR__ . '/ReflectionClassProxyTest.php';
-require_once __DIR__ . '/ReflectionClassProxyContextTest.php';
+require_once __DIR__ . '/BaseTest.php';
 
 /**
- * Main component test suite
+ * Test case for the reflection session instance registry.
  *
  * @category  PHP
  * @package   org\pdepend\reflection
@@ -72,40 +60,40 @@ require_once __DIR__ . '/ReflectionClassProxyContextTest.php';
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class AllTests extends \PHPUnit_Framework_TestSuite
+class ReflectionSessionInstanceTest extends BaseTest
 {
     /**
-     * Constructs a new test suite instance.
+     * @return void
      */
-    public function __construct()
+    protected function tearDown()
     {
-        $this->setName( 'org::pdepend::reflection::AllTests' );
+        ReflectionSessionInstance::set();
 
-        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../source/' )
-        );
-
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassProxyTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassCacheTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassProxyContextTest' );
-
-        $this->addTest( api\AllTests::suite() );
-        $this->addTest( factories\AllTests::suite() );
-        $this->addTest( parser\AllTests::suite() );
-        $this->addTest( queries\AllTests::suite() );
-        $this->addTest( resolvers\AllTests::suite() );
-
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionSessionTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionSessionInstanceTest' );
+        parent::tearDown();
     }
 
     /**
-     * Returns a test suite instance.
-     *
-     * @return PHPUnit_Framework_TestSuite
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSessionInstance
+     * @group reflection
+     * @group unittest
+     * @expectedException \LogicException
      */
-    public static function suite()
+    public function testGetThrowsExpectedLogicExceptionWhenNoSessionIsConfigured()
     {
-        return new AllTests();
+        ReflectionSessionInstance::get();
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSessionInstance
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetReturnsPreviousConfiguredSessionInstance()
+    {
+        ReflectionSessionInstance::set( $session = new ReflectionSession() );
+
+        $this->assertSame( $session, ReflectionSessionInstance::get() );
     }
 }

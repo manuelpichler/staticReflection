@@ -47,22 +47,8 @@
 
 namespace org\pdepend\reflection;
 
-require_once 'PHPUnit/Framework.php';
-
-require_once __DIR__ . '/api/AllTests.php';
-require_once __DIR__ . '/factories/AllTests.php';
-require_once __DIR__ . '/parser/AllTests.php';
-require_once __DIR__ . '/queries/AllTests.php';
-require_once __DIR__ . '/resolvers/AllTests.php';
-
-require_once __DIR__ . '/ReflectionSessionTest.php';
-require_once __DIR__ . '/ReflectionSessionInstanceTest.php';
-require_once __DIR__ . '/ReflectionClassCacheTest.php';
-require_once __DIR__ . '/ReflectionClassProxyTest.php';
-require_once __DIR__ . '/ReflectionClassProxyContextTest.php';
-
 /**
- * Main component test suite
+ * Simple registry class for the component's facade.
  *
  * @category  PHP
  * @package   org\pdepend\reflection
@@ -72,40 +58,43 @@ require_once __DIR__ . '/ReflectionClassProxyContextTest.php';
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class AllTests extends \PHPUnit_Framework_TestSuite
+final class ReflectionSessionInstance
 {
     /**
-     * Constructs a new test suite instance.
+     * The configured reflection session instance.
+     *
+     * @var \org\pdepend\reflection\ReflectionSession
      */
-    public function __construct()
+    private static $_session = null;
+
+    /**
+     * Accessor method to retrieve a previously configured reflection session
+     * instance.
+     *
+     * @return \org\pdepend\reflection\ReflectionSession
+     * @throws \LogicException When no reflection session was configured.
+     */
+    public static function get()
     {
-        $this->setName( 'org::pdepend::reflection::AllTests' );
-
-        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../source/' )
-        );
-
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassProxyTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassCacheTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassProxyContextTest' );
-
-        $this->addTest( api\AllTests::suite() );
-        $this->addTest( factories\AllTests::suite() );
-        $this->addTest( parser\AllTests::suite() );
-        $this->addTest( queries\AllTests::suite() );
-        $this->addTest( resolvers\AllTests::suite() );
-
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionSessionTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionSessionInstanceTest' );
+        if ( self::$_session === null )
+        {
+            throw new \LogicException( 'No session configured' );
+        }
+        return self::$_session;
     }
 
     /**
-     * Returns a test suite instance.
+     * Setter method that can be used to configure a session instance for the
+     * application or called with <b>NULL</b> an unset method to invalidate a
+     * previous session configuration.
      *
-     * @return PHPUnit_Framework_TestSuite
+     * @param \org\pdepend\reflection\ReflectionSession $session A reflection
+     *        session instance that should be used by the application.
+     *
+     * @return void
      */
-    public static function suite()
+    public static function set( ReflectionSession $session = null )
     {
-        return new AllTests();
+        self::$_session = $session;
     }
 }
