@@ -50,7 +50,7 @@ namespace org\pdepend\reflection\factories;
 require_once 'BaseTest.php';
 
 /**
- * Test cases for the interface reflection factory.
+ * Test cases for the internal reflection factory.
  *
  * @category  PHP
  * @package   org\pdepend\reflection\factories

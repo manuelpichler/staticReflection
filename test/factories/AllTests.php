@@ -49,8 +49,9 @@ namespace org\pdepend\reflection\factories;
 
 require_once 'PHPUnit/Framework.php';
 
-require_once 'InternalReflectionClassFactoryTest.php';
-require_once 'StaticReflectionClassFactoryTest.php';
+require_once __DIR__ . '/InternalReflectionClassFactoryTest.php';
+require_once __DIR__ . '/NullReflectionClassFactoryTest.php';
+require_once __DIR__ . '/StaticReflectionClassFactoryTest.php';
 
 /**
  * Main test suite.
@@ -77,6 +78,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
         );
 
         $this->addTestSuite( '\org\pdepend\reflection\factories\InternalReflectionClassFactoryTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\factories\NullReflectionClassFactoryTest' );
         $this->addTestSuite( '\org\pdepend\reflection\factories\StaticReflectionClassFactoryTest' );
     }
 
