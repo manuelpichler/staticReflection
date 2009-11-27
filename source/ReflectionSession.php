@@ -79,6 +79,9 @@ class ReflectionSession
      * When ever possible this setup uses PHP's internal reflection api, when
      * it is not possible to retrieve a class with this implementation the
      * static implementation will be used to create a reflection class instance.
+     * Finally this version of the reflection session will fallback to a null
+     * implementation for requested classes that act like a placeholder for the
+     * missing class/interface.
      * 
      * This solution should provide the best mix between speed and flexibility
      * without poluting the class scope with uneccessary class definitions.
@@ -89,12 +92,38 @@ class ReflectionSession
      *        name.
      *
      * @return \org\pdepend\reflection\ReflectionSession
-     * @todo Implement and document the null termination
      */
     public static function createDefaultSession( SourceResolver $resolver )
     {
         $session = new ReflectionSession();
         $session->addClassFactory( new factories\InternalReflectionClassFactory() );
+        $session->addClassFactory( new factories\StaticReflectionClassFactory( new ReflectionClassProxyContext( $session ), $resolver ) );
+        $session->addClassFactory( new factories\NullReflectionClassFactory() );
+
+        return $session;
+    }
+
+    /**
+     * This factory method creates a pure static reflection session that parses
+     * the source code to find classes/interfaces that should be reflection. It
+     * does not rely on PHP's internal reflection api.
+     *
+     * This session configuration uses to different strategies to generate a
+     * reflection class instance. First it asks the the supplied resource for a
+     * correspond source file and when it exists it will parse that source file.
+     * In all other cases this setup has a fallback to null reflection classes
+     * that act as a placeholder for the missing source fragments.
+     *
+     * @param \org\pdepend\reflection\interfaces\SourceResolver $resolver The
+     *        source file resolver that will be used by the static reflection
+     *        implementation to retrieve the source file name for a given class
+     *        name.
+     *
+     * @return \org\pdepend\reflection\ReflectionSession
+     */
+    public static function createStaticSession( SourceResolver $resolver )
+    {
+        $session = new ReflectionSession();
         $session->addClassFactory( new factories\StaticReflectionClassFactory( new ReflectionClassProxyContext( $session ), $resolver ) );
         $session->addClassFactory( new factories\NullReflectionClassFactory() );
 

@@ -70,13 +70,8 @@ class ReflectionSessionTest extends BaseTest
      */
     public function testCreateDefaultSessionCreatesExpectedFactoryStack()
     {
-        $resolver = $this->createResolver();
-        $resolver->expects( $this->once() )
-            ->method( 'hasPathnameForClass' )
-            ->with( $this->equalTo( 'SessionSimpleClass' ) )
-            ->will( $this->returnValue( true ) );
-
-        $session = ReflectionSession::createDefaultSession( $resolver );
+        $resolver = $this->createResolver( 'SessionSimpleClass' );
+        $session  = ReflectionSession::createDefaultSession( $resolver );
 
         $query = $session->createClassQuery();
         $class = $query->findByName( 'SessionSimpleClass' );
@@ -114,6 +109,39 @@ class ReflectionSessionTest extends BaseTest
         $class = $query->findByName( __METHOD__ );
 
         $this->assertFalse( $class->isInternal() || $class->isUserDefined() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSession
+     * @group reflection
+     * @group unittest
+     */
+    public function testCreateStaticSessionCreatesTheExpectedFactoryStackWithStaticFactory()
+    {
+        $resolver = $this->createResolver( 'SessionSimpleClass' );
+        $session  = ReflectionSession::createStaticSession( $resolver );
+
+        $query = $session->createClassQuery();
+        $class = $query->findByName( 'SessionSimpleClass' );
+
+        $this->assertTrue( $class->isUserDefined() );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\ReflectionSession
+     * @group reflection
+     * @group unittest
+     */
+    public function testCreateStaticSessionCreatesTheExpectedFactoryStackWithNullFactory()
+    {
+        $session = ReflectionSession::createStaticSession( $this->createResolver() );
+
+        $query = $session->createClassQuery();
+        $class = $query->findByName( __METHOD__ );
+
+        $this->assertFalse( $class->isUserDefined() || $class->isInternal() );
     }
 
     /**
@@ -207,5 +235,25 @@ class ReflectionSessionTest extends BaseTest
     {
         $session = new ReflectionSession();
         $this->assertType( queries\ReflectionDirectoryQuery::TYPE, $session->createDirectoryQuery() );
+    }
+
+    /**
+     * Creates a mocked source resolver instance.
+     *
+     * @return \org\pdepend\reflection\interfaces\SourceResolver
+     */
+    protected function createResolver()
+    {
+        $resolver = parent::createResolver();
+
+        if ( func_num_args() === 1 )
+        {
+            $resolver->expects( $this->once() )
+                ->method( 'hasPathnameForClass' )
+                ->with( $this->equalTo( func_get_arg( 0 ) ) )
+                ->will( $this->returnValue( true ) );
+        }
+
+        return $resolver;
     }
 }
