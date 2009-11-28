@@ -47,10 +47,10 @@
 
 namespace org\pdepend\reflection\resolvers;
 
-require_once 'BaseTest.php';
+require_once __DIR__ . '/../BaseTest.php';
 
 /**
- * Test cases for the parser class.
+ * Test cases for the autoloading array resolver.
  *
  * @category  PHP
  * @package   org\pdepend\reflection\resolvers
