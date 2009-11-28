@@ -54,7 +54,7 @@ namespace org\pdepend\reflection\queries;
  *
  * <code>
  * $query = $session->createClassQuery();
- * $class = $query->findByName( '\org\pdepend\reflection\parser\Parser' );
+ * $class = $query->find( '\org\pdepend\reflection\parser\Parser' );
  *
  * echo 'Class: ', $class->getName(), PHP_EOL,
  *      'File:  ', $class->getFileName(), PHP_EOL;
@@ -104,7 +104,7 @@ class ReflectionClassQuery
      * @throws \ReflectionException When no class or interface exists for the
      *         given class name.
      */
-    public function findByName( $className )
+    public function find( $className )
     {
         foreach ( $this->_classFactories as $factory )
         {

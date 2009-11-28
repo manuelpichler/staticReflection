@@ -69,7 +69,7 @@ class ReflectionClassQueryTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::queries
      * @group unittest
      */
-    public function testFindByNameStopsProcessingWhenFactoryCanHandleTheClass()
+    public function testfindStopsProcessingWhenFactoryCanHandleTheClass()
     {
         $factory1 = $this->createFactory();
         $factory1->expects( $this->once() )
@@ -82,7 +82,7 @@ class ReflectionClassQueryTest extends \org\pdepend\reflection\BaseTest
             ->method( 'hasClass' );
 
         $query = new ReflectionClassQuery( array( $factory1, $factory2 ) );
-        $query->findByName( 'QueryClass' );
+        $query->find( 'QueryClass' );
     }
 
     /**
@@ -92,7 +92,7 @@ class ReflectionClassQueryTest extends \org\pdepend\reflection\BaseTest
      * @group reflection::queries
      * @group unittest
      */
-    public function testFindByNameIteratesOverAllRegisteredFactories()
+    public function testfindIteratesOverAllRegisteredFactories()
     {
         $factory1 = $this->createFactory();
         $factory1->expects( $this->once() )
@@ -107,7 +107,7 @@ class ReflectionClassQueryTest extends \org\pdepend\reflection\BaseTest
             ->will( $this->returnValue( true ) );
 
         $query = new ReflectionClassQuery( array( $factory1, $factory2 ) );
-        $query->findByName( 'QueryClass' );
+        $query->find( 'QueryClass' );
     }
 
     /**
@@ -118,9 +118,9 @@ class ReflectionClassQueryTest extends \org\pdepend\reflection\BaseTest
      * @group unittest
      * @expectedException \ReflectionException
      */
-    public function testFindByNameThrowsExceptionWhenNoMatchingClassExists()
+    public function testfindThrowsExceptionWhenNoMatchingClassExists()
     {
         $query = new ReflectionClassQuery( array() );
-        $query->findByName( __CLASS__ );
+        $query->find( __CLASS__ );
     }
 }

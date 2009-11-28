@@ -54,7 +54,7 @@ namespace org\pdepend\reflection\queries;
  *
  * <code>
  * $query   = $session->createFileQuery();
- * $classes = $query->findByFile( __DIR__ . '/source/parser/Parser.php' );
+ * $classes = $query->find( __DIR__ . '/source/parser/Parser.php' );
  *
  * foreach ( $classes as $class )
  * {
@@ -81,16 +81,16 @@ class ReflectionFileQuery extends ReflectionQuery
      * Parses all classes and interfaces within the given source code file and
      * returns a <b>\ReflectionClass</b> instance for each of that items.
      *
-     * @param string $pathName The pathname of a source code file.
+     * @param string $pathname The pathname of a source code file.
      *
      * @return array(\ReflectionClass)
      */
-    public function findByFile( $pathName )
+    public function find( $pathname )
     {
-        if ( file_exists( $pathName ) === false || is_file( $pathName ) === false )
+        if ( file_exists( $pathname ) === false || is_file( $pathname ) === false )
         {
-            throw new \LogicException( 'Invalid or not existant file ' . $pathName );
+            throw new \LogicException( 'Invalid or not existant file ' . $pathname );
         }
-        return $this->parseFile( $pathName );
+        return $this->parseFile( $pathname );
     }
 }

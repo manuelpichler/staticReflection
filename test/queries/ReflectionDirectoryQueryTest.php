@@ -70,10 +70,10 @@ class ReflectionDirectoryQueryTest extends ReflectionQueryTest
      * @group reflection::queries
      * @group unittest
      */
-    public function testFindByDirectoryReturnsExpectedResultArrayOfClasses()
+    public function testfindReturnsExpectedResultArrayOfClasses()
     {
         $query  = new ReflectionDirectoryQuery( $this->createContext() );
-        $result = $query->findByDirectory( dirname( $this->getPathnameForClass( 'QueryClass' ) ) );
+        $result = $query->find( dirname( $this->getPathnameForClass( 'QueryClass' ) ) );
 
         $this->assertEquals( 1, count( $result ) );
     }
@@ -86,12 +86,12 @@ class ReflectionDirectoryQueryTest extends ReflectionQueryTest
      * @group reflection::queries
      * @group unittest
      */
-    public function testFindByDirectoryReturnsExpectedResultArrayOfClassesForDirectorySymlink()
+    public function testfindReturnsExpectedResultArrayOfClassesForDirectorySymlink()
     {
         $link = $this->createSymlink( dirname( $this->getPathnameForClass( 'QueryClass' ) ) );
 
         $query  = new ReflectionDirectoryQuery( $this->createContext() );
-        $result = $query->findByDirectory( $link );
+        $result = $query->find( $link );
 
         $this->assertEquals( 1, count( $result ) );
     }
@@ -105,10 +105,10 @@ class ReflectionDirectoryQueryTest extends ReflectionQueryTest
      * @group unittest
      * @expectedException \LogicException
      */
-    public function testFindByDirectoryThrowsExceptionWhenGivenDirectoryIsFile()
+    public function testfindThrowsExceptionWhenGivenDirectoryIsFile()
     {
         $query  = new ReflectionDirectoryQuery( $this->createContext() );
-        $query->findByDirectory( __FILE__ );
+        $query->find( __FILE__ );
     }
 
     /**
@@ -120,9 +120,9 @@ class ReflectionDirectoryQueryTest extends ReflectionQueryTest
      * @group unittest
      * @expectedException \LogicException
      */
-    public function testFindByDirectoryThrowsExceptionWhenGivenDirectoryNotExists()
+    public function testfindThrowsExceptionWhenGivenDirectoryNotExists()
     {
         $query  = new ReflectionDirectoryQuery( $this->createContext() );
-        $query->findByDirectory( __DIR__ . '/foobar' );
+        $query->find( __DIR__ . '/foobar' );
     }
 }

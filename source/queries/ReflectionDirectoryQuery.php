@@ -53,7 +53,7 @@ namespace org\pdepend\reflection\queries;
  *
  * <code>
  * $query   = $session->createDirectoryQuery();
- * $classes = $query->findByDirectory( __DIR__ . '/source' );
+ * $classes = $query->find( __DIR__ . '/source' );
  *
  * foreach ( $classes as $class )
  * {
@@ -88,7 +88,7 @@ class ReflectionDirectoryQuery extends ReflectionQuery
      *
      * @return array(\ReflectionClass)
      */
-    public function findByDirectory( $directory )
+    public function find( $directory )
     {
         if ( file_exists( $directory ) === false || is_file( $directory ) )
         {

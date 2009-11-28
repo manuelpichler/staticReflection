@@ -182,7 +182,7 @@ class ReflectionSession
      */
     public function getClass( $className )
     {
-        return $this->createClassQuery()->findByName( $className );
+        return $this->createClassQuery()->find( $className );
     }
 
     /**

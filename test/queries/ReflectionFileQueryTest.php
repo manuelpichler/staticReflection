@@ -70,10 +70,10 @@ class ReflectionFileQueryTest extends ReflectionQueryTest
      * @group reflection::queries
      * @group unittest
      */
-    public function testFindByFileReturnsExpectedResultArrayOfClasses()
+    public function testfindReturnsExpectedResultArrayOfClasses()
     {
         $query  = new ReflectionFileQuery( $this->createContext() );
-        $result = $query->findByFile( $this->getPathnameForClass( 'QueryClass' ) );
+        $result = $query->find( $this->getPathnameForClass( 'QueryClass' ) );
 
         $this->assertEquals( 1, count( $result ) );
     }
@@ -86,12 +86,12 @@ class ReflectionFileQueryTest extends ReflectionQueryTest
      * @group reflection::queries
      * @group unittest
      */
-    public function testFindByFileWorksWithSymlinkedFile()
+    public function testfindWorksWithSymlinkedFile()
     {
         $link = $this->createSymlink( $this->getPathnameForClass( 'QueryClass' ) );
 
         $query  = new ReflectionFileQuery( $this->createContext() );
-        $result = $query->findByFile( $link );
+        $result = $query->find( $link );
 
         $this->assertEquals( 1, count( $result ) );
     }
@@ -105,10 +105,10 @@ class ReflectionFileQueryTest extends ReflectionQueryTest
      * @group unittest
      * @expectedException \LogicException
      */
-    public function testFindByNameThrowsExceptionWhenFileIsDirectory()
+    public function testFindThrowsExceptionWhenFileIsDirectory()
     {
         $query  = new ReflectionFileQuery( $this->createContext() );
-        $query->findByFile( __DIR__ );
+        $query->find( __DIR__ );
     }
 
     /**
@@ -120,9 +120,9 @@ class ReflectionFileQueryTest extends ReflectionQueryTest
      * @group unittest
      * @expectedException \LogicException
      */
-    public function testFindByNameThrowsExceptionWhenNotExistantFileIsGiven()
+    public function testFindThrowsExceptionWhenNotExistantFileIsGiven()
     {
         $query  = new ReflectionFileQuery( $this->createContext() );
-        $query->findByFile( __FILE__ . '.fail' );
+        $query->find( __FILE__ . '.fail' );
     }
 }

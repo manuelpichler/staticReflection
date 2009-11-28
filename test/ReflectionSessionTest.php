@@ -74,7 +74,7 @@ class ReflectionSessionTest extends BaseTest
         $session  = ReflectionSession::createDefaultSession( $resolver );
 
         $query = $session->createClassQuery();
-        $class = $query->findByName( 'SessionSimpleClass' );
+        $class = $query->find( 'SessionSimpleClass' );
 
         $this->assertEquals( 'SessionSimpleClass', $class->getName() );
     }
@@ -90,7 +90,7 @@ class ReflectionSessionTest extends BaseTest
         $session = ReflectionSession::createDefaultSession( $this->createResolver() );
 
         $query = $session->createClassQuery();
-        $class = $query->findByName( 'Iterator' );
+        $class = $query->find( 'Iterator' );
 
         $this->assertTrue( $class->isInternal() );
     }
@@ -106,7 +106,7 @@ class ReflectionSessionTest extends BaseTest
         $session = ReflectionSession::createDefaultSession( $this->createResolver() );
 
         $query = $session->createClassQuery();
-        $class = $query->findByName( __METHOD__ );
+        $class = $query->find( __METHOD__ );
 
         $this->assertFalse( $class->isInternal() || $class->isUserDefined() );
     }
@@ -123,7 +123,7 @@ class ReflectionSessionTest extends BaseTest
         $session  = ReflectionSession::createStaticSession( $resolver );
 
         $query = $session->createClassQuery();
-        $class = $query->findByName( 'SessionSimpleClass' );
+        $class = $query->find( 'SessionSimpleClass' );
 
         $this->assertTrue( $class->isUserDefined() );
     }
@@ -139,7 +139,7 @@ class ReflectionSessionTest extends BaseTest
         $session = ReflectionSession::createStaticSession( $this->createResolver() );
 
         $query = $session->createClassQuery();
-        $class = $query->findByName( __METHOD__ );
+        $class = $query->find( __METHOD__ );
 
         $this->assertFalse( $class->isUserDefined() || $class->isInternal() );
     }
@@ -155,7 +155,7 @@ class ReflectionSessionTest extends BaseTest
         $session = ReflectionSession::createInternalSession();
 
         $query = $session->createClassQuery();
-        $class = $query->findByName( __CLASS__ );
+        $class = $query->find( __CLASS__ );
 
         $this->assertType( '\ReflectionClass', $class );
     }
@@ -172,7 +172,7 @@ class ReflectionSessionTest extends BaseTest
         $session = ReflectionSession::createInternalSession();
 
         $query = $session->createClassQuery();
-        $query->findByName( __METHOD__ );
+        $query->find( __METHOD__ );
     }
 
     /**
