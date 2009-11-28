@@ -49,7 +49,8 @@ namespace org\pdepend\reflection\resolvers;
 
 require_once 'PHPUnit/Framework.php';
 
-require_once 'AutoloadArrayResolverTest.php';
+require_once __DIR__ . '/AutoloadArrayResolverTest.php';
+require_once __DIR__ . '/PearNamingResolverTest.php';
 
 /**
  * Main test suite.
@@ -76,6 +77,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
         );
 
         $this->addTestSuite( '\org\pdepend\reflection\resolvers\AutoloadArrayResolverTest' );
+        $this->addTestSuite( '\org\pdepend\reflection\resolvers\PearNamingResolverTest' );
     }
 
     /**
