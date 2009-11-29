@@ -79,6 +79,13 @@ class ReflectionDirectoryQuery extends ReflectionQuery
     const TYPE = __CLASS__;
 
     /**
+     * Array with regular expressions used to exclude some files.
+     *
+     * @var array(string)
+     */
+    private $_excludes = array( '([/\\\\]\.)' );
+
+    /**
      * This method will create reflection class instances for all interfaces
      * and classes that can be found in the source code files within the given
      * directory.
@@ -98,7 +105,7 @@ class ReflectionDirectoryQuery extends ReflectionQuery
         $classes = array();
         foreach ( $this->_createIterator( $directory ) as $fileInfo )
         {
-            if ( $this->_isInvalid( $fileInfo ) )
+            if ( !$fileInfo->isFile() || $this->_isExcluded( $fileInfo ) )
             {
                 continue;
             }
@@ -108,6 +115,20 @@ class ReflectionDirectoryQuery extends ReflectionQuery
             }
         }
         return new \ArrayIterator( $classes );
+    }
+
+    /**
+     * Adds a regular expected that will be used to filter out those files that
+     * should no be parsed.
+     *
+     * @param string $regexp A regular expression used to filter the result.
+     *
+     * @return \org\pdepend\reflection\queries\ReflectionDirectoryQuery
+     */
+    public function exclude( $regexp )
+    {
+        $this->_excludes[] = $regexp;
+        return $this;
     }
 
     /**
@@ -134,9 +155,15 @@ class ReflectionDirectoryQuery extends ReflectionQuery
      *
      * @return boolean
      */
-    private function _isInvalid( \SplFileInfo $fileInfo )
+    private function _isExcluded( \SplFileInfo $fileInfo )
     {
-        $pattern = DIRECTORY_SEPARATOR . '.';
-        return !$fileInfo->isFile() || is_int( strpos( $fileInfo->getRealpath(), $pattern ) );
+        foreach ( $this->_excludes as $regexp )
+        {
+            if ( preg_match( $regexp, $fileInfo->getRealPath() ) > 0 )
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

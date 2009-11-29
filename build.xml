@@ -9,6 +9,6 @@
     <!--
         Main build
     -->
-    <target name="build" depends="test" description="Primary build: Inversion of Control Container" />
+    <target name="build" depends="test" description="Primary build: StaticReflection component" />
 
 </project>

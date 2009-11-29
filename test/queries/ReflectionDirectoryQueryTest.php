@@ -70,7 +70,7 @@ class ReflectionDirectoryQueryTest extends ReflectionQueryTest
      * @group reflection::queries
      * @group unittest
      */
-    public function testfindReturnsExpectedResultArrayOfClasses()
+    public function testfindReturnsExpectedIteratorOfClasses()
     {
         $query  = new ReflectionDirectoryQuery( $this->createContext() );
         $result = $query->find( dirname( $this->getPathnameForClass( 'QueryClass' ) ) );
@@ -86,7 +86,25 @@ class ReflectionDirectoryQueryTest extends ReflectionQueryTest
      * @group reflection::queries
      * @group unittest
      */
-    public function testfindReturnsExpectedResultArrayOfClassesForDirectorySymlink()
+    public function testfindReturnsExpectedEmptyIterator()
+    {
+        $query = new ReflectionDirectoryQuery( $this->createContext() );
+        $query->exclude( '(Query([a-z]+)\.php)i' );
+
+        $result = $query->find( dirname( $this->getPathnameForClass( 'QueryClass' ) ) );
+
+        $this->assertEquals( 0, count( $result ) );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\queries\ReflectionQuery
+     * @covers \org\pdepend\reflection\queries\ReflectionDirectoryQuery
+     * @group reflection
+     * @group reflection::queries
+     * @group unittest
+     */
+    public function testfindReturnsExpectedIteratorOfClassesForDirectorySymlink()
     {
         $link = $this->createSymlink( dirname( $this->getPathnameForClass( 'QueryClass' ) ) );
 

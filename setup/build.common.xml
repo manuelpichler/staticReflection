@@ -5,9 +5,10 @@
         Some common settings for all project.
     -->
     <property name="builddir" value="${basedir}/build" />
+    <property name="scriptdir" value="${basedir}/setup/scripts" />
     <property name="coding.standard" value="PDepend2" />
 
-    <target name="dist" depends="build,tag" description="Default distribution build" />
+    <target name="dist" depends="build,tag,pack" description="Default distribution build" />
 
     <target name="clean">
         <delete dir="${builddir}" includeemptydirs="true" />
@@ -20,6 +21,7 @@
     </target>
 
     <target name="prepare" depends="clean,update">
+        <mkdir dir="${builddir}" />
         <mkdir dir="${builddir}/logs" />
         <mkdir dir="${builddir}/coverage" />
     </target>
@@ -88,25 +90,60 @@
     </target>
 
     <!--
+        Creates binaries of the current project.
+    -->
+    <target name="pack" depends="pack-phar-archive,pack-pear-archive" />
+
+    <!--
+        Creates a phar archive of the project source
+    -->
+    <target name="pack-phar-archive" depends="prepare">
+        <exec dir="${basedir}" executable="${scriptdir}/create.phar.php">
+            <arg line="${ant.project.name}" />
+            <arg line="${builddir}" />
+            <arg line="${basedir}/source" />
+        </exec>
+    </target>
+
+    <!--
+        Creates a pear archive of the project source
+    -->
+    <target name="pack-pear-archive" depends="prepare">
+        <!--
+            TODO: Auto update the pear manifest
+        -->
+
+        <exec dir="${builddir}" executable="pear">
+            <arg line="package" />
+            <arg line="${basedir}/package.xml" />
+        </exec>
+    </target>
+
+    <!--
         Automatically creates a repopositoy tag when all tests have passed.
     -->
-    <target name="tag" depends="init-repository-properties,init-tag-properties">
+    <target name="tag">
 
+        <available file="${basedir}/.svn" property="is-svn-checkout" />
+
+        <antcall target="tag-if-project-is-svn-checkout" />
+
+    </target>
+
+    <target name="tag-if-project-is-svn-checkout" depends="init-repository-properties,init-tag-properties" if="is-svn-checkout">
         <property name="tag.repo" value="${repository}/tags/${ant.project.name}" />
         <property name="tag.name" value="${build.year}-kw${build.week}-qa-build${build.number}" />
-        
-        <!--
+
+        <echo message="svn copy . ${tag.repo}/${tag.name}" />
         <exec dir="${basedir}" executable="svn">
             <arg line="copy . ${tag.repo}/${tag.name}" />
         </exec>
-        -->
-        <echo message="svn copy . ${tag.repo}/${tag.name}" />
     </target>
 
     <!--
         Initializes some properties based on the source repository.
     -->
-    <target name="init-repository-properties" depends="prepare">
+    <target name="init-repository-properties" depends="prepare" if="is-svn-checkout">
 
         <exec executable="svn" dir="${basedir}" output="${builddir}/~svn-info.xml">
             <arg line="info --xml" />
@@ -117,14 +154,12 @@
                      collapseAttributes="true" />
 
         <property name="repository" value="${info.entry.repository.root}" />
-
-
     </target>
 
     <!--
         Initializes some properties required for automatic tagging
     -->
-    <target name="init-tag-properties">
+    <target name="init-tag-properties" if="is-svn-checkout">
 
         <buildnumber />
 
