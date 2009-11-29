@@ -397,18 +397,17 @@ class Parser
      */
     private function _parseClassDeclaration( $docComment, $modifiers )
     {
-        $this->_classOrInterface = null;
+        $this->_consumeComments();
+
+        $token = $this->_consumeToken( ParserTokens::T_STRING );
+        $name  = $this->_createClassOrInterfaceName( array( $token->image ) );
+
+        $this->_classOrInterface = new StaticReflectionClass( $name, $docComment, $modifiers );
 
         while ( is_object( $token = $this->_next() ) )
         {
             switch ( $token->type )
             {
-                case ParserTokens::T_STRING:
-                    $name = $this->_createClassOrInterfaceName( array( $token->image ) );
-
-                    $this->_classOrInterface = new StaticReflectionClass( $name, $docComment, $modifiers );
-                    break;
-
                 case ParserTokens::T_EXTENDS:
                     $this->_classOrInterface->initParentClass( $this->_parseClassOrInterface() );
                     break;
@@ -447,18 +446,17 @@ class Parser
      */
     private function _parseInterfaceDeclaration( $docComment )
     {
-        $this->_classOrInterface = null;
+        $this->_consumeComments();
+
+        $token = $this->_consumeToken( ParserTokens::T_STRING );
+        $name  = $this->_createClassOrInterfaceName( array( $token->image ) );
+
+        $this->_classOrInterface = new StaticReflectionInterface( $name, $docComment );
 
         while ( is_object( $token = $this->_next() ) )
         {
             switch ( $token->type )
             {
-                case ParserTokens::T_STRING:
-                    $name = $this->_createClassOrInterfaceName( array( $token->image ) );
-
-                    $this->_classOrInterface = new StaticReflectionInterface( $name, $docComment );
-                    break;
-
                 case ParserTokens::T_EXTENDS:
                     $this->_classOrInterface->initInterfaces( $this->_parseInterfaceList() );
                     break;
