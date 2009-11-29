@@ -86,7 +86,7 @@ class ReflectionDirectoryQuery extends ReflectionQuery
      * @param string $directory The source directory that is the target of the
      *        class search.
      *
-     * @return array(\ReflectionClass)
+     * @return Iterator
      */
     public function find( $directory )
     {
@@ -107,7 +107,7 @@ class ReflectionDirectoryQuery extends ReflectionQuery
                 $classes[] = $class;
             }
         }
-        return $classes;
+        return new \ArrayIterator( $classes );
     }
 
     /**

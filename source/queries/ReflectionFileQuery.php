@@ -83,7 +83,7 @@ class ReflectionFileQuery extends ReflectionQuery
      *
      * @param string $pathname The pathname of a source code file.
      *
-     * @return array(\ReflectionClass)
+     * @return Iterator
      */
     public function find( $pathname )
     {
@@ -91,6 +91,6 @@ class ReflectionFileQuery extends ReflectionQuery
         {
             throw new \LogicException( 'Invalid or not existant file ' . $pathname );
         }
-        return $this->parseFile( $pathname );
+        return new \ArrayIterator( $this->parseFile( $pathname ) );
     }
 }
