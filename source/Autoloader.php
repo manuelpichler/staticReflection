@@ -47,23 +47,8 @@
 
 namespace org\pdepend\reflection;
 
-require_once 'PHPUnit/Framework.php';
-
-require_once __DIR__ . '/api/AllTests.php';
-require_once __DIR__ . '/factories/AllTests.php';
-require_once __DIR__ . '/parser/AllTests.php';
-require_once __DIR__ . '/queries/AllTests.php';
-require_once __DIR__ . '/resolvers/AllTests.php';
-
-require_once __DIR__ . '/AutoloaderTest.php';
-require_once __DIR__ . '/ReflectionSessionTest.php';
-require_once __DIR__ . '/ReflectionSessionInstanceTest.php';
-require_once __DIR__ . '/ReflectionClassCacheTest.php';
-require_once __DIR__ . '/ReflectionClassProxyTest.php';
-require_once __DIR__ . '/ReflectionClassProxyContextTest.php';
-
 /**
- * Main component test suite
+ * Simple autoloader for the classes of the reflection component.
  *
  * @category  PHP
  * @package   org\pdepend\reflection
@@ -73,41 +58,66 @@ require_once __DIR__ . '/ReflectionClassProxyContextTest.php';
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class AllTests extends \PHPUnit_Framework_TestSuite
+class Autoloader
 {
     /**
-     * Constructs a new test suite instance.
+     * The source directory of the reflection component
+     *
+     * @var string
      */
-    public function __construct()
+    private $_pathname = null;
+
+    /**
+     * Constructs a new autoloader instance.
+     *
+     * @param string $pathname The source directory of the reflection component
+     */
+    public function __construct( $pathname = __DIR__ )
     {
-        $this->setName( 'org::pdepend::reflection::AllTests' );
-
-        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../source/' )
-        );
-
-        $this->addTestSuite( '\org\pdepend\reflection\AutoloaderTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassProxyTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassCacheTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassProxyContextTest' );
-
-        $this->addTest( api\AllTests::suite() );
-        $this->addTest( factories\AllTests::suite() );
-        $this->addTest( parser\AllTests::suite() );
-        $this->addTest( queries\AllTests::suite() );
-        $this->addTest( resolvers\AllTests::suite() );
-
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionSessionTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionSessionInstanceTest' );
+        $this->_pathname = $pathname;
     }
 
     /**
-     * Returns a test suite instance.
+     * Tries to load the source file for the given class.
      *
-     * @return PHPUnit_Framework_TestSuite
+     * @param string $className Name of the searched class.
+     *
+     * @return void
      */
-    public static function suite()
+    public function autoload( $className )
     {
-        return new AllTests();
+        if ( strpos( ltrim( $className, '\\' ), __NAMESPACE__ ) === 0 )
+        {
+            $this->_includeFileIfExists( $this->_createFileName( $className ) );
+        }
+    }
+
+    /**
+     * Will include the given file when it exists.
+     *
+     * @param string $filename The source file name.
+     *
+     * @return void
+     */
+    private function _includeFileIfExists( $filename )
+    {
+        if ( file_exists( $filename ) )
+        {
+            include $filename;
+        }
+    }
+
+    /**
+     * Creates the source file name for the given class.
+     *
+     * @param string $className Name of the searched class.
+     *
+     * @return string
+     */
+    private function _createFileName( $className )
+    {
+        $filename = substr( $className, strlen( __NAMESPACE__ ) + 1 );
+        $filename = strtr( $filename, '\\', DIRECTORY_SEPARATOR );
+        return $this->_pathname . DIRECTORY_SEPARATOR . $filename . '.php';
     }
 }

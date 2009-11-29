@@ -47,23 +47,10 @@
 
 namespace org\pdepend\reflection;
 
-require_once 'PHPUnit/Framework.php';
-
-require_once __DIR__ . '/api/AllTests.php';
-require_once __DIR__ . '/factories/AllTests.php';
-require_once __DIR__ . '/parser/AllTests.php';
-require_once __DIR__ . '/queries/AllTests.php';
-require_once __DIR__ . '/resolvers/AllTests.php';
-
-require_once __DIR__ . '/AutoloaderTest.php';
-require_once __DIR__ . '/ReflectionSessionTest.php';
-require_once __DIR__ . '/ReflectionSessionInstanceTest.php';
-require_once __DIR__ . '/ReflectionClassCacheTest.php';
-require_once __DIR__ . '/ReflectionClassProxyTest.php';
-require_once __DIR__ . '/ReflectionClassProxyContextTest.php';
+require_once __DIR__ . '/BaseTest.php';
 
 /**
- * Main component test suite
+ * Test case for the reflection autoloader.
  *
  * @category  PHP
  * @package   org\pdepend\reflection
@@ -73,41 +60,26 @@ require_once __DIR__ . '/ReflectionClassProxyContextTest.php';
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class AllTests extends \PHPUnit_Framework_TestSuite
+class AutoloaderTest extends BaseTest
 {
     /**
-     * Constructs a new test suite instance.
+     * @return void
+     * @covers \org\pdepend\reflection\Autoloader
+     * @group reflection
+     * @group unittest
      */
-    public function __construct()
+    public function testAutoloaderIncludesMatchingSourceFile()
     {
-        $this->setName( 'org::pdepend::reflection::AllTests' );
+        $classFixture = '\org\pdepend\reflection\autoloader\Test';
 
-        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../source/' )
-        );
+        if ( class_exists( $classFixture, false ) )
+        {
+            $this->fail( 'Class ' . $classFixture . ' should not exist' );
+        }
 
-        $this->addTestSuite( '\org\pdepend\reflection\AutoloaderTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassProxyTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassCacheTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassProxyContextTest' );
+        $autoloader = new Autoloader( __DIR__ . '/_source/' );
+        $autoloader->autoload( $classFixture );
 
-        $this->addTest( api\AllTests::suite() );
-        $this->addTest( factories\AllTests::suite() );
-        $this->addTest( parser\AllTests::suite() );
-        $this->addTest( queries\AllTests::suite() );
-        $this->addTest( resolvers\AllTests::suite() );
-
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionSessionTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionSessionInstanceTest' );
-    }
-
-    /**
-     * Returns a test suite instance.
-     *
-     * @return PHPUnit_Framework_TestSuite
-     */
-    public static function suite()
-    {
-        return new AllTests();
+        $this->assertTrue( class_exists( $classFixture, false ), 'Class should exist ' . $classFixture );
     }
 }
