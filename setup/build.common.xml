@@ -6,7 +6,6 @@
     -->
     <property name="builddir" value="${basedir}/build" />
     <property name="scriptdir" value="${basedir}/setup/scripts" />
-    <property name="coding.standard" value="PDepend2" />
 
     <target name="dist" depends="build,tag,pack" description="Default distribution build" />
 
@@ -131,7 +130,7 @@
     </target>
 
     <target name="tag-if-project-is-svn-checkout" depends="init-repository-properties,init-tag-properties" if="is-svn-checkout">
-        <property name="tag.repo" value="${repository}/tags/${ant.project.name}" />
+        <property name="tag.repo" value="${repository}/tags" />
         <property name="tag.name" value="${build.year}-kw${build.week}-qa-build${build.number}" />
 
         <property name="tag.msg" value="# Auto created tag ${build.number} after successful build." />
