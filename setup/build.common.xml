@@ -134,9 +134,11 @@
         <property name="tag.repo" value="${repository}/tags/${ant.project.name}" />
         <property name="tag.name" value="${build.year}-kw${build.week}-qa-build${build.number}" />
 
+        <property name="tag.msg" value="# Auto created tag ${build.number} after successful build." />
+
         <echo message="svn copy . ${tag.repo}/${tag.name}" />
         <exec dir="${basedir}" executable="svn">
-            <arg line="copy . ${tag.repo}/${tag.name}" />
+            <arg line="copy -m '${tag.msg}' . ${tag.repo}/${tag.name}" />
         </exec>
     </target>
 
