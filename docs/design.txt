@@ -24,6 +24,67 @@ be used to as a replacement for direct ``ReflectionClass`` instantiations
 with productive code. This single point of entry forms the facade class
 ``ReflectionSession``.
 
+Default configurations
+----------------------
+
+The ``ReflectionSession`` will provide some factory methods that return
+instances with common configurations of the session class. This solution
+is error save and makes adaption easier. Currently we have have identified
+the following three configurations.
+
+- *createStaticSession*: Creates a complete static setup, that always
+  relies on the information extracted from the source. All unknown
+  classes and/or interfaces will be represented by a NULL reflection
+  instance that acts as a placeholder.
+- *createInternalSession*: Creates a session instance that is just a
+  simple wrapper around PHP's internal reflection api.
+- *createDefaultSession*: Creates a mix of the static and internal
+  reflection implementation. All known classes will be represented by
+  an instance of PHP's ``ReflectionClass``, while all unknown classes
+  with a source representation are handled by the static reflection
+  api.
+
+Factory method signatures
+`````````````````````````
+
+- ReflectionSession::createDefaultSession( SourceResolver $resolver )
+- ReflectionSession::createStaticSession( SourceResolver $resolver )
+- ReflectionSession::createInternalSession()
+
+Switching the reflection strategy
+---------------------------------
+
+To allow an easy exchange of the used reflection strategy this component
+uses a registry class for the concrete facade used within the application.
+This registry can be configured in the application bootstrap file and
+then all parts of the application can access the reflection component
+through the registry. The name of the used registry class is
+``ReflectionSessionInstance``.
+
+The following example shows a simple setup of the reflection component. ::
+
+  <?php
+  use org\pdepend\reflection\ReflectionSession;
+  use org\pdepend\reflection\resolvers\PearNamingResolver;
+  use org\pdepend\reflection\factories\StaticReflectionClassFactory;
+
+  $factory = new new StaticReflectionClassFactory( new PearNamingResolver() );
+
+  $session = new ReflectionSession();
+  $session->addClassFactory( $factory );
+
+  ReflectionSessionInstance::set( $session );
+
+Other parts of the application can now access the ``ReflectionSession``
+instance through the registry. ::
+
+  <?php
+  $session = ReflectionSessionInstance::get();
+
+  $class = $session->getClass( 'PHP_Depend' );
+
+This design makes it really easy to exchange the used reflection strategy,
+because only the bootstrap file must be changed.
 
 How to use
 ==========
@@ -37,11 +98,15 @@ file for the searched class. ::
 
   <?php
   use org\pdepend\reflection\ReflectionSession;
+  use org\pdepend\reflection\resolvers\PearNamingResolver;
+  use org\pdepend\reflection\factories\StaticReflectionClassFactory;
+
+  $factory = new new StaticReflectionClassFactory( new PearNamingResolver() );
 
   $session = new ReflectionSession();
-  $session->addPathResolver( new NamespacePathResolver() );
+  $session->addClassFactory( $factory );
 
-  $class = $session->findByClassName( '\org\pdepend\reflection\parser\Parser' );
+  $class = $session->getClass( 'PHP_Depend_Parser' );
 
 
 Retrieving an internal class by name
@@ -53,9 +118,9 @@ an internal PHP class/interface. ::
   <?php
   use org\pdepend\reflection\ReflectionSession;
 
-  $session = new ReflectionSession();
+  $session = ReflectionSession::createRuntimeSession();
 
-  $class = $session->findByClassName( '\Iterator' );
+  $class = $session->getClass( '\Iterator' );
 
 
 Retrieving all classes within a file
@@ -69,7 +134,12 @@ single file. ::
   use org\pdepend\reflection\ReflectionSession;
 
   $session = new ReflectionSession();
-  $classes = $session->findByFile( '/home/mapi/projects/pdepend/PHP/Depend.php' );
+
+  $query = $session->createFileQuery();
+  foreach ( $query->find( '/home/mapi/projects/pdepend/PHP/Depend.php' ) as $class )
+  {
+      echo $class->getName(), PHP_EOL;
+  }
 
 
 Retrieving all classes within a directory
@@ -83,5 +153,31 @@ specified source directory. ::
   use org\pdepend\reflection\ReflectionSession;
 
   $session = new ReflectionSession();
-  $classes = $session->findByDirectory( '/home/mapi/projects/pdepend' );
+
+  $query = $session->createDirectoryQuery();
+  foreach ( $query->find( '/home/mapi/projects/pdepend/PHP/Depend' ) as $class )
+  {
+      echo $class->getName(), PHP_EOL;
+  }
+
+Retrieving a class by name through the query api
+------------------------------------------------
+
+The following example shows how to use the query api of the static
+reflection component to retrieve a class by its name. Additionally
+this example illustrates the usage of one of session factory methods
+that create a common session setup. ::
+
+  <?php
+  use org\pdepend\reflection\ReflectionSession;
+  use org\pdepend\reflection\resolvers\AutoloadArrayResolver;
+
+  $session = new ReflectionSession::createDefaultSession(
+      new AutoloadArrayResolver( $autoload )
+  );
+
+  $query = $session->createClassQuery();
+  $class = $query->find( '\org\pdepend\reflection\resolver\PearNamingResolver' );
+
+  echo $class->getName(), PHP_EOL;
 
