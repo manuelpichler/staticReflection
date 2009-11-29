@@ -112,21 +112,43 @@
             TODO: Auto update the pear manifest
         -->
 
+        <copy todir="${builddir}/source/${ant.project.name}">
+            <fileset dir="${basedir}/source"/>
+        </copy>
+
+        <copy todir="${builddir}/source/docs">
+            <fileset dir="${basedir}/docs"/>
+        </copy>
+
+        <copy file="${basedir}/LICENSE" todir="${builddir}/source" />
+        <copy file="${basedir}/CHANGELOG" todir="${builddir}/source" />
+
+        <tstamp>
+            <format property="build.date" pattern="yyyy-MM-dd" />
+        </tstamp>
+
+        <copy file="${basedir}/package.xml" tofile="${builddir}/source/package.xml">
+            <filterchain>
+                <replacestring from='"source"' to='"${ant.project.name}"' />
+                <replacestring from="1970-01-01" to="${build.date}" />
+                <replacestring from="0.0.0" to="${project.version}" />
+                <replacestring from="devel" to="${project.stability}" />
+            </filterchain>
+        </copy>
+
         <exec dir="${builddir}" executable="pear">
             <arg line="package" />
-            <arg line="${basedir}/package.xml" />
+            <arg line="source/package.xml" />
         </exec>
     </target>
 
     <!--
         Automatically creates a repopositoy tag when all tests have passed.
     -->
-    <target name="tag">
+    <target name="tag" depends="test-is-svn-checkout,tag-if-project-is-svn-checkout" />
 
+    <target name="test-is-svn-checkout">
         <available file="${basedir}/.svn" property="is-svn-checkout" />
-
-        <antcall target="tag-if-project-is-svn-checkout" />
-
     </target>
 
     <target name="tag-if-project-is-svn-checkout" depends="init-repository-properties,init-tag-properties" if="is-svn-checkout">

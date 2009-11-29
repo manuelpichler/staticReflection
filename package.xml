@@ -23,14 +23,14 @@
         <email>mapi@pdepend.org</email>
         <active>yes</active>
     </lead>
-    <date>2009-08-07</date>
+    <date>1970-01-01</date>
     <version>
-        <release>0.1.0</release>
-        <api>0.1.0</api>
+        <release>0.0.0</release>
+        <api>0.0.0</api>
     </version>
     <stability>
-        <release>alpha</release>
-        <api>alpha</api>
+        <release>devel</release>
+        <api>devel</api>
     </stability>
     <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
     <notes>
@@ -153,6 +153,16 @@
                     </file>
                 </dir>
             </dir>
+            <dir name="docs">
+                <file name="design.txt" role="doc" />
+                <dir name="examples">
+                    <file name="create_autoload_array.php" role="doc" />
+                    <file name="parse_directory.php" role="doc" />
+                    <file name="parse_file.php" role="doc" />
+                </dir>
+            </dir>
+            <file name="CHANGELOG" role="doc" />
+            <file name="LICENSE" role="doc" />
         </dir>
     </contents>
     <dependencies>
@@ -178,43 +188,7 @@
         </required>
     </dependencies>
 
-    <phprelease>
-        <filelist>
-            <install as="staticReflection/Autoloader.php" name="source/Autoloader.php"/>
-            <install as="staticReflection/ReflectionClassCache.php" name="source/ReflectionClassCache.php"/>
-            <install as="staticReflection/ReflectionClassProxyContext.php" name="source/ReflectionClassProxyContext.php"/>
-            <install as="staticReflection/ReflectionClassProxy.php" name="source/ReflectionClassProxy.php"/>
-            <install as="staticReflection/ReflectionSessionInstance.php" name="source/ReflectionSessionInstance.php"/>
-            <install as="staticReflection/ReflectionSession.php" name="source/ReflectionSession.php"/>
-            <install as="staticReflection/api/NullReflectionClass.php" name="source/api/NullReflectionClass.php" />
-            <install as="staticReflection/api/StaticReflectionClass.php" name="source/api/StaticReflectionClass.php" />
-            <install as="staticReflection/api/StaticReflectionInterface.php" name="source/api/StaticReflectionInterface.php" />
-            <install as="staticReflection/api/StaticReflectionMethod.php" name="source/api/StaticReflectionMethod.php" />
-            <install as="staticReflection/api/StaticReflectionParameter.php" name="source/api/StaticReflectionParameter.php" />
-            <install as="staticReflection/api/StaticReflectionProperty.php" name="source/api/StaticReflectionProperty.php" />
-            <install as="staticReflection/api/StaticReflectionValue.php" name="source/api/StaticReflectionValue.php" />
-            <install as="staticReflection/exceptions/EndOfTokenStreamException.php" name="source/exceptions/EndOfTokenStreamException.php" />
-            <install as="staticReflection/exceptions/ParserException.php" name="source/exceptions/ParserException.php" />
-            <install as="staticReflection/exceptions/PathnameNotFoundException.php" name="source/exceptions/PathnameNotFoundException.php" />
-            <install as="staticReflection/exceptions/UnexpectedTokenException.php" name="source/exceptions/UnexpectedTokenException.php" />
-            <install as="staticReflection/factories/InternalReflectionClassFactory.php" name="source/factories/InternalReflectionClassFactory.php" />
-            <install as="staticReflection/factories/NullReflectionClassFactory.php" name="source/factories/NullReflectionClassFactory.php" />
-            <install as="staticReflection/factories/StaticReflectionClassFactory.php" name="source/factories/StaticReflectionClassFactory.php" />
-            <install as="staticReflection/interfaces/ParserContext.php" name="source/interfaces/ParserContext.php" />
-            <install as="staticReflection/interfaces/ReflectionClassFactory.php" name="source/interfaces/ReflectionClassFactory.php" />
-            <install as="staticReflection/interfaces/SourceResolver.php" name="source/interfaces/SourceResolver.php" />
-            <install as="staticReflection/parser/Parser.php" name="source/parser/Parser.php" />
-            <install as="staticReflection/parser/ParserTokens.php" name="source/parser/ParserTokens.php" />
-            <install as="staticReflection/parser/Tokenizer.php" name="source/parser/Tokenizer.php" />
-            <install as="staticReflection/parser/Token.php" name="source/parser/Token.php" />
-            <install as="staticReflection/queries/ReflectionClassQuery.php" name="source/queries/ReflectionClassQuery.php" />
-            <install as="staticReflection/queries/ReflectionDirectoryQuery.php" name="source/queries/ReflectionDirectoryQuery.php" />
-            <install as="staticReflection/queries/ReflectionFileQuery.php" name="source/queries/ReflectionFileQuery.php" />
-            <install as="staticReflection/queries/ReflectionQuery.php" name="source/queries/ReflectionQuery.php" />
-            <install as="staticReflection/resolvers/AutoloadArrayResolver.php" name="source/resolvers/AutoloadArrayResolver.php" />
-            <install as="staticReflection/resolvers/PearNamingResolver.php" name="source/resolvers/PearNamingResolver.php" />
-        </filelist>
-    </phprelease>
+    <phprelease />
 
     <changelog />
 
