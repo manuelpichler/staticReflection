@@ -7,7 +7,27 @@
     <property name="builddir" value="${basedir}/build" />
     <property name="scriptdir" value="${basedir}/setup/scripts" />
 
-    <target name="dist" depends="build,tag,pack" description="Default distribution build" />
+    <target name="dist-ci" depends="dist-ci-properties,dist" description="Continuous integration distribution build" />
+
+    <target name="dist-ci-properties">
+        <buildnumber file="build-${project.version}${project.stability}.number" />
+
+        <property name="build.version" value="${project.version}build${build.number}" />
+        <property name="build.name" value="${ant.project.name}_ci" />
+        <property name="build.file" value="${build.name}-${build.version}" />
+
+        <echo message="${build.file}" />
+    </target>
+
+    <target name="dist" depends="dist-properties,build,tag,pack" description="Default distribution build" />
+
+    <target name="dist-properties" unless="build.version">
+        <property name="build.version" value="${project.version}" />
+        <property name="build.name" value="${ant.project.name}" />
+        <property name="build.file" value="${build.name}-${build.version}" />
+
+        <echo message="${build.file}" />
+    </target>
 
     <target name="clean">
         <delete dir="${builddir}" includeemptydirs="true" />
@@ -99,6 +119,7 @@
     <target name="pack-phar-archive" depends="prepare">
         <exec dir="${basedir}" executable="${scriptdir}/create.phar.php">
             <arg line="${ant.project.name}" />
+            <arg line="${build.file}" />
             <arg line="${builddir}" />
             <arg line="${basedir}/source" />
         </exec>
@@ -108,9 +129,6 @@
         Creates a pear archive of the project source
     -->
     <target name="pack-pear-archive" depends="prepare">
-        <!--
-            TODO: Auto update the pear manifest
-        -->
 
         <copy todir="${builddir}/pear-archive/${ant.project.name}">
             <fileset dir="${basedir}/source"/>
@@ -132,9 +150,10 @@
 
         <copy file="${basedir}/package.xml" tofile="${builddir}/pear-archive/package.xml">
             <filterchain>
+                <replacestring from="${ant.project.name}" to="${build.name}" />
                 <replacestring from='name="source"' to='name="${ant.project.name}"' />
                 <replacestring from="1970-01-01" to="${build.date}" />
-                <replacestring from="0.0.0" to="${project.version}" />
+                <replacestring from="0.0.0" to="${build.version}" />
                 <replacestring from="devel" to="${project.stability}" />
             </filterchain>
         </copy>
@@ -162,7 +181,7 @@
         <copy file="${basedir}/CHANGELOG" todir="${builddir}/tar-archive/${ant.project.name}" />
         
         <tar basedir="${builddir}/tar-archive"
-             destfile="${builddir}/${ant.project.name}.tar.bz2"
+             destfile="${builddir}/${build.file}.tar.bz2"
              compression="bzip2">
 
             <include name="${ant.project.name}/**" />
@@ -178,11 +197,11 @@
         <available file="${basedir}/.svn" property="is-svn-checkout" />
     </target>
 
-    <target name="tag-if-project-is-svn-checkout" depends="init-repository-properties,init-tag-properties" if="is-svn-checkout">
+    <target name="tag-if-project-is-svn-checkout" depends="init-repository-properties" if="is-svn-checkout">
         <property name="tag.repo" value="${repository}/tags" />
-        <property name="tag.name" value="${build.year}-kw${build.week}-qa-build${build.number}" />
+        <property name="tag.name" value="${build.name}-${build.version}" />
 
-        <property name="tag.msg" value="# Auto created tag ${build.number} after successful build." />
+        <property name="tag.msg" value="# Auto created tag '${build.version}' after successful build." />
 
         <echo message="svn copy . ${tag.repo}/${tag.name}" />
         <exec dir="${basedir}" executable="svn">
@@ -210,12 +229,8 @@
         Initializes some properties required for automatic tagging
     -->
     <target name="init-tag-properties" if="is-svn-checkout">
-
-        <buildnumber />
-
         <tstamp>
-            <format property="build.year" pattern="yyyy" />
-            <format property="build.week" pattern="w" />
+            <format property="build.date" pattern="yyyy-MM-dd" />
         </tstamp>
     </target>
 

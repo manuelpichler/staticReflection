@@ -159,6 +159,7 @@
                     <file name="create_autoload_array.php" role="doc" />
                     <file name="parse_directory.php" role="doc" />
                     <file name="parse_file.php" role="doc" />
+                    <file name="pear_naming.php" role="doc" />
                 </dir>
             </dir>
             <file name="CHANGELOG" role="doc" />

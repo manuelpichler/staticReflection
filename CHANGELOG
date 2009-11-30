@@ -1,3 +1,10 @@
+2009-11-30 - staticReflection-0.1.1alpha
+----------------------------------------
+
+- Additional example added.
+- Adjust paths within the example files depending on the build target.
+- Build environment improved.
+
 2009-11-29 - staticReflection-0.1.0alpha
 ----------------------------------------
 
