@@ -1,0 +1,6 @@
+'<?php
+Phar::mapPhar( '${archive.alias}' );
+include_once 'phar://${archive.alias}/Autoloader.php';
+spl_autoload_register( array( new \org\pdepend\reflection\Autoloader(), 'autoload' ) );
+__HALT_COMPILER();
+?>

@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="staticReflection" default="build" basedir=".">
 
+    <!--
+        Include local project properties.
+    -->
     <property file="build.properties" />
     
     <!--

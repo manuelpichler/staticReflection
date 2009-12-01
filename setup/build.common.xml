@@ -7,26 +7,26 @@
     <property name="builddir" value="${basedir}/build" />
     <property name="scriptdir" value="${basedir}/setup/scripts" />
 
-    <target name="dist-ci" depends="dist-ci-properties,dist" description="Continuous integration distribution build" />
+    <target name="dist-ci" depends="build-ci-properties,dist" description="Continuous integration distribution build" />
 
-    <target name="dist-ci-properties">
+    <target name="build-ci-properties">
         <buildnumber file="build-${project.version}${project.stability}.number" />
 
         <property name="build.version" value="${project.version}build${build.number}" />
         <property name="build.name" value="${ant.project.name}_ci" />
         <property name="build.file" value="${build.name}-${build.version}" />
 
-        <echo message="${build.file}" />
+        <property name="phar.archive.bootstrap" value="" />
     </target>
 
-    <target name="dist" depends="dist-properties,build,tag,pack" description="Default distribution build" />
+    <target name="dist" depends="build,tag,pack" description="Default distribution build" />
 
-    <target name="dist-properties" unless="build.version">
+    <target name="build-properties" unless="build.version">
         <property name="build.version" value="${project.version}" />
         <property name="build.name" value="${ant.project.name}" />
         <property name="build.file" value="${build.name}-${build.version}" />
 
-        <echo message="${build.file}" />
+        <property name="phar.archive.bootstrap" value="" />
     </target>
 
     <target name="clean">
@@ -39,7 +39,7 @@
         </exec>
     </target>
 
-    <target name="prepare" depends="clean,update">
+    <target name="prepare" depends="clean,update,build-properties">
         <mkdir dir="${builddir}" />
         <mkdir dir="${builddir}/logs" />
         <mkdir dir="${builddir}/coverage" />
@@ -117,11 +117,16 @@
         Creates a phar archive of the project source
     -->
     <target name="pack-phar-archive" depends="prepare">
+
+        <copy todir="${builddir}/phar-archive">
+            <fileset dir="${basedir}/source"/>
+        </copy>
+
         <exec dir="${basedir}" executable="${scriptdir}/create.phar.php">
             <arg line="${ant.project.name}" />
-            <arg line="${build.file}" />
-            <arg line="${builddir}" />
-            <arg line="${basedir}/source" />
+            <arg line="${builddir}/${build.file}.phar" />
+            <arg line="${builddir}/phar-archive" />
+            <arg line="${phar.archive.bootstrap}" />
         </exec>
     </target>
 
