@@ -301,7 +301,7 @@ class StaticReflectionProperty extends \ReflectionProperty
      *
      * @return void
      */
-    public function setValue( $object, $value )
+    public function setValue( $object, $value = null )
     {
         throw new \ReflectionException( 'Method setValue() is not supported' );
     }
