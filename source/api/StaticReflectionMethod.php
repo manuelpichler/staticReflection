@@ -657,6 +657,20 @@ class StaticReflectionMethod extends \ReflectionMethod
     }
 
     /**
+     * Flags a non-public method accessible, which allows to invoke protected
+     * and private methods.
+     *
+     * @param boolean $accessible <b>true</b> to allow accessibility, or <b>false</b>.
+     *
+     * @return void
+     * @since PHP 5.3.2-dev
+     */
+    public function setAccessible( $accessible )
+    {
+        throw new \ReflectionException( 'Method setAccessible() is not supported' );
+    }
+
+    /**
      * Will invoke the reflected method on the given <b>$object</b>.
      *
      * @param object $object The context object instance.

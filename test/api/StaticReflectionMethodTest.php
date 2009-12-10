@@ -1185,6 +1185,20 @@ class StaticReflectionMethodTest extends \org\pdepend\reflection\BaseTest
      * @group reflection
      * @group reflection::api
      * @group unittest
+     * @expectedException \ReflectionException
+     */
+    public function testSetAccessibleThrowsNotSupportedException()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+        $method->setAccessible( true );
+    }
+
+    /**
+     * @return void
+     * @covers \org\pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
      * @expectedException \LogicException
      */
     public function testInitDeclaringClassThrowsLogicExceptionWhenDeclaringClassWasAlreadySet()

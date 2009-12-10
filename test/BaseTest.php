@@ -70,6 +70,13 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
     private static $_initialized = false;
 
     /**
+     * List of methods that will be added to the list of expected object
+     *
+     * @var array(string)
+     */
+    protected $methodBackwardsCompatibilityList = array();
+
+    /**
      * Constructs a new test instance.
      */
     public function __construct()
@@ -106,16 +113,27 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
      */
     protected function getPublicMethods( $className )
     {
+        $phpversion =
+
         $reflection = new \ReflectionClass( $className );
 
         $methods = array();
         foreach ( $reflection->getMethods( \ReflectionMethod::IS_PUBLIC ) as $method )
         {
+            $comment = $method->getDocComment();
+
             if ( !$method->isPublic()
                 || $method->isStatic()
                 || $reflection->isUserDefined() !== $method->isUserDefined()
                 || $reflection->isInternal() !== $method->isInternal()
-                || is_int( strpos( $method->getDocComment(), '@access private' ) )
+                || is_int( strpos( $comment, '@access private' ) )
+            ) {
+                continue;
+            }
+
+            $regexp = '(@since\s+PHP (\d+\.\d+\.\d+(\-dev|RC\d+|alpha\d+|beta\d+)?))';
+            if (preg_match( $regexp, $comment, $match )
+                && version_compare( phpversion(), $match[1] ) < 0
             ) {
                 continue;
             }
