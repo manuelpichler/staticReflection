@@ -1,4 +1,4 @@
-'<?php
+<?php
 Phar::mapPhar( '${archive.alias}' );
 include_once 'phar://${archive.alias}/pdepend/reflection/Autoloader.php';
 spl_autoload_register( array( new \pdepend\reflection\Autoloader(), 'autoload' ) );
