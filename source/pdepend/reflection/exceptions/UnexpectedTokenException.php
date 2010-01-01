@@ -67,7 +67,7 @@ class UnexpectedTokenException extends ParserException
      * Constructs a new unexpected token exception.
      *
      * @param \pdepend\reflection\parser\Token $token    The unexpected token.
-     * @param string                               $fileName The parsed source file.
+     * @param string                           $fileName The parsed source file.
      */
     public function __construct( Token $token, $fileName )
     {

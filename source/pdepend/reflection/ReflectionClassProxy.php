@@ -93,7 +93,7 @@ class ReflectionClassProxy extends \ReflectionClass
      * @param \pdepend\reflection\ReflectionSession $session The currently
      *        used reflection session instance that is used during the actual
      *        parsing process.
-     * @param string                                    $name    Qualified name
+     * @param string                                $name    Qualified name
      *        of the class/interface that is proxied by the current proxy object.
      */
     public function __construct( ReflectionSession $session, $name )
