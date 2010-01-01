@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\resolvers
+ * @package   pdepend\reflection\resolvers
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,7 +45,7 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection\resolvers;
+namespace pdepend\reflection\resolvers;
 
 require_once __DIR__ . '/../BaseTest.php';
 
@@ -53,14 +53,14 @@ require_once __DIR__ . '/../BaseTest.php';
  * Test cases for the parser class.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\resolvers
+ * @package   pdepend\reflection\resolvers
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class PearNamingResolverTest extends \org\pdepend\reflection\BaseTest
+class PearNamingResolverTest extends \pdepend\reflection\BaseTest
 {
     /**
      * The temporary include path fixture.
@@ -93,8 +93,8 @@ class PearNamingResolverTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\interfaces\SourceResolver
-     * @covers \org\pdepend\reflection\resolvers\PearNamingResolver
+     * @covers \pdepend\reflection\interfaces\SourceResolver
+     * @covers \pdepend\reflection\resolvers\PearNamingResolver
      * @group reflection
      * @group reflection::resolvers
      * @group unittest
@@ -109,8 +109,8 @@ class PearNamingResolverTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\interfaces\SourceResolver
-     * @covers \org\pdepend\reflection\resolvers\PearNamingResolver
+     * @covers \pdepend\reflection\interfaces\SourceResolver
+     * @covers \pdepend\reflection\resolvers\PearNamingResolver
      * @group reflection
      * @group reflection::resolvers
      * @group unittest
@@ -125,8 +125,8 @@ class PearNamingResolverTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\interfaces\SourceResolver
-     * @covers \org\pdepend\reflection\resolvers\PearNamingResolver
+     * @covers \pdepend\reflection\interfaces\SourceResolver
+     * @covers \pdepend\reflection\resolvers\PearNamingResolver
      * @group reflection
      * @group reflection::resolvers
      * @group unittest
@@ -143,12 +143,12 @@ class PearNamingResolverTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\interfaces\SourceResolver
-     * @covers \org\pdepend\reflection\resolvers\PearNamingResolver
+     * @covers \pdepend\reflection\interfaces\SourceResolver
+     * @covers \pdepend\reflection\resolvers\PearNamingResolver
      * @group reflection
      * @group reflection::resolvers
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\PathnameNotFoundException
+     * @expectedException \pdepend\reflection\exceptions\PathnameNotFoundException
      */
     public function testGetPathnameForClassThrowsExceptionWhenNoMatchExistsForTheGivenClassName()
     {

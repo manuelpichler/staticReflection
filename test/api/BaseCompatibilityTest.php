@@ -5,9 +5,9 @@
  * to provide similar functionallities.
  */
 
-namespace org\pdepend\reflection\api;
+namespace pdepend\reflection\api;
 
-use org\pdepend\reflection\parser\Parser;
+use pdepend\reflection\parser\Parser;
 
 require_once 'BaseTest.php';
 
@@ -19,7 +19,7 @@ require_once 'BaseTest.php';
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-abstract class BaseCompatibilityTest extends \org\pdepend\reflection\BaseTest
+abstract class BaseCompatibilityTest extends \pdepend\reflection\BaseTest
 {
     /**
      * Creates an internal reflection class instance.

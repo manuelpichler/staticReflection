@@ -64,9 +64,9 @@ through the registry. The name of the used registry class is
 The following example shows a simple setup of the reflection component. ::
 
   <?php
-  use org\pdepend\reflection\ReflectionSession;
-  use org\pdepend\reflection\resolvers\PearNamingResolver;
-  use org\pdepend\reflection\factories\StaticReflectionClassFactory;
+  use pdepend\reflection\ReflectionSession;
+  use pdepend\reflection\resolvers\PearNamingResolver;
+  use pdepend\reflection\factories\StaticReflectionClassFactory;
 
   $factory = new new StaticReflectionClassFactory( new PearNamingResolver() );
 
@@ -97,9 +97,9 @@ use case example uses one of the buildin path resolvers to find the source
 file for the searched class. ::
 
   <?php
-  use org\pdepend\reflection\ReflectionSession;
-  use org\pdepend\reflection\resolvers\PearNamingResolver;
-  use org\pdepend\reflection\factories\StaticReflectionClassFactory;
+  use pdepend\reflection\ReflectionSession;
+  use pdepend\reflection\resolvers\PearNamingResolver;
+  use pdepend\reflection\factories\StaticReflectionClassFactory;
 
   $factory = new new StaticReflectionClassFactory( new PearNamingResolver() );
 
@@ -116,7 +116,7 @@ The following example shows how to retrieve a reflection class instance of
 an internal PHP class/interface. ::
 
   <?php
-  use org\pdepend\reflection\ReflectionSession;
+  use pdepend\reflection\ReflectionSession;
 
   $session = ReflectionSession::createRuntimeSession();
 
@@ -131,7 +131,7 @@ reflection class instances for all classes/interfaces declared within a
 single file. ::
 
   <?php
-  use org\pdepend\reflection\ReflectionSession;
+  use pdepend\reflection\ReflectionSession;
 
   $session = new ReflectionSession();
 
@@ -150,7 +150,7 @@ reflection class instances for all classes/interface declared within the
 specified source directory. ::
 
   <?php
-  use org\pdepend\reflection\ReflectionSession;
+  use pdepend\reflection\ReflectionSession;
 
   $session = new ReflectionSession();
 
@@ -169,15 +169,15 @@ this example illustrates the usage of one of session factory methods
 that create a common session setup. ::
 
   <?php
-  use org\pdepend\reflection\ReflectionSession;
-  use org\pdepend\reflection\resolvers\AutoloadArrayResolver;
+  use pdepend\reflection\ReflectionSession;
+  use pdepend\reflection\resolvers\AutoloadArrayResolver;
 
   $session = new ReflectionSession::createDefaultSession(
       new AutoloadArrayResolver( $autoload )
   );
 
   $query = $session->createClassQuery();
-  $class = $query->find( '\org\pdepend\reflection\resolver\PearNamingResolver' );
+  $class = $query->find( '\pdepend\reflection\resolver\PearNamingResolver' );
 
   echo $class->getName(), PHP_EOL;
 

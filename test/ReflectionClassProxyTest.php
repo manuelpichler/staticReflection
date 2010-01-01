@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   pdepend\reflection
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,7 +45,7 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection;
+namespace pdepend\reflection;
 
 require_once 'BaseTest.php';
 
@@ -53,7 +53,7 @@ require_once 'BaseTest.php';
  * Test case for the reflection class proxy.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   pdepend\reflection
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -64,7 +64,7 @@ class ReflectionClassProxyTest extends BaseTest
 {
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -76,7 +76,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -88,7 +88,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -100,7 +100,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -112,7 +112,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -124,7 +124,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -136,7 +136,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -148,7 +148,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -160,7 +160,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -172,7 +172,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -184,7 +184,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -196,7 +196,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -208,7 +208,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -220,7 +220,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -232,7 +232,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -244,7 +244,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -256,7 +256,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -268,7 +268,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -280,7 +280,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -292,7 +292,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -304,7 +304,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -316,7 +316,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -328,7 +328,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -340,7 +340,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -352,7 +352,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -364,7 +364,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -376,7 +376,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -388,7 +388,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -400,7 +400,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -412,7 +412,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -424,7 +424,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -436,7 +436,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -448,7 +448,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -460,7 +460,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -472,7 +472,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -484,7 +484,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -496,7 +496,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -508,7 +508,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -520,7 +520,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -532,7 +532,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -544,7 +544,7 @@ class ReflectionClassProxyTest extends BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxy
+     * @covers \pdepend\reflection\ReflectionClassProxy
      * @group reflection
      * @group unittest
      */
@@ -559,7 +559,7 @@ class ReflectionClassProxyTest extends BaseTest
      *
      * @param string $methodName Name of the tested method.
      *
-     * @return \org\pdepend\reflection\ReflectionClassProxy
+     * @return \pdepend\reflection\ReflectionClassProxy
      */
     private function _createClassProxy( $methodName )
     {

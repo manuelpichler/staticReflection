@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\factories
+ * @package   pdepend\reflection\factories
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,7 +45,7 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection\factories;
+namespace pdepend\reflection\factories;
 
 require_once 'BaseTest.php';
 
@@ -53,18 +53,18 @@ require_once 'BaseTest.php';
  * Test cases for the static reflection factory.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\factories
+ * @package   pdepend\reflection\factories
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class StaticReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
+class StaticReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
 {
     /**
      * @return void
-     * @covers \org\pdepend\reflection\factories\StaticReflectionClassFactory
+     * @covers \pdepend\reflection\factories\StaticReflectionClassFactory
      * @group reflection
      * @group reflection::factories
      * @group unittest
@@ -83,7 +83,7 @@ class StaticReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\factories\StaticReflectionClassFactory
+     * @covers \pdepend\reflection\factories\StaticReflectionClassFactory
      * @group reflection
      * @group reflection::factories
      * @group unittest
@@ -102,7 +102,7 @@ class StaticReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\factories\StaticReflectionClassFactory
+     * @covers \pdepend\reflection\factories\StaticReflectionClassFactory
      * @group reflection
      * @group reflection::factories
      * @group unittest
@@ -117,7 +117,7 @@ class StaticReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\factories\StaticReflectionClassFactory
+     * @covers \pdepend\reflection\factories\StaticReflectionClassFactory
      * @group reflection
      * @group reflection::factories
      * @group unittest
@@ -125,14 +125,14 @@ class StaticReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
     public function testCreateClassReturnsReflectionClassForClassThatExists()
     {
         $factory = new StaticReflectionClassFactory( $this->createContext(), $this->createResolver() );
-        $class   = $factory->createClass( '\org\pdepend\reflection\ClassSimple' );
+        $class   = $factory->createClass( '\pdepend\reflection\ClassSimple' );
 
         $this->assertType( '\ReflectionClass', $class );
     }
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\factories\StaticReflectionClassFactory
+     * @covers \pdepend\reflection\factories\StaticReflectionClassFactory
      * @group reflection
      * @group reflection::factories
      * @group unittest
@@ -148,7 +148,7 @@ class StaticReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\factories\StaticReflectionClassFactory
+     * @covers \pdepend\reflection\factories\StaticReflectionClassFactory
      * @group reflection
      * @group reflection::factories
      * @group unittest
@@ -157,6 +157,6 @@ class StaticReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
     public function testCreateClassThrowsExceptionForClassThatDoesNotExists()
     {
         $factory = new StaticReflectionClassFactory( $this->createContext(), $this->createResolver() );
-        $factory->createClass( '\org\pdepend\reflection\ClassMissing' );
+        $factory->createClass( '\pdepend\reflection\ClassMissing' );
     }
 }

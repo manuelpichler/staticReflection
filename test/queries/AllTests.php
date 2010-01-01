@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\queries
+ * @package   pdepend\reflection\queries
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,7 +45,7 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection\queries;
+namespace pdepend\reflection\queries;
 
 require_once 'PHPUnit/Framework.php';
 
@@ -57,7 +57,7 @@ require_once 'ReflectionFileQueryTest.php';
  * Main test suite.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\queries
+ * @package   pdepend\reflection\queries
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -77,9 +77,9 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
-        $this->addTestSuite( '\org\pdepend\reflection\queries\ReflectionClassQueryTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\queries\ReflectionDirectoryQueryTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\queries\ReflectionFileQueryTest' );
+        $this->addTestSuite( '\pdepend\reflection\queries\ReflectionClassQueryTest' );
+        $this->addTestSuite( '\pdepend\reflection\queries\ReflectionDirectoryQueryTest' );
+        $this->addTestSuite( '\pdepend\reflection\queries\ReflectionFileQueryTest' );
     }
 
     /**

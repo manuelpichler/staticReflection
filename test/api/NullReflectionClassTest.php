@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\api
+ * @package   pdepend\reflection\api
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,7 +45,7 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection\api;
+namespace pdepend\reflection\api;
 
 require_once __DIR__ . '/../BaseTest.php';
 
@@ -53,18 +53,18 @@ require_once __DIR__ . '/../BaseTest.php';
  * Tests for the null reflection class implementation.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\api
+ * @package   pdepend\reflection\api
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
+class NullReflectionClassTest extends \pdepend\reflection\BaseTest
 {
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -77,7 +77,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -90,7 +90,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -103,7 +103,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -116,7 +116,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -129,7 +129,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -142,7 +142,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -155,7 +155,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -168,7 +168,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -181,7 +181,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -194,7 +194,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -207,7 +207,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -220,7 +220,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -233,7 +233,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -246,7 +246,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -259,7 +259,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -272,7 +272,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -285,7 +285,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -298,7 +298,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -311,7 +311,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -325,7 +325,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -338,7 +338,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -351,7 +351,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -365,7 +365,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -379,7 +379,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -392,7 +392,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -405,7 +405,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -419,7 +419,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -432,7 +432,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -445,7 +445,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -458,7 +458,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -471,7 +471,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -484,7 +484,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -497,7 +497,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -510,7 +510,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -523,7 +523,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -536,7 +536,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -549,7 +549,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -562,7 +562,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -575,7 +575,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -588,7 +588,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -601,7 +601,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -614,7 +614,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -627,7 +627,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -640,7 +640,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -653,7 +653,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -666,7 +666,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -679,7 +679,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -693,7 +693,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -707,7 +707,7 @@ class NullReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\NullReflectionClass
+     * @covers \pdepend\reflection\api\NullReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest

@@ -1,5 +1,5 @@
 <?php
-namespace \org\pdepend\reflection;
+namespace \pdepend\reflection;
 
 class ClassSimple
 {

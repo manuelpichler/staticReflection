@@ -38,7 +38,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\examples
+ * @package   pdepend\reflection\examples
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -46,10 +46,10 @@
  * @link      http://pdepend.org/
  */
 
-use org\pdepend\reflection\Autoloader;
-use org\pdepend\reflection\ReflectionSession;
+use pdepend\reflection\Autoloader;
+use pdepend\reflection\ReflectionSession;
 
-include_once __DIR__ . '/../../source/Autoloader.php';
+include_once __DIR__ . '/../../source/pdepend/reflection/Autoloader.php';
 
 spl_autoload_register( array( new Autoloader(), 'autoload' ) );
 

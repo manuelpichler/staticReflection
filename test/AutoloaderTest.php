@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   pdepend\reflection
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,7 +45,7 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection;
+namespace pdepend\reflection;
 
 require_once __DIR__ . '/BaseTest.php';
 
@@ -53,7 +53,7 @@ require_once __DIR__ . '/BaseTest.php';
  * Test case for the reflection autoloader.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   pdepend\reflection
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -64,13 +64,13 @@ class AutoloaderTest extends BaseTest
 {
     /**
      * @return void
-     * @covers \org\pdepend\reflection\Autoloader
+     * @covers \pdepend\reflection\Autoloader
      * @group reflection
      * @group unittest
      */
     public function testAutoloaderIncludesMatchingSourceFile()
     {
-        $classFixture = '\org\pdepend\reflection\autoloader\Test';
+        $classFixture = '\pdepend\reflection\autoloader\Test';
 
         if ( class_exists( $classFixture, false ) )
         {

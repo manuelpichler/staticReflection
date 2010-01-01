@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  StaticAnalysis
- * @package   org\pdepend\reflection\api
+ * @package   pdepend\reflection\api
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,7 +45,7 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection\api;
+namespace pdepend\reflection\api;
 
 require_once 'BaseTest.php';
 
@@ -53,18 +53,18 @@ require_once 'BaseTest.php';
  * Test cases for the reflection value class.
  *
  * @category  StaticAnalysis
- * @package   org\pdepend\reflection\api
+ * @package   pdepend\reflection\api
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class StaticReflectionValueTest extends \org\pdepend\reflection\BaseTest
+class StaticReflectionValueTest extends \pdepend\reflection\BaseTest
 {
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionValue
+     * @covers \pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -77,7 +77,7 @@ class StaticReflectionValueTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionValue
+     * @covers \pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -90,7 +90,7 @@ class StaticReflectionValueTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionValue
+     * @covers \pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -103,7 +103,7 @@ class StaticReflectionValueTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionValue
+     * @covers \pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -116,7 +116,7 @@ class StaticReflectionValueTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionValue
+     * @covers \pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -129,7 +129,7 @@ class StaticReflectionValueTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionValue
+     * @covers \pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -142,7 +142,7 @@ class StaticReflectionValueTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionValue
+     * @covers \pdepend\reflection\api\StaticReflectionValue
      * @group reflection
      * @group reflection::api
      * @group unittest

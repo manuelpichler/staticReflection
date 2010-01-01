@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\factories
+ * @package   pdepend\reflection\factories
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,9 +45,9 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection\factories;
+namespace pdepend\reflection\factories;
 
-use org\pdepend\reflection\api\NullReflectionClass;
+use pdepend\reflection\api\NullReflectionClass;
 
 require_once __DIR__ . '/../BaseTest.php';
 
@@ -55,18 +55,18 @@ require_once __DIR__ . '/../BaseTest.php';
  * Test cases for the null reflection factory.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\factories
+ * @package   pdepend\reflection\factories
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class NullReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
+class NullReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
 {
     /**
      * @return void
-     * @covers \org\pdepend\reflection\factories\NullReflectionClassFactory
+     * @covers \pdepend\reflection\factories\NullReflectionClassFactory
      * @group reflection
      * @group reflection::factories
      * @group unittest
@@ -81,7 +81,7 @@ class NullReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\factories\NullReflectionClassFactory
+     * @covers \pdepend\reflection\factories\NullReflectionClassFactory
      * @group reflection
      * @group reflection::factories
      * @group unittest
@@ -96,7 +96,7 @@ class NullReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\factories\NullReflectionClassFactory
+     * @covers \pdepend\reflection\factories\NullReflectionClassFactory
      * @group reflection
      * @group reflection::factories
      * @group unittest
@@ -112,7 +112,7 @@ class NullReflectionClassFactoryTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\factories\NullReflectionClassFactory
+     * @covers \pdepend\reflection\factories\NullReflectionClassFactory
      * @group reflection
      * @group reflection::factories
      * @group unittest

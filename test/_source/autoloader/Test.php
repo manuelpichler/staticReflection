@@ -1,4 +1,4 @@
 <?php
-namespace org\pdepend\reflection\autoloader;
+namespace pdepend\reflection\autoloader;
 
 class Test {}

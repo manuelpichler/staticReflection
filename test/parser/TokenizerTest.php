@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace org\pdepend\reflection\parser;
+namespace pdepend\reflection\parser;
 
 require_once 'BaseTest.php';
 
@@ -16,7 +16,7 @@ require_once 'BaseTest.php';
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class TokenizerTest extends \org\pdepend\reflection\BaseTest
+class TokenizerTest extends \pdepend\reflection\BaseTest
 {
     /**
      * Test source code
@@ -39,7 +39,7 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
     /**
      * The test tokenizer.
      *
-     * @var \org\pdepend\reflection\parser\Tokenizer
+     * @var \pdepend\reflection\parser\Tokenizer
      */
     private $_fixture = null;
 
@@ -55,9 +55,9 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\parser\Tokenizer
-     * @covers \org\pdepend\reflection\parser\Token
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Tokenizer
+     * @covers \pdepend\reflection\parser\Token
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -81,9 +81,9 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\parser\Tokenizer
-     * @covers \org\pdepend\reflection\parser\Token
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Tokenizer
+     * @covers \pdepend\reflection\parser\Token
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -103,9 +103,9 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\parser\Tokenizer
-     * @covers \org\pdepend\reflection\parser\Token
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Tokenizer
+     * @covers \pdepend\reflection\parser\Token
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -125,9 +125,9 @@ class TokenizerTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\parser\Tokenizer
-     * @covers \org\pdepend\reflection\parser\Token
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Tokenizer
+     * @covers \pdepend\reflection\parser\Token
      * @group reflection
      * @group reflection::parser
      * @group unittest

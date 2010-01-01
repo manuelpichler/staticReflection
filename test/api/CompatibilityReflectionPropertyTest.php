@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace org\pdepend\reflection\api;
+namespace pdepend\reflection\api;
 
 require_once 'BaseCompatibilityTest.php';
 
@@ -50,7 +50,7 @@ class CompatibilityReflectionPropertyTest extends BaseCompatibilityTest
      * @param string $className    Name of the searched class.
      * @param string $propertyName Name of the searched property.
      *
-     * @return \org\pdepend\reflection\api\StaticReflectionProperty
+     * @return \pdepend\reflection\api\StaticReflectionProperty
      */
     protected function createStatic( $className, $propertyName )
     {

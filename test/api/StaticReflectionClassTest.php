@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace org\pdepend\reflection\api;
+namespace pdepend\reflection\api;
 
 require_once 'BaseTest.php';
 
@@ -16,11 +16,11 @@ require_once 'BaseTest.php';
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
+class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
 {
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -33,7 +33,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -49,7 +49,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -62,7 +62,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -77,7 +77,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -95,7 +95,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -110,7 +110,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -130,7 +130,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -149,7 +149,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -168,7 +168,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -187,7 +187,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -206,7 +206,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -225,7 +225,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -244,7 +244,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -264,7 +264,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -284,7 +284,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -301,7 +301,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -333,7 +333,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -346,7 +346,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -361,7 +361,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -381,7 +381,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -401,7 +401,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -420,7 +420,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -444,7 +444,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -468,7 +468,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -487,7 +487,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -506,7 +506,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -526,7 +526,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -544,7 +544,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -558,7 +558,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -576,7 +576,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -589,7 +589,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -604,7 +604,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -619,7 +619,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -634,7 +634,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -647,7 +647,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -662,7 +662,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -675,7 +675,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -690,7 +690,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -710,7 +710,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -725,7 +725,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -740,7 +740,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -755,7 +755,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -770,7 +770,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -785,7 +785,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -798,7 +798,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -813,7 +813,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -828,7 +828,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -841,7 +841,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -854,7 +854,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -867,7 +867,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -882,7 +882,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -895,7 +895,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -908,7 +908,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -921,7 +921,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -949,7 +949,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -977,7 +977,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -1006,7 +1006,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -1035,7 +1035,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -1070,7 +1070,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -1084,7 +1084,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -1098,7 +1098,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest
@@ -1113,7 +1113,7 @@ class StaticReflectionClassTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\api\StaticReflectionClass
+     * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection
      * @group reflection::api
      * @group unittest

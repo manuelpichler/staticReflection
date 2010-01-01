@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   pdepend\reflection
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,7 +45,7 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection;
+namespace pdepend\reflection;
 
 require_once 'PHPUnit/Framework.php';
 
@@ -66,7 +66,7 @@ require_once __DIR__ . '/ReflectionClassProxyContextTest.php';
  * Main component test suite
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   pdepend\reflection
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -86,10 +86,10 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../source/' )
         );
 
-        $this->addTestSuite( '\org\pdepend\reflection\AutoloaderTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassProxyTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassCacheTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionClassProxyContextTest' );
+        $this->addTestSuite( '\pdepend\reflection\AutoloaderTest' );
+        $this->addTestSuite( '\pdepend\reflection\ReflectionClassProxyTest' );
+        $this->addTestSuite( '\pdepend\reflection\ReflectionClassCacheTest' );
+        $this->addTestSuite( '\pdepend\reflection\ReflectionClassProxyContextTest' );
 
         $this->addTest( api\AllTests::suite() );
         $this->addTest( factories\AllTests::suite() );
@@ -97,8 +97,8 @@ class AllTests extends \PHPUnit_Framework_TestSuite
         $this->addTest( queries\AllTests::suite() );
         $this->addTest( resolvers\AllTests::suite() );
 
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionSessionTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\ReflectionSessionInstanceTest' );
+        $this->addTestSuite( '\pdepend\reflection\ReflectionSessionTest' );
+        $this->addTestSuite( '\pdepend\reflection\ReflectionSessionInstanceTest' );
     }
 
     /**

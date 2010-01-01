@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\api
+ * @package   pdepend\reflection\api
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,7 +45,7 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection\api;
+namespace pdepend\reflection\api;
 
 require_once 'BaseCompatibilityTest.php';
 
@@ -54,7 +54,7 @@ require_once 'BaseCompatibilityTest.php';
  * and PHP's native api.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\api
+ * @package   pdepend\reflection\api
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -509,7 +509,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
      *
      * @param string $name The class name
      *
-     * @return \org\pdepend\reflection\api\NullReflectionClass
+     * @return \pdepend\reflection\api\NullReflectionClass
      */
     protected function createNullClass( $name )
     {

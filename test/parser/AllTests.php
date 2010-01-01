@@ -5,7 +5,7 @@
  * to provide similar functionallities.
  */
 
-namespace org\pdepend\reflection\parser;
+namespace pdepend\reflection\parser;
 
 require_once 'PHPUnit/Framework.php';
 
@@ -32,8 +32,8 @@ class AllTests extends \PHPUnit_Framework_TestSuite
             realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
-        $this->addTestSuite( '\org\pdepend\reflection\parser\TokenizerTest' );
-        $this->addTestSuite( '\org\pdepend\reflection\parser\ParserTest' );
+        $this->addTestSuite( '\pdepend\reflection\parser\TokenizerTest' );
+        $this->addTestSuite( '\pdepend\reflection\parser\ParserTest' );
     }
 
     /**

@@ -5,12 +5,12 @@
  * to provide similar functionallities.
  */
 
-namespace org\pdepend\reflection\parser;
+namespace pdepend\reflection\parser;
 
-use \org\pdepend\reflection\api\StaticReflectionClass;
-use \org\pdepend\reflection\api\StaticReflectionInterface;
-use \org\pdepend\reflection\api\StaticReflectionMethod;
-use \org\pdepend\reflection\api\StaticReflectionProperty;
+use \pdepend\reflection\api\StaticReflectionClass;
+use \pdepend\reflection\api\StaticReflectionInterface;
+use \pdepend\reflection\api\StaticReflectionMethod;
+use \pdepend\reflection\api\StaticReflectionProperty;
 
 require_once 'BaseTest.php';
 
@@ -21,12 +21,12 @@ require_once 'BaseTest.php';
  * @license Copyright by Manuel Pichler
  * @version $Revision$
  */
-class ParserTest extends \org\pdepend\reflection\BaseTest
+class ParserTest extends \pdepend\reflection\BaseTest
 {
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -40,8 +40,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -56,8 +56,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -72,8 +72,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -88,8 +88,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -104,8 +104,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -118,15 +118,15 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
      */
     public function testParserHandlesNamespaceAliasSyntaxForParentClass()
     {
-        $class       = $this->_parseClass( '\org\pdepend\ClassWithNamespaceAliasedParent' );
+        $class       = $this->_parseClass( '\pdepend\ClassWithNamespaceAliasedParent' );
         $parentClass = $class->getParentClass();
         
         $this->assertEquals( 'org\pdepend\ClassWithNamespaceParentAliased', $parentClass->getName() );
@@ -134,15 +134,15 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
      */
     public function testParserHandlesNamespaceAliasSyntaxForImplementedInterface()
     {
-        $class      = $this->_parseClass( '\org\pdepend\ClassWithNamespaceAliasedInterface' );
+        $class      = $this->_parseClass( '\pdepend\ClassWithNamespaceAliasedInterface' );
         $interfaces = $class->getInterfaces();
 
         $this->assertEquals( 'org\pdepend\InterfaceWithNamespaceAliased', $interfaces[0]->getName() );
@@ -150,8 +150,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -166,8 +166,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -182,8 +182,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -196,8 +196,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -212,8 +212,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -228,8 +228,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -242,8 +242,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -256,8 +256,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -270,8 +270,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -284,8 +284,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -300,8 +300,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -316,8 +316,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -336,8 +336,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -352,8 +352,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -368,8 +368,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -384,8 +384,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -406,8 +406,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -420,8 +420,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -434,8 +434,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -457,8 +457,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -473,8 +473,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -489,8 +489,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -505,8 +505,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -521,8 +521,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -537,8 +537,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -553,8 +553,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -569,8 +569,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -585,8 +585,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -601,8 +601,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -617,8 +617,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -633,8 +633,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -649,8 +649,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -665,8 +665,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -682,8 +682,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -699,8 +699,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -716,8 +716,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -733,8 +733,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -750,15 +750,15 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
      */
     public function testParserHandlesClassTypeHintWithAliasedNamespace()
     {
-        $class  = $this->_parseClass( 'org\pdepend\MethodWithAliasedNamespaceClassParameter' );
+        $class  = $this->_parseClass( 'pdepend\MethodWithAliasedNamespaceClassParameter' );
         $method = $class->getMethod( 'fooBar' );
         $params = $method->getParameters();
 
@@ -767,8 +767,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -790,8 +790,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -806,8 +806,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -822,8 +822,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -838,8 +838,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -854,8 +854,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -870,8 +870,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -886,8 +886,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -902,8 +902,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -918,8 +918,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -934,8 +934,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -950,8 +950,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -966,8 +966,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -980,8 +980,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -994,8 +994,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1008,8 +1008,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1022,8 +1022,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1039,8 +1039,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1053,8 +1053,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1067,8 +1067,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1081,8 +1081,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1095,8 +1095,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1111,8 +1111,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1127,8 +1127,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1143,8 +1143,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1159,8 +1159,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1175,8 +1175,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1191,8 +1191,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1207,8 +1207,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1223,8 +1223,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1242,8 +1242,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1258,8 +1258,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1274,8 +1274,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1290,8 +1290,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1306,8 +1306,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1322,8 +1322,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1338,8 +1338,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1351,8 +1351,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1367,8 +1367,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1386,8 +1386,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1405,8 +1405,8 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
      * @group reflection
      * @group reflection::parser
      * @group unittest
@@ -1424,14 +1424,14 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
     
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\exceptions\ParserException
+     * @covers \pdepend\reflection\exceptions\EndOfTokenStreamException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidClassDeclaration()
     {
@@ -1440,14 +1440,14 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\exceptions\ParserException
+     * @covers \pdepend\reflection\exceptions\EndOfTokenStreamException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidConstantDeclaration()
     {
@@ -1456,14 +1456,14 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\exceptions\ParserException
+     * @covers \pdepend\reflection\exceptions\EndOfTokenStreamException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidInterfaceDeclaration()
     {
@@ -1472,14 +1472,14 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\exceptions\ParserException
+     * @covers \pdepend\reflection\exceptions\EndOfTokenStreamException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidImplementedInterfaceDeclaration()
     {
@@ -1488,14 +1488,14 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\exceptions\ParserException
+     * @covers \pdepend\reflection\exceptions\EndOfTokenStreamException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForUnclosedClassScope()
     {
@@ -1504,14 +1504,14 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\UnexpectedTokenException
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\exceptions\ParserException
+     * @covers \pdepend\reflection\exceptions\UnexpectedTokenException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\UnexpectedTokenException
+     * @expectedException \pdepend\reflection\exceptions\UnexpectedTokenException
      */
     public function testParserThrowsExceptionForUnexpectedTokenInClassScope()
     {
@@ -1520,14 +1520,14 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\UnexpectedTokenException
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\exceptions\ParserException
+     * @covers \pdepend\reflection\exceptions\UnexpectedTokenException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\UnexpectedTokenException
+     * @expectedException \pdepend\reflection\exceptions\UnexpectedTokenException
      */
     public function testParserThrowsExceptionForInvalidConstantValue()
     {
@@ -1536,14 +1536,14 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\UnexpectedTokenException
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\exceptions\ParserException
+     * @covers \pdepend\reflection\exceptions\UnexpectedTokenException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\UnexpectedTokenException
+     * @expectedException \pdepend\reflection\exceptions\UnexpectedTokenException
      */
     public function testParserThrowsExceptionForInvalidNamespaceDeclaration()
     {
@@ -1552,14 +1552,14 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\exceptions\ParserException
+     * @covers \pdepend\reflection\exceptions\EndOfTokenStreamException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForUnexpectedEndOfNamespaceDeclaration()
     {
@@ -1568,14 +1568,14 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\exceptions\ParserException
+     * @covers \pdepend\reflection\exceptions\EndOfTokenStreamException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForInvalidUseStatement()
     {
@@ -1584,14 +1584,14 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\UnexpectedTokenException
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\exceptions\ParserException
+     * @covers \pdepend\reflection\exceptions\UnexpectedTokenException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\UnexpectedTokenException
+     * @expectedException \pdepend\reflection\exceptions\UnexpectedTokenException
      */
     public function testParserThrowsExceptionForInvalidMethodDeclatation()
     {
@@ -1600,14 +1600,14 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\exceptions\ParserException
+     * @covers \pdepend\reflection\exceptions\EndOfTokenStreamException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\EndOfTokenStreamException
+     * @expectedException \pdepend\reflection\exceptions\EndOfTokenStreamException
      */
     public function testParserThrowsExceptionForUnclosedMethodScope()
     {
@@ -1616,14 +1616,14 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\parser\Parser
-     * @covers \org\pdepend\reflection\parser\ParserTokens
-     * @covers \org\pdepend\reflection\exceptions\ParserException
-     * @covers \org\pdepend\reflection\exceptions\UnexpectedTokenException
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @covers \pdepend\reflection\exceptions\ParserException
+     * @covers \pdepend\reflection\exceptions\UnexpectedTokenException
      * @group reflection
      * @group reflection::parser
      * @group unittest
-     * @expectedException \org\pdepend\reflection\exceptions\UnexpectedTokenException
+     * @expectedException \pdepend\reflection\exceptions\UnexpectedTokenException
      */
     public function testParserThrowsExceptionForUnclosedConstantDeclaration()
     {
@@ -1636,7 +1636,7 @@ class ParserTest extends \org\pdepend\reflection\BaseTest
      *
      * @param string $className Qualified name of the searched class.
      *
-     * @return \org\pdepend\reflection\api\StaticReflectionInterface
+     * @return \pdepend\reflection\api\StaticReflectionInterface
      */
     private function _parseClass( $className )
     {

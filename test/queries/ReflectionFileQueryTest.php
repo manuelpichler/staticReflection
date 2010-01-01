@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\queries
+ * @package   pdepend\reflection\queries
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,7 +45,7 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection\queries;
+namespace pdepend\reflection\queries;
 
 require_once 'ReflectionQueryTest.php';
 
@@ -53,7 +53,7 @@ require_once 'ReflectionQueryTest.php';
  * Test cases for the reflection file query.
  *
  * @category  PHP
- * @package   org\pdepend\reflection\queries
+ * @package   pdepend\reflection\queries
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -64,8 +64,8 @@ class ReflectionFileQueryTest extends ReflectionQueryTest
 {
     /**
      * @return void
-     * @covers \org\pdepend\reflection\queries\ReflectionQuery
-     * @covers \org\pdepend\reflection\queries\ReflectionFileQuery
+     * @covers \pdepend\reflection\queries\ReflectionQuery
+     * @covers \pdepend\reflection\queries\ReflectionFileQuery
      * @group reflection
      * @group reflection::queries
      * @group unittest
@@ -80,8 +80,8 @@ class ReflectionFileQueryTest extends ReflectionQueryTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\queries\ReflectionQuery
-     * @covers \org\pdepend\reflection\queries\ReflectionFileQuery
+     * @covers \pdepend\reflection\queries\ReflectionQuery
+     * @covers \pdepend\reflection\queries\ReflectionFileQuery
      * @group reflection
      * @group reflection::queries
      * @group unittest
@@ -98,8 +98,8 @@ class ReflectionFileQueryTest extends ReflectionQueryTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\queries\ReflectionQuery
-     * @covers \org\pdepend\reflection\queries\ReflectionFileQuery
+     * @covers \pdepend\reflection\queries\ReflectionQuery
+     * @covers \pdepend\reflection\queries\ReflectionFileQuery
      * @group reflection
      * @group reflection::queries
      * @group unittest
@@ -113,8 +113,8 @@ class ReflectionFileQueryTest extends ReflectionQueryTest
 
     /**
      * @return void
-     * @covers \org\pdepend\reflection\queries\ReflectionQuery
-     * @covers \org\pdepend\reflection\queries\ReflectionFileQuery
+     * @covers \pdepend\reflection\queries\ReflectionQuery
+     * @covers \pdepend\reflection\queries\ReflectionFileQuery
      * @group reflection
      * @group reflection::queries
      * @group unittest

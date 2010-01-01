@@ -1,5 +1,5 @@
 <?php
-namespace org\pdepend\reflection
+namespace pdepend\reflection
 {
     // No class here :-P
 }

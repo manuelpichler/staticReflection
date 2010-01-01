@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   pdepend\reflection
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,7 +45,7 @@
  * @link      http://pdepend.org/
  */
 
-namespace org\pdepend\reflection;
+namespace pdepend\reflection;
 
 require_once 'BaseTest.php';
 
@@ -53,7 +53,7 @@ require_once 'BaseTest.php';
  * Test case for the reflection proxy parser context.
  *
  * @category  PHP
- * @package   org\pdepend\reflection
+ * @package   pdepend\reflection
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -64,7 +64,7 @@ class ReflectionClassProxyContextTest extends BaseTest
 {
     /**
      * @return void
-     * @covers \org\pdepend\reflection\ReflectionClassProxyContext
+     * @covers \pdepend\reflection\ReflectionClassProxyContext
      * @group reflection
      * @group unittest
      */
