@@ -34,7 +34,7 @@
     </stability>
     <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
     <notes>
-- Implemented #4: BC break release. Adopt the namespace &amp; autoloading
+- Implemented #4: BC break release. Adopt the namespace and autoloading
   standard for PHP 5.3, implemented in svn revision #251.
     </notes>
     <contents>
