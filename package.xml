@@ -39,118 +39,122 @@
     <contents>
         <dir name="/">
             <dir name="source">
-                <file name="Autoloader.php" role="php">
-                    <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                </file>
-                <file name="ReflectionClassCache.php" role="php">
-                    <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                </file>
-                <file name="ReflectionClassProxyContext.php" role="php">
-                    <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                </file>
-                <file name="ReflectionClassProxy.php" role="php">
-                    <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                </file>
-                <file name="ReflectionSessionInstance.php" role="php">
-                    <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                </file>
-                <file name="ReflectionSession.php" role="php">
-                    <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                </file>
-                <dir name="api">
-                    <file name="NullReflectionClass.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="StaticReflectionClass.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="StaticReflectionInterface.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="StaticReflectionMethod.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="StaticReflectionParameter.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="StaticReflectionProperty.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="StaticReflectionValue.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                </dir>
-                <dir name="exceptions">
-                    <file name="EndOfTokenStreamException.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="ParserException.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="PathnameNotFoundException.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="UnexpectedTokenException.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                </dir>
-                <dir name="factories">
-                    <file name="InternalReflectionClassFactory.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="NullReflectionClassFactory.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="StaticReflectionClassFactory.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                </dir>
-                <dir name="interfaces">
-                    <file name="ParserContext.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="ReflectionClassFactory.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="SourceResolver.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                </dir>
-                <dir name="parser">
-                    <file name="Parser.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="ParserTokens.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="Tokenizer.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="Token.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                </dir>
-                <dir name="queries">
-                    <file name="ReflectionClassQuery.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="ReflectionDirectoryQuery.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="ReflectionFileQuery.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="ReflectionQuery.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                </dir>
-                <dir name="resolvers">
-                    <file name="AutoloadArrayResolver.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
-                    <file name="PearNamingResolver.php" role="php">
-                        <tasks:replace from="@package_version@" to="version" type="package-info"/>
-                    </file>
+                <dir name="pdepend">
+                    <dir name="reflection">
+                        <file name="Autoloader.php" role="php">
+                            <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                        </file>
+                        <file name="ReflectionClassCache.php" role="php">
+                            <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                        </file>
+                        <file name="ReflectionClassProxyContext.php" role="php">
+                            <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                        </file>
+                        <file name="ReflectionClassProxy.php" role="php">
+                            <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                        </file>
+                        <file name="ReflectionSessionInstance.php" role="php">
+                            <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                        </file>
+                        <file name="ReflectionSession.php" role="php">
+                            <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                        </file>
+                        <dir name="api">
+                            <file name="NullReflectionClass.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="StaticReflectionClass.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="StaticReflectionInterface.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="StaticReflectionMethod.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="StaticReflectionParameter.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="StaticReflectionProperty.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="StaticReflectionValue.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                        </dir>
+                        <dir name="exceptions">
+                            <file name="EndOfTokenStreamException.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="ParserException.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="PathnameNotFoundException.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="UnexpectedTokenException.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                        </dir>
+                        <dir name="factories">
+                            <file name="InternalReflectionClassFactory.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="NullReflectionClassFactory.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="StaticReflectionClassFactory.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                        </dir>
+                        <dir name="interfaces">
+                            <file name="ParserContext.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="ReflectionClassFactory.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="SourceResolver.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                        </dir>
+                        <dir name="parser">
+                            <file name="Parser.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="ParserTokens.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="Tokenizer.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="Token.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                        </dir>
+                        <dir name="queries">
+                            <file name="ReflectionClassQuery.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="ReflectionDirectoryQuery.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="ReflectionFileQuery.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="ReflectionQuery.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                        </dir>
+                        <dir name="resolvers">
+                            <file name="AutoloadArrayResolver.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                            <file name="PearNamingResolver.php" role="php">
+                                <tasks:replace from="@package_version@" to="version" type="package-info"/>
+                            </file>
+                        </dir>
+                    </dir>
                 </dir>
             </dir>
             <dir name="docs">
