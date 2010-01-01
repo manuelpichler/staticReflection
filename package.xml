@@ -34,7 +34,8 @@
     </stability>
     <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
     <notes>
-        - Initial release of the staticReflection component.
+- Implemented #4: BC break release. Adopt the namespace & autoloading standard
+  for PHP 5.3, implemented in svn revision #251.
     </notes>
     <contents>
         <dir name="/">
