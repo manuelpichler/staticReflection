@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   pdepend\reflection
+ * @package   pdepend\reflection\regression
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,73 +45,69 @@
  * @link      http://pdepend.org/
  */
 
-namespace pdepend\reflection;
+namespace pdepend\reflection\regression;
 
-require_once 'PHPUnit/Framework.php';
+use pdepend\reflection\queries\ReflectionFileQuery;
+use pdepend\reflection\queries\ReflectionDirectoryQuery;
 
-require_once __DIR__ . '/api/AllTests.php';
-require_once __DIR__ . '/factories/AllTests.php';
-require_once __DIR__ . '/parser/AllTests.php';
-require_once __DIR__ . '/queries/AllTests.php';
-require_once __DIR__ . '/resolvers/AllTests.php';
-
-require_once __DIR__ . '/AutoloaderTest.php';
-require_once __DIR__ . '/ReflectionSessionTest.php';
-require_once __DIR__ . '/ReflectionSessionInstanceTest.php';
-require_once __DIR__ . '/ReflectionClassCacheTest.php';
-require_once __DIR__ . '/ReflectionClassProxyTest.php';
-require_once __DIR__ . '/ReflectionClassProxyContextTest.php';
-
-require_once __DIR__ . '/regression/AllTests.php';
+require_once 'BaseTest.php';
 
 /**
- * Main component test suite
+ * Test case for ticket #5
+ *
+ * http://tracker.pdepend.org/static_reflection/issue_tracker/issue/5
  *
  * @category  PHP
- * @package   pdepend\reflection
+ * @package   pdepend\reflection\regression
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class AllTests extends \PHPUnit_Framework_TestSuite
+class Bug005Test extends \pdepend\reflection\BaseTest
 {
     /**
-     * Constructs a new test suite instance.
+     * testFileQueryNormalizesRelativePath
+     *
+     * @return void
+     * @covers \stdClass
+     * @group reflection
+     * @group reflection::regression
+     * @group regressiontest
      */
-    public function __construct()
+    public function testFileQueryNormalizesRelativePath()
     {
-        $this->setName( 'org::pdepend::reflection::AllTests' );
+        $path = $this->getPathnameForClass( '\pdepend\reflection\regression\Bug005' );
 
-        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../source/' )
-        );
+        $absolute = realpath( $path );
+        $relative = dirname( $path ) . '/../regression/' . basename( $path );
 
-        $this->addTestSuite( '\pdepend\reflection\AutoloaderTest' );
-        $this->addTestSuite( '\pdepend\reflection\ReflectionClassProxyTest' );
-        $this->addTestSuite( '\pdepend\reflection\ReflectionClassCacheTest' );
-        $this->addTestSuite( '\pdepend\reflection\ReflectionClassProxyContextTest' );
+        $query  = new ReflectionFileQuery( $this->createContext() );
+        $result = $query->find( $relative );
 
-        $this->addTest( api\AllTests::suite() );
-        $this->addTest( factories\AllTests::suite() );
-        $this->addTest( parser\AllTests::suite() );
-        $this->addTest( queries\AllTests::suite() );
-        $this->addTest( resolvers\AllTests::suite() );
-
-        $this->addTestSuite( '\pdepend\reflection\ReflectionSessionTest' );
-        $this->addTestSuite( '\pdepend\reflection\ReflectionSessionInstanceTest' );
-
-        $this->addTest( regression\AllTests::suite() );
+        $this->assertEquals( $absolute, $result[0]->getFilename() );
     }
 
     /**
-     * Returns a test suite instance.
+     * testDirectoryQueryNormalizesRelativePath
      *
-     * @return PHPUnit_Framework_TestSuite
+     * @return void
+     * @covers \stdClass
+     * @group reflection
+     * @group reflection::regression
+     * @group regressiontest
      */
-    public static function suite()
+    public function testDirectoryQueryNormalizesRelativePath()
     {
-        return new AllTests();
+        $path = $this->getPathnameForClass( '\pdepend\reflection\regression\Bug005' );
+
+        $absolute = realpath( $path );
+        $relative = dirname( $path ) . '/../regression/';
+
+        $query  = new ReflectionDirectoryQuery( $this->createContext() );
+        $result = $query->find( $relative );
+
+        $this->assertEquals( $absolute, $result[0]->getFilename() );
     }
 }

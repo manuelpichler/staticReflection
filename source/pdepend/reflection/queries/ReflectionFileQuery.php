@@ -91,6 +91,6 @@ class ReflectionFileQuery extends ReflectionQuery
         {
             throw new \LogicException( 'Invalid or not existant file ' . $pathname );
         }
-        return new \ArrayIterator( $this->parseFile( $pathname ) );
+        return new \ArrayIterator( $this->parseFile( realpath( $pathname ) ) );
     }
 }
