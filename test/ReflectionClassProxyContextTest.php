@@ -77,6 +77,42 @@ class ReflectionClassProxyContextTest extends BaseTest
     }
 
     /**
+     * testGetClassReferenceReturnsClassInstanceOfPreviousRegisteredClass
+     *
+     * @return void
+     * @covers \pdepend\reflection\ReflectionClassProxyContext
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetClassReferenceReturnsClassInstanceOfPreviousRegisteredClass()
+    {
+        $class = new \ReflectionClass( __CLASS__ );
+        
+        $context = new ReflectionClassProxyContext( $this->createSession() );
+        $context->addClass( $class );
+
+        $this->assertSame( $class, $context->getClassReference( __CLASS__ ) );
+    }
+
+    /**
+     * testGetClassReferenceHandlesClassNamesCaseInsensitive
+     *
+     * @return void
+     * @covers \pdepend\reflection\ReflectionClassProxyContext
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetClassReferenceHandlesClassNamesCaseInsensitive()
+    {
+        $class = new \ReflectionClass( __CLASS__ );
+
+        $context = new ReflectionClassProxyContext( $this->createSession() );
+        $context->addClass( $class );
+
+        $this->assertSame( $class, $context->getClassReference( strtoupper( __CLASS__ ) ) );
+    }
+
+    /**
      * testGetClassReturnsClassInstanceOfPreviousRegisteredClass
      *
      * @return void
@@ -87,10 +123,51 @@ class ReflectionClassProxyContextTest extends BaseTest
     public function testGetClassReturnsClassInstanceOfPreviousRegisteredClass()
     {
         $class = new \ReflectionClass( __CLASS__ );
-        
-        $context = new ReflectionClassProxyContext( $this->createSession() );
-        $context->registerClass( $class );
 
-        $this->assertSame( $class, $context->getClassReference( __CLASS__ ) );
+        $context = new ReflectionClassProxyContext( $this->createSession() );
+        $context->addClass( $class );
+
+        $this->assertSame( $class, $context->getClass( __CLASS__ ) );
+    }
+
+    /**
+     * testGetClassReferenceHandlesClassNamesCaseInsensitive
+     *
+     * @return void
+     * @covers \pdepend\reflection\ReflectionClassProxyContext
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetClassHandlesClassNamesCaseInsensitive()
+    {
+        $class = new \ReflectionClass( __CLASS__ );
+
+        $session = $this->createSession();
+        $session->expects( $this->never() )
+            ->method( 'getClass' );
+
+        $context = new ReflectionClassProxyContext( $session );
+        $context->addClass( $class );
+
+        $context->getClass( strtoupper( __CLASS__ ) );
+    }
+
+    /**
+     * testGetClassDelegatesToSessionWhenMatchingClassExists
+     *
+     * @return void
+     * @covers \pdepend\reflection\ReflectionClassProxyContext
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetClassDelegatesToSessionWhenMatchingClassExists()
+    {
+        $session = $this->createSession();
+        $session->expects( $this->once() )
+            ->method( 'getClass' )
+            ->with( $this->equalTo( __CLASS__ ) );
+
+        $context = new ReflectionClassProxyContext( $session );
+        $context->getClass( __CLASS__ );
     }
 }

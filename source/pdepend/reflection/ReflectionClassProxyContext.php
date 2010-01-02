@@ -71,10 +71,12 @@ class ReflectionClassProxyContext implements ParserContext
     private $_session = null;
 
     /**
+     * A simple cache class which holds already parsed and created reflection
+     * class instances.
      *
-     * @var array(string=>\ReflectionClass)
+     * @var \pdepend\reflection\factories\ReflectionClassCache
      */
-    private $_classes = array();
+    private $_classCache = null;
 
     /**
      * Constructs a new parser context instance.
@@ -86,6 +88,8 @@ class ReflectionClassProxyContext implements ParserContext
     public function __construct( ReflectionSession $session )
     {
         $this->_session = $session;
+        
+        $this->_classCache = new ReflectionClassCache();
     }
 
     /**
@@ -98,11 +102,31 @@ class ReflectionClassProxyContext implements ParserContext
      */
     public function getClassReference( $className )
     {
-        if ( isset( $this->_classes[$className] ) )
+        if ( $this->_classCache->has( $className ) )
         {
-            return $this->_classes[$className];
+            return $this->_classCache->restore( $className );
         }
-        return new ReflectionClassProxy( $this->_session, $className );
+        return new ReflectionClassProxy( $this, $className );
+    }
+
+    /**
+     * Returns a previous registered <b>\ReflectionClass</b> instance that
+     * matches the given class name. Or throws a reflection exception when no
+     * matching class exists.
+     *
+     * @param string $className Full qualified name of the request class.
+     *
+     * @return \ReflectionClass
+     * @throws \ReflectionException When no matching class or interface for the
+     *         given name exists.
+     */
+    public function getClass( $className )
+    {
+        if ( $this->_classCache->has( $className ) )
+        {
+            return $this->_classCache->restore( $className );
+        }
+        return $this->_session->getClass( $className );
     }
 
     /**
@@ -114,8 +138,8 @@ class ReflectionClassProxyContext implements ParserContext
      *
      * @return void
      */
-    public function registerClass( \ReflectionClass $class )
+    public function addClass( \ReflectionClass $class )
     {
-        $this->_classes[$class->getName()] = $class;
+        $this->_classCache->store( $class );
     }
 }

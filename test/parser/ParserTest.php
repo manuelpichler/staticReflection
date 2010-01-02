@@ -1436,7 +1436,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     {
         $context = $this->createContext();
         $context->expects( $this->once() )
-            ->method( 'registerClass' );
+            ->method( 'addClass' );
 
         $parser = new Parser( $context );
         $parser->parseFile( $this->getPathnameForClass( 'ClassWithoutNamespace' ) );

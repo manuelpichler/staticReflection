@@ -567,12 +567,12 @@ class ReflectionClassProxyTest extends BaseTest
         $subject->expects( $this->once() )
             ->method( $methodName );
 
-        $session = $this->createSession();
-        $session->expects( $this->once() )
+        $context = $this->createContext();
+        $context->expects( $this->once() )
             ->method( 'getClass' )
             ->with( $this->equalTo( __CLASS__ ) )
             ->will( $this->returnValue( $subject ) );
 
-        return new ReflectionClassProxy( $session, __CLASS__ );
+        return new ReflectionClassProxy( $context, __CLASS__ );
     }
 }

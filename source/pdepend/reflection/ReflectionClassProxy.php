@@ -47,6 +47,8 @@
 
 namespace pdepend\reflection;
 
+use pdepend\reflection\interfaces\ParserContext;
+
 /**
  * Proxy class representing a variable class or interface node within the
  * parsed source.
@@ -71,7 +73,7 @@ class ReflectionClassProxy extends \ReflectionClass
      *
      * @var \pdepend\reflection\ReflectionSession
      */
-    private $_session = null;
+    private $_context = null;
 
     /**
      * The qualified class/interface name.
@@ -90,30 +92,30 @@ class ReflectionClassProxy extends \ReflectionClass
     /**
      * Constructs a new class/interface proxy.
      *
-     * @param \pdepend\reflection\ReflectionSession $session The currently
-     *        used reflection session instance that is used during the actual
+     * @param \pdepend\reflection\interfaces\ParserContext $context The currently
+     *        used parser context instance that is used during the actual
      *        parsing process.
-     * @param string                                $name    Qualified name
+     * @param string                                       $name    Qualified name
      *        of the class/interface that is proxied by the current proxy object.
      */
-    public function __construct( ReflectionSession $session, $name )
+    public function __construct( ParserContext $context, $name )
     {
-        $this->_setSession( $session );
+        $this->_setContext( $context );
         $this->_setName( $name );
     }
 
     /**
-     * Sets the currently used reflection session instance.
+     * Sets the currently used parser context instance.
      *
-     * @param \pdepend\reflection\ReflectionSession $session The currently
-     *        used reflection session instance that is used during the actual
+     * @param \pdepend\reflection\ReflectionSession $context The currently
+     *        used parser context instance that is used during the actual
      *        parsing process.
      *
      * @return void
      */
-    private function _setSession( ReflectionSession $session )
+    private function _setContext( ParserContext $context )
     {
-        $this->_session = $session;
+        $this->_context = $context;
     }
 
     /**
@@ -596,7 +598,7 @@ class ReflectionClassProxy extends \ReflectionClass
     {
         if ( $this->_proxySubject === null )
         {
-            $this->_proxySubject = $this->_session->getClass( $this->_name );
+            $this->_proxySubject = $this->_context->getClass( $this->_name );
         }
         return $this->_proxySubject;
     }
