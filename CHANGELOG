@@ -1,4 +1,4 @@
-2010-01-   - staticReflection-0.1.4alpha
+2010-01-02 - staticReflection-0.1.4alpha
 ----------------------------------------
 
 - Fixed #5: Filenames not normalized from relative to absolute paths. Fixed in
