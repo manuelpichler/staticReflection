@@ -69,9 +69,9 @@ class ReflectionClassProxy extends \ReflectionClass
     const TYPE = __CLASS__;
 
     /**
-     * The currently used reflection session instance.
+     * The currently used parser context instance.
      *
-     * @var \pdepend\reflection\ReflectionSession
+     * @var \pdepend\reflection\interface\ParserContext
      */
     private $_context = null;
 
