@@ -71,6 +71,12 @@ class ReflectionClassProxyContext implements ParserContext
     private $_session = null;
 
     /**
+     *
+     * @var array(string=>\ReflectionClass)
+     */
+    private $_classes = array();
+
+    /**
      * Constructs a new parser context instance.
      *
      * @param \pdepend\reflection\ReflectionSession $session The currently
@@ -92,6 +98,24 @@ class ReflectionClassProxyContext implements ParserContext
      */
     public function getClassReference( $className )
     {
+        if ( isset( $this->_classes[$className] ) )
+        {
+            return $this->_classes[$className];
+        }
         return new ReflectionClassProxy( $this->_session, $className );
+    }
+
+    /**
+     * This method can/should be called by the parser whenever the source of a
+     * class or interface has been completed.
+     *
+     * @param \ReflectionClass $class A reflection class or interface instance
+     *        that was processed by the parser.
+     *
+     * @return void
+     */
+    public function registerClass( \ReflectionClass $class )
+    {
+        $this->_classes[$class->getName()] = $class;
     }
 }

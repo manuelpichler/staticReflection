@@ -247,6 +247,8 @@ class Parser
                 continue;
             }
 
+            $this->_context->registerClass( $class );
+
             $class->initStartLine( $token->startLine );
             $class->initFileName( $this->_pathName );
 

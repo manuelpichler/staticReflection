@@ -73,6 +73,17 @@ interface ParserContext
      * @return \ReflectionClass
      */
     function getClassReference( $className );
+
+    /**
+     * This method can/should be called by the parser whenever the source of a
+     * class or interface has been completed.
+     *
+     * @param \ReflectionClass $class A reflection class or interface instance
+     *        that was processed by the parser.
+     *
+     * @return void
+     */
+    function registerClass( \ReflectionClass $class );
 }
 
 // @codeCoverageIgnoreEnd

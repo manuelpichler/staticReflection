@@ -63,6 +63,8 @@ require_once 'BaseTest.php';
 class ReflectionClassProxyContextTest extends BaseTest
 {
     /**
+     * testGetClassReturnsProxyReflectionClassInstance
+     * 
      * @return void
      * @covers \pdepend\reflection\ReflectionClassProxyContext
      * @group reflection
@@ -72,5 +74,23 @@ class ReflectionClassProxyContextTest extends BaseTest
     {
         $context = new ReflectionClassProxyContext( $this->createSession() );
         $this->assertType( ReflectionClassProxy::TYPE, $context->getClassReference( 'Foo' ) );
+    }
+
+    /**
+     * testGetClassReturnsClassInstanceOfPreviousRegisteredClass
+     *
+     * @return void
+     * @covers \pdepend\reflection\ReflectionClassProxyContext
+     * @group reflection
+     * @group unittest
+     */
+    public function testGetClassReturnsClassInstanceOfPreviousRegisteredClass()
+    {
+        $class = new \ReflectionClass( __CLASS__ );
+        
+        $context = new ReflectionClassProxyContext( $this->createSession() );
+        $context->registerClass( $class );
+
+        $this->assertSame( $class, $context->getClassReference( __CLASS__ ) );
     }
 }

@@ -47,6 +47,7 @@
 
 namespace pdepend\reflection\regression;
 
+use pdepend\reflection\ReflectionSession;
 use pdepend\reflection\queries\ReflectionFileQuery;
 use pdepend\reflection\queries\ReflectionDirectoryQuery;
 
@@ -78,11 +79,12 @@ class Bug006Test extends \pdepend\reflection\BaseTest
      */
     public function testFileQueryResolvesReferenceToInterfaceInSameFile()
     {
-        $query = new ReflectionFileQuery( $this->createContext() );
+        $path = $this->getPathnameForClass( 'Bug006_1' );
 
-        foreach ( $query->find( $this->getPathnameForClass( 'Bug006_1' ) ) as $class )
+        $session = new ReflectionSession();
+        $query   = $session->createFileQuery();
+        foreach ( $query->find( $path ) as $class )
         {
-            /*
             if ( $class->getName() === 'Bug006_1' )
             {
                 $this->assertEquals(
@@ -90,7 +92,30 @@ class Bug006Test extends \pdepend\reflection\BaseTest
                     $class->getInterfaceNames()
                 );
             }
-             */
+        }
+    }
+
+    /**
+     * testDirectoryQueryResolvesReferenceToParentClass
+     *
+     * @return void
+     * @covers \stdClass
+     * @group reflection
+     * @group reflection::regression
+     * @group regressiontest
+     */
+    public function testDirectoryQueryResolvesReferenceToParentClass()
+    {
+        $path = dirname( $this->getPathnameForClass( 'Bug006_2' ) );
+
+        $session = new ReflectionSession();
+        $query   = $session->createDirectoryQuery();
+        foreach ( $query->find( $path ) as $class )
+        {
+            if ( $class->getName() === 'Bug006_2' )
+            {
+                $this->assertType( '\ReflectionClass', $class->getParentClass() );
+            }
         }
     }
 }

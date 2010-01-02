@@ -1423,6 +1423,26 @@ class ParserTest extends \pdepend\reflection\BaseTest
     }
     
     /**
+     * testParserRegistersClassInParserContext
+     * 
+     * @return void
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserRegistersClassInParserContext()
+    {
+        $context = $this->createContext();
+        $context->expects( $this->once() )
+            ->method( 'registerClass' );
+
+        $parser = new Parser( $context );
+        $parser->parseFile( $this->getPathnameForClass( 'ClassWithoutNamespace' ) );
+    }
+    
+    /**
      * @return void
      * @covers \pdepend\reflection\parser\Parser
      * @covers \pdepend\reflection\parser\ParserTokens
