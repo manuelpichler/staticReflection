@@ -3,6 +3,8 @@
 
 - Fixed #5: Filenames not normalized from relative to absolute paths. Fixed in
   svn revision #259.
+- Fixed #6: Queries do not hold references to previous parsed classes and
+  interfaces. Fixed in svn revision #269.
 
 2010-01-01 - staticReflection-0.1.3alpha
 ----------------------------------------
