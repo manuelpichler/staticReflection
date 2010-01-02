@@ -259,7 +259,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
     {
         $session = $this->getMock( 'pdepend\reflection\interfaces\ParserContext' );
         $session->expects( $this->any() )
-            ->method( 'getClass' )
+            ->method( 'getClassReference' )
             ->will( $this->returnCallback( array( $this, 'getClassByName' ) ) );
 
         return $session;

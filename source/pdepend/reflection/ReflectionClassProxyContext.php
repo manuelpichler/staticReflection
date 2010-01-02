@@ -90,7 +90,7 @@ class ReflectionClassProxyContext implements ParserContext
      *
      * @return \ReflectionClass
      */
-    public function getClass( $className )
+    public function getClassReference( $className )
     {
         return new ReflectionClassProxy( $this->_session, $className );
     }

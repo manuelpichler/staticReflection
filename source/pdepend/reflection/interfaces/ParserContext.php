@@ -72,7 +72,7 @@ interface ParserContext
      *
      * @return \ReflectionClass
      */
-    function getClass( $className );
+    function getClassReference( $className );
 }
 
 // @codeCoverageIgnoreEnd

@@ -71,6 +71,6 @@ class ReflectionClassProxyContextTest extends BaseTest
     public function testGetClassReturnsProxyReflectionClassInstance()
     {
         $context = new ReflectionClassProxyContext( $this->createSession() );
-        $this->assertType( ReflectionClassProxy::TYPE, $context->getClass( 'Foo' ) );
+        $this->assertType( ReflectionClassProxy::TYPE, $context->getClassReference( 'Foo' ) );
     }
 }

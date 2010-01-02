@@ -529,7 +529,7 @@ class Parser
         {
             return $this->_classOrInterface;
         }
-        return $this->_context->getClass( $className );
+        return $this->_context->getClassReference( $className );
     }
 
     /**
