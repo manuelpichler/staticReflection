@@ -107,42 +107,11 @@ class StaticReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
      * @group reflection::factories
      * @group unittest
      */
-    public function testHasClassReturnsTrueWhenClassForTheGivenNameWasAlreadyParsed()
-    {
-        $factory = new StaticReflectionClassFactory( $this->createContext(), $this->createResolver() );
-        $factory->createClass( 'ClassOneInFile' );
-
-        $this->assertTrue( $factory->hasClass( 'ClassTwoInFile' ) );
-    }
-
-    /**
-     * @return void
-     * @covers \pdepend\reflection\factories\StaticReflectionClassFactory
-     * @group reflection
-     * @group reflection::factories
-     * @group unittest
-     */
     public function testCreateClassReturnsReflectionClassForClassThatExists()
     {
         $factory = new StaticReflectionClassFactory( $this->createContext(), $this->createResolver() );
         $class   = $factory->createClass( '\pdepend\reflection\ClassSimple' );
 
-        $this->assertType( '\ReflectionClass', $class );
-    }
-
-    /**
-     * @return void
-     * @covers \pdepend\reflection\factories\StaticReflectionClassFactory
-     * @group reflection
-     * @group reflection::factories
-     * @group unittest
-     */
-    public function testCreateClassReturnsReflectionClassForPreviousParsedFile()
-    {
-        $factory = new StaticReflectionClassFactory( $this->createContext(), $this->createResolver() );
-        $factory->createClass( 'ClassOneInFile' );
-
-        $class = $factory->createClass( 'ClassTwoInFile' );
         $this->assertType( '\ReflectionClass', $class );
     }
 
