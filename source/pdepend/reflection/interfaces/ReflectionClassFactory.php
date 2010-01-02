@@ -79,7 +79,7 @@ interface ReflectionClassFactory
      *
      * @param string $className Full qualified name of the searched class.
      *
-     * @return boolean
+     * @return \ReflectionClass
      * @throws \ReflectionException
      */
     function createClass( $className );
