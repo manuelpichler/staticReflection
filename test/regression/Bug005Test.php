@@ -81,7 +81,7 @@ class Bug005Test extends \pdepend\reflection\BaseTest
         $path = $this->getPathnameForClass( '\pdepend\reflection\regression\Bug005' );
 
         $absolute = realpath( $path );
-        $relative = dirname( $path ) . '/../regression/' . basename( $path );
+        $relative = dirname( $path ) . '/../005/' . basename( $path );
 
         $query  = new ReflectionFileQuery( $this->createContext() );
         $result = $query->find( $relative );
@@ -103,7 +103,7 @@ class Bug005Test extends \pdepend\reflection\BaseTest
         $path = $this->getPathnameForClass( '\pdepend\reflection\regression\Bug005' );
 
         $absolute = realpath( $path );
-        $relative = dirname( $path ) . '/../regression/';
+        $relative = dirname( $path ) . '/../005/';
 
         $query  = new ReflectionDirectoryQuery( $this->createContext() );
         $result = $query->find( $relative );
