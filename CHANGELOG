@@ -1,7 +1,8 @@
 2010-01-   - staticReflection-0.1.4alpha
 ----------------------------------------
 
-
+- Fixed #5: Filenames not normalized from relative to absolute paths. Fixed in
+  svn revision #259.
 
 2010-01-01 - staticReflection-0.1.3alpha
 ----------------------------------------
