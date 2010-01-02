@@ -47,13 +47,15 @@
 
 namespace pdepend\reflection\regression;
 
-require_once 'PHPUnit/Framework.php';
+use pdepend\reflection\queries\ReflectionFileQuery;
+use pdepend\reflection\queries\ReflectionDirectoryQuery;
 
-require_once 'Bug005Test.php';
-require_once 'Bug006Test.php';
+require_once 'BaseTest.php';
 
 /**
- * Main test suite.
+ * Test case for ticket #6
+ *
+ * http://tracker.pdepend.org/static_reflection/issue_tracker/issue/6
  *
  * @category  PHP
  * @package   pdepend\reflection\regression
@@ -63,30 +65,32 @@ require_once 'Bug006Test.php';
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class AllTests extends \PHPUnit_Framework_TestSuite
+class Bug006Test extends \pdepend\reflection\BaseTest
 {
     /**
-     * Constructs a new test suite instance.
-     */
-    public function __construct()
-    {
-        $this->setName( 'org::pdepend::reflection::regression::AllTests' );
-
-        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../../source/' )
-        );
-
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug005Test' );
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug006Test' );
-    }
-
-    /**
-     * Returns a test suite instance.
+     * testFileQueryResolvesReferenceToInterfaceInSameFile
      *
-     * @return PHPUnit_Framework_TestSuite
+     * @return void
+     * @covers \stdClass
+     * @group reflection
+     * @group reflection::regression
+     * @group regressiontest
      */
-    public static function suite()
+    public function testFileQueryResolvesReferenceToInterfaceInSameFile()
     {
-        return new AllTests();
+        $query = new ReflectionFileQuery( $this->createContext() );
+
+        foreach ( $query->find( $this->getPathnameForClass( 'Bug006_1' ) ) as $class )
+        {
+            /*
+            if ( $class->getName() === 'Bug006_1' )
+            {
+                $this->assertEquals(
+                    array( 'Bug006_1_Interface' ),
+                    $class->getInterfaceNames()
+                );
+            }
+             */
+        }
     }
 }
