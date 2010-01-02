@@ -84,7 +84,7 @@ class InternalReflectionClassFactory implements ReflectionClassFactory
      *
      * @param string $className Full qualified name of the searched class.
      *
-     * @return boolean
+     * @return \ReflectionClass
      * @throws \ReflectionException
      */
     public function createClass( $className )

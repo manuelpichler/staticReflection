@@ -132,7 +132,7 @@ class StaticReflectionClassFactory implements ReflectionClassFactory
      *
      * @param string $className Full qualified name of the searched class.
      *
-     * @return boolean
+     * @return \ReflectionClass
      * @throws \ReflectionException When no class with the given name exists.
      */
     public function createClass( $className )
@@ -150,7 +150,7 @@ class StaticReflectionClassFactory implements ReflectionClassFactory
      *
      * @param string $className Full qualified name of the searched class.
      *
-     * @return boolean
+     * @return \ReflectionClass
      * @throws \ReflectionException When no class with the given name exists.
      */
     private function _createClass( $className )
