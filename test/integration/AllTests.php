@@ -37,7 +37,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  PHP
- * @package   pdepend\reflection
+ * @package   pdepend\reflection\integration
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -45,31 +45,17 @@
  * @link      http://pdepend.org/
  */
 
-namespace pdepend\reflection;
+namespace pdepend\reflection\integration;
 
 require_once 'PHPUnit/Framework.php';
 
-require_once __DIR__ . '/api/AllTests.php';
-require_once __DIR__ . '/factories/AllTests.php';
-require_once __DIR__ . '/parser/AllTests.php';
-require_once __DIR__ . '/queries/AllTests.php';
-require_once __DIR__ . '/resolvers/AllTests.php';
-
-require_once __DIR__ . '/AutoloaderTest.php';
-require_once __DIR__ . '/ReflectionSessionTest.php';
-require_once __DIR__ . '/ReflectionSessionInstanceTest.php';
-require_once __DIR__ . '/ReflectionClassCacheTest.php';
-require_once __DIR__ . '/ReflectionClassProxyTest.php';
-require_once __DIR__ . '/ReflectionClassProxyContextTest.php';
-
-require_once __DIR__ . '/integration/AllTests.php';
-require_once __DIR__ . '/regression/AllTests.php';
+require_once 'ReflectionSessionIntegrationTest.php';
 
 /**
- * Main component test suite
+ * Main test suite for integration tests.
  *
  * @category  PHP
- * @package   pdepend\reflection
+ * @package   pdepend\reflection\integration
  * @author    Manuel Pichler <mapi@pdepend.org>
  * @copyright 2009-2010 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
@@ -83,28 +69,13 @@ class AllTests extends \PHPUnit_Framework_TestSuite
      */
     public function __construct()
     {
-        $this->setName( 'org::pdepend::reflection::AllTests' );
+        $this->setName( 'org::pdepend::reflection::integration::AllTests' );
 
         \PHPUnit_Util_Filter::addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../source/' )
+            realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
-        $this->addTestSuite( '\pdepend\reflection\AutoloaderTest' );
-        $this->addTestSuite( '\pdepend\reflection\ReflectionClassProxyTest' );
-        $this->addTestSuite( '\pdepend\reflection\ReflectionClassCacheTest' );
-        $this->addTestSuite( '\pdepend\reflection\ReflectionClassProxyContextTest' );
-
-        $this->addTest( api\AllTests::suite() );
-        $this->addTest( factories\AllTests::suite() );
-        $this->addTest( parser\AllTests::suite() );
-        $this->addTest( queries\AllTests::suite() );
-        $this->addTest( resolvers\AllTests::suite() );
-
-        $this->addTestSuite( '\pdepend\reflection\ReflectionSessionTest' );
-        $this->addTestSuite( '\pdepend\reflection\ReflectionSessionInstanceTest' );
-
-        $this->addTest( integration\AllTests::suite() );
-        $this->addTest( regression\AllTests::suite() );
+        $this->addTestSuite( '\pdepend\reflection\integration\ReflectionSessionIntegrationTest' );
     }
 
     /**
