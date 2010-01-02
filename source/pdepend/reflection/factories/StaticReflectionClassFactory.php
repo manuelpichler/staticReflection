@@ -47,7 +47,6 @@
 
 namespace pdepend\reflection\factories;
 
-use pdepend\reflection\ReflectionClassCache;
 use pdepend\reflection\parser\Parser;
 use pdepend\reflection\interfaces\ParserContext;
 use pdepend\reflection\interfaces\SourceResolver;
