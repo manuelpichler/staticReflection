@@ -622,6 +622,7 @@ class Parser
 
         $modifiers  = $defaultModifiers | StaticReflectionMethod::IS_PUBLIC;
         $docComment = '';
+        $startLine  = -1;
 
         while ( ( $tokenType = $this->_peek() ) !== Tokenizer::EOF )
         {
@@ -638,34 +639,40 @@ class Parser
                     return $token->endLine;
 
                 case ParserTokens::T_ABSTRACT:
-                    $this->_consumeToken( ParserTokens::T_ABSTRACT );
+                    $token      = $this->_consumeToken( ParserTokens::T_ABSTRACT );
+                    $startLine  = ( $startLine === -1 ? $token->startLine : $startLine );
                     $modifiers |= StaticReflectionMethod::IS_ABSTRACT;
                     break;
 
                 case ParserTokens::T_FINAL:
-                    $this->_consumeToken( ParserTokens::T_FINAL );
+                    $token      = $this->_consumeToken( ParserTokens::T_FINAL );
+                    $startLine  = ( $startLine === -1 ? $token->startLine : $startLine );
                     $modifiers |= StaticReflectionMethod::IS_FINAL;
                     break;
 
                 case ParserTokens::T_PUBLIC:
-                    $this->_consumeToken( ParserTokens::T_PUBLIC );
+                    $token      = $this->_consumeToken( ParserTokens::T_PUBLIC );
+                    $startLine  = ( $startLine === -1 ? $token->startLine : $startLine );
                     $modifiers |= StaticReflectionMethod::IS_PUBLIC;
                     break;
 
                 case ParserTokens::T_PRIVATE:
-                    $this->_consumeToken( ParserTokens::T_PRIVATE );
+                    $token      = $this->_consumeToken( ParserTokens::T_PRIVATE );
+                    $startLine  = ( $startLine === -1 ? $token->startLine : $startLine );
                     $modifiers ^= StaticReflectionMethod::IS_PUBLIC;
                     $modifiers |= StaticReflectionMethod::IS_PRIVATE;
                     break;
 
                 case ParserTokens::T_PROTECTED:
-                    $this->_consumeToken( ParserTokens::T_PROTECTED );
+                    $token      = $this->_consumeToken( ParserTokens::T_PROTECTED );
+                    $startLine  = ( $startLine === -1 ? $token->startLine : $startLine );
                     $modifiers ^= StaticReflectionMethod::IS_PUBLIC;
                     $modifiers |= StaticReflectionMethod::IS_PROTECTED;
                     break;
 
                 case ParserTokens::T_STATIC:
-                    $this->_consumeToken( ParserTokens::T_STATIC );
+                    $token      = $this->_consumeToken( ParserTokens::T_STATIC );
+                    $startLine  = ( $startLine === -1 ? $token->startLine : $startLine );
                     $modifiers |= StaticReflectionMethod::IS_STATIC;
                     break;
 
@@ -674,10 +681,11 @@ class Parser
                     break;
 
                 case ParserTokens::T_FUNCTION:
-                    $this->_parseMethodDeclaration( $docComment, $modifiers );
+                    $this->_parseMethodDeclaration( $docComment, $modifiers, $startLine );
 
                     $modifiers  = $defaultModifiers | StaticReflectionMethod::IS_PUBLIC;
                     $docComment = '';
+                    $startLine  = -1;
                     break;
 
                 case ParserTokens::T_VARIABLE:
@@ -685,6 +693,7 @@ class Parser
 
                     $modifiers  = $defaultModifiers | StaticReflectionMethod::IS_PUBLIC;
                     $docComment = '';
+                    $startLine  = -1;
                     break;
 
                 default:
@@ -699,14 +708,18 @@ class Parser
      *
      * @param string  $docComment Optional doc comment for the parsed method.
      * @param integer $modifiers  Bitfield with method modifiers.
+     * @param integer $startLine  Optional start line number of the first modifier
+     *        or -1 which means that the function token is on the first line.
      *
      * @return void
      */
-    private function _parseMethodDeclaration( $docComment, $modifiers )
+    private function _parseMethodDeclaration( $docComment, $modifiers, $startLine )
     {
         $this->_staticVariables = array();
 
-        $startLine  = $this->_consumeToken( ParserTokens::T_FUNCTION )->startLine;
+        $token = $this->_consumeToken( ParserTokens::T_FUNCTION );
+
+        $startLine  = ( $startLine < 1 ? $token->startLine : $startLine );
         $returnsRef = $this->_parseOptionalByReference();
 
         $this->_consumeComments();

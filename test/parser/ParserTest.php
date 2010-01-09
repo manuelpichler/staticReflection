@@ -596,7 +596,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodLineNumbers' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertSame( 7, $method->getStartLine() );
+        $this->assertSame( 4, $method->getStartLine() );
     }
 
     /**
@@ -628,7 +628,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodLineNumbers' );
         $method = $class->getMethod( '_bar' );
 
-        $this->assertSame( 16, $method->getStartLine() );
+        $this->assertSame( 14, $method->getStartLine() );
     }
 
     /**
