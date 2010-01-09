@@ -1,3 +1,9 @@
+2010-01-   - staticReflection-0.1.5alpha
+----------------------------------------
+
+- Fixed #8: The start line number of methods is not correct. Fixed in svn
+  revision #278.
+
 2010-01-02 - staticReflection-0.1.4alpha
 ----------------------------------------
 
