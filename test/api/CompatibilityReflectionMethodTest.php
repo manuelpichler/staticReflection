@@ -494,6 +494,126 @@ class CompatibilityReflectionMethodTest extends BaseCompatibilityTest
     }
 
     /**
+     * testGetPrototypeOnClassWithoutParent
+     *
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetPrototypeOnClassWithoutParent()
+    {
+        $internal = $this->createInternal( 'CompatMethodInClassWithoutParent', 'foo' );
+        $static   = $this->createStatic( 'CompatMethodInClassWithoutParent', 'foo' );
+
+        $expected = $this->executeFailingMethod( $internal, 'getPrototype' );
+        $actual   = $this->executeFailingMethod( $static, 'getPrototype' );
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * testGetPrototypeOnInterfaceWithoutParent
+     *
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetPrototypeOnInterfaceWithoutParent()
+    {
+        $internal = $this->createInternal( 'CompatMethodInInterfaceWithoutParent', 'foo' );
+        $static   = $this->createStatic( 'CompatMethodInInterfaceWithoutParent', 'foo' );
+
+        $expected = $this->executeFailingMethod( $internal, 'getPrototype' );
+        $actual   = $this->executeFailingMethod( $static, 'getPrototype' );
+
+        $this->assertEquals( $expected, $actual );
+    }
+
+    /**
+     * testGetPrototypeWithParentClassMethod
+     *
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetPrototypeWithParentClassMethod()
+    {
+        $internal = $this->createInternal( 'CompatMethodWithParentClassMethod', 'foo' );
+        $static   = $this->createStatic( 'CompatMethodWithParentClassMethod', 'foo' );
+
+        $this->assertEquals( 
+            $internal->getPrototype()->getDeclaringClass()->getName(),
+            $static->getPrototype()->getDeclaringClass()->getName()
+        );
+    }
+
+    /**
+     * testGetPrototypeWithParentInterfaceMethod
+     *
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetPrototypeWithParentInterfaceMethod()
+    {
+        $internal = $this->createInternal( 'CompatMethodWithParentInterfaceMethod', 'foo' );
+        $static   = $this->createStatic( 'CompatMethodWithParentInterfaceMethod', 'foo' );
+
+        $this->assertEquals(
+            $internal->getPrototype()->getDeclaringClass()->getName(),
+            $static->getPrototype()->getDeclaringClass()->getName()
+        );
+    }
+
+    /**
+     * testGetPrototypeWithParentClassAndInterfaceMethod
+     *
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetPrototypeWithParentClassAndInterfaceMethod()
+    {
+        $internal = $this->createInternal( 'CompatMethodWithParentClassAndInterfaceMethod', 'foo' );
+        $static   = $this->createStatic( 'CompatMethodWithParentClassAndInterfaceMethod', 'foo' );
+
+        $this->assertEquals(
+            $internal->getPrototype()->getDeclaringClass()->getName(),
+            $static->getPrototype()->getDeclaringClass()->getName()
+        );
+    }
+
+    /**
+     * testGetPrototypeWithIndirectParentClassAndInterfaceMethod
+     *
+     * @return void
+     * @covers \ReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetPrototypeWithIndirectParentClassAndInterfaceMethod()
+    {
+        $internal = $this->createInternal( 'CompatMethodWithIndirectParentClassAndInterfaceMethod', 'foo' );
+        $static   = $this->createStatic( 'CompatMethodWithIndirectParentClassAndInterfaceMethod', 'foo' );
+
+        $this->assertEquals(
+            $internal->getPrototype()->getDeclaringClass()->getName(),
+            $static->getPrototype()->getDeclaringClass()->getName()
+        );
+    }
+
+    /**
      * Creates an internal reflection method instance.
      *
      * @param string $className  Name of the searched class.

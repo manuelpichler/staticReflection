@@ -247,6 +247,41 @@ class StaticReflectionClass extends StaticReflectionInterface
     }
 
     /**
+     * Returns an array with all implemented/extended interfaces.
+     *
+     * @return array(\ReflectionClass)
+     */
+    public function getInterfaces()
+    {
+        $result = $this->_mergeInterfaces( parent::getInterfaces() );
+        if ( is_object( $parentClass = $this->getParentClass() ) )
+        {
+            $result = $this->_mergeInterfaces( $parentClass->getInterfaces(), $result );
+        }
+        return array_values( $result );
+    }
+
+    /**
+     * Merges the given interfaces into the given result array.
+     *
+     * @param array(\ReflectionClass)         $interfaces Input interface array.
+     * @param array(string=>\ReflectionClass) &$result    Result interface list.
+     *
+     * @return array(\ReflectionClass)
+     */
+    private function _mergeInterfaces( array $interfaces, array &$result = array())
+    {
+        foreach ( $interfaces as $interface )
+        {
+            if ( !isset( $result[$interface->getName()] ) )
+            {
+                $result[$interface->getName()] = $interface;
+            }
+        }
+        return $result;
+    }
+
+    /**
      * Returns an array with constants defined in this or one of its parent
      * classes.
      *

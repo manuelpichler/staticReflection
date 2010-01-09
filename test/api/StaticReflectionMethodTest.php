@@ -1139,6 +1139,140 @@ class StaticReflectionMethodTest extends \pdepend\reflection\BaseTest
     }
 
     /**
+     * testGetPrototypeReturnsMethodFromParentClass
+     *
+     * @return void
+     * @covers \pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetPrototypeReturnsMethodFromParentClass()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+
+        $parentClass = new StaticReflectionClass( 'Foo', '', 0 );
+        $parentClass->initMethods( array( new StaticReflectionMethod( 'foo', '', 0 ) ) );
+
+        $declaringClass = new StaticReflectionClass( 'Bar', '', 0 );
+        $declaringClass->initMethods( array( $method ) );
+        $declaringClass->initParentClass( $parentClass );
+
+        $this->assertSame( $parentClass, $method->getPrototype()->getDeclaringClass() );
+    }
+
+    /**
+     * testGetPrototypeReturnsMethodFromParentInterface
+     *
+     * @return void
+     * @covers \pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetPrototypeReturnsMethodFromParentInterface()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+
+        $interface = new StaticReflectionInterface( 'IFoo', '' );
+        $interface->initMethods( array( new StaticReflectionMethod( 'foo', '', 0 ) ) );
+
+        $parentClass = new StaticReflectionClass( 'Foo', '', 0 );
+        $parentClass->initMethods( array( new StaticReflectionMethod( 'foo', '', 0 ) ) );
+        $parentClass->initInterfaces( array( $interface ) );
+
+        $declaringClass = new StaticReflectionClass( 'Bar', '', 0 );
+        $declaringClass->initMethods( array( $method ) );
+        $declaringClass->initParentClass( $parentClass );
+
+        $this->assertSame( $interface, $method->getPrototype()->getDeclaringClass() );
+    }
+
+    /**
+     * testGetPrototypeParentInterfacePrecendence
+     *
+     * @return void
+     * @covers \pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetPrototypeParentInterfacePrecendence()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+
+        $interface = new StaticReflectionInterface( 'IFoo', '' );
+        $interface->initMethods( array( new StaticReflectionMethod( 'foo', '', 0 ) ) );
+
+        $parentClass = new StaticReflectionClass( 'Foo', '', 0 );
+        $parentClass->initMethods( array( new StaticReflectionMethod( 'foo', '', 0 ) ) );
+
+        $declaringClass = new StaticReflectionClass( 'Bar', '', 0 );
+        $declaringClass->initMethods( array( $method ) );
+        $declaringClass->initParentClass( $parentClass );
+        $declaringClass->initInterfaces( array( $interface ) );
+
+        $this->assertSame( $interface, $method->getPrototype()->getDeclaringClass() );
+    }
+
+    /**
+     * testGetPrototypeParentClassHidesParentInterface
+     *
+     * @return void
+     * @covers \pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetPrototypeParentClassHidesParentInterface()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
+
+        $interface = new StaticReflectionInterface( 'IFoo', '' );
+        $interface->initMethods( array( new StaticReflectionMethod( 'foo', '', 0 ) ) );
+
+        $declaringClass = new StaticReflectionClass( 'Bar', '', 0 );
+        $declaringClass->initMethods( array( $method ) );
+        $declaringClass->initInterfaces( array( $interface ) );
+
+        $this->assertSame( $interface, $method->getPrototype()->getDeclaringClass() );
+    }
+
+    /**
+     * testGetPrototypeThrowsExceptionOnClassWithoutParent
+     *
+     * @return void
+     * @covers \pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     * @expectedException \ReflectionException
+     */
+    public function testGetPrototypeThrowsExceptionOnClassWithoutParent()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 42 );
+        $method->initDeclaringClass( new \ReflectionClass( __CLASS__ ) );
+        $method->getPrototype();
+    }
+
+    /**
+     * testGetPrototypeThrowsExceptionOnInterfaceWithoutParent
+     *
+     * @return void
+     * @covers \pdepend\reflection\api\StaticReflectionMethod
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     * @expectedException \ReflectionException
+     */
+    public function testGetPrototypeThrowsExceptionOnInterfaceWithoutParent()
+    {
+        $method = new StaticReflectionMethod( 'foo', '', 42 );
+        $method->initDeclaringClass( new \ReflectionClass( '\Iterator' ) );
+        $method->getPrototype();
+    }
+
+    /**
      * @return void
      * @covers \pdepend\reflection\api\StaticReflectionMethod
      * @group reflection

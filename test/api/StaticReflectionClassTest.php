@@ -48,6 +48,88 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     }
 
     /**
+     * testGetInterfacesReturnsDirectlyImplementedInterface
+     *
+     * @return void
+     * @covers \pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetInterfacesReturnsDirectlyImplementedInterface()
+    {
+        $interface = new StaticReflectionInterface( 'IFoo', '' );
+
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initInterfaces( array( $interface ) );
+
+        $this->assertSame( array( $interface ), $class->getInterfaces() );
+    }
+
+    /**
+     * testGetInterfacesReturnsIndirectlyImplementedInterface
+     *
+     * @return void
+     * @covers \pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetInterfacesReturnsIndirectlyImplementedInterface()
+    {
+        $interface = new StaticReflectionInterface( 'IFoo', '' );
+
+        $parentClass = new StaticReflectionInterface( 'ParentClass', '' );
+        $parentClass->initInterfaces( array( $interface ) );
+
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initParentClass( $parentClass );
+
+        $this->assertSame( array( $interface ), $class->getInterfaces() );
+    }
+
+    /**
+     * testGetInterfaceNamesReturnsDirectlyImplementedInterface
+     *
+     * @return void
+     * @covers \pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetInterfaceNamesReturnsDirectlyImplementedInterface()
+    {
+        $interface = new StaticReflectionInterface( 'IFoo', '' );
+
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initInterfaces( array( $interface ) );
+
+        $this->assertSame( array( 'IFoo' ), $class->getInterfaceNames() );
+    }
+
+    /**
+     * testGetInterfaceNamesReturnsIndirectlyImplementedInterface
+     *
+     * @return void
+     * @covers \pdepend\reflection\api\StaticReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group unittest
+     */
+    public function testGetInterfaceNamesReturnsIndirectlyImplementedInterface()
+    {
+        $interface = new StaticReflectionInterface( 'IFoo', '' );
+
+        $parentClass = new StaticReflectionInterface( 'ParentClass', '' );
+        $parentClass->initInterfaces( array( $interface ) );
+
+        $class = new StaticReflectionClass( __CLASS__, '', 0 );
+        $class->initParentClass( $parentClass );
+
+        $this->assertSame( array( 'IFoo' ), $class->getInterfaceNames() );
+    }
+
+    /**
      * @return void
      * @covers \pdepend\reflection\api\StaticReflectionClass
      * @group reflection

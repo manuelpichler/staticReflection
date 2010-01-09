@@ -703,7 +703,66 @@ class StaticReflectionMethod extends \ReflectionMethod
      */
     public function getPrototype()
     {
-        
+        if ( is_object( $prototype = $this->_findPrototype() ) )
+        {
+            return $prototype;
+        }
+        throw new \ReflectionException(
+            sprintf(
+                'Method %s::%s does not have a prototype',
+                $this->getDeclaringClass()->getName(),
+                $this->getName()
+            )
+        );
+    }
+
+    /**
+     * Returns the prototype method of this method instance or <b>null</b> when
+     * this method has no prototype.
+     *
+     * @return \ReflectionMethod
+     */
+    private function _findPrototype()
+    {
+        if ( is_object( $prototype = $this->_findPrototypeInParentInterfaces() ) )
+        {
+            return $prototype;
+        }
+        return $this->_findPrototypeInParentClass();
+    }
+
+    /**
+     * Returns the prototype method of this method instance found in the parent
+     * class hierarchy or <b>null</b> when there is no prototype.
+     *
+     * @return \ReflectionMethod
+     */
+    private function _findPrototypeInParentClass()
+    {
+        $parentClass = $this->getDeclaringClass()->getParentClass();
+        if ( !$parentClass || !$parentClass->hasMethod( $this->getName() ) )
+        {
+            return null;
+        }
+        return $parentClass->getMethod( $this->getName() );
+    }
+
+    /**
+     * Returns the prototype method of this method instance found in the parent
+     * interface hierarchy or <b>null</b> when there is no prototype.
+     *
+     * @return \ReflectionMethod
+     */
+    private function _findPrototypeInParentInterfaces()
+    {
+        foreach ( $this->getDeclaringClass()->getInterfaces() as $interface )
+        {
+            if ( $interface->hasMethod( $this->getName() ) )
+            {
+                return $interface->getMethod( $this->getName() );
+            }
+        }
+        return null;
     }
 
     /**

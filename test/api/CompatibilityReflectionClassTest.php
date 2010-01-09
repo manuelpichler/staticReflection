@@ -248,6 +248,117 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
     }
 
     /**
+     * testGetInterfacesReturnsDirectlyImplementedInterfaces
+     *
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetInterfacesReturnsDirectlyImplementedInterfaces()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithImplementedInterface' );
+        $static   = $this->createStaticClass( 'CompatClassWithImplementedInterface' );
+
+        $this->assertEquals(
+            count( $internal->getInterfaces() ),
+            count( $static->getInterfaces() )
+        );
+    }
+
+    /**
+     * testGetInterfacesReturnsIndirectlyImplementedInterfaces
+     *
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetInterfacesReturnsIndirectlyImplementedInterfaces()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithIndirectlyImplementedInterface' );
+        $static   = $this->createStaticClass( 'CompatClassWithIndirectlyImplementedInterface' );
+
+        $this->assertEquals(
+            count( $internal->getInterfaces() ),
+            count( $static->getInterfaces() )
+        );
+    }
+
+    /**
+     * testGetInterfacesReturnsUniqueArrayOfImplementedInterfaces
+     *
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetInterfacesReturnsUniqueArrayOfImplementedInterfaces()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithSameImplementedInterface' );
+        $static   = $this->createStaticClass( 'CompatClassWithSameImplementedInterface' );
+
+        $this->assertEquals(
+            count( $internal->getInterfaces() ),
+            count( $static->getInterfaces() )
+        );
+    }
+
+    /**
+     * testGetInterfaceNamesReturnsDirectlyImplementedInterfaces
+     *
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetInterfaceNamesReturnsDirectlyImplementedInterfaces()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithImplementedInterface' );
+        $static   = $this->createStaticClass( 'CompatClassWithImplementedInterface' );
+
+        $this->assertEquals( $internal->getInterfaceNames(), $static->getInterfaceNames() );
+    }
+
+    /**
+     * testGetInterfaceNamesReturnsIndirectlyImplementedInterfaces
+     *
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetInterfaceNamesReturnsIndirectlyImplementedInterfaces()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithIndirectlyImplementedInterface' );
+        $static   = $this->createStaticClass( 'CompatClassWithIndirectlyImplementedInterface' );
+
+        $this->assertEquals( $internal->getInterfaceNames(), $static->getInterfaceNames() );
+    }
+
+    /**
+     * testGetInterfaceNamesReturnsUniqueArrayOfImplementedInterfaces
+     *
+     * @return void
+     * @covers \ReflectionClass
+     * @group reflection
+     * @group reflection::api
+     * @group compatibilitytest
+     */
+    public function testGetInterfaceNamesReturnsUniqueArrayOfImplementedInterfaces()
+    {
+        $internal = $this->createInternalClass( 'CompatClassWithSameImplementedInterface' );
+        $static   = $this->createStaticClass( 'CompatClassWithSameImplementedInterface' );
+
+        $this->assertEquals( $internal->getInterfaceNames(), $static->getInterfaceNames() );
+    }
+
+    /**
      * @return void
      * @covers \ReflectionClass
      * @group reflection
@@ -476,7 +587,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $static   = $this->createStaticClass( 'CompatClassWithoutProperties' );
 
         $expected = $this->executeFailingMethod( $internal, 'getProperty', __FUNCTION__ );
-        $actual   = $this->executeFailingMethod( $static, 'getProperty', __FUNCTION__ );;
+        $actual   = $this->executeFailingMethod( $static, 'getProperty', __FUNCTION__ );
 
         $this->assertEquals( $expected, $actual );
     }
