@@ -2,7 +2,7 @@
 ----------------------------------------
 
 - Fixed #7: ReflectionMethod::getPrototype() not implemented. Fixed in svn
-  revision #282.
+  revision #282. 
 - Fixed #8: The start line number of methods is not correct. Fixed in svn
   revision #278.
 
