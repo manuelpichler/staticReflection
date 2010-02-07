@@ -105,7 +105,7 @@ class ReflectionDirectoryQuery extends ReflectionQuery
         $classes = array();
         foreach ( $this->_createIterator( $directory ) as $fileInfo )
         {
-            if ( !$fileInfo->isFile() || $this->_isExcluded( $fileInfo ) )
+            if ( !$fileInfo->isFile() || $this->_isExcluded( $fileInfo, $directory ) )
             {
                 continue;
             }
@@ -151,15 +151,17 @@ class ReflectionDirectoryQuery extends ReflectionQuery
      * Will return <b>true</b> when the given file object should not be
      * accepted.
      *
-     * @param \SplFileInfo $fileInfo The currently parsed file info object.
+     * @param \SplFileInfo $fileInfo  The currently parsed file info object.
+     * @param string       $directory The context directory.
      *
      * @return boolean
      */
-    private function _isExcluded( \SplFileInfo $fileInfo )
+    private function _isExcluded( \SplFileInfo $fileInfo, $directory )
     {
+        $pathName = substr( $fileInfo->getRealPath(), strlen( realpath( $directory ) ) );
         foreach ( $this->_excludes as $regexp )
         {
-            if ( preg_match( $regexp, $fileInfo->getRealPath() ) > 0 )
+            if ( preg_match( $regexp, $pathName ) > 0 )
             {
                 return true;
             }
