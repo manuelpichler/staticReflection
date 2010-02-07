@@ -265,7 +265,7 @@ class StaticReflectionClass extends StaticReflectionInterface
      * Merges the given interfaces into the given result array.
      *
      * @param array(\ReflectionClass)         $interfaces Input interface array.
-     * @param array(string=>\ReflectionClass) &$result    Result interface list.
+     * @param array(string=>\ReflectionClass) $result     Result interface list.
      *
      * @return array(\ReflectionClass)
      */

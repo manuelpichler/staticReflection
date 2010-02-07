@@ -494,8 +494,8 @@ class StaticReflectionInterface extends \ReflectionClass
     /**
      * Collects recursive all implemented/extended interfaces.
      *
-     * @param array(\ReflectionClass)         $interfaces     Input interface list.
-     * @param array(string=>\ReflectionClass) &$interfaceList Result list
+     * @param array(\ReflectionClass)         $interfaces    Input interface list.
+     * @param array(string=>\ReflectionClass) $interfaceList Result list
      *
      * @return array(\ReflectionClass)
      */
