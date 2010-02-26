@@ -61,8 +61,10 @@ use pdepend\reflection\interfaces\ReflectionClassFactory;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class ReflectionSession
+class ReflectionSession // @codeCoverageIgnoreStart
 {
+    // @codeCoverageIgnoreEnd
+    
     /**
      * The configured class factory stack. The session will ask each factory
      * for a given name in the order they were added.

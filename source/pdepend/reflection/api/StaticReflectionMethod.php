@@ -58,8 +58,10 @@ namespace pdepend\reflection\api;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class StaticReflectionMethod extends \ReflectionMethod
+class StaticReflectionMethod extends \ReflectionMethod // @codeCoverageIgnoreStart
 {
+    // @codeCoverageIgnoreEnd
+
     /**
      * The type of this class.
      */

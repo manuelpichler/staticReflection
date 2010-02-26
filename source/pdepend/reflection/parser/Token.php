@@ -58,8 +58,10 @@ namespace pdepend\reflection\parser;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class Token
+class Token // @codeCoverageIgnoreStart
 {
+    // @codeCoverageIgnoreEnd
+
     /**
      * Real token offset within the token array returned by the php function
      * <b>token_get_all()</b>.

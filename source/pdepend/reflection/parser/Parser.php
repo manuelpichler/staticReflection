@@ -68,8 +68,10 @@ use pdepend\reflection\exceptions\UnexpectedTokenException;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class Parser
+class Parser // @codeCoverageIgnoreStart
 {
+    // @codeCoverageIgnoreEnd
+
     /**
      * The used parsing context that will be used to retriev reflection
      * interfaces or classes the currently parsed class depends on.
