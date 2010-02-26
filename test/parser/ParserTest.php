@@ -1106,6 +1106,22 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( 'ClassWithConstantValueOfSelf' );
         $const = $class->getConstant( 'T_FOO' );
 
+        $this->assertEquals( 42, $const );
+    }
+
+    /**
+     * @return void
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserIgnoresUnknownClassConstantInSelfConstantValue()
+    {
+        $class = $this->_parseClass( 'ClassWithConstantValueOfSelfUnknown' );
+        $const = $class->getConstant( 'T_FOO' );
+
         $this->assertEquals( '__StaticReflectionConstantValue(self::T_BAR)', $const );
     }
 

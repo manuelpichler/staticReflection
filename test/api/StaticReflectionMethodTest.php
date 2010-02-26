@@ -1250,7 +1250,7 @@ class StaticReflectionMethodTest extends \pdepend\reflection\BaseTest
      */
     public function testGetPrototypeThrowsExceptionOnClassWithoutParent()
     {
-        $method = new StaticReflectionMethod( 'foo', '', 42 );
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initDeclaringClass( new \ReflectionClass( __CLASS__ ) );
         $method->getPrototype();
     }
@@ -1267,7 +1267,7 @@ class StaticReflectionMethodTest extends \pdepend\reflection\BaseTest
      */
     public function testGetPrototypeThrowsExceptionOnInterfaceWithoutParent()
     {
-        $method = new StaticReflectionMethod( 'foo', '', 42 );
+        $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initDeclaringClass( new \ReflectionClass( '\Iterator' ) );
         $method->getPrototype();
     }
@@ -1278,7 +1278,7 @@ class StaticReflectionMethodTest extends \pdepend\reflection\BaseTest
      * @group reflection
      * @group reflection::api
      * @group unittest
-     * @expectedException \ReflectionException
+     * @expectedException \LogicException
      */
     public function testConstructorThrowsExceptionWhenInvalidModifierWasGiven()
     {

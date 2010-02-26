@@ -80,8 +80,10 @@ namespace pdepend\reflection\parser;
  * @version   Release: @package_version@
  * @link      http://pdepend.org/
  */
-class Tokenizer
+class Tokenizer // @codeCoverageIgnoreStart
 {
+    // @codeCoverageIgnoreEnd
+
     /**
      * End of token stream identifier.
      */
