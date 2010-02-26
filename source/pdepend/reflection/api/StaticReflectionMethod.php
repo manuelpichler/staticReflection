@@ -240,7 +240,7 @@ class StaticReflectionMethod extends \ReflectionMethod
 
         if ( ( $modifiers & ~$expected ) !== 0 )
         {
-            throw new \ReflectionException( 'Invalid method modifier given.' );
+            throw new \LogicException( 'Invalid method modifier given.' );
         }
         $this->_modifiers = $modifiers;
     }
