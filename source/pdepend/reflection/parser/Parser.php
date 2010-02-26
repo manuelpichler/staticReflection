@@ -423,9 +423,11 @@ class Parser // @codeCoverageIgnoreStart
                 case ParserTokens::T_SCOPE_OPEN:
                     $endLine = $this->_parseClassOrInterfaceScope();
 
+                    $constants = $this->_evaluateConstants();
+
                     $this->_classOrInterface->initEndLine( $endLine );
                     $this->_classOrInterface->initMethods( $this->_methods );
-                    $this->_classOrInterface->initConstants( $this->_constants );
+                    $this->_classOrInterface->initConstants( $constants );
                     $this->_classOrInterface->initProperties( $this->_properties );
                     
                     return $this->_classOrInterface;
@@ -468,9 +470,11 @@ class Parser // @codeCoverageIgnoreStart
                 case ParserTokens::T_SCOPE_OPEN:
                     $endLine = $this->_parseClassOrInterfaceScope( StaticReflectionMethod::IS_ABSTRACT );
 
+                    $constants = $this->_evaluateConstants();
+
                     $this->_classOrInterface->initEndLine( $endLine );
                     $this->_classOrInterface->initMethods( $this->_methods );
-                    $this->_classOrInterface->initConstants( $this->_constants );
+                    $this->_classOrInterface->initConstants( $constants );
 
                     return $this->_classOrInterface;
             }
@@ -1139,23 +1143,21 @@ class Parser // @codeCoverageIgnoreStart
 
             case ParserTokens::T_SELF:
             case ParserTokens::T_PARENT:
-                $value = '__StaticReflectionConstantValue(';
-
-                $value .= $this->_consumeToken( $this->_peek() )->image;
+                $value = $this->_consumeToken( $this->_peek() )->image;
+                
                 $this->_consumeComments();
                 $value .= $this->_consumeToken( ParserTokens::T_DOUBLE_COLON )->image;
                 $this->_consumeComments();
                 $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
                
-                $value .= ')';
-                return $value;
+                return $this->_evaluateConstantExpression( $value );
 
             case ParserTokens::T_STRING:
                 $parts = $this->_parseIdentifier();
 
                 $this->_consumeComments();
 
-                $value = '__StaticReflectionConstantValue(';
+                $value = '';
                 if ( $this->_peek() === ParserTokens::T_DOUBLE_COLON )
                 {
                     $value .= $this->_createClassOrInterfaceName( $parts );
@@ -1171,14 +1173,11 @@ class Parser // @codeCoverageIgnoreStart
                 {
                     $value .= $this->_createClassOrInterfaceName( $parts );
                 }
-                $value .= ')';
-                return $value;
+                return $this->_evaluateConstantExpression( $value );
 
             case ParserTokens::T_NAMESPACE:
             case ParserTokens::T_NS_SEPARATOR:
-                $value = '__StaticReflectionConstantValue(';
-
-                $value .= $this->_parseClassOrInterfaceName();
+                $value = $this->_parseClassOrInterfaceName();
 
                 $this->_consumeComments();
                 if ( $this->_peek() === ParserTokens::T_DOUBLE_COLON )
@@ -1187,10 +1186,64 @@ class Parser // @codeCoverageIgnoreStart
                     $this->_consumeComments();
                     $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
                 }
-                $value .= ')';
-                return $value;
+                return $this->_evaluateConstantExpression( $value );
         }
         throw new UnexpectedTokenException( $this->_next(), $this->_pathName );
+    }
+
+    /**
+     * Tries to evaluate a given constant against constants available during the
+     * parsing process.
+     *
+     * @param string $expression The constant expression.
+     *
+     * @return mixed
+     */
+    private function _evaluateConstantExpression( $expression )
+    {
+        if ( stripos( $expression, 'parent::' ) === false && defined( $expression ) )
+        {
+            return constant( $expression );
+        }
+        return '__StaticReflectionConstantValue(' . $expression . ')';
+    }
+
+    /**
+     * Evaluates constants is the context of the currently parsed class or
+     * interface instance.
+     *
+     * @return array(string=>mixed)
+     */
+    private function _evaluateConstants()
+    {
+        $regexp = '(__StaticReflectionConstantValue\(self::(.*)\))i';
+
+        while ( true )
+        {
+            $evaluated = false;
+            foreach ( $this->_constants as $name => $value )
+            {
+                if ( preg_match( $regexp, $value, $match ) === 0 )
+                {
+                    continue;
+                }
+
+                if ( !isset( $this->_constants[$match[1]] ) )
+                {
+                    continue;
+                }
+                $this->_constants[$name] = $this->_constants[$match[1]];
+                
+                $evaluated = true;
+            }
+
+            if ( !$evaluated )
+            {
+                break;
+            }
+        }
+
+        return $this->_constants;
     }
 
     /**
