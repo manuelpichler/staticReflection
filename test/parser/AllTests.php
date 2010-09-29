@@ -7,7 +7,7 @@
 
 namespace pdepend\reflection\parser;
 
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/Autoload.php';
 
 require_once 'ParserTest.php';
 require_once 'TokenizerTest.php';
@@ -28,7 +28,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
     {
         $this->setName( 'org::pdepend::reflection::parser::AllTests' );
 
-        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
+        \PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(
             realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 

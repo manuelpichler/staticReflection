@@ -47,7 +47,7 @@
 
 namespace pdepend\reflection\regression;
 
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/Autoload.php';
 
 require_once 'Bug005Test.php';
 require_once 'Bug006Test.php';

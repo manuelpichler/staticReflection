@@ -47,7 +47,7 @@
 
 namespace pdepend\reflection\resolvers;
 
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/Autoload.php';
 
 require_once __DIR__ . '/AutoloadArrayResolverTest.php';
 require_once __DIR__ . '/PearNamingResolverTest.php';
@@ -72,7 +72,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
     {
         $this->setName( 'org::pdepend::reflection::resolvers::AllTests' );
 
-        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
+        \PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(
             realpath( dirname( __FILE__ ) . '/../../source/' )
         );
 
