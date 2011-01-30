@@ -300,6 +300,7 @@ class StaticReflectionProperty extends \ReflectionProperty
      * @param mixed  $value  The new property value.
      *
      * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setValue( $object, $value = null )
     {
@@ -337,6 +338,7 @@ class StaticReflectionProperty extends \ReflectionProperty
      * @param boolean $accessible <b>true</b> to allow accessibility, or <b>false</b>.
      *
      * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setAccessible( $accessible )
     {
