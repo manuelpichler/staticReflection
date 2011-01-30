@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phpunit>
+    <testsuites>
+        <testsuite name="\pdepend\reflection\AllTests">
+            <file>AllTests.php</file>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <directory suffix=".php">source</directory>
+    </filter>
+</phpunit>
