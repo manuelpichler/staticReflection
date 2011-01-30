@@ -47,7 +47,7 @@
 
 namespace pdepend\reflection;
 
-require_once 'PHPUnit/Framework.php';
+require_once 'PHPUnit/Autoload.php';
 
 require_once __DIR__ . '/api/AllTests.php';
 require_once __DIR__ . '/factories/AllTests.php';
@@ -83,9 +83,11 @@ class AllTests extends \PHPUnit_Framework_TestSuite
      */
     public function __construct()
     {
-        $this->setName( 'org::pdepend::reflection::AllTests' );
+        parent::__construct();
 
-        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
+        $this->setName( '\pdepend\reflection\AllTests' );
+
+        \PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(
             realpath( dirname( __FILE__ ) . '/../source/' )
         );
 
@@ -99,12 +101,13 @@ class AllTests extends \PHPUnit_Framework_TestSuite
         $this->addTest( parser\AllTests::suite() );
         $this->addTest( queries\AllTests::suite() );
         $this->addTest( resolvers\AllTests::suite() );
-
+/*
         $this->addTestSuite( '\pdepend\reflection\ReflectionSessionTest' );
         $this->addTestSuite( '\pdepend\reflection\ReflectionSessionInstanceTest' );
 
         $this->addTest( integration\AllTests::suite() );
         $this->addTest( regression\AllTests::suite() );
+*/
     }
 
     /**
@@ -114,6 +117,6 @@ class AllTests extends \PHPUnit_Framework_TestSuite
      */
     public static function suite()
     {
-        return new AllTests();
+        return new \pdepend\reflection\AllTests();
     }
 }
