@@ -47,8 +47,6 @@
 
 namespace pdepend\reflection;
 
-require_once 'PHPUnit/Framework/TestCase.php';
-
 /**
  * Base test case for this component.
  *
