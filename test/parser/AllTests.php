@@ -26,10 +26,6 @@ class AllTests extends \PHPUnit_Framework_TestSuite
     {
         $this->setName( 'org::pdepend::reflection::parser::AllTests' );
 
-        \PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../../source/' )
-        );
-
         $this->addTestSuite( '\pdepend\reflection\parser\TokenizerTest' );
         $this->addTestSuite( '\pdepend\reflection\parser\ParserTest' );
     }

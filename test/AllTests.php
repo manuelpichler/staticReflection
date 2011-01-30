@@ -85,10 +85,6 @@ class AllTests extends \PHPUnit_Framework_TestSuite
 
         $this->setName( '\pdepend\reflection\AllTests' );
 
-        \PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../source/' )
-        );
-
         $this->addTestSuite( '\pdepend\reflection\AutoloaderTest' );
         $this->addTestSuite( '\pdepend\reflection\ReflectionClassProxyTest' );
         $this->addTestSuite( '\pdepend\reflection\ReflectionClassCacheTest' );
