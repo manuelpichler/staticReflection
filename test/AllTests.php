@@ -95,13 +95,12 @@ class AllTests extends \PHPUnit_Framework_TestSuite
         $this->addTest( parser\AllTests::suite() );
         $this->addTest( queries\AllTests::suite() );
         $this->addTest( resolvers\AllTests::suite() );
-/*
+
         $this->addTestSuite( '\pdepend\reflection\ReflectionSessionTest' );
         $this->addTestSuite( '\pdepend\reflection\ReflectionSessionInstanceTest' );
 
         $this->addTest( integration\AllTests::suite() );
         $this->addTest( regression\AllTests::suite() );
-*/
     }
 
     /**
