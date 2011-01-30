@@ -47,9 +47,9 @@
 
 namespace pdepend\reflection\queries;
 
-require_once 'ReflectionClassQueryTest.php';
-require_once 'ReflectionDirectoryQueryTest.php';
-require_once 'ReflectionFileQueryTest.php';
+require_once __DIR__ . '/ReflectionClassQueryTest.php';
+require_once __DIR__ . '/ReflectionDirectoryQueryTest.php';
+require_once __DIR__ . '/ReflectionFileQueryTest.php';
 
 /**
  * Main test suite.

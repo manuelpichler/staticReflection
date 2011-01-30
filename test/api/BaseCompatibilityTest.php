@@ -9,7 +9,7 @@ namespace pdepend\reflection\api;
 
 use pdepend\reflection\parser\Parser;
 
-require_once 'BaseTest.php';
+require_once __DIR__ . '/../BaseTest.php';
 
 /**
  * Abstract base test for api compatiblility between the static reflection

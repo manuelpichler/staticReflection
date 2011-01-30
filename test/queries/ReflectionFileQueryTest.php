@@ -47,7 +47,7 @@
 
 namespace pdepend\reflection\queries;
 
-require_once 'ReflectionQueryTest.php';
+require_once __DIR__ . '/ReflectionQueryTest.php';
 
 /**
  * Test cases for the reflection file query.

@@ -47,10 +47,10 @@
 
 namespace pdepend\reflection\regression;
 
-require_once 'Bug005Test.php';
-require_once 'Bug006Test.php';
-require_once 'Bug008Test.php';
-require_once 'Bug009Test.php';
+require_once __DIR__ . '/Bug005Test.php';
+require_once __DIR__ . '/Bug006Test.php';
+require_once __DIR__ . '/Bug008Test.php';
+require_once __DIR__ . '/Bug009Test.php';
 
 /**
  * Main test suite.

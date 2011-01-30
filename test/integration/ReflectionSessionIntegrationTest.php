@@ -50,7 +50,7 @@ namespace pdepend\reflection\integration;
 use pdepend\reflection\ReflectionSession;
 use pdepend\reflection\factories\NullReflectionClassFactory;
 
-require_once 'BaseTest.php';
+require_once __DIR__ . '/../BaseTest.php';
 
 /**
  * Integration tests for the reflection session facade.

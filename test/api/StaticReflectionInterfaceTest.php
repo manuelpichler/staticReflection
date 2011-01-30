@@ -7,7 +7,7 @@
 
 namespace pdepend\reflection\api;
 
-require_once 'BaseTest.php';
+require_once __DIR__ . '/../BaseTest.php';
 
 /**
  * Test cases for the reflection interface class.

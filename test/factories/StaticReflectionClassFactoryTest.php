@@ -47,7 +47,7 @@
 
 namespace pdepend\reflection\factories;
 
-require_once 'BaseTest.php';
+require_once __DIR__ . '/../BaseTest.php';
 
 /**
  * Test cases for the static reflection factory.

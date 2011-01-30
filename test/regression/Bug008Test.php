@@ -51,7 +51,7 @@ use pdepend\reflection\ReflectionSession;
 use pdepend\reflection\queries\ReflectionFileQuery;
 use pdepend\reflection\queries\ReflectionDirectoryQuery;
 
-require_once 'BaseTest.php';
+require_once __DIR__ . '/../BaseTest.php';
 
 /**
  * Test case for ticket #8

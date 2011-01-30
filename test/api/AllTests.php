@@ -47,20 +47,20 @@
 
 namespace pdepend\reflection\api;
 
-require_once 'CompatibilityNullReflectionClassTest.php';
-require_once 'CompatibilityReflectionClassTest.php';
-require_once 'CompatibilityReflectionInterfaceTest.php';
-require_once 'CompatibilityReflectionMethodTest.php';
-require_once 'CompatibilityReflectionParameterTest.php';
-require_once 'CompatibilityReflectionPropertyTest.php';
+require_once __DIR__ . '/CompatibilityNullReflectionClassTest.php';
+require_once __DIR__ . '/CompatibilityReflectionClassTest.php';
+require_once __DIR__ . '/CompatibilityReflectionInterfaceTest.php';
+require_once __DIR__ . '/CompatibilityReflectionMethodTest.php';
+require_once __DIR__ . '/CompatibilityReflectionParameterTest.php';
+require_once __DIR__ . '/CompatibilityReflectionPropertyTest.php';
 
-require_once 'NullReflectionClassTest.php';
-require_once 'StaticReflectionClassTest.php';
-require_once 'StaticReflectionInterfaceTest.php';
-require_once 'StaticReflectionMethodTest.php';
-require_once 'StaticReflectionParameterTest.php';
-require_once 'StaticReflectionPropertyTest.php';
-require_once 'StaticReflectionValueTest.php';
+require_once __DIR__ . '/NullReflectionClassTest.php';
+require_once __DIR__ . '/StaticReflectionClassTest.php';
+require_once __DIR__ . '/StaticReflectionInterfaceTest.php';
+require_once __DIR__ . '/StaticReflectionMethodTest.php';
+require_once __DIR__ . '/StaticReflectionParameterTest.php';
+require_once __DIR__ . '/StaticReflectionPropertyTest.php';
+require_once __DIR__ . '/StaticReflectionValueTest.php';
 
 /**
  * Test suite for the static reflection api subpackage.

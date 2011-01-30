@@ -7,8 +7,8 @@
 
 namespace pdepend\reflection\parser;
 
-require_once 'ParserTest.php';
-require_once 'TokenizerTest.php';
+require_once __DIR__ . '/ParserTest.php';
+require_once __DIR__ . '/TokenizerTest.php';
 
 /**
  * Main test suite.

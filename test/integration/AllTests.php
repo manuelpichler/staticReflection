@@ -47,7 +47,7 @@
 
 namespace pdepend\reflection\integration;
 
-require_once 'ReflectionSessionIntegrationTest.php';
+require_once __DIR__ . '/ReflectionSessionIntegrationTest.php';
 
 /**
  * Main test suite for integration tests.

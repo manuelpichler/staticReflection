@@ -7,7 +7,7 @@
 
 namespace pdepend\reflection\api;
 
-require_once 'BaseCompatibilityTest.php';
+require_once __DIR__ . '/BaseCompatibilityTest.php';
 
 /**
  * Tests the api compatiblility between the static reflection implementation and

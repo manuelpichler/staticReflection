@@ -47,7 +47,7 @@
 
 namespace pdepend\reflection;
 
-require_once 'BaseTest.php';
+require_once __DIR__ . '/BaseTest.php';
 
 /**
  * Test case for the reflection class proxy.
