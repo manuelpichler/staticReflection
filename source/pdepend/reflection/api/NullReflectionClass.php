@@ -231,6 +231,7 @@ class NullReflectionClass extends \ReflectionClass
      * @param string $interface The interface name.
      *
      * @return boolean
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function implementsInterface( $interface )
     {
@@ -243,6 +244,7 @@ class NullReflectionClass extends \ReflectionClass
      * @param string $name Name of the property being checked for.
      *
      * @return boolean
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function hasProperty( $name )
     {
@@ -269,6 +271,7 @@ class NullReflectionClass extends \ReflectionClass
      *        property must have.
      *
      * @return array(\ReflectionProperty)
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getProperties( $filter = -1 )
     {
@@ -301,6 +304,7 @@ class NullReflectionClass extends \ReflectionClass
      * @param mixed  $value The new property value.
      *
      * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setStaticPropertyValue( $name, $value )
     {
@@ -323,6 +327,7 @@ class NullReflectionClass extends \ReflectionClass
      * @param string $name Name of the method being checked for.
      *
      * @return boolean
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function hasMethod( $name )
     {
@@ -350,6 +355,7 @@ class NullReflectionClass extends \ReflectionClass
      *        method must have.
      *
      * @return array(\ReflectionMethod)
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getMethods( $filter = -1 )
     {
@@ -374,6 +380,7 @@ class NullReflectionClass extends \ReflectionClass
      * @param string $name Name of the search constant.
      *
      * @return boolean
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function hasConstant( $name )
     {
@@ -387,6 +394,7 @@ class NullReflectionClass extends \ReflectionClass
      * @param string $name Name of the searched constant.
      *
      * @return mixed
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getConstant( $name )
     {
@@ -514,6 +522,7 @@ class NullReflectionClass extends \ReflectionClass
      * @param string $class Name of the searched class.
      *
      * @return boolean
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function isSubclassOf( $class )
     {
@@ -537,6 +546,7 @@ class NullReflectionClass extends \ReflectionClass
      *                    passed to the function much like call_user_func().
      *
      * @return object
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function newInstance( $args )
     {
@@ -550,6 +560,7 @@ class NullReflectionClass extends \ReflectionClass
      *                           much like call_user_func_array().
      *
      * @return object
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function newInstanceArgs( array $args = array() )
     {
