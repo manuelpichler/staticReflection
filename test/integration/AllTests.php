@@ -47,8 +47,6 @@
 
 namespace pdepend\reflection\integration;
 
-require_once 'PHPUnit/Autoload.php';
-
 require_once 'ReflectionSessionIntegrationTest.php';
 
 /**

@@ -47,8 +47,6 @@
 
 namespace pdepend\reflection\factories;
 
-require_once 'PHPUnit/Autoload.php';
-
 require_once __DIR__ . '/InternalReflectionClassFactoryTest.php';
 require_once __DIR__ . '/NullReflectionClassFactoryTest.php';
 require_once __DIR__ . '/StaticReflectionClassFactoryTest.php';

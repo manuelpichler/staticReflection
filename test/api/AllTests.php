@@ -47,8 +47,6 @@
 
 namespace pdepend\reflection\api;
 
-require_once 'PHPUnit/Autoload.php';
-
 require_once 'CompatibilityNullReflectionClassTest.php';
 require_once 'CompatibilityReflectionClassTest.php';
 require_once 'CompatibilityReflectionInterfaceTest.php';

@@ -47,8 +47,6 @@
 
 namespace pdepend\reflection\resolvers;
 
-require_once 'PHPUnit/Autoload.php';
-
 require_once __DIR__ . '/AutoloadArrayResolverTest.php';
 require_once __DIR__ . '/PearNamingResolverTest.php';
 

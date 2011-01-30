@@ -47,8 +47,6 @@
 
 namespace pdepend\reflection\queries;
 
-require_once 'PHPUnit/Autoload.php';
-
 require_once 'ReflectionClassQueryTest.php';
 require_once 'ReflectionDirectoryQueryTest.php';
 require_once 'ReflectionFileQueryTest.php';

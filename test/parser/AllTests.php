@@ -7,8 +7,6 @@
 
 namespace pdepend\reflection\parser;
 
-require_once 'PHPUnit/Autoload.php';
-
 require_once 'ParserTest.php';
 require_once 'TokenizerTest.php';
 

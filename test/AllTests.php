@@ -47,8 +47,6 @@
 
 namespace pdepend\reflection;
 
-require_once 'PHPUnit/Autoload.php';
-
 require_once __DIR__ . '/api/AllTests.php';
 require_once __DIR__ . '/factories/AllTests.php';
 require_once __DIR__ . '/parser/AllTests.php';
