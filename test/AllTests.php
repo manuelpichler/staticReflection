@@ -47,8 +47,6 @@
 
 namespace pdepend\reflection;
 
-require_once 'PHPUnit/Autoload.php';
-
 require_once __DIR__ . '/api/AllTests.php';
 require_once __DIR__ . '/factories/AllTests.php';
 require_once __DIR__ . '/parser/AllTests.php';
@@ -86,10 +84,6 @@ class AllTests extends \PHPUnit_Framework_TestSuite
         parent::__construct();
 
         $this->setName( '\pdepend\reflection\AllTests' );
-
-        \PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../source/' )
-        );
 
         $this->addTestSuite( '\pdepend\reflection\AutoloaderTest' );
         $this->addTestSuite( '\pdepend\reflection\ReflectionClassProxyTest' );

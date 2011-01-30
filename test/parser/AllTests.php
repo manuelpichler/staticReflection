@@ -7,8 +7,6 @@
 
 namespace pdepend\reflection\parser;
 
-require_once 'PHPUnit/Autoload.php';
-
 require_once 'ParserTest.php';
 require_once 'TokenizerTest.php';
 
@@ -27,10 +25,6 @@ class AllTests extends \PHPUnit_Framework_TestSuite
     public function __construct()
     {
         $this->setName( 'org::pdepend::reflection::parser::AllTests' );
-
-        \PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../../source/' )
-        );
 
         $this->addTestSuite( '\pdepend\reflection\parser\TokenizerTest' );
         $this->addTestSuite( '\pdepend\reflection\parser\ParserTest' );

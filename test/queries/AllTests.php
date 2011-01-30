@@ -47,8 +47,6 @@
 
 namespace pdepend\reflection\queries;
 
-require_once 'PHPUnit/Autoload.php';
-
 require_once 'ReflectionClassQueryTest.php';
 require_once 'ReflectionDirectoryQueryTest.php';
 require_once 'ReflectionFileQueryTest.php';
@@ -72,10 +70,6 @@ class AllTests extends \PHPUnit_Framework_TestSuite
     public function __construct()
     {
         $this->setName( 'org::pdepend::reflection::queries::AllTests' );
-
-        \PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../../source/' )
-        );
 
         $this->addTestSuite( '\pdepend\reflection\queries\ReflectionClassQueryTest' );
         $this->addTestSuite( '\pdepend\reflection\queries\ReflectionDirectoryQueryTest' );

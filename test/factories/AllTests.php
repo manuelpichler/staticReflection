@@ -47,8 +47,6 @@
 
 namespace pdepend\reflection\factories;
 
-require_once 'PHPUnit/Autoload.php';
-
 require_once __DIR__ . '/InternalReflectionClassFactoryTest.php';
 require_once __DIR__ . '/NullReflectionClassFactoryTest.php';
 require_once __DIR__ . '/StaticReflectionClassFactoryTest.php';
@@ -72,10 +70,6 @@ class AllTests extends \PHPUnit_Framework_TestSuite
     public function __construct()
     {
         $this->setName( 'org::pdepend::reflection::factories::AllTests' );
-
-        \PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../../source/' )
-        );
 
         $this->addTestSuite( '\pdepend\reflection\factories\InternalReflectionClassFactoryTest' );
         $this->addTestSuite( '\pdepend\reflection\factories\NullReflectionClassFactoryTest' );
