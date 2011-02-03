@@ -69,10 +69,6 @@ class AllTests extends \PHPUnit_Framework_TestSuite
     {
         $this->setName( 'org::pdepend::reflection::integration::AllTests' );
 
-        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../../source/' )
-        );
-
         $this->addTestSuite( '\pdepend\reflection\integration\ReflectionSessionIntegrationTest' );
     }
 

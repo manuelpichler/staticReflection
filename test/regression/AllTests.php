@@ -72,10 +72,6 @@ class AllTests extends \PHPUnit_Framework_TestSuite
     {
         $this->setName( 'org::pdepend::reflection::regression::AllTests' );
 
-        \PHPUnit_Util_Filter::addDirectoryToWhitelist(
-            realpath( dirname( __FILE__ ) . '/../../source/' )
-        );
-
         $this->addTestSuite( '\pdepend\reflection\regression\Bug005Test' );
         $this->addTestSuite( '\pdepend\reflection\regression\Bug006Test' );
         $this->addTestSuite( '\pdepend\reflection\regression\Bug008Test' );
