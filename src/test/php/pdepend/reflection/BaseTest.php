@@ -330,7 +330,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         }
 
         $filename = sprintf( '%s.php', strtr( $className, '\\', '/' ) );
-        $pathname = sprintf( '%s/../../../../../source/%s', __DIR__, $filename );
+        $pathname = sprintf( '%s/../../../../main/php/%s', __DIR__, $filename );
 
         if ( file_exists( $pathname ) === false )
         {
