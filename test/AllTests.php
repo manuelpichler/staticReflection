@@ -83,7 +83,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
     {
         parent::__construct();
 
-        $this->setName( '\pdepend\reflection\AllTests' );
+        $this->setName( 'org::pdepend::reflection::AllTests' );
 
         $this->addTestSuite( '\pdepend\reflection\AutoloaderTest' );
         $this->addTestSuite( '\pdepend\reflection\ReflectionClassProxyTest' );

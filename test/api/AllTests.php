@@ -80,6 +80,8 @@ class AllTests extends \PHPUnit_Framework_TestSuite
      */
     public function __construct()
     {
+        parent::__construct();
+        
         $this->setName( 'org::pdepend::reflection::api::AllTests' );
 
         $this->addTestSuite( '\pdepend\reflection\api\NullReflectionClassTest' );
