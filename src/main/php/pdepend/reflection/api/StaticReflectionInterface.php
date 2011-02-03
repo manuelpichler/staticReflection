@@ -760,6 +760,7 @@ class StaticReflectionInterface extends \ReflectionClass
      * @param string $name Name of the property being checked for.
      * 
      * @return boolean
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function hasProperty( $name )
     {
@@ -786,6 +787,7 @@ class StaticReflectionInterface extends \ReflectionClass
      *        property must have.
      *
      * @return array(\ReflectionProperty)
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function getProperties( $filter = -1 )
     {
@@ -838,6 +840,7 @@ class StaticReflectionInterface extends \ReflectionClass
      * @param mixed  $value The new property value.
      *
      * @return void
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function setStaticPropertyValue( $name, $value )
     {
@@ -933,6 +936,7 @@ class StaticReflectionInterface extends \ReflectionClass
      *                    passed to the function much like call_user_func().
      *
      * @return object
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function newInstance( $args )
     {
@@ -946,6 +950,7 @@ class StaticReflectionInterface extends \ReflectionClass
      *                           much like call_user_func_array().
      *
      * @return object
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function newInstanceArgs( array $args = array() )
     {
