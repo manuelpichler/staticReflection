@@ -4,7 +4,7 @@
     <!--
         Include local project properties.
     -->
-    <property file="build.properties" />
+    <property file="${basedir}/build.properties" />
     
     <!--
         Import common build targets
