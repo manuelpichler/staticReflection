@@ -35,7 +35,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     {
         $class = $this->_parseClass( 'ClassWithoutNamespace' );
 
-        $this->assertInstanceOf( StaticReflectionClass::TYPE, $class );
+        self::assertInstanceOf( StaticReflectionClass::TYPE, $class );
     }
 
     /**
@@ -51,7 +51,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class       = $this->_parseClass( 'ClassWithoutNamespace' );
         $parentClass = $class->getParentClass();
 
-        $this->assertFalse( $parentClass );
+        self::assertFalse( $parentClass );
     }
 
     /**
@@ -67,7 +67,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class      = $this->_parseClass( 'ClassWithoutNamespace' );
         $interfaces = $class->getInterfaces();
 
-        $this->assertSame( array(), $interfaces );
+        self::assertSame( array(), $interfaces );
     }
 
     /**
@@ -83,7 +83,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class       = $this->_parseClass( 'ClassWithParentClass' );
         $parentClass = $class->getParentClass();
 
-        $this->assertInstanceOf( '\ReflectionClass', $parentClass );
+        self::assertInstanceOf( '\ReflectionClass', $parentClass );
     }
 
     /**
@@ -99,7 +99,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class       = $this->_parseClass( 'ClassWithCommentInParentClassName' );
         $parentClass = $class->getParentClass();
 
-        $this->assertSame( 'c\w\n\ClassWithNamespace', $parentClass->getName() );
+        self::assertSame( 'c\w\n\ClassWithNamespace', $parentClass->getName() );
     }
 
     /**
@@ -113,7 +113,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserAcceptsClassNameWithLeadingNamespaceSeparatorChar()
     {
         $class = $this->_parseClass( '\c\w\n\ClassWithNamespace' );
-        $this->assertSame( 'c\w\n\ClassWithNamespace', $class->getName() );
+        self::assertSame( 'c\w\n\ClassWithNamespace', $class->getName() );
     }
 
     /**
@@ -129,7 +129,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class       = $this->_parseClass( '\pdepend\ClassWithNamespaceAliasedParent' );
         $parentClass = $class->getParentClass();
         
-        $this->assertEquals( 'org\pdepend\ClassWithNamespaceParentAliased', $parentClass->getName() );
+        self::assertEquals( 'org\pdepend\ClassWithNamespaceParentAliased', $parentClass->getName() );
     }
 
     /**
@@ -145,7 +145,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class      = $this->_parseClass( '\pdepend\ClassWithNamespaceAliasedInterface' );
         $interfaces = $class->getInterfaces();
 
-        $this->assertEquals( 'org\pdepend\InterfaceWithNamespaceAliased', $interfaces[0]->getName() );
+        self::assertEquals( 'org\pdepend\InterfaceWithNamespaceAliased', $interfaces[0]->getName() );
     }
 
     /**
@@ -161,7 +161,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class      = $this->_parseClass( 'ClassWithImplementedInterface' );
         $interfaces = $class->getInterfaces();
 
-        $this->assertInstanceOf( '\ReflectionClass', $interfaces[0] );
+        self::assertInstanceOf( '\ReflectionClass', $interfaces[0] );
     }
 
     /**
@@ -177,7 +177,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class      = $this->_parseClass( 'ClassWithMultipleImplementedInterfaces' );
         $interfaces = $class->getInterfaces();
 
-        $this->assertSame( 2, count( $interfaces ) );
+        self::assertSame( 2, count( $interfaces ) );
     }
 
     /**
@@ -191,7 +191,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserReturnsInstanceOfTypeStaticInterface()
     {
         $class = $this->_parseClass( 'InterfaceWithoutNamespace' );
-        $this->assertInstanceOf( StaticReflectionInterface::TYPE, $class );
+        self::assertInstanceOf( StaticReflectionInterface::TYPE, $class );
     }
 
     /**
@@ -207,7 +207,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class      = $this->_parseClass( 'InterfaceWithParentInterface' );
         $interfaces = $class->getInterfaces();
 
-        $this->assertInstanceOf( '\ReflectionClass', $interfaces[0] );
+        self::assertInstanceOf( '\ReflectionClass', $interfaces[0] );
     }
 
     /**
@@ -223,7 +223,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class      = $this->_parseClass( 'InterfaceWithMultipleParentInterfaces' );
         $interfaces = $class->getInterfaces();
 
-        $this->assertSame( 2, count( $interfaces ) );
+        self::assertSame( 2, count( $interfaces ) );
     }
 
     /**
@@ -237,7 +237,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserHandlesCurlyBraceSyntaxForNamespaces()
     {
         $class = $this->_parseClass( 'foo\bar\baz\NamespaceCurlyBraceSyntax' );
-        $this->assertSame( 'foo\bar\baz', $class->getNamespaceName() );
+        self::assertSame( 'foo\bar\baz', $class->getNamespaceName() );
     }
 
     /**
@@ -251,7 +251,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserHandlesCurlyBraceDefaultNamespace()
     {
         $class = $this->_parseClass( '\NamespaceCurlyBraceDefault' );
-        $this->assertSame( '', $class->getNamespaceName() );
+        self::assertSame( '', $class->getNamespaceName() );
     }
 
     /**
@@ -265,7 +265,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserHandlesSemicolonSyntaxForNamespaces()
     {
         $class = $this->_parseClass( 'foo\bar\baz\NamespaceSemicolonSyntax' );
-        $this->assertSame( 'foo\bar\baz', $class->getNamespaceName() );
+        self::assertSame( 'foo\bar\baz', $class->getNamespaceName() );
     }
 
     /**
@@ -279,7 +279,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserIgnoresCommentsInNamespaceDeclaration()
     {
         $class = $this->_parseClass( 'foo\bar\baz\NamespaceDeclarationWithComments' );
-        $this->assertSame( 'foo\bar\baz', $class->getNamespaceName() );
+        self::assertSame( 'foo\bar\baz', $class->getNamespaceName() );
     }
 
     /**
@@ -295,7 +295,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class      = $this->_parseClass( 'ClassUseStatement' );
         $interfaces = $class->getInterfaces();
 
-        $this->assertSame( 'foo\InterfaceWithNamespace', $interfaces[0]->getName() );
+        self::assertSame( 'foo\InterfaceWithNamespace', $interfaces[0]->getName() );
     }
 
     /**
@@ -311,7 +311,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class      = $this->_parseClass( 'ClassAliasedUseStatement' );
         $interfaces = $class->getInterfaces();
 
-        $this->assertSame( 'foo\InterfaceWithNamespace', $interfaces[0]->getName() );
+        self::assertSame( 'foo\InterfaceWithNamespace', $interfaces[0]->getName() );
     }
 
     /**
@@ -328,10 +328,10 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $parentClass = $class->getParentClass();
         $interfaces  = $class->getInterfaces();
 
-        $this->assertSame( 'c\w\n\ClassWithNamespace', $parentClass->getName() );
+        self::assertSame( 'c\w\n\ClassWithNamespace', $parentClass->getName() );
 
-        $this->assertSame( 'foo\InterfaceWithNamespace', $interfaces[0]->getName() );
-        $this->assertSame( 'InterfaceWithoutNamespace', $interfaces[1]->getName() );
+        self::assertSame( 'foo\InterfaceWithNamespace', $interfaces[0]->getName() );
+        self::assertSame( 'InterfaceWithoutNamespace', $interfaces[1]->getName() );
     }
 
     /**
@@ -347,7 +347,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class   = $this->_parseClass( 'ClassWithMethod' );
         $methods = $class->getMethods();
 
-        $this->assertSame( 1, count( $methods ) );
+        self::assertSame( 1, count( $methods ) );
     }
 
     /**
@@ -363,7 +363,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class   = $this->_parseClass( 'ClassWithMultipleMethods' );
         $methods = $class->getMethods();
 
-        $this->assertSame( 3, count( $methods ) );
+        self::assertSame( 3, count( $methods ) );
     }
 
     /**
@@ -379,7 +379,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class   = $this->_parseClass( 'InterfaceWithMultipleMethods' );
         $methods = $class->getMethods();
 
-        $this->assertSame( 3, count( $methods ) );
+        self::assertSame( 3, count( $methods ) );
     }
 
     /**
@@ -394,7 +394,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     {
         $class = $this->_parseClass( 'ClassWithDocComment' );
 
-        $this->assertSame(
+        self::assertSame(
             "/**\n" .
             " * Hello Static Reflection\n" .
             " *\n" .
@@ -415,7 +415,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserFlagsClassAsAbstract()
     {
         $class = $this->_parseClass( 'ClassDeclaredAbstract' );
-        $this->assertTrue( $class->isAbstract() );
+        self::assertTrue( $class->isAbstract() );
     }
 
     /**
@@ -429,7 +429,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserFlagsClassAsFinal()
     {
         $class = $this->_parseClass( 'ClassDeclaredFinal' );
-        $this->assertTrue( $class->isFinal() );
+        self::assertTrue( $class->isFinal() );
     }
 
     /**
@@ -445,7 +445,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodWithComment' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertSame(
+        self::assertSame(
             "/**\n" .
             "     * A simple method...\n" .
             "     *\n" .
@@ -468,7 +468,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodPublic' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertTrue( $method->isPublic() );
+        self::assertTrue( $method->isPublic() );
     }
 
     /**
@@ -484,7 +484,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodProtected' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertTrue( $method->isProtected() );
+        self::assertTrue( $method->isProtected() );
     }
 
     /**
@@ -500,7 +500,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodPrivate' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertTrue( $method->isPrivate() );
+        self::assertTrue( $method->isPrivate() );
     }
 
     /**
@@ -516,7 +516,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodFinal' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertTrue( $method->isFinal() );
+        self::assertTrue( $method->isFinal() );
     }
 
     /**
@@ -532,7 +532,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodStatic' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertTrue( $method->isStatic() );
+        self::assertTrue( $method->isStatic() );
     }
 
     /**
@@ -548,7 +548,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodAbstract' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertTrue( $method->isAbstract() );
+        self::assertTrue( $method->isAbstract() );
     }
 
     /**
@@ -564,7 +564,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodNotReturningReference' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertFalse( $method->returnsReference() );
+        self::assertFalse( $method->returnsReference() );
     }
 
     /**
@@ -580,7 +580,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodReturnsReference' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertTrue( $method->returnsReference() );
+        self::assertTrue( $method->returnsReference() );
     }
 
     /**
@@ -596,7 +596,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodLineNumbers' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertSame( 4, $method->getStartLine() );
+        self::assertSame( 4, $method->getStartLine() );
     }
 
     /**
@@ -612,7 +612,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodLineNumbers' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertSame( 12, $method->getEndLine() );
+        self::assertSame( 12, $method->getEndLine() );
     }
 
     /**
@@ -628,7 +628,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodLineNumbers' );
         $method = $class->getMethod( '_bar' );
 
-        $this->assertSame( 14, $method->getStartLine() );
+        self::assertSame( 14, $method->getStartLine() );
     }
 
     /**
@@ -644,7 +644,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodLineNumbers' );
         $method = $class->getMethod( '_bar' );
 
-        $this->assertSame( 19, $method->getEndLine() );
+        self::assertSame( 19, $method->getEndLine() );
     }
 
     /**
@@ -660,7 +660,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodWithParameters' );
         $method = $class->getMethod( 'fooBar' );
 
-        $this->assertEquals( 3, $method->getNumberOfParameters() );
+        self::assertEquals( 3, $method->getNumberOfParameters() );
     }
 
     /**
@@ -677,7 +677,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $method = $class->getMethod( 'fooBar' );
         $params = $method->getParameters();
 
-        $this->assertFalse( $params[0]->isPassedByReference() );
+        self::assertFalse( $params[0]->isPassedByReference() );
     }
 
     /**
@@ -694,7 +694,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $method = $class->getMethod( 'fooBar' );
         $params = $method->getParameters();
 
-        $this->assertTrue( $params[0]->isPassedByReference() );
+        self::assertTrue( $params[0]->isPassedByReference() );
     }
 
     /**
@@ -711,7 +711,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $method = $class->getMethod( 'fooBar' );
         $params = $method->getParameters();
 
-        $this->assertTrue( $params[0]->isArray() );
+        self::assertTrue( $params[0]->isArray() );
     }
 
     /**
@@ -728,7 +728,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $method = $class->getMethod( 'fooBar' );
         $params = $method->getParameters();
 
-        $this->assertInstanceOf( '\ReflectionClass', $params[0]->getClass() );
+        self::assertInstanceOf( '\ReflectionClass', $params[0]->getClass() );
     }
 
     /**
@@ -745,7 +745,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $method = $class->getMethod( 'fooBar' );
         $params = $method->getParameters();
 
-        $this->assertInstanceOf( '\ReflectionClass', $params[0]->getClass() );
+        self::assertInstanceOf( '\ReflectionClass', $params[0]->getClass() );
     }
 
     /**
@@ -762,7 +762,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $method = $class->getMethod( 'fooBar' );
         $params = $method->getParameters();
 
-        $this->assertInstanceOf( '\ReflectionClass', $params[0]->getClass() );
+        self::assertInstanceOf( '\ReflectionClass', $params[0]->getClass() );
     }
 
     /**
@@ -778,7 +778,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithComment' );
         $property = $class->getProperty( 'foo' );
 
-        $this->assertSame(
+        self::assertSame(
             "/**\n" .
             "     * The answer...\n" .
             "     *\n" .
@@ -801,7 +801,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class      = $this->_parseClass( 'PropertyWithCommaSeparatedProperties' );
         $properties = $class->getProperties();
 
-        $this->assertSame( 3, count( $properties ) );
+        self::assertSame( 3, count( $properties ) );
     }
 
     /**
@@ -817,7 +817,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithConstantDefaultValue' );
         $property = $class->getProperty( 'foo' );
 
-        $this->assertInstanceOf( StaticReflectionProperty::TYPE, $property );
+        self::assertInstanceOf( StaticReflectionProperty::TYPE, $property );
     }
 
     /**
@@ -833,7 +833,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithArrayDefaultValue' );
         $property = $class->getProperty( 'foo' );
 
-        $this->assertInstanceOf( StaticReflectionProperty::TYPE, $property );
+        self::assertInstanceOf( StaticReflectionProperty::TYPE, $property );
     }
 
     /**
@@ -849,7 +849,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithNestedArrayDefaultValue' );
         $property = $class->getProperty( '_bar' );
 
-        $this->assertInstanceOf( StaticReflectionProperty::TYPE, $property );
+        self::assertInstanceOf( StaticReflectionProperty::TYPE, $property );
     }
 
     /**
@@ -865,7 +865,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithHashArrayDefaultValue' );
         $property = $class->getProperty( 'hash' );
 
-        $this->assertSame( array( 'foo' => 42, 'bar' => null, 23 => true ), $property->getValue() );
+        self::assertSame( array( 'foo' => 42, 'bar' => null, 23 => true ), $property->getValue() );
     }
 
     /**
@@ -881,7 +881,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithNullDefaultValue' );
         $property = $class->getProperty( 'fooBar' );
 
-        $this->assertNull( $property->getValue() );
+        self::assertNull( $property->getValue() );
     }
 
     /**
@@ -897,7 +897,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithFalseDefaultValue' );
         $property = $class->getProperty( 'fooBar' );
 
-        $this->assertFalse( $property->getValue() );
+        self::assertFalse( $property->getValue() );
     }
 
     /**
@@ -913,7 +913,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithTrueDefaultValue' );
         $property = $class->getProperty( 'fooBar' );
 
-        $this->assertTrue( $property->getValue() );
+        self::assertTrue( $property->getValue() );
     }
 
     /**
@@ -929,7 +929,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithFloatDefaultValue' );
         $property = $class->getProperty( 'fooBar' );
 
-        $this->assertEquals( 3.14, $property->getValue(), '', 0.001 );
+        self::assertEquals( 3.14, $property->getValue(), '', 0.001 );
     }
 
     /**
@@ -945,7 +945,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithIntegerDefaultValue' );
         $property = $class->getProperty( 'fooBar' );
 
-        $this->assertEquals( 42, $property->getValue() );
+        self::assertEquals( 42, $property->getValue() );
     }
 
     /**
@@ -961,7 +961,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithStringDefaultValue' );
         $property = $class->getProperty( 'fooBar' );
 
-        $this->assertEquals( '"Manuel Pichler\'', $property->getValue() );
+        self::assertEquals( '"Manuel Pichler\'', $property->getValue() );
     }
 
     /**
@@ -975,7 +975,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserFlagsPropertyAsPrivate()
     {
         $class = $this->_parseClass( 'PropertyPrivate' );
-        $this->assertTrue( $class->getProperty( 'foo' )->isPrivate() );
+        self::assertTrue( $class->getProperty( 'foo' )->isPrivate() );
     }
 
     /**
@@ -989,7 +989,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserFlagsPropertyAsProtected()
     {
         $class = $this->_parseClass( 'PropertyProtected' );
-        $this->assertTrue( $class->getProperty( 'foo' )->isProtected() );
+        self::assertTrue( $class->getProperty( 'foo' )->isProtected() );
     }
 
     /**
@@ -1003,7 +1003,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserFlagsPropertyAsPublic()
     {
         $class = $this->_parseClass( 'PropertyPublic' );
-        $this->assertTrue( $class->getProperty( 'foo' )->isPublic() );
+        self::assertTrue( $class->getProperty( 'foo' )->isPublic() );
     }
 
     /**
@@ -1017,7 +1017,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserFlagsPropertyAsStatic()
     {
         $class = $this->_parseClass( 'PropertyStatic' );
-        $this->assertTrue( $class->getProperty( 'foo' )->isStatic() );
+        self::assertTrue( $class->getProperty( 'foo' )->isStatic() );
     }
 
     /**
@@ -1031,7 +1031,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserSetsClassSourceFileName()
     {
         $class = $this->_parseClass( 'ClassWithoutNamespace' );
-        $this->assertSame(
+        self::assertSame(
             $this->getPathnameForClass( 'ClassWithoutNamespace' ),
             $class->getFileName()
         );
@@ -1048,7 +1048,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserSetsExpectedClassStartLine()
     {
         $class = $this->_parseClass( 'ClassLineNumbers' );
-        $this->assertSame( 6, $class->getStartLine() );
+        self::assertSame( 6, $class->getStartLine() );
     }
 
     /**
@@ -1062,7 +1062,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserSetsExpectedClassEndLine()
     {
         $class = $this->_parseClass( 'ClassLineNumbers' );
-        $this->assertSame( 14, $class->getEndLine() );
+        self::assertSame( 14, $class->getEndLine() );
     }
 
     /**
@@ -1076,7 +1076,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserHandlesClassConstant()
     {
         $class = $this->_parseClass( 'ClassWithConstant' );
-        $this->assertTrue( $class->hasConstant( 'T_FOO' ) );
+        self::assertTrue( $class->hasConstant( 'T_FOO' ) );
     }
 
     /**
@@ -1090,7 +1090,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserHandlesListOfClassConstants()
     {
         $class = $this->_parseClass( 'ClassWithConstantList' );
-        $this->assertEquals( 3, count( $class->getConstants() ) );
+        self::assertEquals( 3, count( $class->getConstants() ) );
     }
 
     /**
@@ -1106,7 +1106,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( 'ClassWithConstantValueOfSelf' );
         $const = $class->getConstant( 'T_FOO' );
 
-        $this->assertEquals( 42, $const );
+        self::assertEquals( 42, $const );
     }
 
     /**
@@ -1122,7 +1122,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( 'ClassWithConstantValueOfSelfUnknown' );
         $const = $class->getConstant( 'T_FOO' );
 
-        $this->assertEquals( '__StaticReflectionConstantValue(self::T_BAR)', $const );
+        self::assertEquals( '__StaticReflectionConstantValue(self::T_BAR)', $const );
     }
 
     /**
@@ -1138,7 +1138,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( 'ClassWithConstantValueOfParent' );
         $const = $class->getConstant( 'T_FOO' );
 
-        $this->assertEquals( '__StaticReflectionConstantValue(parent::T_BAR)', $const );
+        self::assertEquals( '__StaticReflectionConstantValue(parent::T_BAR)', $const );
     }
 
     /**
@@ -1154,7 +1154,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( 'foo\bar\ClassWithConstantValueOfClass' );
         $const = $class->getConstant( 'T_FOO' );
 
-        $this->assertEquals( '__StaticReflectionConstantValue(Foo::T_FOO)', $const );
+        self::assertEquals( '__StaticReflectionConstantValue(Foo::T_FOO)', $const );
     }
 
     /**
@@ -1170,7 +1170,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( 'foo\bar\ClassWithConstantValueOfClass' );
         $const = $class->getConstant( 'T_BAR' );
 
-        $this->assertEquals( '__StaticReflectionConstantValue(foo\bar\Bar::T_BAR)', $const );
+        self::assertEquals( '__StaticReflectionConstantValue(foo\bar\Bar::T_BAR)', $const );
     }
 
     /**
@@ -1186,7 +1186,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( 'foo\bar\ClassWithConstantValueOfClass' );
         $const = $class->getConstant( 'T_BAZ' );
 
-        $this->assertEquals( '__StaticReflectionConstantValue(foo\bar\Baz::T_BAZ)', $const );
+        self::assertEquals( '__StaticReflectionConstantValue(foo\bar\Baz::T_BAZ)', $const );
     }
 
     /**
@@ -1202,7 +1202,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( 'foo\bar\ClassWithConstantValueOfClass' );
         $const = $class->getConstant( 'T_FOOBAR' );
 
-        $this->assertEquals( '__StaticReflectionConstantValue(T_FOOBAR)', $const );
+        self::assertEquals( '__StaticReflectionConstantValue(T_FOOBAR)', $const );
     }
 
     /**
@@ -1218,7 +1218,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( 'foo\bar\ClassWithConstantValueOfClass' );
         $const = $class->getConstant( 'T_BARFOO' );
 
-        $this->assertEquals( '__StaticReflectionConstantValue(foo\bar\baz\BARFOO)', $const );
+        self::assertEquals( '__StaticReflectionConstantValue(foo\bar\baz\BARFOO)', $const );
     }
 
     /**
@@ -1234,7 +1234,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( 'foo\bar\ClassWithConstantValueOfClass' );
         $const = $class->getConstant( 'T_FOOBAZ' );
 
-        $this->assertEquals( '__StaticReflectionConstantValue(foo\bar\FOOBAZ)', $const );
+        self::assertEquals( '__StaticReflectionConstantValue(foo\bar\FOOBAZ)', $const );
     }
 
     /**
@@ -1250,7 +1250,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( 'PropertyMagicConstantDir' );
         $value = $class->getProperty( 'foo' )->getValue();
 
-        $this->assertEquals( 
+        self::assertEquals( 
             dirname( $this->getPathnameForClass( 'PropertyMagicConstantDir' ) ),
             $value
         );
@@ -1269,7 +1269,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( 'PropertyMagicConstantFile' );
         $value = $class->getProperty( 'foo' )->getValue();
 
-        $this->assertEquals( $this->getPathnameForClass( 'PropertyMagicConstantFile' ), $value );
+        self::assertEquals( $this->getPathnameForClass( 'PropertyMagicConstantFile' ), $value );
     }
 
     /**
@@ -1285,7 +1285,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( 'PropertyMagicConstantLine' );
         $value = $class->getProperty( 'foo' )->getValue();
 
-        $this->assertEquals( 4, $value );
+        self::assertEquals( 4, $value );
     }
 
     /**
@@ -1301,7 +1301,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( '\magic\constant\PropertyMagicConstantClass' );
         $value = $class->getProperty( 'foo' )->getValue();
 
-        $this->assertEquals( 'magic\constant\PropertyMagicConstantClass', $value );
+        self::assertEquals( 'magic\constant\PropertyMagicConstantClass', $value );
     }
 
     /**
@@ -1317,7 +1317,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class = $this->_parseClass( '\magic\constant\PropertyMagicConstantNamespace' );
         $value = $class->getProperty( 'foo' )->getValue();
 
-        $this->assertEquals( 'magic\constant', $value );
+        self::assertEquals( 'magic\constant', $value );
     }
 
     /**
@@ -1333,7 +1333,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( '\magic\constant\ParameterMagicConstantFunction' );
         $params = $class->getMethod( 'fooBar' )->getParameters();
 
-        $this->assertEquals( 'fooBar', $params[0]->getDefaultValue() );
+        self::assertEquals( 'fooBar', $params[0]->getDefaultValue() );
     }
 
     /**
@@ -1349,7 +1349,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( '\magic\constant\ParameterMagicConstantMethod' );
         $params = $class->getMethod( 'fooBar' )->getParameters();
 
-        $this->assertEquals( 'magic\constant\ParameterMagicConstantMethod::fooBar', $params[0]->getDefaultValue() );
+        self::assertEquals( 'magic\constant\ParameterMagicConstantMethod::fooBar', $params[0]->getDefaultValue() );
     }
 
     /**
@@ -1378,7 +1378,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodWithoutStaticVariables' );
         $method = $class->getMethod( 'fooBar' );
         
-        $this->assertSame( array(), $method->getStaticVariables() );
+        self::assertSame( array(), $method->getStaticVariables() );
     }
 
     /**
@@ -1394,7 +1394,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodWithStaticVariables' );
         $method = $class->getMethod( 'fooBar' );
         
-        $this->assertSame(
+        self::assertSame(
             array( 'x' => null, 'y' => null ),
             $method->getStaticVariables()
         );
@@ -1413,7 +1413,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodWithStaticVariablesWithDefaultValues' );
         $method = $class->getMethod( 'fooBar' );
 
-        $this->assertSame(
+        self::assertSame(
             array( 'foo' => 42, 'bar' => null, 'baz' => false ),
             $method->getStaticVariables()
         );
@@ -1432,7 +1432,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class  = $this->_parseClass( 'MethodWithStaticVariablesFromCommaSeparatedList' );
         $method = $class->getMethod( 'fooBar' );
 
-        $this->assertSame(
+        self::assertSame(
             array( 'foo' => 42, 'bar' => null, 'baz' => false ),
             $method->getStaticVariables()
         );

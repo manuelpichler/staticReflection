@@ -85,7 +85,7 @@ class ReflectionSessionIntegrationTest extends \pdepend\reflection\BaseTest
         $class = $query->find( $path )->current();
 
         $interfaces = $class->getInterfaces();
-        $this->assertTrue( $interfaces[1]->isUserDefined() );
+        self::assertTrue( $interfaces[1]->isUserDefined() );
     }
 
     /**
@@ -108,7 +108,7 @@ class ReflectionSessionIntegrationTest extends \pdepend\reflection\BaseTest
         $class = $query->find( $path )->current();
 
         $interfaces = $class->getInterfaces();
-        $this->assertFalse( $interfaces[0]->isUserDefined() );
+        self::assertFalse( $interfaces[0]->isUserDefined() );
     }
 
     /**
@@ -131,7 +131,7 @@ class ReflectionSessionIntegrationTest extends \pdepend\reflection\BaseTest
         $class = $query->find( $path )->current();
 
         $interfaces = $class->getInterfaces();
-        $this->assertTrue( $interfaces[1]->isUserDefined() );
+        self::assertTrue( $interfaces[1]->isUserDefined() );
     }
 
     /**
@@ -154,6 +154,6 @@ class ReflectionSessionIntegrationTest extends \pdepend\reflection\BaseTest
         $class = $query->find( $path )->current();
 
         $interfaces = $class->getInterfaces();
-        $this->assertFalse( $interfaces[0]->isUserDefined() );
+        self::assertFalse( $interfaces[0]->isUserDefined() );
     }
 }

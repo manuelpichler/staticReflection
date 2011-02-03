@@ -28,7 +28,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
     {
-        $this->assertPublicApiEquals( 'ReflectionParameter', StaticReflectionParameter::TYPE );
+        self::assertPublicApiEquals( 'ReflectionParameter', StaticReflectionParameter::TYPE );
     }
 
     /**
@@ -43,7 +43,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
 
-        $this->assertEquals( $internal->getName(), $static->getName() );
+        self::assertEquals( $internal->getName(), $static->getName() );
     }
 
     /**
@@ -58,7 +58,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
 
-        $this->assertEquals( $internal->getPosition(), $static->getPosition() );
+        self::assertEquals( $internal->getPosition(), $static->getPosition() );
     }
 
     /**
@@ -73,7 +73,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 2 );
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 2 );
 
-        $this->assertEquals( $internal->getPosition(), $static->getPosition() );
+        self::assertEquals( $internal->getPosition(), $static->getPosition() );
     }
 
     /**
@@ -88,7 +88,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
 
-        $this->assertSame( $internal->isArray(), $static->isArray() );
+        self::assertSame( $internal->isArray(), $static->isArray() );
     }
 
     /**
@@ -103,7 +103,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
 
-        $this->assertSame( $internal->isOptional(), $static->isOptional() );
+        self::assertSame( $internal->isOptional(), $static->isOptional() );
     }
 
     /**
@@ -118,7 +118,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 1 );
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 1 );
 
-        $this->assertSame( $internal->isOptional(), $static->isOptional() );
+        self::assertSame( $internal->isOptional(), $static->isOptional() );
     }
 
     /**
@@ -133,7 +133,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParametersOptional', 'fooBar', 0 );
         $static   = $this->createStatic( 'CompatParametersOptional', 'fooBar', 0 );
 
-        $this->assertSame( $internal->isOptional(), $static->isOptional() );
+        self::assertSame( $internal->isOptional(), $static->isOptional() );
     }
 
     /**
@@ -148,7 +148,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParametersOptional', 'fooBar', 2 );
         $static   = $this->createStatic( 'CompatParametersOptional', 'fooBar', 2 );
 
-        $this->assertSame( $internal->isOptional(), $static->isOptional() );
+        self::assertSame( $internal->isOptional(), $static->isOptional() );
     }
 
     /**
@@ -163,7 +163,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParametersOptional', 'fooBar', 2 );
         $static   = $this->createStatic( 'CompatParametersOptional', 'fooBar', 2 );
 
-        $this->assertSame( $internal->isOptional(), $static->isOptional() );
+        self::assertSame( $internal->isOptional(), $static->isOptional() );
     }
 
     /**
@@ -178,7 +178,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameter', 'fooBar', 0 );
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
 
-        $this->assertSame( $internal->getClass(), $static->getClass() );
+        self::assertSame( $internal->getClass(), $static->getClass() );
     }
 
     /**
@@ -193,7 +193,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( '\compat\CompatParameterMagicConstantFunction', 'fooBar', 0 );
         $static   = $this->createStatic( '\compat\CompatParameterMagicConstantFunction', 'fooBar', 0 );
 
-        $this->assertEquals( $internal->getDefaultValue(), $static->getDefaultValue() );
+        self::assertEquals( $internal->getDefaultValue(), $static->getDefaultValue() );
     }
 
     /**
@@ -208,7 +208,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( '\compat\CompatParameterMagicConstantMethod', 'fooBar', 0 );
         $static   = $this->createStatic( '\compat\CompatParameterMagicConstantMethod', 'fooBar', 0 );
 
-        $this->assertEquals( $internal->getDefaultValue(), $static->getDefaultValue() );
+        self::assertEquals( $internal->getDefaultValue(), $static->getDefaultValue() );
     }
 
     /**
@@ -226,7 +226,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $expected = $this->executeFailingMethod( $internal, 'getDefaultValue' );
         $actual   = $this->executeFailingMethod( $static, 'getDefaultValue' );
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -241,7 +241,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 0 );
         $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 0 );
 
-        $this->assertEquals( $internal->allowsNull(), $static->allowsNull() );
+        self::assertEquals( $internal->allowsNull(), $static->allowsNull() );
     }
 
     /**
@@ -256,7 +256,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 1 );
         $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 1 );
 
-        $this->assertEquals( $internal->allowsNull(), $static->allowsNull() );
+        self::assertEquals( $internal->allowsNull(), $static->allowsNull() );
     }
 
     /**
@@ -271,7 +271,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 2 );
         $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 2 );
 
-        $this->assertEquals( $internal->allowsNull(), $static->allowsNull() );
+        self::assertEquals( $internal->allowsNull(), $static->allowsNull() );
     }
 
     /**
@@ -286,7 +286,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 3 );
         $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 3 );
 
-        $this->assertEquals( $internal->allowsNull(), $static->allowsNull() );
+        self::assertEquals( $internal->allowsNull(), $static->allowsNull() );
     }
 
     /**
@@ -301,7 +301,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 4 );
         $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 4 );
 
-        $this->assertEquals( $internal->allowsNull(), $static->allowsNull() );
+        self::assertEquals( $internal->allowsNull(), $static->allowsNull() );
     }
 
     /**
@@ -316,7 +316,7 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $internal = $this->createInternal( 'CompatParameterAllowsNull', 'fooBar', 5 );
         $static   = $this->createStatic( 'CompatParameterAllowsNull', 'fooBar', 5 );
 
-        $this->assertEquals( $internal->allowsNull(), $static->allowsNull() );
+        self::assertEquals( $internal->allowsNull(), $static->allowsNull() );
     }
 
     /**

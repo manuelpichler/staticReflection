@@ -28,7 +28,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetParentClassReturnsFalseWhenNoParentExists()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
-        $this->assertFalse( $class->getParentClass() );
+        self::assertFalse( $class->getParentClass() );
     }
 
     /**
@@ -44,7 +44,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $child  = new StaticReflectionClass( __CLASS__, '', 0 );
         $child->initParentClass( $parent );
 
-        $this->assertSame( $parent, $child->getParentClass() );
+        self::assertSame( $parent, $child->getParentClass() );
     }
 
     /**
@@ -63,7 +63,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initInterfaces( array( $interface ) );
 
-        $this->assertSame( array( $interface ), $class->getInterfaces() );
+        self::assertSame( array( $interface ), $class->getInterfaces() );
     }
 
     /**
@@ -85,7 +85,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initParentClass( $parentClass );
 
-        $this->assertSame( array( $interface ), $class->getInterfaces() );
+        self::assertSame( array( $interface ), $class->getInterfaces() );
     }
 
     /**
@@ -104,7 +104,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initInterfaces( array( $interface ) );
 
-        $this->assertSame( array( 'IFoo' ), $class->getInterfaceNames() );
+        self::assertSame( array( 'IFoo' ), $class->getInterfaceNames() );
     }
 
     /**
@@ -126,7 +126,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initParentClass( $parentClass );
 
-        $this->assertSame( array( 'IFoo' ), $class->getInterfaceNames() );
+        self::assertSame( array( 'IFoo' ), $class->getInterfaceNames() );
     }
 
     /**
@@ -139,7 +139,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetConstantsReturnsAnEmptyArrayByDefault()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
-        $this->assertSame( array(), $class->getConstants() );
+        self::assertSame( array(), $class->getConstants() );
     }
 
     /**
@@ -154,7 +154,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initConstants( array( 'T_FOO' => 42, 'T_BAR' => 23 ) );
 
-        $this->assertSame( array( 'T_FOO' => 42, 'T_BAR' => 23 ), $class->getConstants() );
+        self::assertSame( array( 'T_FOO' => 42, 'T_BAR' => 23 ), $class->getConstants() );
     }
 
     /**
@@ -172,7 +172,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $child = new StaticReflectionClass( __CLASS__, '', 0 );
         $child->initParentClass( $parent );
 
-        $this->assertSame( array( 'T_FOO' => 42, 'T_BAR' => 23 ), $child->getConstants() );
+        self::assertSame( array( 'T_FOO' => 42, 'T_BAR' => 23 ), $child->getConstants() );
     }
 
     /**
@@ -187,7 +187,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initMethods( array( new StaticReflectionMethod( 'fooBar', '', 0 ) ) );
 
-        $this->assertEquals( 1, count( $class->getMethods() ) );
+        self::assertEquals( 1, count( $class->getMethods() ) );
     }
 
     /**
@@ -207,7 +207,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
             )
         );
 
-        $this->assertSame( 2, count( $class->getMethods() ) );
+        self::assertSame( 2, count( $class->getMethods() ) );
     }
 
     /**
@@ -226,7 +226,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class->initParentClass( $parent );
         $class->initMethods( array( new StaticReflectionMethod( 'bar', '', 0 ) ) );
 
-        $this->assertSame( 2, count( $class->getMethods() ) );
+        self::assertSame( 2, count( $class->getMethods() ) );
     }
 
     /**
@@ -245,7 +245,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class->initParentClass( $parent );
         $class->initMethods( array( new StaticReflectionMethod( 'foo', '', 0 ) ) );
 
-        $this->assertSame( 1, count( $class->getMethods() ) );
+        self::assertSame( 1, count( $class->getMethods() ) );
     }
 
     /**
@@ -264,7 +264,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class->initParentClass( $parent );
         $class->initMethods( array( new StaticReflectionMethod( 'FoO', '', 0 ) ) );
 
-        $this->assertSame( 1, count( $class->getMethods() ) );
+        self::assertSame( 1, count( $class->getMethods() ) );
     }
 
     /**
@@ -283,7 +283,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class->initParentClass( $parent );
         $class->initMethods( array( new StaticReflectionMethod( 'bar', '', \ReflectionMethod::IS_PUBLIC ) ) );
 
-        $this->assertSame( 2, count( $class->getMethods() ) );
+        self::assertSame( 2, count( $class->getMethods() ) );
     }
 
     /**
@@ -302,7 +302,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class->initParentClass( $parent );
         $class->initMethods( array( new StaticReflectionMethod( 'bar', '', \ReflectionMethod::IS_PUBLIC ) ) );
 
-        $this->assertSame( 2, count( $class->getMethods() ) );
+        self::assertSame( 2, count( $class->getMethods() ) );
     }
 
     /**
@@ -321,7 +321,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class->initParentClass( $parent );
         $class->initMethods( array( new StaticReflectionMethod( 'bar', '', \ReflectionMethod::IS_PUBLIC ) ) );
 
-        $this->assertSame( 2, count( $class->getMethods() ) );
+        self::assertSame( 2, count( $class->getMethods() ) );
     }
 
     /**
@@ -341,7 +341,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class->initMethods( array( new StaticReflectionMethod( 'foo', '', 0 ) ) );
 
         $methods = $class->getMethods();
-        $this->assertSame( $class, $methods[0]->getDeclaringClass() );
+        self::assertSame( $class, $methods[0]->getDeclaringClass() );
     }
 
     /**
@@ -361,7 +361,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class->initMethods( array( new StaticReflectionMethod( 'foo', '', StaticReflectionMethod::IS_ABSTRACT ) ) );
 
         $methods = $class->getMethods();
-        $this->assertSame( $parent, $methods[0]->getDeclaringClass() );
+        self::assertSame( $parent, $methods[0]->getDeclaringClass() );
     }
 
     /**
@@ -378,7 +378,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initInterfaces( array( $interface ) );
 
-        $this->assertEquals( 5, count( $class->getMethods() ) );
+        self::assertEquals( 5, count( $class->getMethods() ) );
     }
 
     /**
@@ -410,7 +410,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
                 ++$declaredMethodCount;
             }
         }
-        $this->assertSame( 3, $declaredMethodCount );
+        self::assertSame( 3, $declaredMethodCount );
     }
 
     /**
@@ -423,7 +423,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetConstructorReturnsNullWhenNoConstructorExists()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
-        $this->assertNull( $class->getConstructor() );
+        self::assertNull( $class->getConstructor() );
     }
 
     /**
@@ -438,7 +438,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initMethods( array( new StaticReflectionMethod( '__construct', '', 0 ) ) );
 
-        $this->assertNotNull( $class->getConstructor() );
+        self::assertNotNull( $class->getConstructor() );
     }
 
     /**
@@ -458,7 +458,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
             )
         );
 
-        $this->assertSame( $prop1, $class->getProperty( 'bar' ) );
+        self::assertSame( $prop1, $class->getProperty( 'bar' ) );
     }
 
     /**
@@ -478,7 +478,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
             )
         );
 
-        $this->assertEquals( 2, count( $class->getProperties() ) );
+        self::assertEquals( 2, count( $class->getProperties() ) );
     }
 
     /**
@@ -497,7 +497,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
             )
         );
 
-        $this->assertEquals( 1, count( $class->getProperties() ) );
+        self::assertEquals( 1, count( $class->getProperties() ) );
     }
 
     /**
@@ -521,7 +521,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $child->initParentClass( $parent );
         $child->initProperties( array(  new StaticReflectionProperty( 'baz', '', 0 ) ) );
 
-        $this->assertEquals( 3, count( $child->getProperties() ) );
+        self::assertEquals( 3, count( $child->getProperties() ) );
     }
 
     /**
@@ -545,7 +545,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $child->initParentClass( $parent );
         $child->initProperties( array(  new StaticReflectionProperty( 'baz', '', 0 ) ) );
 
-        $this->assertEquals( 2, count( $child->getProperties() ) );
+        self::assertEquals( 2, count( $child->getProperties() ) );
     }
 
     /**
@@ -564,7 +564,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $child->initParentClass( $parent );
         $child->initProperties( array(  new StaticReflectionProperty( 'baz', '', 0 ) ) );
 
-        $this->assertTrue( $child->hasProperty( 'foo' ) );
+        self::assertTrue( $child->hasProperty( 'foo' ) );
     }
 
     /**
@@ -583,7 +583,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $child->initParentClass( $parent );
         $child->initProperties( array(  new StaticReflectionProperty( 'baz', '', 0 ) ) );
 
-        $this->assertSame( $prop, $child->getProperty( 'foo' ) );
+        self::assertSame( $prop, $child->getProperty( 'foo' ) );
     }
 
     /**
@@ -603,7 +603,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initProperties( array( $prop0, $prop1 ) );
 
-        $this->assertEquals( array( 'foo' => 42, 'bar' => null ), $class->getStaticProperties() );
+        self::assertEquals( array( 'foo' => 42, 'bar' => null ), $class->getStaticProperties() );
     }
 
     /**
@@ -621,7 +621,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initProperties( array( $prop ) );
 
-        $this->assertEquals( 42, $class->getStaticPropertyValue( 'foo' ) );
+        self::assertEquals( 42, $class->getStaticPropertyValue( 'foo' ) );
     }
 
     /**
@@ -635,7 +635,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
 
-        $this->assertEquals( 42, $class->getStaticPropertyValue( 'foo', 42 ) );
+        self::assertEquals( 42, $class->getStaticPropertyValue( 'foo', 42 ) );
     }
 
     /**
@@ -653,7 +653,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initProperties( array( $prop ) );
 
-        $this->assertNull( $class->getStaticPropertyValue( 'foo', 42 ) );
+        self::assertNull( $class->getStaticPropertyValue( 'foo', 42 ) );
     }
 
     /**
@@ -666,7 +666,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsInstantiableReturnsTrueForClassWithoutConstructor()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
-        $this->assertTrue( $class->isInstantiable() );
+        self::assertTrue( $class->isInstantiable() );
     }
 
     /**
@@ -681,7 +681,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initMethods( array( new StaticReflectionMethod( '__construct', '', StaticReflectionMethod::IS_PUBLIC ) ) );
 
-        $this->assertTrue( $class->isInstantiable() );
+        self::assertTrue( $class->isInstantiable() );
     }
 
     /**
@@ -696,7 +696,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initMethods( array( new StaticReflectionMethod( '__construct', '', StaticReflectionMethod::IS_PROTECTED ) ) );
 
-        $this->assertFalse( $class->isInstantiable() );
+        self::assertFalse( $class->isInstantiable() );
     }
 
     /**
@@ -711,7 +711,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initMethods( array( new StaticReflectionMethod( '__construct', '', StaticReflectionMethod::IS_PRIVATE ) ) );
 
-        $this->assertFalse( $class->isInstantiable() );
+        self::assertFalse( $class->isInstantiable() );
     }
 
     /**
@@ -724,7 +724,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsSubclassOfReturnsFalseForClassWithoutParent()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
-        $this->assertFalse( $class->isSubclassOf( 'Foo' ) );
+        self::assertFalse( $class->isSubclassOf( 'Foo' ) );
     }
 
     /**
@@ -739,7 +739,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initParentClass( new StaticReflectionClass( 'Bar', '', 0 ) );
 
-        $this->assertFalse( $class->isSubclassOf( 'Foo' ) );
+        self::assertFalse( $class->isSubclassOf( 'Foo' ) );
     }
 
     /**
@@ -752,7 +752,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsSubclassOfReturnsFalseForClassItSelf()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
-        $this->assertFalse( $class->isSubclassOf( __CLASS__ ) );
+        self::assertFalse( $class->isSubclassOf( __CLASS__ ) );
     }
 
     /**
@@ -767,7 +767,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initParentClass( new StaticReflectionClass( 'Foo', '', 0 ) );
 
-        $this->assertTrue( $class->isSubclassOf( 'Foo' ) );
+        self::assertTrue( $class->isSubclassOf( 'Foo' ) );
     }
 
     /**
@@ -787,7 +787,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $child = new StaticReflectionClass( __CLASS__, '', 0 );
         $child->initParentClass( $parent );
 
-        $this->assertTrue( $child->isSubclassOf( 'ParentParent' ) );
+        self::assertTrue( $child->isSubclassOf( 'ParentParent' ) );
     }
 
     /**
@@ -802,7 +802,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initParentClass( new StaticReflectionClass( 'Foo', '', 0 ) );
 
-        $this->assertTrue( $class->isSubclassOf( 'FOO' ) );
+        self::assertTrue( $class->isSubclassOf( 'FOO' ) );
     }
 
     /**
@@ -817,7 +817,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initParentClass( new StaticReflectionClass( 'Foo', '', 0 ) );
 
-        $this->assertTrue( $class->isSubclassOf( '\Foo' ) );
+        self::assertTrue( $class->isSubclassOf( '\Foo' ) );
     }
 
     /**
@@ -832,7 +832,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initInterfaces( array( new StaticReflectionInterface( 'Foo', '' ) ) );
 
-        $this->assertTrue( $class->isSubclassOf( 'Foo' ) );
+        self::assertTrue( $class->isSubclassOf( 'Foo' ) );
     }
 
     /**
@@ -847,7 +847,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initMethods( array( new StaticReflectionMethod( '__construct', '', StaticReflectionMethod::IS_ABSTRACT ) ) );
 
-        $this->assertFalse( $class->isInstantiable() );
+        self::assertFalse( $class->isInstantiable() );
     }
 
     /**
@@ -862,7 +862,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', StaticReflectionClass::IS_EXPLICIT_ABSTRACT );
         $class->initMethods( array( new StaticReflectionMethod( '__construct', '', StaticReflectionMethod::IS_PUBLIC ) ) );
 
-        $this->assertFalse( $class->isInstantiable() );
+        self::assertFalse( $class->isInstantiable() );
     }
 
     /**
@@ -875,7 +875,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsIterateableReturnsFalseByDefault()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
-        $this->assertFalse( $class->isIterateable() );
+        self::assertFalse( $class->isIterateable() );
     }
 
     /**
@@ -890,7 +890,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initInterfaces( array( new StaticReflectionInterface( 'Traversable', '' ) ) );
 
-        $this->assertTrue( $class->isIterateable() );
+        self::assertTrue( $class->isIterateable() );
     }
 
     /**
@@ -905,7 +905,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', StaticReflectionClass::IS_EXPLICIT_ABSTRACT );
         $class->initInterfaces( array( new StaticReflectionInterface( 'Traversable', '' ) ) );
 
-        $this->assertTrue( $class->isIterateable() );
+        self::assertTrue( $class->isIterateable() );
     }
 
     /**
@@ -918,7 +918,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsAbstractReturnsFalseWhenModifierIsNotSet()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
-        $this->assertFalse( $class->isAbstract() );
+        self::assertFalse( $class->isAbstract() );
     }
 
     /**
@@ -931,7 +931,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsAbstractReturnsTrueWhenIsExplicitAbstractModifierIsSet()
     {
         $class = new StaticReflectionClass( __CLASS__, '', StaticReflectionClass::IS_EXPLICIT_ABSTRACT );
-        $this->assertTrue( $class->isAbstract() );
+        self::assertTrue( $class->isAbstract() );
     }
 
     /**
@@ -944,7 +944,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsAbstractReturnsTrueWhenIsImplicitAbstractModifierIsSet()
     {
         $class = new StaticReflectionClass( __CLASS__, '', StaticReflectionClass::IS_IMPLICIT_ABSTRACT );
-        $this->assertTrue( $class->isAbstract() );
+        self::assertTrue( $class->isAbstract() );
     }
 
     /**
@@ -959,7 +959,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
         $class->initMethods( array( new StaticReflectionMethod( 'foo', '', StaticReflectionMethod::IS_ABSTRACT ) ) );
         
-        $this->assertTrue( $class->isAbstract() );
+        self::assertTrue( $class->isAbstract() );
     }
 
     /**
@@ -972,7 +972,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsFinalReturnsFalseByDefault()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
-        $this->assertFalse( $class->isFinal() );
+        self::assertFalse( $class->isFinal() );
     }
 
     /**
@@ -985,7 +985,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsFinalReturnsTrueWhenFinalModifierIsSet()
     {
         $class = new StaticReflectionClass( __CLASS__, '', \ReflectionClass::IS_FINAL );
-        $this->assertTrue( $class->isFinal() );
+        self::assertTrue( $class->isFinal() );
     }
 
     /**
@@ -998,7 +998,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsInterfaceAlwaysReturnsFalse()
     {
         $class = new StaticReflectionClass( __CLASS__, '', 0 );
-        $this->assertFalse( $class->isInterface() );
+        self::assertFalse( $class->isInterface() );
     }
 
     /**
@@ -1026,7 +1026,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
                     '  }' . PHP_EOL .
                     '}';
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -1054,7 +1054,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
                     '  }' . PHP_EOL .
                     '}';
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -1083,7 +1083,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
                     '  }' . PHP_EOL .
                     '}';
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -1112,7 +1112,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
                     '  }' . PHP_EOL .
                     '}';
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -1146,7 +1146,7 @@ class StaticReflectionClassTest extends \pdepend\reflection\BaseTest
                     '  }' . PHP_EOL .
                     '}';
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
 

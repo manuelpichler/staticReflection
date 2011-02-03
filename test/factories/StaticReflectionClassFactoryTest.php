@@ -78,7 +78,7 @@ class StaticReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
             ->will( $this->returnValue( false ) );
 
         $factory = new StaticReflectionClassFactory( $this->createContext(), $resolver );
-        $this->assertFalse( $factory->hasClass( __CLASS__ ) );
+        self::assertFalse( $factory->hasClass( __CLASS__ ) );
     }
 
     /**
@@ -97,7 +97,7 @@ class StaticReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
             ->will( $this->returnValue( true ) );
 
         $factory = new StaticReflectionClassFactory( $this->createContext(), $resolver );
-        $this->assertTrue( $factory->hasClass( __CLASS__ ) );
+        self::assertTrue( $factory->hasClass( __CLASS__ ) );
     }
 
     /**
@@ -112,7 +112,7 @@ class StaticReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
         $factory = new StaticReflectionClassFactory( $this->createContext(), $this->createResolver() );
         $class   = $factory->createClass( '\pdepend\reflection\ClassSimple' );
 
-        $this->assertInstanceOf( '\ReflectionClass', $class );
+        self::assertInstanceOf( '\ReflectionClass', $class );
     }
 
     /**

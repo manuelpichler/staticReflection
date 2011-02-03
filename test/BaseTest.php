@@ -135,7 +135,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         $expected = $this->getPublicMethods( $classExpected );
         $actual   = $this->getPublicMethods( $classActual );
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**

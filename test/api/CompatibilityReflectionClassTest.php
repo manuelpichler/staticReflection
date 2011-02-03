@@ -28,7 +28,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
     {
-        $this->assertPublicApiEquals( 'ReflectionClass', StaticReflectionClass::TYPE );
+        self::assertPublicApiEquals( 'ReflectionClass', StaticReflectionClass::TYPE );
     }
 
     /**
@@ -43,7 +43,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithoutConstructor' );
         $static   = $this->createStaticClass( 'CompatClassWithoutConstructor' );
 
-        $this->assertEquals( $internal->isInstantiable(), $static->isInstantiable() );
+        self::assertEquals( $internal->isInstantiable(), $static->isInstantiable() );
     }
 
     /**
@@ -58,7 +58,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithConstructor' );
         $static   = $this->createStaticClass( 'CompatClassWithConstructor' );
 
-        $this->assertEquals( $internal->isInstantiable(), $static->isInstantiable() );
+        self::assertEquals( $internal->isInstantiable(), $static->isInstantiable() );
     }
 
     /**
@@ -73,7 +73,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithAbstractConstructor' );
         $static   = $this->createStaticClass( 'CompatClassWithAbstractConstructor' );
 
-        $this->assertEquals( $internal->isInstantiable(), $static->isInstantiable() );
+        self::assertEquals( $internal->isInstantiable(), $static->isInstantiable() );
     }
 
     /**
@@ -88,7 +88,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithProtectedConstructor' );
         $static   = $this->createStaticClass( 'CompatClassWithProtectedConstructor' );
 
-        $this->assertSame( $internal->isInstantiable(), $static->isInstantiable() );
+        self::assertSame( $internal->isInstantiable(), $static->isInstantiable() );
     }
 
     /**
@@ -103,7 +103,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithPrivateConstructor' );
         $static   = $this->createStaticClass( 'CompatClassWithPrivateConstructor' );
 
-        $this->assertSame( $internal->isInstantiable(), $static->isInstantiable() );
+        self::assertSame( $internal->isInstantiable(), $static->isInstantiable() );
     }
 
     /**
@@ -118,7 +118,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithoutParent' );
         $static   = $this->createStaticClass( 'CompatClassWithoutParent' );
 
-        $this->assertSame(
+        self::assertSame(
             $internal->isSubclassOf( 'stdClass' ),
             $static->isSubclassOf( 'stdClass' )
         );
@@ -136,7 +136,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithoutParent' );
         $static   = $this->createStaticClass( 'CompatClassWithoutParent' );
 
-        $this->assertSame(
+        self::assertSame(
             $internal->isSubclassOf( 'CompatClassWithoutParent' ),
             $static->isSubclassOf( 'CompatClassWithoutParent' )
         );
@@ -154,7 +154,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithParent' );
         $static   = $this->createStaticClass( 'CompatClassWithParent' );
 
-        $this->assertSame(
+        self::assertSame(
             $internal->isSubclassOf( 'CompatClassWithoutParent' ),
             $static->isSubclassOf( 'CompatClassWithoutParent' )
         );
@@ -172,7 +172,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithParent' );
         $static   = $this->createStaticClass( 'CompatClassWithParent' );
 
-        $this->assertSame(
+        self::assertSame(
             $internal->isSubclassOf( 'compatCLASSWithoutPARENT' ),
             $static->isSubclassOf( 'compatCLASSWithoutPARENT' )
         );
@@ -190,7 +190,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithParent' );
         $static   = $this->createStaticClass( 'CompatClassWithParent' );
 
-        $this->assertSame(
+        self::assertSame(
             $internal->isSubclassOf( '\CompatClassWithoutParent' ),
             $static->isSubclassOf( '\CompatClassWithoutParent' )
         );
@@ -208,7 +208,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithImplementedInterface' );
         $static   = $this->createStaticClass( 'CompatClassWithImplementedInterface' );
 
-        $this->assertSame(
+        self::assertSame(
             $internal->isSubclassOf( 'CompatInterfaceSimple' ),
             $static->isSubclassOf( 'CompatInterfaceSimple' )
         );
@@ -226,7 +226,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithoutParent' );
         $static   = $this->createStaticClass( 'CompatClassWithoutParent' );
 
-        $this->assertSame( $internal->getParentClass(), $static->getParentClass() );
+        self::assertSame( $internal->getParentClass(), $static->getParentClass() );
     }
 
     /**
@@ -241,7 +241,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithParent' );
         $static   = $this->createStaticClass( 'CompatClassWithParent' );
 
-        $this->assertEquals(
+        self::assertEquals(
             $internal->getParentClass()->getName(),
             $static->getParentClass()->getName()
         );
@@ -261,7 +261,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithImplementedInterface' );
         $static   = $this->createStaticClass( 'CompatClassWithImplementedInterface' );
 
-        $this->assertEquals(
+        self::assertEquals(
             count( $internal->getInterfaces() ),
             count( $static->getInterfaces() )
         );
@@ -281,7 +281,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithIndirectlyImplementedInterface' );
         $static   = $this->createStaticClass( 'CompatClassWithIndirectlyImplementedInterface' );
 
-        $this->assertEquals(
+        self::assertEquals(
             count( $internal->getInterfaces() ),
             count( $static->getInterfaces() )
         );
@@ -301,7 +301,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithSameImplementedInterface' );
         $static   = $this->createStaticClass( 'CompatClassWithSameImplementedInterface' );
 
-        $this->assertEquals(
+        self::assertEquals(
             count( $internal->getInterfaces() ),
             count( $static->getInterfaces() )
         );
@@ -321,7 +321,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithImplementedInterface' );
         $static   = $this->createStaticClass( 'CompatClassWithImplementedInterface' );
 
-        $this->assertEquals( $internal->getInterfaceNames(), $static->getInterfaceNames() );
+        self::assertEquals( $internal->getInterfaceNames(), $static->getInterfaceNames() );
     }
 
     /**
@@ -338,7 +338,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithIndirectlyImplementedInterface' );
         $static   = $this->createStaticClass( 'CompatClassWithIndirectlyImplementedInterface' );
 
-        $this->assertEquals( $internal->getInterfaceNames(), $static->getInterfaceNames() );
+        self::assertEquals( $internal->getInterfaceNames(), $static->getInterfaceNames() );
     }
 
     /**
@@ -355,7 +355,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithSameImplementedInterface' );
         $static   = $this->createStaticClass( 'CompatClassWithSameImplementedInterface' );
 
-        $this->assertEquals( $internal->getInterfaceNames(), $static->getInterfaceNames() );
+        self::assertEquals( $internal->getInterfaceNames(), $static->getInterfaceNames() );
     }
 
     /**
@@ -370,7 +370,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithOverwritingPublicMethod' );
         $static   = $this->createStaticClass( 'CompatClassWithOverwritingPublicMethod' );
 
-        $this->assertEquals(
+        self::assertEquals(
             count( $internal->getMethods( \ReflectionMethod::IS_PROTECTED ) ),
             count( $static->getMethods( \ReflectionMethod::IS_PROTECTED ) )
         );
@@ -388,7 +388,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithInheritProtectedMethod' );
         $static   = $this->createStaticClass( 'CompatClassWithInheritProtectedMethod' );
 
-        $this->assertEquals( count( $internal->getMethods() ), count( $static->getMethods() ) );
+        self::assertEquals( count( $internal->getMethods() ), count( $static->getMethods() ) );
     }
 
     /**
@@ -403,7 +403,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithInheritPrivateMethod' );
         $static   = $this->createStaticClass( 'CompatClassWithInheritPrivateMethod' );
 
-        $this->assertEquals( count( $internal->getMethods() ), count( $static->getMethods() ) );
+        self::assertEquals( count( $internal->getMethods() ), count( $static->getMethods() ) );
     }
 
     /**
@@ -418,7 +418,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithoutConstructor' );
         $static   = $this->createStaticClass( 'CompatClassWithoutConstructor' );
 
-        $this->assertSame( $internal->getConstructor(), $static->getConstructor() );
+        self::assertSame( $internal->getConstructor(), $static->getConstructor() );
     }
 
     /**
@@ -433,7 +433,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithConstructor' );
         $static   = $this->createStaticClass( 'CompatClassWithConstructor' );
 
-        $this->assertEquals(
+        self::assertEquals(
             $internal->getConstructor()->getName(),
             $static->getConstructor()->getName()
         );
@@ -451,7 +451,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithPrivateConstructor' );
         $static   = $this->createStaticClass( 'CompatClassWithPrivateConstructor' );
 
-        $this->assertEquals(
+        self::assertEquals(
             $internal->getConstructor()->getName(),
             $static->getConstructor()->getName()
         );
@@ -469,7 +469,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithAbstractConstructor' );
         $static   = $this->createStaticClass( 'CompatClassWithAbstractConstructor' );
 
-        $this->assertEquals(
+        self::assertEquals(
             $internal->getConstructor()->getName(),
             $static->getConstructor()->getName()
         );
@@ -487,7 +487,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithInheritConstructor' );
         $static   = $this->createStaticClass( 'CompatClassWithInheritConstructor' );
 
-        $this->assertEquals(
+        self::assertEquals(
             $internal->getConstructor()->getName(),
             $static->getConstructor()->getName()
         );
@@ -505,7 +505,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithProperties' );
         $static   = $this->createStaticClass( 'CompatClassWithProperties' );
 
-        $this->assertEquals( count( $internal->getProperties() ), count( $static->getProperties() ) );
+        self::assertEquals( count( $internal->getProperties() ), count( $static->getProperties() ) );
     }
 
     /**
@@ -520,7 +520,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithParentProperties' );
         $static   = $this->createStaticClass( 'CompatClassWithParentProperties' );
 
-        $this->assertEquals( count( $internal->getProperties() ), count( $static->getProperties() ) );
+        self::assertEquals( count( $internal->getProperties() ), count( $static->getProperties() ) );
     }
 
     /**
@@ -535,7 +535,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithStaticProperties' );
         $static   = $this->createStaticClass( 'CompatClassWithStaticProperties' );
 
-        $this->assertEquals( $internal->getStaticProperties(), $static->getStaticProperties() );
+        self::assertEquals( $internal->getStaticProperties(), $static->getStaticProperties() );
     }
 
     /**
@@ -550,7 +550,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithStaticProperties' );
         $static   = $this->createStaticClass( 'CompatClassWithStaticProperties' );
 
-        $this->assertEquals( 
+        self::assertEquals(
             $internal->getStaticPropertyValue( 'foo' ),
             $static->getStaticPropertyValue( 'foo' )
         );
@@ -568,7 +568,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatClassWithStaticProperties' );
         $static   = $this->createStaticClass( 'CompatClassWithStaticProperties' );
 
-        $this->assertEquals(
+        self::assertEquals(
             $internal->getStaticPropertyValue( 'baz', 42 ),
             $static->getStaticPropertyValue( 'baz', 42 )
         );
@@ -589,7 +589,7 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $expected = $this->executeFailingMethod( $internal, 'getProperty', __FUNCTION__ );
         $actual   = $this->executeFailingMethod( $static, 'getProperty', __FUNCTION__ );
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -607,6 +607,6 @@ class CompatibilityReflectionClassTest extends BaseCompatibilityTest
         $expected = $this->executeFailingMethod( $internal, 'getStaticPropertyValue', 'foo' );
         $actual   = $this->executeFailingMethod( $static, 'getStaticPropertyValue', 'foo' );
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 }

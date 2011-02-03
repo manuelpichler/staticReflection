@@ -104,7 +104,7 @@ class PearNamingResolverTest extends \pdepend\reflection\BaseTest
         $resolver = new PearNamingResolver();
         $exists   = $resolver->hasPathnameForClass( 'resolver_pear_ResolverPearSimpleClass' );
 
-        $this->assertTrue( $exists );
+        self::assertTrue( $exists );
     }
 
     /**
@@ -120,7 +120,7 @@ class PearNamingResolverTest extends \pdepend\reflection\BaseTest
         $resolver = new PearNamingResolver();
         $exists   = $resolver->hasPathnameForClass( 'resolver_pear_ResolverPearMissingClass' );
 
-        $this->assertFalse( $exists );
+        self::assertFalse( $exists );
     }
 
     /**
@@ -138,7 +138,7 @@ class PearNamingResolverTest extends \pdepend\reflection\BaseTest
         $resolver = new PearNamingResolver();
         $pathname = $resolver->getPathnameForClass( 'resolver_pear_ResolverPearSimpleClass' );
 
-        $this->assertEquals( $expected, $pathname );
+        self::assertEquals( $expected, $pathname );
     }
 
     /**

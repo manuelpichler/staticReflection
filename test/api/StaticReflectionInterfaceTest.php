@@ -32,7 +32,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
     {
-        $this->assertPublicApiEquals( 'ReflectionClass', StaticReflectionInterface::TYPE );
+        self::assertPublicApiEquals( 'ReflectionClass', StaticReflectionInterface::TYPE );
     }
 
     /**
@@ -45,7 +45,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testIsAbstractAlwaysReturnsTrue()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertTrue( $interface->isAbstract() );
+        self::assertTrue( $interface->isAbstract() );
     }
 
     /**
@@ -58,7 +58,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testIsFinalAlwaysReturnsFalse()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertFalse( $interface->isFinal() );
+        self::assertFalse( $interface->isFinal() );
     }
 
     /**
@@ -71,7 +71,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testIsInterfaceAlwaysReturnsTrue()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertTrue( $interface->isInterface() );
+        self::assertTrue( $interface->isInterface() );
     }
 
     /**
@@ -86,7 +86,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initInterfaces( array( new StaticReflectionInterface( __CLASS__ . 'Parent', '' ) ) );
 
-        $this->assertTrue( $interface->isSubclassOf( __CLASS__ . 'Parent' ) );
+        self::assertTrue( $interface->isSubclassOf( __CLASS__ . 'Parent' ) );
     }
 
     /**
@@ -101,7 +101,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initInterfaces( array( new StaticReflectionInterface( __CLASS__ . 'Parent', '' ) ) );
 
-        $this->assertTrue( $interface->isSubclassOf( '\\' . __CLASS__ . 'Parent' ) );
+        self::assertTrue( $interface->isSubclassOf( '\\' . __CLASS__ . 'Parent' ) );
     }
 
     /**
@@ -114,7 +114,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testIsSubclassOfReturnsFalseWhenNotExtendsInterface()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertFalse( $interface->isSubclassOf( __CLASS__ . 'Parent' ) );
+        self::assertFalse( $interface->isSubclassOf( __CLASS__ . 'Parent' ) );
     }
 
     /**
@@ -127,7 +127,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testIsSubclassOfReturnsFalseOnClaseItSelf()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertFalse( $interface->isSubclassOf( __CLASS__ ) );
+        self::assertFalse( $interface->isSubclassOf( __CLASS__ ) );
     }
 
     /**
@@ -142,7 +142,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( 'foo_Bar', '' );
         $interface->initFileName( __FILE__ );
 
-        $this->assertSame( __FILE__, $interface->getFileName() );
+        self::assertSame( __FILE__, $interface->getFileName() );
     }
 
     /**
@@ -155,7 +155,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetShortNameReturnsFullNameWhenNameNotContainsNamespace()
     {
         $interface = new StaticReflectionInterface( 'foo_Bar', '' );
-        $this->assertSame( 'foo_Bar', $interface->getShortName() );
+        self::assertSame( 'foo_Bar', $interface->getShortName() );
     }
 
     /**
@@ -168,7 +168,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetShortNameStripsNamespaceFromFullQualifiedClassName()
     {
         $interface = new StaticReflectionInterface( '\foo\Bar', '' );
-        $this->assertSame( 'Bar', $interface->getShortName() );
+        self::assertSame( 'Bar', $interface->getShortName() );
     }
 
     /**
@@ -181,7 +181,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetNamespaceNameReturnsNamespacePartFormFullQualifiedClassName()
     {
         $interface = new StaticReflectionInterface( '\foo\Bar', '' );
-        $this->assertSame( 'foo', $interface->getNamespaceName() );
+        self::assertSame( 'foo', $interface->getNamespaceName() );
     }
 
     /**
@@ -194,7 +194,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetNamespaceNameReturnsEmptyStringForClassWithoutNamespace()
     {
         $interface = new StaticReflectionInterface( 'Bar', '' );
-        $this->assertSame( '', $interface->getNamespaceName() );
+        self::assertSame( '', $interface->getNamespaceName() );
     }
 
     /**
@@ -207,7 +207,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testInNamespaceReturnsTrueForClassWithNamespace()
     {
         $interface = new StaticReflectionInterface( '\foo\barBar', '' );
-        $this->assertTrue( $interface->inNamespace() );
+        self::assertTrue( $interface->inNamespace() );
     }
 
     /**
@@ -220,7 +220,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testInNamespaceReturnsFalseForClassWithNamespaceDefault()
     {
         $interface = new StaticReflectionInterface( '\barBar', '' );
-        $this->assertFalse( $interface->inNamespace() );
+        self::assertFalse( $interface->inNamespace() );
     }
 
     /**
@@ -233,7 +233,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testInNamespaceReturnsFalseForClassWithoutNamespace()
     {
         $interface = new StaticReflectionInterface( 'barBar', '' );
-        $this->assertFalse( $interface->inNamespace() );
+        self::assertFalse( $interface->inNamespace() );
     }
 
     /**
@@ -246,7 +246,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetDocCommentReturnsFalseWhenDocCommentIsEmpty()
     {
         $interface = new StaticReflectionInterface( 'barBar', '' );
-        $this->assertFalse( $interface->getDocComment() );
+        self::assertFalse( $interface->getDocComment() );
     }
 
     /**
@@ -259,7 +259,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetDocCommentReturnsStringWhenDocCommentIsNotEmpty()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '/** @package foo */' );
-        $this->assertEquals( '/** @package foo */', $interface->getDocComment() );
+        self::assertEquals( '/** @package foo */', $interface->getDocComment() );
     }
 
     /**
@@ -274,7 +274,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initConstants( array( 'T_BAR' => 'droelf' ) );
 
-        $this->assertTrue( $interface->hasConstant( 'T_BAR' ) );
+        self::assertTrue( $interface->hasConstant( 'T_BAR' ) );
     }
 
     /**
@@ -289,7 +289,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initConstants( array( 'T_BAR' => null ) );
 
-        $this->assertTrue( $interface->hasConstant( 'T_BAR' ) );
+        self::assertTrue( $interface->hasConstant( 'T_BAR' ) );
     }
 
     /**
@@ -304,7 +304,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initConstants( array( 'T_BAR' => 'droelf' ) );
 
-        $this->assertFalse( $interface->hasConstant( 'T_FOO' ) );
+        self::assertFalse( $interface->hasConstant( 'T_FOO' ) );
     }
 
     /**
@@ -319,7 +319,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initConstants( array( 'T_BAR' => null ) );
 
-        $this->assertFalse( $interface->getConstant( 'T_BAZ' ) );
+        self::assertFalse( $interface->getConstant( 'T_BAZ' ) );
     }
 
     /**
@@ -334,7 +334,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initConstants( array( 'T_BAR' => 42 ) );
 
-        $this->assertEquals( 42, $interface->getConstant( 'T_BAR' ) );
+        self::assertEquals( 42, $interface->getConstant( 'T_BAR' ) );
     }
 
     /**
@@ -347,7 +347,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetConstantsReturnsAnEmptyArrayByDefault()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertSame( array(), $interface->getConstants() );
+        self::assertSame( array(), $interface->getConstants() );
     }
 
     /**
@@ -362,7 +362,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '/** @package foo */' );
         $interface->initConstants( array( 'T_FOO' => 42, 'T_BAR' => 23 ) );
 
-        $this->assertEquals( array( 'T_FOO' => 42, 'T_BAR' => 23 ), $interface->getConstants() );
+        self::assertEquals( array( 'T_FOO' => 42, 'T_BAR' => 23 ), $interface->getConstants() );
     }
 
     /**
@@ -381,7 +381,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $child->initConstants( array( 'T_BAZ' => 13 ) );
         $child->initInterfaces( array( $parent ) );
 
-        $this->assertEquals( array( 'T_FOO' => 42, 'T_BAR' => 23, 'T_BAZ' => 13 ), $child->getConstants() );
+        self::assertEquals( array( 'T_FOO' => 42, 'T_BAR' => 23, 'T_BAZ' => 13 ), $child->getConstants() );
     }
 
     /**
@@ -400,7 +400,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $child->initConstants( array( 'T_BAR' => 13 ) );
         $child->initInterfaces( array( $parent ) );
 
-        $this->assertEquals( array( 'T_FOO' => 42, 'T_BAR' => 13 ), $child->getConstants() );
+        self::assertEquals( array( 'T_FOO' => 42, 'T_BAR' => 13 ), $child->getConstants() );
     }
 
     /**
@@ -413,7 +413,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetParentClassAlwaysReturnsFalse()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertFalse( $interface->getParentClass() );
+        self::assertFalse( $interface->getParentClass() );
     }
 
     /**
@@ -433,7 +433,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
             )
         );
 
-        $this->assertSame( 2, count( $interface->getInterfaces() ) );
+        self::assertSame( 2, count( $interface->getInterfaces() ) );
     }
 
     /**
@@ -452,7 +452,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface0->initInterfaces( array( $interface1 ) );
         $interface1->initInterfaces( array( $interface2 ) );
 
-        $this->assertSame( 2, count( $interface0->getInterfaces() ) );
+        self::assertSame( 2, count( $interface0->getInterfaces() ) );
     }
 
     /**
@@ -471,7 +471,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface0->initInterfaces( array( $interface1, $interface2 ) );
         $interface1->initInterfaces( array( $interface2 ) );
 
-        $this->assertSame( 2, count( $interface0->getInterfaces() ) );
+        self::assertSame( 2, count( $interface0->getInterfaces() ) );
     }
 
     /**
@@ -490,7 +490,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface0->initInterfaces( array( $interface1, $interface2 ) );
         $interface1->initInterfaces( array( $interface2 ) );
 
-        $this->assertSame(
+        self::assertSame(
             array( __CLASS__ . '1', __CLASS__ . '2' ),
             $interface0->getInterfaceNames()
         );
@@ -506,7 +506,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testImplementsInterfaceReturnsTrueForSameType()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertTrue( $interface->implementsInterface( __CLASS__ ) );
+        self::assertTrue( $interface->implementsInterface( __CLASS__ ) );
     }
 
     /**
@@ -521,7 +521,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initInterfaces( array( new StaticReflectionInterface( 'Parent', '' ) ) );
         
-        $this->assertTrue( $interface->implementsInterface( 'Parent' ) );
+        self::assertTrue( $interface->implementsInterface( 'Parent' ) );
     }
 
     /**
@@ -534,7 +534,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testImplementsInterfaceWorksCaseInsensitive()
     {
         $interface = new StaticReflectionInterface( strtoupper( __CLASS__ ), '' );
-        $this->assertTrue( $interface->implementsInterface( __CLASS__ ) );
+        self::assertTrue( $interface->implementsInterface( __CLASS__ ) );
     }
 
     /**
@@ -547,7 +547,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetModifiersReturnsZendAccInterface()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertSame( self::ZEND_ACC_INTERFACE, $interface->getModifiers() );
+        self::assertSame( self::ZEND_ACC_INTERFACE, $interface->getModifiers() );
     }
 
     /**
@@ -562,7 +562,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initMethods( array( new StaticReflectionMethod( 'fooBar', '', 0 ) ) );
 
-        $this->assertTrue( $interface->hasMethod( 'fooBar' ) );
+        self::assertTrue( $interface->hasMethod( 'fooBar' ) );
     }
 
     /**
@@ -577,7 +577,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initInterfaces( array( new \ReflectionClass( '\Iterator' ) ) );
 
-        $this->assertTrue( $interface->hasMethod( 'current' ) );
+        self::assertTrue( $interface->hasMethod( 'current' ) );
     }
 
     /**
@@ -592,7 +592,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initMethods( array( new StaticReflectionMethod( 'fooBar', '', 0 ) ) );
 
-        $this->assertNotNull( $interface->getMethod( 'fooBar' ) );
+        self::assertNotNull( $interface->getMethod( 'fooBar' ) );
     }
 
     /**
@@ -607,7 +607,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initInterfaces( array( new \ReflectionClass( '\Iterator' ) ) );
 
-        $this->assertInstanceOf( '\ReflectionMethod', $interface->getMethod( 'next' ) );
+        self::assertInstanceOf( '\ReflectionMethod', $interface->getMethod( 'next' ) );
     }
 
     /**
@@ -622,7 +622,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initMethods( array( new StaticReflectionMethod( 'fooBar', '', 0 ) ) );
 
-        $this->assertTrue( $interface->hasMethod( 'Foobar' ) );
+        self::assertTrue( $interface->hasMethod( 'Foobar' ) );
     }
 
     /**
@@ -637,7 +637,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initMethods( array() );
 
-        $this->assertFalse( $interface->hasMethod( 'fooBar' ) );
+        self::assertFalse( $interface->hasMethod( 'fooBar' ) );
     }
 
     /**
@@ -652,7 +652,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initMethods( array( new StaticReflectionMethod( 'foo', '', 0 ) ) );
 
-        $this->assertSame( 1, count( $interface->getMethods() ) );
+        self::assertSame( 1, count( $interface->getMethods() ) );
     }
 
     /**
@@ -672,7 +672,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
 
         $interface0->initInterfaces( array( $interface1 ) );
 
-        $this->assertSame( 2, count( $interface0->getMethods() ) );
+        self::assertSame( 2, count( $interface0->getMethods() ) );
     }
 
     /**
@@ -692,7 +692,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
 
         $interface0->initInterfaces( array( $interface1 ) );
 
-        $this->assertSame( 1, count( $interface0->getMethods() ) );
+        self::assertSame( 1, count( $interface0->getMethods() ) );
     }
 
     /**
@@ -717,7 +717,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface0->initInterfaces( array( $interface1 ) );
 
         $interfaces = $interface0->getMethods();
-        $this->assertSame( $method0, $interfaces[0] );
+        self::assertSame( $method0, $interfaces[0] );
     }
 
     /**
@@ -737,7 +737,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
 
         $interface0->initInterfaces( array( $interface1 ) );
 
-        $this->assertSame( 1, count( $interface0->getMethods() ) );
+        self::assertSame( 1, count( $interface0->getMethods() ) );
     }
 
     /**
@@ -757,7 +757,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
             )
         );
 
-        $this->assertSame( 1, count( $interface->getMethods( \ReflectionMethod::IS_FINAL ) ) );
+        self::assertSame( 1, count( $interface->getMethods( \ReflectionMethod::IS_FINAL ) ) );
     }
 
     /**
@@ -772,7 +772,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initMethods( array( new StaticReflectionMethod( '__construct', '', 0 ) ) );
 
-        $this->assertNull( $interface->getConstructor() );
+        self::assertNull( $interface->getConstructor() );
     }
 
     /**
@@ -787,7 +787,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initMethods( array( new StaticReflectionMethod( $interface->getShortName(), '', 0 ) ) );
 
-        $this->assertNull( $interface->getConstructor() );
+        self::assertNull( $interface->getConstructor() );
     }
 
     /**
@@ -800,7 +800,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testHasPropertyAlwaysReturnsFalse()
     {
         $interface = new StaticReflectionInterface( '\foo\Bar', '' );
-        $this->assertFalse( $interface->hasProperty( 'foo' ) );
+        self::assertFalse( $interface->hasProperty( 'foo' ) );
     }
 
     /**
@@ -813,7 +813,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetPropertiesReturnsAnEmptyArray()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertSame( array(), $interface->getProperties() );
+        self::assertSame( array(), $interface->getProperties() );
     }
 
     /**
@@ -826,7 +826,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetDefaultPropertiesReturnsAnEmptyArray()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertSame( array(), $interface->getDefaultProperties() );
+        self::assertSame( array(), $interface->getDefaultProperties() );
     }
 
     /**
@@ -839,7 +839,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetStaticPropertiesReturnsAnEmptyArray()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertSame( array(), $interface->getStaticProperties() );
+        self::assertSame( array(), $interface->getStaticProperties() );
     }
 
     /**
@@ -852,7 +852,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetStaticPropertyValueWithStaticReflectionValueArgumentReturnsInputArgument()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertSame( 42, $interface->getStaticPropertyValue( 'foo', 42 ) );
+        self::assertSame( 42, $interface->getStaticPropertyValue( 'foo', 42 ) );
     }
 
     /**
@@ -865,7 +865,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testIsInternalAlwaysReturnsFalse()
     {
         $interface = new StaticReflectionInterface( '\foo\Bar', '' );
-        $this->assertFalse( $interface->isInternal() );
+        self::assertFalse( $interface->isInternal() );
     }
 
     /**
@@ -878,7 +878,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testIsUserDefinedAlwaysReturnsFalse()
     {
         $interface = new StaticReflectionInterface( '\foo\Bar', '' );
-        $this->assertTrue( $interface->isUserDefined() );
+        self::assertTrue( $interface->isUserDefined() );
     }
 
     /**
@@ -891,7 +891,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetExtensionAlwaysReturnsNull()
     {
         $interface = new StaticReflectionInterface( '\foo\Bar', '' );
-        $this->assertNull( $interface->getExtension() );
+        self::assertNull( $interface->getExtension() );
     }
 
     /**
@@ -904,7 +904,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testGetExtensionNameAlwaysReturnsFalse()
     {
         $interface = new StaticReflectionInterface( '\foo\Bar', '' );
-        $this->assertFalse( $interface->getExtensionName() );
+        self::assertFalse( $interface->getExtensionName() );
     }
 
     /**
@@ -917,7 +917,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testIsInstanceReturnsTrueForMatchingInstance()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertTrue( $interface->isInstance( $this ) );
+        self::assertTrue( $interface->isInstance( $this ) );
     }
 
     /**
@@ -930,7 +930,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testIsInstanceReturnsFalseForNotMatchingInstance()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertFalse( $interface->isInstance( $interface ) );
+        self::assertFalse( $interface->isInstance( $interface ) );
     }
 
     /**
@@ -943,7 +943,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testIsInstantiableReturnsFalse()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertFalse( $interface->isInstantiable() );
+        self::assertFalse( $interface->isInstantiable() );
     }
 
     /**
@@ -956,7 +956,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
     public function testIsIterateableReturnsFalseByDefault()
     {
         $interface = new StaticReflectionInterface( __CLASS__, '' );
-        $this->assertFalse( $interface->isIterateable() );
+        self::assertFalse( $interface->isIterateable() );
     }
 
     /**
@@ -971,7 +971,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initInterfaces( array( new StaticReflectionInterface( 'Traversable', '' ) ) );
 
-        $this->assertFalse( $interface->isIterateable() );
+        self::assertFalse( $interface->isIterateable() );
     }
 
     /**
@@ -986,7 +986,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initStartLine( 42 );
 
-        $this->assertSame( 42, $interface->getStartLine() );
+        self::assertSame( 42, $interface->getStartLine() );
     }
 
     /**
@@ -1001,7 +1001,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initEndLine( 42 );
 
-        $this->assertSame( 42, $interface->getEndLine() );
+        self::assertSame( 42, $interface->getEndLine() );
     }
 
     /**
@@ -1029,7 +1029,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
                     '  }' . PHP_EOL .
                     '}';
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -1063,7 +1063,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
                     '  }' . PHP_EOL .
                     '}';
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -1108,7 +1108,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
                     '  }' . PHP_EOL .
                     '}';
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -1142,7 +1142,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
                     '  }' . PHP_EOL .
                     '}';
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**

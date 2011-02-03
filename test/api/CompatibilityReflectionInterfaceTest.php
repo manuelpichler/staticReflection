@@ -28,7 +28,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
     {
-        $this->assertPublicApiEquals( 'ReflectionClass', StaticReflectionInterface::TYPE );
+        self::assertPublicApiEquals( 'ReflectionClass', StaticReflectionInterface::TYPE );
     }
 
     /**
@@ -43,7 +43,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceWithDocComment' );
         $static   = $this->createStaticClass( 'CompatInterfaceWithDocComment' );
 
-        $this->assertSame( $internal->getDocComment(), $static->getDocComment() );
+        self::assertSame( $internal->getDocComment(), $static->getDocComment() );
     }
 
     /**
@@ -58,7 +58,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceWithoutDocComment' );
         $static   = $this->createStaticClass( 'CompatInterfaceWithoutDocComment' );
 
-        $this->assertSame( $internal->getDocComment(), $static->getDocComment() );
+        self::assertSame( $internal->getDocComment(), $static->getDocComment() );
     }
 
     /**
@@ -73,7 +73,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\foo\bar\CompatInterfaceWithNamespace' );
         $static   = $this->createStaticClass( '\foo\bar\CompatInterfaceWithNamespace' );
 
-        $this->assertSame( $internal->inNamespace(), $static->inNamespace() );
+        self::assertSame( $internal->inNamespace(), $static->inNamespace() );
     }
 
     /**
@@ -88,7 +88,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceWithNamespaceDefault' );
         $static   = $this->createStaticClass( 'CompatInterfaceWithNamespaceDefault' );
 
-        $this->assertSame( $internal->inNamespace(), $static->inNamespace() );
+        self::assertSame( $internal->inNamespace(), $static->inNamespace() );
     }
 
     /**
@@ -103,7 +103,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceWithoutNamespace' );
         $static   = $this->createStaticClass( 'CompatInterfaceWithoutNamespace' );
 
-        $this->assertSame( $internal->inNamespace(), $static->inNamespace() );
+        self::assertSame( $internal->inNamespace(), $static->inNamespace() );
     }
 
     /**
@@ -118,7 +118,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceWithConstant' );
         $static   = $this->createStaticClass( 'CompatInterfaceWithConstant' );
 
-        $this->assertSame(
+        self::assertSame(
             $internal->hasConstant( 'T_BAR' ),
             $static->hasConstant( 'T_BAR' )
         );
@@ -136,7 +136,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceWithConstant' );
         $static   = $this->createStaticClass( 'CompatInterfaceWithConstant' );
 
-        $this->assertEquals( $internal->hasConstant( 'T_FOO' ), $static->hasConstant( 'T_FOO' ) );
+        self::assertEquals( $internal->hasConstant( 'T_FOO' ), $static->hasConstant( 'T_FOO' ) );
     }
 
     /**
@@ -151,7 +151,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
         $static   = $this->createStaticClass( 'CompatInterfaceSimple' );
 
-        $this->assertEquals( $internal->getConstant( 'T_FOO' ), $static->getConstant( 'T_FOO' ) );
+        self::assertEquals( $internal->getConstant( 'T_FOO' ), $static->getConstant( 'T_FOO' ) );
     }
 
     /**
@@ -166,7 +166,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
         $static   = $this->createStaticClass( 'CompatInterfaceSimple' );
 
-        $this->assertSame(
+        self::assertSame(
             StaticReflectionInterface::ZEND_ACC_INTERFACE,
             $internal->getModifiers() & $static->getModifiers()
         );
@@ -184,7 +184,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceWithConstruct' );
         $static   = $this->createStaticClass( 'CompatInterfaceWithConstruct' );
 
-        $this->assertSame( $internal->getConstructor(), $static->getConstructor() );
+        self::assertSame( $internal->getConstructor(), $static->getConstructor() );
     }
 
     /**
@@ -199,7 +199,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceWithClassNameMethod' );
         $static   = $this->createStaticClass( 'CompatInterfaceWithClassNameMethod' );
 
-        $this->assertSame( $internal->getConstructor(), $static->getConstructor() );
+        self::assertSame( $internal->getConstructor(), $static->getConstructor() );
     }
 
     /**
@@ -214,7 +214,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
         $static   = $this->createStaticClass( 'CompatInterfaceSimple' );
 
-        $this->assertSame( $internal->getParentClass(), $static->getParentClass() );
+        self::assertSame( $internal->getParentClass(), $static->getParentClass() );
     }
 
     /**
@@ -232,7 +232,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $expected = $this->executeFailingMethod( $internal, 'getProperty', 'foo' );
         $actual   = $this->executeFailingMethod( $static, 'getProperty', 'foo' );
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -250,7 +250,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $expected = $this->executeFailingMethod( $internal, 'getStaticPropertyValue', 'foo' );
         $actual   = $this->executeFailingMethod( $static, 'getStaticPropertyValue', 'foo' );
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -265,7 +265,7 @@ class CompatibilityReflectionInterfaceTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
         $static   = $this->createStaticClass( 'CompatInterfaceSimple' );
 
-        $this->assertEquals( 
+        self::assertEquals(
             $internal->getStaticPropertyValue( 'foo', 42 ),
             $static->getStaticPropertyValue( 'foo', 42 )
         );

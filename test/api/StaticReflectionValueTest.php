@@ -72,7 +72,7 @@ class StaticReflectionValueTest extends \pdepend\reflection\BaseTest
     public function testToStringForNull()
     {
         $value = new StaticReflectionValue( null );
-        $this->assertEquals( 'NULL', $value->__toString() );
+        self::assertEquals( 'NULL', $value->__toString() );
     }
 
     /**
@@ -85,7 +85,7 @@ class StaticReflectionValueTest extends \pdepend\reflection\BaseTest
     public function testToStringForArray()
     {
         $value = new StaticReflectionValue( array() );
-        $this->assertEquals( 'Array', $value->__toString() );
+        self::assertEquals( 'Array', $value->__toString() );
     }
 
     /**
@@ -98,7 +98,7 @@ class StaticReflectionValueTest extends \pdepend\reflection\BaseTest
     public function testToStringForBooleanTrue()
     {
         $value = new StaticReflectionValue( true );
-        $this->assertEquals( 'true', $value->__toString() );
+        self::assertEquals( 'true', $value->__toString() );
     }
 
     /**
@@ -111,7 +111,7 @@ class StaticReflectionValueTest extends \pdepend\reflection\BaseTest
     public function testToStringForBooleanFalse()
     {
         $value = new StaticReflectionValue( false );
-        $this->assertEquals( 'false', $value->__toString() );
+        self::assertEquals( 'false', $value->__toString() );
     }
 
     /**
@@ -124,7 +124,7 @@ class StaticReflectionValueTest extends \pdepend\reflection\BaseTest
     public function testToStringForFloat()
     {
         $value = new StaticReflectionValue( 3.14 );
-        $this->assertEquals( '3.14', $value->__toString() );
+        self::assertEquals( '3.14', $value->__toString() );
     }
 
     /**
@@ -137,7 +137,7 @@ class StaticReflectionValueTest extends \pdepend\reflection\BaseTest
     public function testToStringForInteger()
     {
         $value = new StaticReflectionValue( 42 );
-        $this->assertEquals( '42', $value->__toString() );
+        self::assertEquals( '42', $value->__toString() );
     }
 
     /**
@@ -150,6 +150,6 @@ class StaticReflectionValueTest extends \pdepend\reflection\BaseTest
     public function testToStringForString()
     {
         $value = new StaticReflectionValue( 'Hello World' );
-        $this->assertEquals( "'Hello World'", $value->__toString() );
+        self::assertEquals( "'Hello World'", $value->__toString() );
     }
 }

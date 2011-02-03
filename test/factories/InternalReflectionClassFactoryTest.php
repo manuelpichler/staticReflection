@@ -72,7 +72,7 @@ class InternalReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
     public function testHasClassReturnsFalseForClassThatDoesNotExist()
     {
         $factory = new InternalReflectionClassFactory();
-        $this->assertFalse( $factory->hasClass( '__' . __CLASS__ . '__' ) );
+        self::assertFalse( $factory->hasClass( '__' . __CLASS__ . '__' ) );
     }
 
     /**
@@ -85,7 +85,7 @@ class InternalReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
     public function testHasClassReturnsTrueForClassThatExists()
     {
         $factory = new InternalReflectionClassFactory();
-        $this->assertTrue( $factory->hasClass( __CLASS__ ) );
+        self::assertTrue( $factory->hasClass( __CLASS__ ) );
     }
 
     /**
@@ -98,7 +98,7 @@ class InternalReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
     public function testHasClassReturnsTrueForInterfaceThatExists()
     {
         $factory = new InternalReflectionClassFactory();
-        $this->assertTrue( $factory->hasClass( '\Iterator' ) );
+        self::assertTrue( $factory->hasClass( '\Iterator' ) );
     }
 
     /**
@@ -113,7 +113,7 @@ class InternalReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
         $factory = new InternalReflectionClassFactory();
         $class   = $factory->createClass( __CLASS__ );
 
-        $this->assertInstanceOf( '\ReflectionClass', $class );
+        self::assertInstanceOf( '\ReflectionClass', $class );
     }
 
     /**

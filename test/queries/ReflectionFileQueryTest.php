@@ -75,7 +75,7 @@ class ReflectionFileQueryTest extends ReflectionQueryTest
         $query  = new ReflectionFileQuery( $this->createContext() );
         $result = $query->find( $this->getPathnameForClass( 'QueryClass' ) );
 
-        $this->assertEquals( 1, count( $result ) );
+        self::assertEquals( 1, count( $result ) );
     }
 
     /**
@@ -93,7 +93,7 @@ class ReflectionFileQueryTest extends ReflectionQueryTest
         $query  = new ReflectionFileQuery( $this->createContext() );
         $result = $query->find( $link );
 
-        $this->assertEquals( 1, count( $result ) );
+        self::assertEquals( 1, count( $result ) );
     }
 
     /**

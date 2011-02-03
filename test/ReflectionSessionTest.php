@@ -76,7 +76,7 @@ class ReflectionSessionTest extends BaseTest
         $query = $session->createClassQuery();
         $class = $query->find( 'SessionSimpleClass' );
 
-        $this->assertEquals( 'SessionSimpleClass', $class->getName() );
+        self::assertEquals( 'SessionSimpleClass', $class->getName() );
     }
 
     /**
@@ -92,7 +92,7 @@ class ReflectionSessionTest extends BaseTest
         $query = $session->createClassQuery();
         $class = $query->find( 'Iterator' );
 
-        $this->assertTrue( $class->isInternal() );
+        self::assertTrue( $class->isInternal() );
     }
 
     /**
@@ -108,7 +108,7 @@ class ReflectionSessionTest extends BaseTest
         $query = $session->createClassQuery();
         $class = $query->find( __METHOD__ );
 
-        $this->assertFalse( $class->isInternal() || $class->isUserDefined() );
+        self::assertFalse( $class->isInternal() || $class->isUserDefined() );
     }
 
     /**
@@ -125,7 +125,7 @@ class ReflectionSessionTest extends BaseTest
         $query = $session->createClassQuery();
         $class = $query->find( 'SessionSimpleClass' );
 
-        $this->assertTrue( $class->isUserDefined() );
+        self::assertTrue( $class->isUserDefined() );
     }
 
     /**
@@ -141,7 +141,7 @@ class ReflectionSessionTest extends BaseTest
         $query = $session->createClassQuery();
         $class = $query->find( __METHOD__ );
 
-        $this->assertFalse( $class->isUserDefined() || $class->isInternal() );
+        self::assertFalse( $class->isUserDefined() || $class->isInternal() );
     }
 
     /**
@@ -157,7 +157,7 @@ class ReflectionSessionTest extends BaseTest
         $query = $session->createClassQuery();
         $class = $query->find( __CLASS__ );
 
-        $this->assertInstanceOf( '\ReflectionClass', $class );
+        self::assertInstanceOf( '\ReflectionClass', $class );
     }
 
     /**
@@ -196,7 +196,7 @@ class ReflectionSessionTest extends BaseTest
         $session = new ReflectionSession();
         $session->addClassFactory( $factory );
 
-        $this->assertSame( $this, $session->getClass( __CLASS__ ) );
+        self::assertSame( $this, $session->getClass( __CLASS__ ) );
     }
 
     /**
@@ -229,7 +229,7 @@ class ReflectionSessionTest extends BaseTest
         $session->addClassFactory( $factory1 );
         $session->addClassFactory( $factory2 );
 
-        $this->assertSame( $this, $session->getClass( __CLASS__ ) );
+        self::assertSame( $this, $session->getClass( __CLASS__ ) );
     }
 
     /**
@@ -241,7 +241,7 @@ class ReflectionSessionTest extends BaseTest
     public function testCreateClassQueryReturnsAnObjectOfExpectedType()
     {
         $session = new ReflectionSession();
-        $this->assertInstanceOf( queries\ReflectionClassQuery::TYPE, $session->createClassQuery() );
+        self::assertInstanceOf( queries\ReflectionClassQuery::TYPE, $session->createClassQuery() );
     }
 
     /**
@@ -253,7 +253,7 @@ class ReflectionSessionTest extends BaseTest
     public function testCreateFileQueryReturnsAnObjectOfExpectedType()
     {
         $session = new ReflectionSession();
-        $this->assertInstanceOf( queries\ReflectionFileQuery::TYPE, $session->createFileQuery() );
+        self::assertInstanceOf( queries\ReflectionFileQuery::TYPE, $session->createFileQuery() );
     }
 
     /**
@@ -265,7 +265,7 @@ class ReflectionSessionTest extends BaseTest
     public function testCreateDirectoryQueryReturnsAnObjectOfExpectedType()
     {
         $session = new ReflectionSession();
-        $this->assertInstanceOf( queries\ReflectionDirectoryQuery::TYPE, $session->createDirectoryQuery() );
+        self::assertInstanceOf( queries\ReflectionDirectoryQuery::TYPE, $session->createDirectoryQuery() );
     }
 
     /**

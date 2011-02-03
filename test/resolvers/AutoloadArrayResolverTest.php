@@ -79,7 +79,7 @@ class AutoloadArrayResolverTest extends \pdepend\reflection\BaseTest
             )
         );
 
-        $this->assertEquals( '/foo/Baz.php', $resolver->getPathnameForClass( 'Baz' ) );
+        self::assertEquals( '/foo/Baz.php', $resolver->getPathnameForClass( 'Baz' ) );
     }
 
     /**
@@ -99,7 +99,7 @@ class AutoloadArrayResolverTest extends \pdepend\reflection\BaseTest
             )
         );
 
-        $this->assertEquals( '/foo/Bar.php', $resolver->getPathnameForClass( '\foo\Bar' ) );
+        self::assertEquals( '/foo/Bar.php', $resolver->getPathnameForClass( '\foo\Bar' ) );
     }
 
     /**
@@ -119,7 +119,7 @@ class AutoloadArrayResolverTest extends \pdepend\reflection\BaseTest
             )
         );
 
-        $this->assertEquals( '/foo/Bar.php', $resolver->getPathnameForClass( 'foo\Bar' ) );
+        self::assertEquals( '/foo/Bar.php', $resolver->getPathnameForClass( 'foo\Bar' ) );
     }
 
     /**

@@ -76,7 +76,7 @@ class TokenizerTest extends \pdepend\reflection\BaseTest
                 ++$scope;
             }
         }
-        $this->assertSame( 0, $scope );
+        self::assertSame( 0, $scope );
     }
 
     /**
@@ -98,7 +98,7 @@ class TokenizerTest extends \pdepend\reflection\BaseTest
             $actual[] = $token->startLine;
         }
 
-        $this->assertSame( $expected, $actual );
+        self::assertSame( $expected, $actual );
     }
 
     /**
@@ -120,7 +120,7 @@ class TokenizerTest extends \pdepend\reflection\BaseTest
             $actual[] = $token->endLine;
         }
 
-        $this->assertSame( $expected, $actual );
+        self::assertSame( $expected, $actual );
     }
 
     /**
@@ -139,6 +139,6 @@ class TokenizerTest extends \pdepend\reflection\BaseTest
         {
             $tokenType = $this->_fixture->next()->type;
         }
-        $this->assertEquals( ParserTokens::T_SELF, $tokenType );
+        self::assertEquals( ParserTokens::T_SELF, $tokenType );
     }
 }

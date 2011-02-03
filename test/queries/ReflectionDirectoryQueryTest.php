@@ -75,7 +75,7 @@ class ReflectionDirectoryQueryTest extends ReflectionQueryTest
         $query  = new ReflectionDirectoryQuery( $this->createContext() );
         $result = $query->find( dirname( $this->getPathnameForClass( 'QueryClass' ) ) );
 
-        $this->assertEquals( 1, count( $result ) );
+        self::assertEquals( 1, count( $result ) );
     }
 
     /**
@@ -93,7 +93,7 @@ class ReflectionDirectoryQueryTest extends ReflectionQueryTest
 
         $result = $query->find( dirname( $this->getPathnameForClass( 'QueryClass' ) ) );
 
-        $this->assertEquals( 0, count( $result ) );
+        self::assertEquals( 0, count( $result ) );
     }
 
     /**
@@ -111,7 +111,7 @@ class ReflectionDirectoryQueryTest extends ReflectionQueryTest
         $query  = new ReflectionDirectoryQuery( $this->createContext() );
         $result = $query->find( $link );
 
-        $this->assertEquals( 1, count( $result ) );
+        self::assertEquals( 1, count( $result ) );
     }
 
     /**

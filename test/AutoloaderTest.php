@@ -80,6 +80,6 @@ class AutoloaderTest extends BaseTest
         $autoloader = new Autoloader( __DIR__ . '/_source/' );
         $autoloader->autoload( $classFixture );
 
-        $this->assertTrue( class_exists( $classFixture, false ), 'Class should exist ' . $classFixture );
+        self::assertTrue( class_exists( $classFixture, false ), 'Class should exist ' . $classFixture );
     }
 }

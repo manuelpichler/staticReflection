@@ -76,7 +76,7 @@ class NullReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
         $factory = new NullReflectionClassFactory();
         $exists  = $factory->hasClass( __METHOD__ );
 
-        $this->assertTrue( $exists );
+        self::assertTrue( $exists );
     }
 
     /**
@@ -91,7 +91,7 @@ class NullReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
         $factory = new NullReflectionClassFactory();
         $class   = $factory->createClass( __METHOD__ );
 
-        $this->assertInstanceOf( NullReflectionClass::TYPE, $class );
+        self::assertInstanceOf( NullReflectionClass::TYPE, $class );
     }
 
     /**
@@ -107,7 +107,7 @@ class NullReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
         $class0  = $factory->createClass( __METHOD__ );
         $class1  = $factory->createClass( __METHOD__ );
 
-        $this->assertSame( $class0, $class1 );
+        self::assertSame( $class0, $class1 );
     }
 
     /**
@@ -123,6 +123,6 @@ class NullReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
         $class0  = $factory->createClass( __CLASS__ );
         $class1  = $factory->createClass( __FUNCTION__ );
 
-        $this->assertNotSame( $class0, $class1 );
+        self::assertNotSame( $class0, $class1 );
     }
 }

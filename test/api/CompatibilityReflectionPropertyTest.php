@@ -28,7 +28,7 @@ class CompatibilityReflectionPropertyTest extends BaseCompatibilityTest
      */
     public function testStaticVersionIsCompatileWithNativeReflection()
     {
-        $this->assertPublicApiEquals( 'ReflectionProperty', StaticReflectionProperty::TYPE );
+        self::assertPublicApiEquals( 'ReflectionProperty', StaticReflectionProperty::TYPE );
     }
 
     /**

@@ -73,7 +73,7 @@ class ReflectionClassProxyContextTest extends BaseTest
     public function testGetClassReturnsProxyReflectionClassInstance()
     {
         $context = new ReflectionClassProxyContext( $this->createSession() );
-        $this->assertInstanceOf( ReflectionClassProxy::TYPE, $context->getClassReference( 'Foo' ) );
+        self::assertInstanceOf( ReflectionClassProxy::TYPE, $context->getClassReference( 'Foo' ) );
     }
 
     /**
@@ -91,7 +91,7 @@ class ReflectionClassProxyContextTest extends BaseTest
         $context = new ReflectionClassProxyContext( $this->createSession() );
         $context->addClass( $class );
 
-        $this->assertSame( $class, $context->getClassReference( __CLASS__ ) );
+        self::assertSame( $class, $context->getClassReference( __CLASS__ ) );
     }
 
     /**
@@ -109,7 +109,7 @@ class ReflectionClassProxyContextTest extends BaseTest
         $context = new ReflectionClassProxyContext( $this->createSession() );
         $context->addClass( $class );
 
-        $this->assertSame( $class, $context->getClassReference( strtoupper( __CLASS__ ) ) );
+        self::assertSame( $class, $context->getClassReference( strtoupper( __CLASS__ ) ) );
     }
 
     /**
@@ -127,7 +127,7 @@ class ReflectionClassProxyContextTest extends BaseTest
         $context = new ReflectionClassProxyContext( $this->createSession() );
         $context->addClass( $class );
 
-        $this->assertSame( $class, $context->getClass( __CLASS__ ) );
+        self::assertSame( $class, $context->getClass( __CLASS__ ) );
     }
 
     /**

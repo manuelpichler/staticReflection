@@ -28,7 +28,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testLeadingDollarInPropertyNameIsStripped()
     {
         $property = new StaticReflectionProperty( '$foo', '', StaticReflectionProperty::IS_PUBLIC );
-        $this->assertSame( 'foo', $property->getName() );
+        self::assertSame( 'foo', $property->getName() );
     }
 
     /**
@@ -41,7 +41,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testFirstCharacterIsNotStrippedWhenItIsNotADollar()
     {
         $property = new StaticReflectionProperty( 'bar', '', StaticReflectionProperty::IS_PUBLIC );
-        $this->assertSame( 'bar', $property->getName() );
+        self::assertSame( 'bar', $property->getName() );
     }
 
     /**
@@ -54,7 +54,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testGetDeclaringClassReturnsNullByDefault()
     {
         $property = new StaticReflectionProperty( 'bar', '', 0 );
-        $this->assertNull( $property->getDeclaringClass() );
+        self::assertNull( $property->getDeclaringClass() );
     }
 
     /**
@@ -69,7 +69,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
         $property = new StaticReflectionProperty( 'bar', '', 0 );
         $property->initDeclaringClass( $class = new \ReflectionClass( __CLASS__ ) );
 
-        $this->assertSame( $class, $property->getDeclaringClass() );
+        self::assertSame( $class, $property->getDeclaringClass() );
     }
 
     /**
@@ -82,7 +82,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testGetDocCommentReturnsFalseWhenCommentIsEmpty()
     {
         $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PUBLIC );
-        $this->assertFalse( $property->getDocComment() );
+        self::assertFalse( $property->getDocComment() );
     }
 
     /**
@@ -95,7 +95,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testGetDocCommentReturnsStringWhenCommentIsNotEmpty()
     {
         $property = new StaticReflectionProperty( 'foo', '/** @var int */', 0 );
-        $this->assertSame( '/** @var int */', $property->getDocComment() );
+        self::assertSame( '/** @var int */', $property->getDocComment() );
     }
 
     /**
@@ -108,7 +108,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testGetValueReturnsNullByDefault()
     {
         $property = new StaticReflectionProperty( 'foo', '', 0 );
-        $this->assertNull( $property->getValue() );
+        self::assertNull( $property->getValue() );
     }
 
     /**
@@ -124,7 +124,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
         $property = new StaticReflectionProperty( 'foo', '', 0 );
         $property->initValue( new StaticReflectionValue( 42 ) );
 
-        $this->assertSame( 42, $property->getValue() );
+        self::assertSame( 42, $property->getValue() );
     }
 
     /**
@@ -142,7 +142,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
             \ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_STATIC
         );
 
-        $this->assertSame(
+        self::assertSame(
             \ReflectionProperty::IS_PUBLIC | \ReflectionProperty::IS_STATIC,
             $property->getModifiers()
         );
@@ -158,7 +158,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testIsPrivateReturnsFalseWhenModifierWasNotSupplied()
     {
         $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PUBLIC );
-        $this->assertFalse( $property->isPrivate() );
+        self::assertFalse( $property->isPrivate() );
     }
 
     /**
@@ -171,7 +171,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testIsPrivateReturnsTrueWhenModifierWasSupplied()
     {
         $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PRIVATE );
-        $this->assertTrue( $property->isPrivate() );
+        self::assertTrue( $property->isPrivate() );
     }
 
     /**
@@ -184,7 +184,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testIsProtectedReturnsFalseWhenModifierWasNotSupplied()
     {
         $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PRIVATE );
-        $this->assertFalse( $property->isProtected() );
+        self::assertFalse( $property->isProtected() );
     }
 
     /**
@@ -197,7 +197,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testIsProtectedReturnsTrueWhenModifierWasSupplied()
     {
         $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PROTECTED );
-        $this->assertTrue( $property->isProtected() );
+        self::assertTrue( $property->isProtected() );
     }
 
     /**
@@ -210,7 +210,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testIsPublicReturnsFalseWhenModifierWasNotSupplied()
     {
         $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PRIVATE );
-        $this->assertFalse( $property->isPublic() );
+        self::assertFalse( $property->isPublic() );
     }
 
     /**
@@ -223,7 +223,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testIsPublicReturnsTrueWhenModifierWasSupplied()
     {
         $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PUBLIC );
-        $this->assertTrue( $property->isPublic() );
+        self::assertTrue( $property->isPublic() );
     }
 
     /**
@@ -236,7 +236,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testIsStaticReturnsFalseWhenModifierWasNotSupplied()
     {
         $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_PRIVATE );
-        $this->assertFalse( $property->isStatic() );
+        self::assertFalse( $property->isStatic() );
     }
 
     /**
@@ -249,7 +249,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testIsStaticReturnsTrueWhenModifierWasSupplied()
     {
         $property = new StaticReflectionProperty( 'foo', '', StaticReflectionProperty::IS_STATIC );
-        $this->assertTrue( $property->isStatic() );
+        self::assertTrue( $property->isStatic() );
     }
 
     /**
@@ -262,7 +262,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
     public function testIsDefaultAlwaysReturnsTrue()
     {
         $property = new StaticReflectionProperty( 'foo', false, StaticReflectionProperty::IS_PUBLIC );
-        $this->assertTrue( $property->isDefault() );
+        self::assertTrue( $property->isDefault() );
     }
 
     /**
@@ -279,7 +279,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
         $expected = 'Property [ <default> public $foo ]';
         $actual   = $property->__toString();
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -296,7 +296,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
         $expected = 'Property [ <default> protected $foo ]';
         $actual   = $property->__toString();
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -313,7 +313,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
         $expected = 'Property [ <default> private $foo ]';
         $actual   = $property->__toString();
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -334,7 +334,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
         $expected = 'Property [ public static $foo ]';
         $actual   = $property->__toString();
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -355,7 +355,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
         $expected = 'Property [ protected static $foo ]';
         $actual   = $property->__toString();
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -376,7 +376,7 @@ class StaticReflectionPropertyTest extends \pdepend\reflection\BaseTest
         $expected = 'Property [ private static $foo ]';
         $actual   = $property->__toString();
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**

@@ -82,7 +82,7 @@ class Bug008Test extends \pdepend\reflection\BaseTest
         $class  = $this->getClassByName( 'Bug008_1' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertEquals( 4, $method->getStartLine() );
+        self::assertEquals( 4, $method->getStartLine() );
     }
 
     /**
@@ -99,6 +99,6 @@ class Bug008Test extends \pdepend\reflection\BaseTest
         $class  = $this->getClassByName( 'Bug008_2' );
         $method = $class->getMethod( 'foo' );
 
-        $this->assertEquals( 5, $method->getStartLine() );
+        self::assertEquals( 5, $method->getStartLine() );
     }
 }

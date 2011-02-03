@@ -71,7 +71,7 @@ class ReflectionClassCacheTest extends BaseTest
     public function testHasReturnsFalseWhenNoMatchingClassExists()
     {
         $cache = new ReflectionClassCache();
-        $this->assertFalse( $cache->has( __CLASS__ ) );
+        self::assertFalse( $cache->has( __CLASS__ ) );
     }
 
     /**
@@ -85,7 +85,7 @@ class ReflectionClassCacheTest extends BaseTest
         $cache = new ReflectionClassCache();
         $cache->store( new \ReflectionClass( __CLASS__ ) );
 
-        $this->assertTrue( $cache->has( __CLASS__ ) );
+        self::assertTrue( $cache->has( __CLASS__ ) );
     }
 
     /**
@@ -101,7 +101,7 @@ class ReflectionClassCacheTest extends BaseTest
         $cache = new ReflectionClassCache();
         $cache->store( $class );
 
-        $this->assertSame( $class, $cache->restore( __CLASS__ ) );
+        self::assertSame( $class, $cache->restore( __CLASS__ ) );
     }
 
     /**

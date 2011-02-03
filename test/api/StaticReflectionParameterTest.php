@@ -28,7 +28,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
     public function testConstructorStripsLeadingDollarFromParameterName()
     {
         $parameter = new StaticReflectionParameter( '$_bar', 0 );
-        $this->assertSame( '_bar', $parameter->getName() );
+        self::assertSame( '_bar', $parameter->getName() );
     }
 
     /**
@@ -41,7 +41,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
     public function testConstructorKeepsParameterNameWhenNotPrefixedWithDollar()
     {
         $parameter = new StaticReflectionParameter( '_fooBar', 0 );
-        $this->assertSame( '_fooBar', $parameter->getName() );
+        self::assertSame( '_fooBar', $parameter->getName() );
     }
 
     /**
@@ -54,7 +54,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
     public function testGetPositionReturnsExpectedResult()
     {
         $parameter = new StaticReflectionParameter( '_fooBar', 42 );
-        $this->assertSame( 42, $parameter->getPosition() );
+        self::assertSame( 42, $parameter->getPosition() );
     }
 
     /**
@@ -70,7 +70,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $parameter->initDeclaringMethod( $method );
 
-        $this->assertSame( $method, $parameter->getDeclaringFunction() );
+        self::assertSame( $method, $parameter->getDeclaringFunction() );
     }
 
     /**
@@ -86,7 +86,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $parameter->initDeclaringMethod( $method );
 
-        $this->assertEquals( $method->getDeclaringClass(), $parameter->getDeclaringClass() );
+        self::assertEquals( $method->getDeclaringClass(), $parameter->getDeclaringClass() );
     }
 
     /**
@@ -101,7 +101,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $parameter->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
-        $this->assertEquals( 42, $parameter->getDefaultValue() );
+        self::assertEquals( 42, $parameter->getDefaultValue() );
     }
 
     /**
@@ -114,7 +114,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
     public function testIsPassedByReferenceReturnsFalseByDefault()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
-        $this->assertFalse( $parameter->isPassedByReference() );
+        self::assertFalse( $parameter->isPassedByReference() );
     }
 
     /**
@@ -129,7 +129,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $parameter->initPassedByReference();
 
-        $this->assertTrue( $parameter->isPassedByReference() );
+        self::assertTrue( $parameter->isPassedByReference() );
     }
 
     /**
@@ -146,7 +146,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initParameters( array( $parameter ) );
 
-        $this->assertFalse( $parameter->isOptional() );
+        self::assertFalse( $parameter->isOptional() );
     }
 
     /**
@@ -165,7 +165,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initParameters( array( $parameter ) );
 
-        $this->assertTrue( $parameter->isOptional() );
+        self::assertTrue( $parameter->isOptional() );
     }
 
     /**
@@ -184,7 +184,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initParameters( array( $parameter ) );
 
-        $this->assertTrue( $parameter->isOptional() );
+        self::assertTrue( $parameter->isOptional() );
     }
 
     /**
@@ -205,7 +205,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initParameters( array( $param0, $param1 ) );
 
-        $this->assertFalse( $param0->isOptional() );
+        self::assertFalse( $param0->isOptional() );
     }
 
     /**
@@ -227,7 +227,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $method = new StaticReflectionMethod( 'foo', '', 0 );
         $method->initParameters( array( $param0, $param1 ) );
 
-        $this->assertTrue( $param0->isOptional() );
+        self::assertTrue( $param0->isOptional() );
     }
 
     /**
@@ -240,7 +240,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
     public function testAllowsNullReturnsTrueWhenNoTypeHintWasSet()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
-        $this->assertTrue( $parameter->allowsNull() );
+        self::assertTrue( $parameter->allowsNull() );
     }
 
     /**
@@ -255,7 +255,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $parameter->initTypeHint( true );
 
-        $this->assertFalse( $parameter->allowsNull() );
+        self::assertFalse( $parameter->allowsNull() );
     }
 
     /**
@@ -272,7 +272,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter->initTypeHint( true );
         $parameter->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
-        $this->assertFalse( $parameter->allowsNull() );
+        self::assertFalse( $parameter->allowsNull() );
     }
 
     /**
@@ -289,7 +289,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter->initTypeHint( true );
         $parameter->initStaticReflectionValue( new StaticReflectionValue( null ) );
 
-        $this->assertTrue( $parameter->allowsNull() );
+        self::assertTrue( $parameter->allowsNull() );
     }
 
     /**
@@ -304,7 +304,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $parameter->initTypeHint( new \ReflectionClass( __CLASS__ ) );
 
-        $this->assertFalse( $parameter->allowsNull() );
+        self::assertFalse( $parameter->allowsNull() );
     }
 
     /**
@@ -321,7 +321,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter->initTypeHint( new \ReflectionClass( __CLASS__ ) );
         $parameter->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
-        $this->assertFalse( $parameter->allowsNull() );
+        self::assertFalse( $parameter->allowsNull() );
     }
 
     /**
@@ -338,7 +338,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter->initTypeHint( new \ReflectionClass( __CLASS__ ) );
         $parameter->initStaticReflectionValue( new StaticReflectionValue( null ) );
 
-        $this->assertTrue( $parameter->allowsNull() );
+        self::assertTrue( $parameter->allowsNull() );
     }
 
     /**
@@ -351,7 +351,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
     public function testisDefaultValueAvailableReturnsFalseByDefault()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
-        $this->assertFalse( $parameter->isDefaultValueAvailable() );
+        self::assertFalse( $parameter->isDefaultValueAvailable() );
     }
 
     /**
@@ -367,7 +367,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $parameter->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
-        $this->assertTrue( $parameter->isDefaultValueAvailable() );
+        self::assertTrue( $parameter->isDefaultValueAvailable() );
     }
 
     /**
@@ -380,7 +380,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
     public function testIsArrayReturnsFalseByDefault()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
-        $this->assertFalse( $parameter->isArray() );
+        self::assertFalse( $parameter->isArray() );
     }
 
     /**
@@ -395,7 +395,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $parameter->initTypeHint( true );
 
-        $this->assertTrue( $parameter->isArray() );
+        self::assertTrue( $parameter->isArray() );
     }
 
     /**
@@ -408,7 +408,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
     public function testGetClassReturnsNullByDefault()
     {
         $parameter = new StaticReflectionParameter( '_foo', 0 );
-        $this->assertNull( $parameter->getClass() );
+        self::assertNull( $parameter->getClass() );
     }
 
     /**
@@ -423,7 +423,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter = new StaticReflectionParameter( '_foo', 0 );
         $parameter->initTypeHint( $class = new \ReflectionClass( 'Iterator' ) );
 
-        $this->assertSame( $class, $parameter->getClass() );
+        self::assertSame( $class, $parameter->getClass() );
     }
 
     /**
@@ -437,7 +437,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
     {
         $parameter = new StaticReflectionParameter( 'foo', 0 );
         
-        $this->assertEquals( 'Parameter #0 [ <required> $foo ]', $parameter->__toString() );
+        self::assertEquals( 'Parameter #0 [ <required> $foo ]', $parameter->__toString() );
     }
 
     /**
@@ -451,7 +451,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
     {
         $parameter = new StaticReflectionParameter( 'foo', 2 );
 
-        $this->assertEquals( 'Parameter #2 [ <required> $foo ]', $parameter->__toString() );
+        self::assertEquals( 'Parameter #2 [ <required> $foo ]', $parameter->__toString() );
     }
 
     /**
@@ -468,7 +468,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $parameter->initDeclaringMethod( new \ReflectionMethod( __CLASS__, __FUNCTION__ ) );
         $parameter->initStaticReflectionValue( new StaticReflectionValue( 42 ) );
 
-        $this->assertEquals( 'Parameter #0 [ <optional> $foo = 42 ]', $parameter->__toString() );
+        self::assertEquals( 'Parameter #0 [ <optional> $foo = 42 ]', $parameter->__toString() );
     }
 
     /**
@@ -486,7 +486,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $expected = 'Parameter #0 [ <required> array $foo ]';
         $actual   = $parameter->__toString();
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -504,7 +504,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $expected = sprintf( 'Parameter #0 [ <required> %s $foo ]', __CLASS__ );
         $actual   = $parameter->__toString();
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -525,7 +525,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $expected = 'Parameter #0 [ <optional> array or NULL $foo = NULL ]';
         $actual   = $parameter->__toString();
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -546,7 +546,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $expected = sprintf( 'Parameter #0 [ <optional> %s or NULL $foo = NULL ]', __CLASS__ );
         $actual   = $parameter->__toString();
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -567,7 +567,7 @@ class StaticReflectionParameterTest extends \pdepend\reflection\BaseTest
         $expected = 'Parameter #0 [ <optional> array $foo = Array ]';
         $actual   = $parameter->__toString();
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**

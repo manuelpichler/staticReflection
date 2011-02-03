@@ -86,7 +86,7 @@ class Bug005Test extends \pdepend\reflection\BaseTest
         $query  = new ReflectionFileQuery( $this->createContext() );
         $result = $query->find( $relative );
 
-        $this->assertEquals( $absolute, $result[0]->getFilename() );
+        self::assertEquals( $absolute, $result[0]->getFilename() );
     }
 
     /**
@@ -108,6 +108,6 @@ class Bug005Test extends \pdepend\reflection\BaseTest
         $query  = new ReflectionDirectoryQuery( $this->createContext() );
         $result = $query->find( $relative );
 
-        $this->assertEquals( $absolute, $result[0]->getFilename() );
+        self::assertEquals( $absolute, $result[0]->getFilename() );
     }
 }

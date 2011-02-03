@@ -72,7 +72,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetNameReturnsSimpleInputValue()
     {
         $class = new NullReflectionClass( 'FooBar' );
-        $this->assertSame( 'FooBar', $class->getName() );
+        self::assertSame( 'FooBar', $class->getName() );
     }
 
     /**
@@ -85,7 +85,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetNameReturnsNamespacedInputValue()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertSame( 'foo\bar\FooBar', $class->getName() );
+        self::assertSame( 'foo\bar\FooBar', $class->getName() );
     }
 
     /**
@@ -98,7 +98,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetNameReturnsInputWithoutLeadingNamespaceSeparator()
     {
         $class = new NullReflectionClass( '\FooBar' );
-        $this->assertSame( '\FooBar', $class->getName() );
+        self::assertSame( '\FooBar', $class->getName() );
     }
 
     /**
@@ -111,7 +111,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetShortNameReturnsSimpleInputValue()
     {
         $class = new NullReflectionClass( 'FooBar' );
-        $this->assertSame( 'FooBar', $class->getShortName() );
+        self::assertSame( 'FooBar', $class->getShortName() );
     }
 
     /**
@@ -124,7 +124,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetShortNameReturnsClassNameWithoutNamespace()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertSame( 'FooBar', $class->getShortName() );
+        self::assertSame( 'FooBar', $class->getShortName() );
     }
 
     /**
@@ -137,7 +137,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetNamespaceNameReturnsEmptyStringForSimpleInputValue()
     {
         $class = new NullReflectionClass( 'FooBar' );
-        $this->assertSame( '', $class->getNamespaceName() );
+        self::assertSame( '', $class->getNamespaceName() );
     }
 
     /**
@@ -150,7 +150,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetNamespaceNameReturnsEmptyStringForDefaultNamespaceValue()
     {
         $class = new NullReflectionClass( '\FooBar' );
-        $this->assertSame( '', $class->getNamespaceName() );
+        self::assertSame( '', $class->getNamespaceName() );
     }
 
     /**
@@ -163,7 +163,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetNamespaceNameNoneEmptyStringForNamespacesValue()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertSame( 'foo\bar', $class->getNamespaceName() );
+        self::assertSame( 'foo\bar', $class->getNamespaceName() );
     }
 
     /**
@@ -176,7 +176,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testInNamespaceReturnsFalseForSimpleInputValue()
     {
         $class = new NullReflectionClass( 'FooBar' );
-        $this->assertFalse( $class->inNamespace() );
+        self::assertFalse( $class->inNamespace() );
     }
 
     /**
@@ -189,7 +189,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testInNamespaceReturnsFalseForDefaultNamespaceInputValue()
     {
         $class = new NullReflectionClass( '\FooBar' );
-        $this->assertFalse( $class->inNamespace() );
+        self::assertFalse( $class->inNamespace() );
     }
 
     /**
@@ -202,7 +202,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testInNamespaceReturnsTrueForNamespaceInputValue()
     {
         $class = new NullReflectionClass( '\foo\bar\FooBar' );
-        $this->assertTrue( $class->inNamespace() );
+        self::assertTrue( $class->inNamespace() );
     }
 
     /**
@@ -215,7 +215,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetDocCommentReturnsFalse()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->getDocComment() );
+        self::assertFalse( $class->getDocComment() );
     }
 
     /**
@@ -228,7 +228,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetFileNameReturnsFalse()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->getFileName() );
+        self::assertFalse( $class->getFileName() );
     }
 
     /**
@@ -241,7 +241,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetModifiersReturnsZero()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertSame( 0, $class->getModifiers() );
+        self::assertSame( 0, $class->getModifiers() );
     }
 
     /**
@@ -254,7 +254,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetParentClassReturnsFalse()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->getParentClass() );
+        self::assertFalse( $class->getParentClass() );
     }
 
     /**
@@ -267,7 +267,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetInterfaceNamesReturnsAnEmptyArray()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertSame( array(), $class->getInterfaceNames() );
+        self::assertSame( array(), $class->getInterfaceNames() );
     }
 
     /**
@@ -280,7 +280,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetInterfacesReturnsAnEmptyArray()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertSame( array(), $class->getInterfaces() );
+        self::assertSame( array(), $class->getInterfaces() );
     }
 
     /**
@@ -293,7 +293,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testImplementsInterfaceReturnsFalse()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->implementsInterface( 'Baz' ) );
+        self::assertFalse( $class->implementsInterface( 'Baz' ) );
     }
 
     /**
@@ -306,7 +306,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testHasPropertyReturnsFalse()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->hasProperty( 'foo' ) );
+        self::assertFalse( $class->hasProperty( 'foo' ) );
     }
 
     /**
@@ -333,7 +333,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetPropertiesReturnsAnEmptyArray()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertSame( array(), $class->getProperties() );
+        self::assertSame( array(), $class->getProperties() );
     }
 
     /**
@@ -346,7 +346,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetStaticPropertyValueWithStaticReflectionValueArgumentReturnsInputArgument()
     {
         $interface = new NullReflectionClass( __CLASS__, '' );
-        $this->assertSame( 42, $interface->getStaticPropertyValue( 'foo', 42 ) );
+        self::assertSame( 42, $interface->getStaticPropertyValue( 'foo', 42 ) );
     }
 
     /**
@@ -387,7 +387,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetStaticPropertiesReturnsAnEmptyArray()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertSame( array(), $class->getStaticProperties() );
+        self::assertSame( array(), $class->getStaticProperties() );
     }
 
     /**
@@ -400,7 +400,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testHasMethodReturnsFalse()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->hasMethod( 'foo' ) );
+        self::assertFalse( $class->hasMethod( 'foo' ) );
     }
 
     /**
@@ -427,7 +427,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetMethodsReturnsAnEmptyArray()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertSame( array(), $class->getMethods() );
+        self::assertSame( array(), $class->getMethods() );
     }
 
     /**
@@ -440,7 +440,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetStartLineReturnsFalse()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->getStartLine() );
+        self::assertFalse( $class->getStartLine() );
     }
 
     /**
@@ -453,7 +453,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetEndLineReturnsFalse()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->getEndLine() );
+        self::assertFalse( $class->getEndLine() );
     }
 
     /**
@@ -466,7 +466,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetConstantReturnsFalseForUndefinedConstant()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->getConstant( 'FOO' ) );
+        self::assertFalse( $class->getConstant( 'FOO' ) );
     }
 
     /**
@@ -479,7 +479,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetConstantsReturnsAnEmptyArray()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertSame( array(), $class->getConstants() );
+        self::assertSame( array(), $class->getConstants() );
     }
 
     /**
@@ -492,7 +492,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testHasConstantAlwaysReturnsFakse()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->hasConstant( 'FOO' ) );
+        self::assertFalse( $class->hasConstant( 'FOO' ) );
     }
 
     /**
@@ -505,7 +505,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetConstructorReturnsNull()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertNull( $class->getConstructor() );
+        self::assertNull( $class->getConstructor() );
     }
 
     /**
@@ -518,7 +518,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetDefaultPropertiesReturnsEmptyArray()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertSame( array(), $class->getDefaultProperties() );
+        self::assertSame( array(), $class->getDefaultProperties() );
     }
 
     /**
@@ -531,7 +531,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetExtensionReturnsNull()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertNull( $class->getExtension() );
+        self::assertNull( $class->getExtension() );
     }
 
     /**
@@ -544,7 +544,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testGetExtensionNameReturnsFalse()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->getExtensionName() );
+        self::assertFalse( $class->getExtensionName() );
     }
 
     /**
@@ -557,7 +557,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsAbstractReturnsFalse()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->isAbstract() );
+        self::assertFalse( $class->isAbstract() );
     }
 
     /**
@@ -570,7 +570,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsFinalReturnsFalse()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->isFinal() );
+        self::assertFalse( $class->isFinal() );
     }
 
     /**
@@ -583,7 +583,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsInstanceReturnsTrueForMatchingInstance()
     {
         $class = new NullReflectionClass( __CLASS__, '' );
-        $this->assertTrue( $class->isInstance( $this ) );
+        self::assertTrue( $class->isInstance( $this ) );
     }
 
     /**
@@ -596,7 +596,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsInstanceReturnsFalseForNotMatchingInstance()
     {
         $class = new NullReflectionClass( __CLASS__, '' );
-        $this->assertFalse( $class->isInstance( $class ) );
+        self::assertFalse( $class->isInstance( $class ) );
     }
 
     /**
@@ -609,7 +609,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsInstantiableReturnsFalse()
     {
         $class = new NullReflectionClass( __CLASS__, '' );
-        $this->assertFalse( $class->isInstantiable() );
+        self::assertFalse( $class->isInstantiable() );
     }
 
     /**
@@ -622,7 +622,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsInterfaceReturnsFalse()
     {
         $class = new NullReflectionClass( 'foo\bar\FooBar' );
-        $this->assertFalse( $class->isInterface() );
+        self::assertFalse( $class->isInterface() );
     }
 
     /**
@@ -635,7 +635,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsInternalReturnsFalse()
     {
         $class = new NullReflectionClass( __CLASS__, '' );
-        $this->assertFalse( $class->isInternal() );
+        self::assertFalse( $class->isInternal() );
     }
 
     /**
@@ -648,7 +648,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsIterateableReturnsFalse()
     {
         $class = new NullReflectionClass( __CLASS__, '' );
-        $this->assertFalse( $class->isIterateable() );
+        self::assertFalse( $class->isIterateable() );
     }
 
     /**
@@ -661,7 +661,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsSubclassOfReturnsFalse()
     {
         $class = new NullReflectionClass( __CLASS__, '' );
-        $this->assertFalse( $class->isSubclassOf( 'Foo' ) );
+        self::assertFalse( $class->isSubclassOf( 'Foo' ) );
     }
 
     /**
@@ -674,7 +674,7 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testIsUserDefinedReturnsFalse()
     {
         $class = new NullReflectionClass( __CLASS__, '' );
-        $this->assertFalse( $class->isUserDefined() );
+        self::assertFalse( $class->isUserDefined() );
     }
 
     /**
@@ -715,6 +715,6 @@ class NullReflectionClassTest extends \pdepend\reflection\BaseTest
     public function testToStringReturnsExpectedRepresentation()
     {
         $class = new NullReflectionClass( __CLASS__, '' );
-        $this->assertEquals( 'Class [ 42 ]', $class->__toString() );
+        self::assertEquals( 'Class [ 42 ]', $class->__toString() );
     }
 }

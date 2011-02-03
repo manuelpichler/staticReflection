@@ -87,7 +87,7 @@ class Bug009Test extends \pdepend\reflection\BaseTest
     public function testParserEvaluatesInternalConstantAsClassConstantDefaultValue()
     {
         $class = $this->getClassByName( 'Bug009_InternalConstant' );
-        $this->assertEquals( E_STRICT, $class->getConstant('T_FOO') );
+        self::assertEquals( E_STRICT, $class->getConstant('T_FOO') );
     }
 
     /**
@@ -104,7 +104,7 @@ class Bug009Test extends \pdepend\reflection\BaseTest
         define('BUG_009_USER_CONSTANT', __METHOD__);
 
         $class = $this->getClassByName( 'Bug009_UserConstant' );
-        $this->assertEquals( __METHOD__, $class->getConstant('T_FOO') );
+        self::assertEquals( __METHOD__, $class->getConstant('T_FOO') );
     }
 
     /**
@@ -119,7 +119,7 @@ class Bug009Test extends \pdepend\reflection\BaseTest
     public function testParserEvaluatesInternalClassConstantAsDefaultValue()
     {
         $class = $this->getClassByName( 'Bug009_InternalClassConstant' );
-        $this->assertEquals( \ReflectionClass::IS_FINAL, $class->getConstant('T_FOO') );
+        self::assertEquals( \ReflectionClass::IS_FINAL, $class->getConstant('T_FOO') );
     }
 
     /**
@@ -134,7 +134,7 @@ class Bug009Test extends \pdepend\reflection\BaseTest
     public function testParserEvaluatesClassConstantInNamespacedClass()
     {
         $class = $this->getClassByName( 'Bug009_NamespaceClassConstant' );
-        $this->assertEquals( __CLASS__, $class->getConstant('T_FOO') );
+        self::assertEquals( __CLASS__, $class->getConstant('T_FOO') );
     }
 
     /**
@@ -149,7 +149,7 @@ class Bug009Test extends \pdepend\reflection\BaseTest
     public function testParserEvaluatesClassConstantInNamespace()
     {
         $class = $this->getClassByName( 'Bug009_NamespaceConstant' );
-        $this->assertEquals( __FILE__, $class->getConstant('T_FOO') );
+        self::assertEquals( __FILE__, $class->getConstant('T_FOO') );
     }
 
     /**
@@ -164,6 +164,6 @@ class Bug009Test extends \pdepend\reflection\BaseTest
     public function testUnresolvedConstantsAreResolvedDuringRuntime()
     {
         $class = $this->getClassByName( 'Bug009_RuntimeConstantResolving' );
-        $this->assertEquals( 'T_BAR', $class->getConstant('T_FOO') );
+        self::assertEquals( 'T_BAR', $class->getConstant('T_FOO') );
     }
 }

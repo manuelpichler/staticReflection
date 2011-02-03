@@ -94,6 +94,6 @@ class ReflectionSessionInstanceTest extends BaseTest
     {
         ReflectionSessionInstance::set( $session = new ReflectionSession() );
 
-        $this->assertSame( $session, ReflectionSessionInstance::get() );
+        self::assertSame( $session, ReflectionSessionInstance::get() );
     }
 }

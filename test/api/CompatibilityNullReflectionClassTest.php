@@ -72,7 +72,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
      */
     public function testNullVersionIsCompatileWithNativeReflection()
     {
-        $this->assertPublicApiEquals( 'ReflectionClass', NullReflectionClass::TYPE );
+        self::assertPublicApiEquals( 'ReflectionClass', NullReflectionClass::TYPE );
     }
 
     /**
@@ -87,7 +87,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\Iterator' );
         $null     = $this->createNullClass( '\Iterator' );
 
-        $this->assertSame( $internal->getDocComment(), $null->getDocComment() );
+        self::assertSame( $internal->getDocComment(), $null->getDocComment() );
     }
 
     /**
@@ -102,7 +102,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\Iterator' );
         $null     = $this->createNullClass( '\Iterator' );
 
-        $this->assertSame( $internal->getFileName(), $null->getFileName() );
+        self::assertSame( $internal->getFileName(), $null->getFileName() );
     }
 
     /**
@@ -117,7 +117,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\Iterator' );
         $null     = $this->createNullClass( '\Iterator' );
 
-        $this->assertSame( $internal->getStartLine(), $null->getStartLine() );
+        self::assertSame( $internal->getStartLine(), $null->getStartLine() );
     }
 
     /**
@@ -132,7 +132,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\Iterator' );
         $null     = $this->createNullClass( '\Iterator' );
 
-        $this->assertSame( $internal->getEndLine(), $null->getEndLine() );
+        self::assertSame( $internal->getEndLine(), $null->getEndLine() );
     }
 
     /**
@@ -147,7 +147,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\stdClass' );
         $null     = $this->createNullClass( '\stdClass' );
 
-        $this->assertSame( $internal->getModifiers(), $null->getModifiers() );
+        self::assertSame( $internal->getModifiers(), $null->getModifiers() );
     }
 
     /**
@@ -162,7 +162,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\stdClass' );
         $null     = $this->createNullClass( '\stdClass' );
 
-        $this->assertSame( $internal->getParentClass(), $null->getParentClass() );
+        self::assertSame( $internal->getParentClass(), $null->getParentClass() );
     }
 
     /**
@@ -177,7 +177,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\stdClass' );
         $null     = $this->createNullClass( '\stdClass' );
 
-        $this->assertSame( $internal->getInterfaceNames(), $null->getInterfaceNames() );
+        self::assertSame( $internal->getInterfaceNames(), $null->getInterfaceNames() );
     }
 
     /**
@@ -192,7 +192,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\stdClass' );
         $null     = $this->createNullClass( '\stdClass' );
 
-        $this->assertSame( $internal->getInterfaces(), $null->getInterfaces() );
+        self::assertSame( $internal->getInterfaces(), $null->getInterfaces() );
     }
 
     /**
@@ -207,7 +207,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\stdClass' );
         $null     = $this->createNullClass( '\stdClass' );
 
-        $this->assertSame(
+        self::assertSame(
             $internal->implementsInterface( '\Iterator' ),
             $null->implementsInterface( '\Iterator' )
         );
@@ -225,7 +225,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\stdClass' );
         $null     = $this->createNullClass( '\stdClass' );
 
-        $this->assertSame( $internal->hasProperty( 'foo' ), $null->hasProperty( 'foo' ) );
+        self::assertSame( $internal->hasProperty( 'foo' ), $null->hasProperty( 'foo' ) );
     }
 
     /**
@@ -243,7 +243,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $expected = $this->executeFailingMethod( $internal, 'getProperty', 'foo' );
         $actual   = $this->executeFailingMethod( $null, 'getProperty', 'foo' );
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -258,7 +258,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\stdClass' );
         $null     = $this->createNullClass( '\stdClass' );
 
-        $this->assertSame( $internal->getProperties(), $null->getProperties() );
+        self::assertSame( $internal->getProperties(), $null->getProperties() );
     }
 
     /**
@@ -276,7 +276,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $expected = $this->executeFailingMethod( $internal, 'getStaticPropertyValue', 'foo' );
         $actual   = $this->executeFailingMethod( $null, 'getStaticPropertyValue', 'foo' );
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -291,7 +291,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( 'CompatInterfaceSimple' );
         $null     = $this->createNullClass( 'CompatInterfaceSimple' );
 
-        $this->assertEquals(
+        self::assertEquals(
             $internal->getStaticPropertyValue( 'foo', 42 ),
             $null->getStaticPropertyValue( 'foo', 42 )
         );
@@ -309,7 +309,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\stdClass' );
         $null     = $this->createNullClass( '\stdClass' );
 
-        $this->assertSame(
+        self::assertSame(
             $internal->getStaticProperties(),
             $null->getStaticProperties()
         );
@@ -327,7 +327,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\stdClass' );
         $null     = $this->createNullClass( '\stdClass' );
 
-        $this->assertSame( $internal->hasMethod( 'foo' ), $null->hasMethod( 'foo' ) );
+        self::assertSame( $internal->hasMethod( 'foo' ), $null->hasMethod( 'foo' ) );
     }
 
     /**
@@ -345,7 +345,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $expected = $this->executeFailingMethod( $internal, 'getMethod', 'foo' );
         $actual   = $this->executeFailingMethod( $null, 'getMethod', 'foo' );
 
-        $this->assertEquals( $expected, $actual );
+        self::assertEquals( $expected, $actual );
     }
 
     /**
@@ -360,7 +360,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\stdClass' );
         $null     = $this->createNullClass( '\stdClass' );
 
-        $this->assertSame( $internal->getMethods(), $null->getMethods() );
+        self::assertSame( $internal->getMethods(), $null->getMethods() );
     }
 
     /**
@@ -375,7 +375,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\Iterator' );
         $null     = $this->createNullClass( '\Iterator' );
 
-        $this->assertSame(
+        self::assertSame(
             $internal->getConstant( 'FOO' ),
             $null->getConstant( 'FOO' )
         );
@@ -393,7 +393,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\Iterator' );
         $null     = $this->createNullClass( '\Iterator' );
 
-        $this->assertSame( 
+        self::assertSame(
             $internal->hasConstant( 'FOO' ),
             $null->hasConstant( 'FOO' )
         );
@@ -411,7 +411,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\Iterator' );
         $null     = $this->createNullClass( '\Iterator' );
 
-        $this->assertSame( $internal->getConstants(), $null->getConstants() );
+        self::assertSame( $internal->getConstants(), $null->getConstants() );
     }
 
     /**
@@ -426,7 +426,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\Iterator' );
         $null     = $this->createNullClass( '\Iterator' );
 
-        $this->assertSame( $internal->getConstructor(), $null->getConstructor() );
+        self::assertSame( $internal->getConstructor(), $null->getConstructor() );
     }
 
     /**
@@ -441,7 +441,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\Iterator' );
         $null     = $this->createNullClass( '\Iterator' );
 
-        $this->assertSame( $internal->getDefaultProperties(), $null->getDefaultProperties() );
+        self::assertSame( $internal->getDefaultProperties(), $null->getDefaultProperties() );
     }
 
     /**
@@ -456,7 +456,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\stdClass' );
         $null     = $this->createNullClass( '\stdClass' );
 
-        $this->assertSame( $internal->isAbstract(), $null->isAbstract() );
+        self::assertSame( $internal->isAbstract(), $null->isAbstract() );
     }
 
     /**
@@ -471,7 +471,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\stdClass' );
         $null     = $this->createNullClass( '\stdClass' );
 
-        $this->assertSame( $internal->isFinal(), $null->isFinal() );
+        self::assertSame( $internal->isFinal(), $null->isFinal() );
     }
 
     /**
@@ -486,7 +486,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\stdClass' );
         $null     = $this->createNullClass( '\stdClass' );
 
-        $this->assertSame( $internal->isInterface(), $null->isInterface() );
+        self::assertSame( $internal->isInterface(), $null->isInterface() );
     }
 
     /**
@@ -501,7 +501,7 @@ class CompatibilityNullReflectionClassTest extends BaseCompatibilityTest
         $internal = $this->createInternalClass( '\ArrayAccess' );
         $null     = $this->createNullClass( '\ArrayAccess' );
 
-        $this->assertSame( $internal->isInstantiable(), $null->isInstantiable() );
+        self::assertSame( $internal->isInstantiable(), $null->isInstantiable() );
     }
 
     /**

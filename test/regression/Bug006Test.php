@@ -87,7 +87,7 @@ class Bug006Test extends \pdepend\reflection\BaseTest
         {
             if ( $class->getName() === 'Bug006_1' )
             {
-                $this->assertEquals(
+                self::assertEquals(
                     array( 'Bug006_1_Interface' ),
                     $class->getInterfaceNames()
                 );
@@ -114,7 +114,7 @@ class Bug006Test extends \pdepend\reflection\BaseTest
         {
             if ( $class->getName() === 'Bug006_2' )
             {
-                $this->assertInstanceOf( '\ReflectionClass', $class->getParentClass() );
+                self::assertInstanceOf( '\ReflectionClass', $class->getParentClass() );
             }
         }
     }
