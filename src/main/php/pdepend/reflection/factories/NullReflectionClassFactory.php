@@ -79,6 +79,7 @@ class NullReflectionClassFactory implements ReflectionClassFactory
      * @param string $className Full qualified name of the searched class.
      *
      * @return boolean
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
     public function hasClass( $className )
     {
