@@ -6,6 +6,8 @@
         </testsuite>
     </testsuites>
     <filter>
-        <directory suffix=".php">source</directory>
+        <whitelist>
+            <directory suffix=".php">src/main/php</directory>
+        </whitelist>
     </filter>
 </phpunit>
