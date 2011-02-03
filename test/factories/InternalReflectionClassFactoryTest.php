@@ -113,7 +113,7 @@ class InternalReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
         $factory = new InternalReflectionClassFactory();
         $class   = $factory->createClass( __CLASS__ );
 
-        $this->assertType( '\ReflectionClass', $class );
+        $this->assertInstanceOf( '\ReflectionClass', $class );
     }
 
     /**

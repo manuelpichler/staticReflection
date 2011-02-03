@@ -91,7 +91,7 @@ class NullReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
         $factory = new NullReflectionClassFactory();
         $class   = $factory->createClass( __METHOD__ );
 
-        $this->assertType( NullReflectionClass::TYPE, $class );
+        $this->assertInstanceOf( NullReflectionClass::TYPE, $class );
     }
 
     /**

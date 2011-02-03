@@ -157,7 +157,7 @@ class ReflectionSessionTest extends BaseTest
         $query = $session->createClassQuery();
         $class = $query->find( __CLASS__ );
 
-        $this->assertType( '\ReflectionClass', $class );
+        $this->assertInstanceOf( '\ReflectionClass', $class );
     }
 
     /**
@@ -241,7 +241,7 @@ class ReflectionSessionTest extends BaseTest
     public function testCreateClassQueryReturnsAnObjectOfExpectedType()
     {
         $session = new ReflectionSession();
-        $this->assertType( queries\ReflectionClassQuery::TYPE, $session->createClassQuery() );
+        $this->assertInstanceOf( queries\ReflectionClassQuery::TYPE, $session->createClassQuery() );
     }
 
     /**
@@ -253,7 +253,7 @@ class ReflectionSessionTest extends BaseTest
     public function testCreateFileQueryReturnsAnObjectOfExpectedType()
     {
         $session = new ReflectionSession();
-        $this->assertType( queries\ReflectionFileQuery::TYPE, $session->createFileQuery() );
+        $this->assertInstanceOf( queries\ReflectionFileQuery::TYPE, $session->createFileQuery() );
     }
 
     /**
@@ -265,7 +265,7 @@ class ReflectionSessionTest extends BaseTest
     public function testCreateDirectoryQueryReturnsAnObjectOfExpectedType()
     {
         $session = new ReflectionSession();
-        $this->assertType( queries\ReflectionDirectoryQuery::TYPE, $session->createDirectoryQuery() );
+        $this->assertInstanceOf( queries\ReflectionDirectoryQuery::TYPE, $session->createDirectoryQuery() );
     }
 
     /**

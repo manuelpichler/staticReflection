@@ -89,6 +89,40 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * Helper method to allow PHPUnit versions < 3.5.x
+     *
+     * @param string $expected
+     * @param mixed  $actual
+     * @param string $message
+     * @since Method available since Release 3.5.0
+     */
+    public static function assertInstanceOf( $expected, $actual, $message = '' )
+    {
+        if ( is_callable( get_parent_class( __CLASS__ ) . '::' ) . __FUNCTION__ )
+        {
+            return parent::assertInstanceOf( $expected, $actual, $message );
+        }
+        return parent::assertType( $expected, $actual, $message );
+    }
+
+    /**
+     * Helper method to allow PHPUnit versions < 3.5.x
+     *
+     * @param string $expected
+     * @param mixed  $actual
+     * @param string $message
+     * @since Method available since Release 3.5.0
+     */
+    public static function assertInternalType( $expected, $actual, $message = '' )
+    {
+        if ( is_callable( get_parent_class( __CLASS__ ) . '::' ) . __FUNCTION__ )
+        {
+            return parent::assertInternalType( $expected, $actual, $message );
+        }
+        return parent::assertType( $expected, $actual, $message );
+    }
+
+    /**
      * Asserts that the public api of the given classes is equal.
      *
      * @param string $classExpected

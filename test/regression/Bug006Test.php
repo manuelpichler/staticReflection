@@ -114,7 +114,7 @@ class Bug006Test extends \pdepend\reflection\BaseTest
         {
             if ( $class->getName() === 'Bug006_2' )
             {
-                $this->assertType( '\ReflectionClass', $class->getParentClass() );
+                $this->assertInstanceOf( '\ReflectionClass', $class->getParentClass() );
             }
         }
     }

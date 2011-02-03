@@ -112,7 +112,7 @@ class StaticReflectionClassFactoryTest extends \pdepend\reflection\BaseTest
         $factory = new StaticReflectionClassFactory( $this->createContext(), $this->createResolver() );
         $class   = $factory->createClass( '\pdepend\reflection\ClassSimple' );
 
-        $this->assertType( '\ReflectionClass', $class );
+        $this->assertInstanceOf( '\ReflectionClass', $class );
     }
 
     /**

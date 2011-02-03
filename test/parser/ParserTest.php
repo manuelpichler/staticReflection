@@ -35,7 +35,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     {
         $class = $this->_parseClass( 'ClassWithoutNamespace' );
 
-        $this->assertType( StaticReflectionClass::TYPE, $class );
+        $this->assertInstanceOf( StaticReflectionClass::TYPE, $class );
     }
 
     /**
@@ -83,7 +83,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class       = $this->_parseClass( 'ClassWithParentClass' );
         $parentClass = $class->getParentClass();
 
-        $this->assertType( '\ReflectionClass', $parentClass );
+        $this->assertInstanceOf( '\ReflectionClass', $parentClass );
     }
 
     /**
@@ -161,7 +161,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class      = $this->_parseClass( 'ClassWithImplementedInterface' );
         $interfaces = $class->getInterfaces();
 
-        $this->assertType( '\ReflectionClass', $interfaces[0] );
+        $this->assertInstanceOf( '\ReflectionClass', $interfaces[0] );
     }
 
     /**
@@ -191,7 +191,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
     public function testParserReturnsInstanceOfTypeStaticInterface()
     {
         $class = $this->_parseClass( 'InterfaceWithoutNamespace' );
-        $this->assertType( StaticReflectionInterface::TYPE, $class );
+        $this->assertInstanceOf( StaticReflectionInterface::TYPE, $class );
     }
 
     /**
@@ -207,7 +207,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class      = $this->_parseClass( 'InterfaceWithParentInterface' );
         $interfaces = $class->getInterfaces();
 
-        $this->assertType( '\ReflectionClass', $interfaces[0] );
+        $this->assertInstanceOf( '\ReflectionClass', $interfaces[0] );
     }
 
     /**
@@ -728,7 +728,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $method = $class->getMethod( 'fooBar' );
         $params = $method->getParameters();
 
-        $this->assertType( '\ReflectionClass', $params[0]->getClass() );
+        $this->assertInstanceOf( '\ReflectionClass', $params[0]->getClass() );
     }
 
     /**
@@ -745,7 +745,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $method = $class->getMethod( 'fooBar' );
         $params = $method->getParameters();
 
-        $this->assertType( '\ReflectionClass', $params[0]->getClass() );
+        $this->assertInstanceOf( '\ReflectionClass', $params[0]->getClass() );
     }
 
     /**
@@ -762,7 +762,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $method = $class->getMethod( 'fooBar' );
         $params = $method->getParameters();
 
-        $this->assertType( '\ReflectionClass', $params[0]->getClass() );
+        $this->assertInstanceOf( '\ReflectionClass', $params[0]->getClass() );
     }
 
     /**
@@ -817,7 +817,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithConstantDefaultValue' );
         $property = $class->getProperty( 'foo' );
 
-        $this->assertType( StaticReflectionProperty::TYPE, $property );
+        $this->assertInstanceOf( StaticReflectionProperty::TYPE, $property );
     }
 
     /**
@@ -833,7 +833,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithArrayDefaultValue' );
         $property = $class->getProperty( 'foo' );
 
-        $this->assertType( StaticReflectionProperty::TYPE, $property );
+        $this->assertInstanceOf( StaticReflectionProperty::TYPE, $property );
     }
 
     /**
@@ -849,7 +849,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithNestedArrayDefaultValue' );
         $property = $class->getProperty( '_bar' );
 
-        $this->assertType( StaticReflectionProperty::TYPE, $property );
+        $this->assertInstanceOf( StaticReflectionProperty::TYPE, $property );
     }
 
     /**

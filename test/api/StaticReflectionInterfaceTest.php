@@ -607,7 +607,7 @@ class StaticReflectionInterfaceTest extends \pdepend\reflection\BaseTest
         $interface = new StaticReflectionInterface( __CLASS__, '' );
         $interface->initInterfaces( array( new \ReflectionClass( '\Iterator' ) ) );
 
-        $this->assertType( '\ReflectionMethod', $interface->getMethod( 'next' ) );
+        $this->assertInstanceOf( '\ReflectionMethod', $interface->getMethod( 'next' ) );
     }
 
     /**
