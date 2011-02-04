@@ -2,7 +2,7 @@
 <phpunit>
     <testsuites>
         <testsuite name="\pdepend\reflection\AllTests">
-            <file>AllTests.php</file>
+            <file>src/test/php/pdepend/reflection/AllTests.php</file>
         </testsuite>
     </testsuites>
     <filter>
