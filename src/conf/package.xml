@@ -39,7 +39,6 @@
     </notes>
     <contents>
         <dir name="/">
-            <dir name="source">
                 <dir name="pdepend">
                     <dir name="reflection">
                         <file name="Autoloader.php" role="php">
@@ -156,7 +155,6 @@
                             </file>
                         </dir>
                     </dir>
-                </dir>
             </dir>
             <dir name="docs">
                 <file name="design.txt" role="doc" />

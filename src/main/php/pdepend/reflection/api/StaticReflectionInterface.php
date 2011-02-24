@@ -999,14 +999,11 @@ class StaticReflectionInterface extends \ReflectionClass
             '{' . PHP_EOL .
             '  @@ %s %d-%d' . PHP_EOL . PHP_EOL .
             '  - Constants [%d] {' . PHP_EOL .
-            '%s' .
-            '  }' . PHP_EOL . PHP_EOL .
+            '%s  }' . PHP_EOL . PHP_EOL .
             '  - Properties [%d] {' . PHP_EOL .
-            '%s' .
-            '  }' . PHP_EOL . PHP_EOL .
+            '%s  }' . PHP_EOL . PHP_EOL .
             '  - Methods [%d] {' . PHP_EOL .
-            '%s' .
-            '  }' . PHP_EOL .
+            '%s  }' . PHP_EOL .
             '}',
             $this->getFileName(),
             $this->getStartLine(),
