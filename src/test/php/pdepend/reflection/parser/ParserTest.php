@@ -732,6 +732,22 @@ class ParserTest extends \pdepend\reflection\BaseTest
     }
 
     /**
+     * testParserHandlesConsecutiveNamespacesCorrect
+     *
+     * @return void
+     * @covers \pdepend\reflection\parser\Parser
+     * @covers \pdepend\reflection\parser\ParserTokens
+     * @group reflection
+     * @group reflection::parser
+     * @group unittest
+     */
+    public function testParserHandlesConsecutiveNamespacesCorrect()
+    {
+        $class = $this->_parseClass( 'ConsecutiveNamespaces' );
+        self::assertEquals( 'bar\ConsecutiveNamespaces', $class->getName() );
+    }
+
+    /**
      * @return void
      * @covers \pdepend\reflection\parser\Parser
      * @covers \pdepend\reflection\parser\ParserTokens
@@ -778,7 +794,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithComment' );
         $property = $class->getProperty( 'foo' );
 
-        self::assertSame(
+        self::assertEquals(
             "/**\n" .
             "     * The answer...\n" .
             "     *\n" .
@@ -801,7 +817,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class      = $this->_parseClass( 'PropertyWithCommaSeparatedProperties' );
         $properties = $class->getProperties();
 
-        self::assertSame( 3, count( $properties ) );
+        self::assertEquals( 3, count( $properties ) );
     }
 
     /**
@@ -865,7 +881,7 @@ class ParserTest extends \pdepend\reflection\BaseTest
         $class    = $this->_parseClass( 'PropertyWithHashArrayDefaultValue' );
         $property = $class->getProperty( 'hash' );
 
-        self::assertSame( array( 'foo' => 42, 'bar' => null, 23 => true ), $property->getValue() );
+        self::assertEquals( array( 'foo' => 42, 'bar' => null, 23 => true ), $property->getValue() );
     }
 
     /**

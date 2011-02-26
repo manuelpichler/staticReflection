@@ -47,14 +47,14 @@
 
 namespace pdepend\reflection\regression;
 
-require_once __DIR__ . '/Bug005Test.php';
-require_once __DIR__ . '/Bug006Test.php';
-require_once __DIR__ . '/Bug008Test.php';
-require_once __DIR__ . '/Bug009Test.php';
-require_once __DIR__ . '/Bug010491735Test.php';
+use pdepend\reflection\ReflectionSession;
+use pdepend\reflection\queries\ReflectionFileQuery;
+use pdepend\reflection\queries\ReflectionDirectoryQuery;
+
+require_once __DIR__ . '/../BaseTest.php';
 
 /**
- * Main test suite.
+ * Test case for ticket #10491735
  *
  * @category  PHP
  * @package   pdepend\reflection\regression
@@ -62,31 +62,24 @@ require_once __DIR__ . '/Bug010491735Test.php';
  * @copyright 2009-2011 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
- * @link      http://pdepend.org/
+ * @link      https://www.pivotaltracker.com/story/show/10491735
+ *
+ * @ticket 10491735
+ * @covers \stdClass
+ * @group reflection
+ * @group reflection::regression
+ * @group regressiontest
  */
-class AllTests extends \PHPUnit_Framework_TestSuite
+class Bug010491735Test extends \pdepend\reflection\BaseTest
 {
-    /**
-     * Constructs a new test suite instance.
-     */
-    public function __construct()
-    {
-        $this->setName( 'org::pdepend::reflection::regression::AllTests' );
-
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug005Test' );
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug006Test' );
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug008Test' );
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug009Test' );
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug010491735Test' );
-    }
 
     /**
-     * Returns a test suite instance.
+     * testParserIgnoresNamespaceKeywordInNamespaceScope
      *
-     * @return PHPUnit_Framework_TestSuite
+     * @return void
      */
-    public static function suite()
+    public function testParserIgnoresNamespaceKeywordInNamespaceScope()
     {
-        return new AllTests();
+        $this->getClassByName( 'Bug010491735_NamespaceConstant' );
     }
 }

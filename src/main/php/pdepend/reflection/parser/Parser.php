@@ -206,6 +206,7 @@ class Parser // @codeCoverageIgnoreStart
     {
         $this->_tokenizer = new Tokenizer( $source );
 
+        $root       = true;
         $class      = null;
         $classes    = array();
         $modifiers  = 0;
@@ -216,7 +217,10 @@ class Parser // @codeCoverageIgnoreStart
             switch ( $token->type )
             {
                 case ParserTokens::T_NAMESPACE:
-                    $this->_parseNamespace();
+                    if ( $root )
+                    {
+                        $this->_parseNamespace();
+                    }
                     break;
 
                 case ParserTokens::T_USE:
@@ -242,6 +246,15 @@ class Parser // @codeCoverageIgnoreStart
                 case ParserTokens::T_INTERFACE:
                     $class = $this->_parseInterfaceDeclaration( $docComment );
                     break;
+
+                case ParserTokens::T_SCOPE_CLOSE:
+                case ParserTokens::T_SEMICOLON:
+                    $root = true;
+                    break;
+
+                default:
+                    $root = false;
+                    break;
             }
 
             if ( $class === null )
@@ -256,6 +269,7 @@ class Parser // @codeCoverageIgnoreStart
 
             array_push( $classes, $class );
 
+            $root       = true;
             $class      = null;
             $modifiers  = 0;
             $docComment = '';
