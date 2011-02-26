@@ -76,7 +76,7 @@ class PearNamingResolverTest extends \pdepend\reflection\BaseTest
     {
         parent::setUp();
 
-        $this->_includePathFixture = realpath( __DIR__ . '/../_source' );
+        $this->_includePathFixture = realpath( __DIR__ . '/../../../../resources/files' );
 
         set_include_path( $this->_includePathFixture );
     }

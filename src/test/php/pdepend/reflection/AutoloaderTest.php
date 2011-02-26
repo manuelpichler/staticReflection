@@ -77,7 +77,7 @@ class AutoloaderTest extends BaseTest
             $this->fail( 'Class ' . $classFixture . ' should not exist' );
         }
 
-        $autoloader = new Autoloader( __DIR__ . '/_source/' );
+        $autoloader = new Autoloader( __DIR__ . '/../../../resources/files' );
         $autoloader->autoload( $classFixture );
 
         self::assertTrue( class_exists( $classFixture, false ), 'Class should exist ' . $classFixture );

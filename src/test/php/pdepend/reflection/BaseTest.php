@@ -185,7 +185,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
     protected function includeClass( $className )
     {
         $includePath = get_include_path();
-        set_include_path( $includePath . PATH_SEPARATOR . __DIR__ . '/_source' );
+        set_include_path( $includePath . PATH_SEPARATOR . __DIR__ . '/../../../resources/files' );
 
         include_once $this->getPathnameForClass( $className );
 
@@ -206,7 +206,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         $localName = array_pop( $localName );
 
         $files = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator( __DIR__ . '/_source' )
+            new \RecursiveDirectoryIterator( __DIR__ . '/../../../resources/files' )
         );
 
         foreach ( $files as $file )
@@ -233,7 +233,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
         $localName = array_pop( $localName );
 
         $files = new \RecursiveIteratorIterator(
-            new \RecursiveDirectoryIterator( __DIR__ . '/_source' )
+            new \RecursiveDirectoryIterator( __DIR__ . '/../../../resources/files' )
         );
 
         foreach ( $files as $file )
@@ -334,7 +334,7 @@ abstract class BaseTest extends \PHPUnit_Framework_TestCase
 
         if ( file_exists( $pathname ) === false )
         {
-            $pathname = sprintf( '%s/_source/%s', __DIR__, $filename );
+            $pathname = sprintf( '%s/../../../resources/files/%s', __DIR__, $filename );
         }
         if ( file_exists( $pathname ) === false )
         {
