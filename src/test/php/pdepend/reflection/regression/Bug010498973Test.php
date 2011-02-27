@@ -50,7 +50,7 @@ namespace pdepend\reflection\regression;
 require_once __DIR__ . '/../BaseTest.php';
 
 /**
- * Test case for ticket #10498213
+ * Test case for ticket #10498973
  *
  * @category  PHP
  * @package   pdepend\reflection\regression
@@ -58,57 +58,33 @@ require_once __DIR__ . '/../BaseTest.php';
  * @copyright 2009-2011 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
- * @link      https://www.pivotaltracker.com/story/show/10498213
+ * @link      https://www.pivotaltracker.com/story/show/10498973
  *
- * @ticket 10498213
+ * @ticket 10498973
  * @covers \stdClass
  * @group reflection
  * @group reflection::regression
  * @group regressiontest
  */
-class Bug010498213Test extends \pdepend\reflection\BaseTest
+class Bug010498973Test extends \pdepend\reflection\BaseTest
 {
     /**
-     * testParserAcceptsNullAsClassConstantName
+     * testParserAcceptsNullConstantAccessAsPropertyDefaultValue
      *
      * @return void
      */
-    public function testParserAcceptsNullAsClassConstantName()
+    public function testParserAcceptsNullConstantAsPropertyDefaultValue()
     {
-        $class = $this->getClassByName( 'NullClassConstantName' );
-        self::assertEquals( 42, $class->getConstant( 'NULL' ) );
+        $this->getClassByName( 'NullConstantAsPropertyDefaultValue' );
     }
 
     /**
-     * testParserAcceptsTrueAsClassConstantName
+     * testParserAcceptsSelfConstantAsParameterDefaultValue
      *
      * @return void
      */
-    public function testParserAcceptsTrueAsClassConstantName()
+    public function testParserAcceptsSelfConstantAsParameterDefaultValue()
     {
-        $class = $this->getClassByName( 'TrueClassConstantName' );
-        self::assertEquals( false, $class->getConstant( 'TRUE' ) );
-    }
-
-    /**
-     * testParserAcceptsFalseAsClassConstantName
-     *
-     * @return void
-     */
-    public function testParserAcceptsFalseAsClassConstantName()
-    {
-        $class = $this->getClassByName( 'FalseClassConstantName' );
-        self::assertEquals( true, $class->getConstant( 'FALSE' ) );
-    }
-
-    /**
-     * testParserAcceptsSelfAsClassConstantName
-     *
-     * @return void
-     */
-    public function testParserAcceptsSelfAsClassConstantName()
-    {
-        $class = $this->getClassByName( 'SelfClassConstantName' );
-        self::assertEquals( 42, $class->getConstant( 'SELF' ) );
+        $this->getClassByName( 'SelfConstantAsParameterDefaultValue' );
     }
 }

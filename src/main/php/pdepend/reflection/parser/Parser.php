@@ -771,7 +771,7 @@ class Parser // @codeCoverageIgnoreStart
         $returnsRef = $this->_parseOptionalByReference();
 
         $this->_consumeComments();
-        $token = $this->_consumeToken( ParserTokens::T_STRING );
+        $token = $this->_parseIdentifierToken();
 
         $this->_methods[] = new StaticReflectionMethod( $token->image, $docComment, $modifiers);
 
@@ -1190,7 +1190,7 @@ class Parser // @codeCoverageIgnoreStart
                 $this->_consumeComments();
                 $value .= $this->_consumeToken( ParserTokens::T_DOUBLE_COLON )->image;
                 $this->_consumeComments();
-                $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
+                $value .= $this->_parseIdentifierToken()->image;
                
                 return $this->_evaluateConstantExpression( $value );
 
@@ -1205,7 +1205,7 @@ class Parser // @codeCoverageIgnoreStart
                     $value .= $this->_createClassOrInterfaceName( $parts );
                     $value .= $this->_consumeToken( ParserTokens::T_DOUBLE_COLON )->image;
                     $this->_consumeComments();
-                    $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
+                    $value .= $this->_parseIdentifierToken()->image;
                 }
                 else if ( count( $parts ) === 1 )
                 {
@@ -1226,7 +1226,7 @@ class Parser // @codeCoverageIgnoreStart
                 {
                     $value .= $this->_consumeToken( ParserTokens::T_DOUBLE_COLON )->image;
                     $this->_consumeComments();
-                    $value .= $this->_consumeToken( ParserTokens::T_STRING )->image;
+                    $value .= $this->_parseIdentifierToken()->image;
                 }
                 return $this->_evaluateConstantExpression( $value );
         }

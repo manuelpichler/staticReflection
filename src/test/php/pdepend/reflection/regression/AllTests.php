@@ -54,6 +54,7 @@ require_once __DIR__ . '/Bug009Test.php';
 require_once __DIR__ . '/Bug010491735Test.php';
 require_once __DIR__ . '/Bug010498195Test.php';
 require_once __DIR__ . '/Bug010498213Test.php';
+require_once __DIR__ . '/Bug010498973Test.php';
 
 /**
  * Main test suite.
@@ -82,6 +83,7 @@ class AllTests extends \PHPUnit_Framework_TestSuite
         $this->addTestSuite( '\pdepend\reflection\regression\Bug010491735Test' );
         $this->addTestSuite( '\pdepend\reflection\regression\Bug010498195Test' );
         $this->addTestSuite( '\pdepend\reflection\regression\Bug010498213Test' );
+        $this->addTestSuite( '\pdepend\reflection\regression\Bug010498973Test' );
     }
 
     /**
