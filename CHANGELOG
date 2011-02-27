@@ -1,6 +1,14 @@
-2010-01-   - staticReflection-0.1.5alpha
-----------------------------------------
+2011-02-27 - staticReflection-0.2.0beta
+---------------------------------------
 
+- Fixed #10491735: Exception while parsing namespace constant access. Fixed
+  with commit #16f4b80.
+- Fixed #10498195: Parser throws exception for reserved word class and
+  interface names. Fixed in commit #a77c406.
+- Fixed #10498213: Parser throws exception for class constants using
+  reserved words. Fixed in commit #55b4965.
+- Fixed #10498973: Parser throws exception when reserved words are used in
+  static expression. Fixed in commit #c157875.
 - Fixed #7: ReflectionMethod::getPrototype() not implemented. Fixed in svn
   revision #282. 
 - Fixed #8: The start line number of methods is not correct. Fixed in svn

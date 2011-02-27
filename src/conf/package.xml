@@ -34,8 +34,18 @@
     </stability>
     <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
     <notes>
-- Implemented #4: BC break release. Adopt the namespace and autoloading
-  standard for PHP 5.3, implemented in svn revision #251.
+- Fixed #10491735: Exception while parsing namespace constant access. Fixed
+  with commit #16f4b80.
+- Fixed #10498195: Parser throws exception for reserved word class and
+  interface names. Fixed in commit #a77c406.
+- Fixed #10498213: Parser throws exception for class constants using
+  reserved words. Fixed in commit #55b4965.
+- Fixed #10498973: Parser throws exception when reserved words are used in
+  static expression. Fixed in commit #c157875.
+- Fixed #7: ReflectionMethod::getPrototype() not implemented. Fixed in svn
+  revision #282.
+- Fixed #8: The start line number of methods is not correct. Fixed in svn
+  revision #278.
     </notes>
     <contents>
         <dir name="/">
