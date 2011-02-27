@@ -51,7 +51,7 @@ use pdepend\reflection\ReflectionSession;
 use pdepend\reflection\factories\StaticReflectionClassFactory;
 use pdepend\reflection\resolvers\PearNamingResolver;
 
-include_once __DIR__ . '/../../source/pdepend/reflection/Autoloader.php';
+include_once __DIR__ . '/../../src/main/php/pdepend/reflection/Autoloader.php';
 
 spl_autoload_register( array( new Autoloader(), 'autoload' ) );
 

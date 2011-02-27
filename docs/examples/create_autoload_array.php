@@ -49,7 +49,7 @@
 use pdepend\reflection\Autoloader;
 use pdepend\reflection\ReflectionSession;
 
-include_once __DIR__ . '/../../source/pdepend/reflection/Autoloader.php';
+include_once __DIR__ . '/../../src/main/php/pdepend/reflection/Autoloader.php';
 
 spl_autoload_register( array( new Autoloader(), 'autoload' ) );
 
@@ -59,7 +59,7 @@ $autoload = array();
 $session = new ReflectionSession();
 
 $query = $session->createDirectoryQuery(  );
-foreach ( $query->find( __DIR__ . '/../../source/' ) as $class )
+foreach ( $query->find( __DIR__ . '/../../src/main/php/' ) as $class )
 {
     $autoload[$class->getName()] = $class->getFileName();
 }

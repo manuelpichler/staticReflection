@@ -61,7 +61,7 @@ if ( is_dir( $argv[1] ) === false )
     exit( 23 );
 }
 
-include_once __DIR__ . '/../../source/pdepend/reflection/Autoloader.php';
+include_once __DIR__ . '/../../src/main/php/pdepend/reflection/Autoloader.php';
 
 spl_autoload_register( array( new Autoloader(), 'autoload' ) );
 
