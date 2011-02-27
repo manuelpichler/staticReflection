@@ -417,7 +417,7 @@ class Parser // @codeCoverageIgnoreStart
     {
         $this->_consumeComments();
 
-        $token = $this->_consumeToken( ParserTokens::T_STRING );
+        $token = $this->_parseIdentifierToken();
         $name  = $this->_createClassOrInterfaceName( array( $token->image ) );
 
         $this->_classOrInterface = new StaticReflectionClass( $name, $docComment, $modifiers );
@@ -601,7 +601,7 @@ class Parser // @codeCoverageIgnoreStart
         while ( $this->_peek() !== Tokenizer::EOF )
         {
             $this->_consumeComments();
-            $token = $this->_consumeToken( ParserTokens::T_STRING );
+            $token = $this->_parseIdentifierToken();
 
             $name[] = $token->image;
 
@@ -616,6 +616,34 @@ class Parser // @codeCoverageIgnoreStart
             }
         }
         return $name;
+    }
+
+
+    /**
+     * Parses a single token as it is allowed as part of a class, interface or
+     * constant identifier.
+     *
+     * @return Token
+     * @throws \pdepend\reflection\exceptions\UnexpectedTokenException When the
+     *         parser detects an unexpected token that cannot be part of an
+     *         identifier.
+     * @throws \pdepend\reflection\exceptions\EndOfTokenStreamException When
+     *         the parser reaches the end of the token stream before it has
+     *         reached the end of the class or interface body.
+     */
+    private function _parseIdentifierToken()
+    {
+        switch ( $this->_peek() )
+        {
+            case ParserTokens::T_NULL:
+            case ParserTokens::T_SELF:
+            case ParserTokens::T_TRUE:
+            case ParserTokens::T_FALSE:
+            case ParserTokens::T_PARENT:
+            case ParserTokens::T_STRING:
+                return $this->_consumeToken( $this->_peek() );
+        }
+        return $this->_consumeToken( -42 );
     }
 
     /**
@@ -947,7 +975,7 @@ class Parser // @codeCoverageIgnoreStart
         $this->_parseConstantDefinition();
 
         $this->_consumeComments();
-        while ( ($tokenType = $this->_peek() ) === ParserTokens::T_COMMA )
+        while ( $this->_peek() === ParserTokens::T_COMMA )
         {
             $this->_consumeToken( ParserTokens::T_COMMA );
             $this->_parseConstantDefinition();
@@ -971,7 +999,7 @@ class Parser // @codeCoverageIgnoreStart
     private function _parseConstantDefinition()
     {
         $this->_consumeComments();
-        $token = $this->_consumeToken( ParserTokens::T_STRING );
+        $token = $this->_parseIdentifierToken();
 
         $this->_consumeComments();
         $this->_consumeToken( ParserTokens::T_EQUAL );

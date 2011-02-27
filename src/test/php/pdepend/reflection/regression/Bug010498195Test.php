@@ -47,16 +47,14 @@
 
 namespace pdepend\reflection\regression;
 
-require_once __DIR__ . '/Bug005Test.php';
-require_once __DIR__ . '/Bug006Test.php';
-require_once __DIR__ . '/Bug008Test.php';
-require_once __DIR__ . '/Bug009Test.php';
-require_once __DIR__ . '/Bug010491735Test.php';
-require_once __DIR__ . '/Bug010498195Test.php';
-require_once __DIR__ . '/Bug010498213Test.php';
+use pdepend\reflection\ReflectionSession;
+use pdepend\reflection\queries\ReflectionFileQuery;
+use pdepend\reflection\queries\ReflectionDirectoryQuery;
+
+require_once __DIR__ . '/../BaseTest.php';
 
 /**
- * Main test suite.
+ * Test case for ticket #10498195
  *
  * @category  PHP
  * @package   pdepend\reflection\regression
@@ -64,33 +62,79 @@ require_once __DIR__ . '/Bug010498213Test.php';
  * @copyright 2009-2011 Manuel Pichler. All rights reserved.
  * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
  * @version   Release: @package_version@
- * @link      http://pdepend.org/
+ * @link      https://www.pivotaltracker.com/story/show/10498195
+ *
+ * @ticket 10498195
+ * @covers \stdClass
+ * @group reflection
+ * @group reflection::regression
+ * @group regressiontest
  */
-class AllTests extends \PHPUnit_Framework_TestSuite
+class Bug010498195Test extends \pdepend\reflection\BaseTest
 {
     /**
-     * Constructs a new test suite instance.
+     * testParserAcceptsParentAsClassName
+     *
+     * @return void
      */
-    public function __construct()
+    public function testParserAcceptsParentAsClassName()
     {
-        $this->setName( 'org::pdepend::reflection::regression::AllTests' );
-
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug005Test' );
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug006Test' );
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug008Test' );
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug009Test' );
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug010491735Test' );
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug010498195Test' );
-        $this->addTestSuite( '\pdepend\reflection\regression\Bug010498213Test' );
+        $class = $this->getClassByName( 'bug_010498195\Parent' );
+        self::assertEquals( 'bug_010498195\Parent', $class->getName() );
     }
 
     /**
-     * Returns a test suite instance.
+     * testParserAcceptsNullAsClassName
      *
-     * @return PHPUnit_Framework_TestSuite
+     * @return void
      */
-    public static function suite()
+    public function testParserAcceptsNullAsClassName()
     {
-        return new AllTests();
+        $class = $this->getClassByName( 'bug_010498195\Null' );
+        self::assertEquals( 'bug_010498195\Null', $class->getName() );
+    }
+
+    /**
+     * testParserAcceptsTrueAsClassName
+     *
+     * @return void
+     */
+    public function testParserAcceptsTrueAsClassName()
+    {
+        $class = $this->getClassByName( 'bug_010498195\True' );
+        self::assertEquals( 'bug_010498195\True', $class->getName() );
+    }
+
+    /**
+     * testParserAcceptsFalseAsClassName
+     *
+     * @return void
+     */
+    public function testParserAcceptsFalseAsClassName()
+    {
+        $class = $this->getClassByName( 'bug_010498195\False' );
+        self::assertEquals( 'bug_010498195\False', $class->getName() );
+    }
+
+    /**
+     * testParserAcceptsParentAsParentClassName
+     *
+     * @return void
+     */
+    public function testParserAcceptsParentAsParentClassName()
+    {
+        $class = $this->getClassByName( 'bug_010498195\ExtendsParent' );
+        self::assertEquals( 'bug_010498195\Parent', $class->getParentClass()->getName() );
+    }
+
+    /**
+     * testParserAcceptsFalseAsClassName
+     *
+     * @return void
+     */
+    public function testParserAcceptsSelfAsParentClassName()
+    {
+        $class = $this->getClassByName( 'bug_010498195\ExtendsSelf' );
+        self::assertEquals( 'Self', $class->getParentClass()->getShortName() );
     }
 }
