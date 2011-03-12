@@ -4,7 +4,12 @@
     <!--
         Include local project properties.
     -->
-    <property file="${basedir}/build.properties" />
+    <property file="build.properties" />
+
+    <!--
+        Include private project properties.
+    -->
+    <property file="build.privates" />
     
     <!--
         Import common build targets
