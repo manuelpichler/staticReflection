@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="staticReflection" default="build" basedir=".">
+<project name="staticReflection" basedir=".">
 
     <!--
         Include local project properties.
@@ -9,11 +9,6 @@
     <!--
         Import common build targets
     -->
-    <import file="${basedir}/setup/build-commons.xml" />
-
-    <!--
-        Main build
-    -->
-    <target name="build" depends="test" description="Primary build: StaticReflection component" />
+    <import file="${basedir}/setup/src/main/xml/base.xml" />
 
 </project>
