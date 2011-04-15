@@ -780,6 +780,20 @@ class ParserTest extends \pdepend\reflection\BaseTest
 
         self::assertInstanceOf( '\ReflectionClass', $params[0]->getClass() );
     }
+    
+    /**
+     * testParserHandlesSelfTypeHint
+     * 
+     * @return void
+     */
+    public function testParserHandlesSelfTypeHint()
+    {
+        $class  = $this->_parseClass( 'pdepend\MethodWithSelfClassParameter' );
+        $method = $class->getMethod( 'fooBar' );
+        $params = $method->getParameters();
+
+        self::assertInstanceOf( '\ReflectionClass', $params[0]->getClass() );
+    }
 
     /**
      * @return void
