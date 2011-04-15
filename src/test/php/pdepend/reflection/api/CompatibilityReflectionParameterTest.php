@@ -109,6 +109,22 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
             $static->getClass()->getName()
         );
     }
+    
+    /**
+     * testGetClassForParameterWithParentTypeHint
+     * 
+     * @return void
+     */
+    public function testGetClassForParameterWithParentTypeHint()
+    {
+        $internal = $this->createInternal( 'CompatParentParameter', 'barBaz', 0 );
+        $static   = $this->createStatic( 'CompatParentParameter', 'barBaz', 0 );
+
+        self::assertEquals( 
+            $internal->getClass()->getName(), 
+            $static->getClass()->getName()
+        );
+    }
 
     /**
      * @return void

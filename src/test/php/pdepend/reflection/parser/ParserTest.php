@@ -1,8 +1,48 @@
 <?php
 /**
- * I provide completely working code within this article, which will not be
- * developed any further, because there are already existing packages, which try
- * to provide similar functionallities.
+ * This file is part of the static reflection component.
+ *
+ * PHP Version 5
+ *
+ * Copyright (c) 2009-2011, Manuel Pichler <mapi@pdepend.org>.
+ * All rights reserved.
+ *
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions
+ * are met:
+ *
+ *   * Redistributions of source code must retain the above copyright
+ *     notice, this list of conditions and the following disclaimer.
+ *
+ *   * Redistributions in binary form must reproduce the above copyright
+ *     notice, this list of conditions and the following disclaimer in
+ *     the documentation and/or other materials provided with the
+ *     distribution.
+ *
+ *   * Neither the name of Manuel Pichler nor the names of his
+ *     contributors may be used to endorse or promote products derived
+ *     from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+ * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+ * LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS
+ * FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
+ * COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+ * INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING,
+ * BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+ * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
+ * POSSIBILITY OF SUCH DAMAGE.
+ *
+ * @category  PHP
+ * @package   pdepend\reflection\parser
+ * @author    Manuel Pichler <mapi@pdepend.org>
+ * @copyright 2009-2011 Manuel Pichler. All rights reserved.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  BSD License
+ * @version   SVN: $Id$
+ * @link      http://pdepend.org/
  */
 
 namespace pdepend\reflection\parser;
@@ -20,16 +60,19 @@ require_once __DIR__ . '/../BaseTest.php';
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
+ * 
+ * @covers \pdepend\reflection\parser\Parser
+ * @covers \pdepend\reflection\parser\ParserTokens
+ * @group reflection
+ * @group reflection::parser
+ * @group unittest
  */
 class ParserTest extends \pdepend\reflection\BaseTest
 {
     /**
+     * testParserReturnsInstanceOfTypeStaticClass
+     * 
      * @return void
-     * @covers \pdepend\reflection\parser\Parser
-     * @covers \pdepend\reflection\parser\ParserTokens
-     * @group reflection
-     * @group reflection::parser
-     * @group unittest
      */
     public function testParserReturnsInstanceOfTypeStaticClass()
     {
@@ -39,12 +82,9 @@ class ParserTest extends \pdepend\reflection\BaseTest
     }
 
     /**
+     * testParserHandlesClassParentByDefaultWithFalse
+     * 
      * @return void
-     * @covers \pdepend\reflection\parser\Parser
-     * @covers \pdepend\reflection\parser\ParserTokens
-     * @group reflection
-     * @group reflection::parser
-     * @group unittest
      */
     public function testParserHandlesClassParentByDefaultWithFalse()
     {
@@ -55,12 +95,9 @@ class ParserTest extends \pdepend\reflection\BaseTest
     }
 
     /**
+     * testParserHandlesClassWithoutInterfaceByDefaultAsEmpty
+     * 
      * @return void
-     * @covers \pdepend\reflection\parser\Parser
-     * @covers \pdepend\reflection\parser\ParserTokens
-     * @group reflection
-     * @group reflection::parser
-     * @group unittest
      */
     public function testParserHandlesClassWithoutInterfaceByDefaultAsEmpty()
     {
@@ -71,12 +108,9 @@ class ParserTest extends \pdepend\reflection\BaseTest
     }
 
     /**
+     * testParserHandlesClassWithParentClass
+     * 
      * @return void
-     * @covers \pdepend\reflection\parser\Parser
-     * @covers \pdepend\reflection\parser\ParserTokens
-     * @group reflection
-     * @group reflection::parser
-     * @group unittest
      */
     public function testParserHandlesClassWithParentClass()
     {
@@ -794,14 +828,34 @@ class ParserTest extends \pdepend\reflection\BaseTest
 
         self::assertInstanceOf( '\ReflectionClass', $params[0]->getClass() );
     }
+    
+    /**
+     * testParserHandlesParentTypeHint
+     * 
+     * @return void
+     */
+    public function testParserHandlesParentTypeHint()
+    {
+        $class  = $this->_parseClass( 'pdepend\MethodWithParentClassParameter' );
+        $method = $class->getMethod( 'fooBar' );
+        $params = $method->getParameters();
+
+        self::assertEquals( 'MethodWithComment', $params[0]->getClass()->getName() );
+    }
+    
+    /**
+     * testParserThrowsExpectedExceptionForParentTypeHintInInvalidContext
+     * 
+     * @return void
+     * @expectedException \pdepend\reflection\exceptions\ParserException
+     */
+    public function testParserThrowsExpectedExceptionForParentTypeHintInInvalidContext()
+    {
+        $this->_parseClass( 'pdepend\MethodWithInvalidParentClassParameter' );
+    }
 
     /**
      * @return void
-     * @covers \pdepend\reflection\parser\Parser
-     * @covers \pdepend\reflection\parser\ParserTokens
-     * @group reflection
-     * @group reflection::parser
-     * @group unittest
      */
     public function testParserSetsPropertyDocComment()
     {
