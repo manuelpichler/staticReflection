@@ -875,6 +875,9 @@ class Parser // @codeCoverageIgnoreStart
                 $this->_consumeToken( ParserTokens::T_ARRAY );
                 return true;
 
+            case ParserTokens::T_SELF:
+                return $this->_classOrInterface;
+
             case ParserTokens::T_STRING:
             case ParserTokens::T_NAMESPACE:
             case ParserTokens::T_NS_SEPARATOR:
