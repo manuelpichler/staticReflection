@@ -16,6 +16,11 @@ require_once __DIR__ . '/BaseCompatibilityTest.php';
  * @author  Manuel Pichler <mapi@pdepend.org>
  * @license Copyright by Manuel Pichler
  * @version $Revision$
+ * 
+ * @covers \ReflectionParameter
+ * @group reflection
+ * @group reflection::api
+ * @group compatibilitytest
  */
 class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
 {
@@ -77,11 +82,9 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
     }
 
     /**
+     * testIsArrayForParameterWithoutTypeHint
+     * 
      * @return void
-     * @covers \ReflectionParameter
-     * @group reflection
-     * @group reflection::api
-     * @group compatibilitytest
      */
     public function testIsArrayForParameterWithoutTypeHint()
     {
@@ -89,6 +92,22 @@ class CompatibilityReflectionParameterTest extends BaseCompatibilityTest
         $static   = $this->createStatic( 'CompatParameter', 'fooBar', 0 );
 
         self::assertSame( $internal->isArray(), $static->isArray() );
+    }
+    
+    /**
+     * testGetClassForParameterWithSelfTypeHint
+     * 
+     * @return void
+     */
+    public function testGetClassForParameterWithSelfTypeHint()
+    {
+        $internal = $this->createInternal( 'CompatSelfParameter', 'fooBar', 0 );
+        $static   = $this->createStatic( 'CompatSelfParameter', 'fooBar', 0 );
+
+        self::assertEquals( 
+            $internal->getClass()->getName(), 
+            $static->getClass()->getName()
+        );
     }
 
     /**

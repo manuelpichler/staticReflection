@@ -553,6 +553,24 @@ class Parser // @codeCoverageIgnoreStart
         }
         return $this->_context->getClassReference( $className );
     }
+    
+    /**
+     * Parses a class reference to the currently parsed class or interface 
+     * instance, represented by PHP's keyword <b>self</b>.
+     *
+     * @return \ReflectionClass
+     * @throws \pdepend\reflection\exceptions\UnexpectedTokenException When the
+     *         parser detects an unexpected token that cannot be part of an
+     *         identifier.
+     * @throws \pdepend\reflection\exceptions\EndOfTokenStreamException When
+     *         the parser reaches the end of the token stream before it has
+     *         reached the end of the class or interface body.
+     */
+    private function _parseSelfClassReference()
+    {
+        $this->_consumeToken( ParserTokens::T_SELF );
+        return $this->_classOrInterface;
+    }
 
     /**
      * This method parses a valid PHP class or interface name. This implementation
@@ -874,6 +892,9 @@ class Parser // @codeCoverageIgnoreStart
             case ParserTokens::T_ARRAY:
                 $this->_consumeToken( ParserTokens::T_ARRAY );
                 return true;
+
+            case ParserTokens::T_SELF:
+                return $this->_parseSelfClassReference();
 
             case ParserTokens::T_STRING:
             case ParserTokens::T_NAMESPACE:
