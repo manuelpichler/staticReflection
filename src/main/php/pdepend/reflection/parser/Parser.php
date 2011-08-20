@@ -60,7 +60,7 @@ use pdepend\reflection\exceptions\UnexpectedTokenException;
 
 /**
  * Parser implementation based on PHP's internal tokenizer extension.
- * 
+ *
  * @category  PHP
  * @package   pdepend\reflection\parser
  * @author    Manuel Pichler <mapi@pdepend.org>
@@ -76,7 +76,7 @@ class Parser // @codeCoverageIgnoreStart
     /**
      * The used parsing context that will be used to retriev reflection
      * interfaces or classes the currently parsed class depends on.
-     * 
+     *
      * @var \pdepend\reflection\interfaces\ParserContext
      */
     private $_context = null;
@@ -115,7 +115,7 @@ class Parser // @codeCoverageIgnoreStart
      * @var \pdepend\reflection\api\StaticReflectionInterface
      */
     private $_classOrInterface = null;
-    
+
     /**
      * Parsed methods within a class or interface scope.
      *
@@ -192,6 +192,11 @@ class Parser // @codeCoverageIgnoreStart
         return $this->_parse( $source );
     }
 
+    public function getAliasMap()
+    {
+        return $this->_aliasMap;
+    }
+
     /**
      * This method parses the given source code and returns instances of
      * <b>\ReflectionClass</b> for all detected interfaces or classes.
@@ -227,7 +232,7 @@ class Parser // @codeCoverageIgnoreStart
                 case ParserTokens::T_USE:
                     $this->_parseUseStatements();
                     break;
-                
+
                 case ParserTokens::T_DOC_COMMENT;
                     $docComment = $token->image;
                     break;
@@ -378,7 +383,7 @@ class Parser // @codeCoverageIgnoreStart
             {
                 case ParserTokens::T_STRING:
                     $alias = $token->image;
-                    
+
                 case ParserTokens::T_NS_SEPARATOR:
                     $namespace .= $token->image;
                     break;
@@ -444,7 +449,7 @@ class Parser // @codeCoverageIgnoreStart
                     $this->_classOrInterface->initMethods( $this->_methods );
                     $this->_classOrInterface->initConstants( $constants );
                     $this->_classOrInterface->initProperties( $this->_properties );
-                    
+
                     return $this->_classOrInterface;
             }
         }
@@ -513,7 +518,7 @@ class Parser // @codeCoverageIgnoreStart
     private function _parseInterfaceList()
     {
         $interfaces = array();
-        
+
         while ( ( $tokenType = $this->_peek() ) !== Tokenizer::EOF )
         {
             switch ( $tokenType )
@@ -975,7 +980,7 @@ class Parser // @codeCoverageIgnoreStart
 
             $docComment = $this->_consumeComments();
             $this->_parsePropertyDeclaration( $docComment, $modifiers );
-            
+
             $this->_consumeComments();
         }
         $this->_consumeToken( ParserTokens::T_SEMICOLON );
@@ -1003,7 +1008,7 @@ class Parser // @codeCoverageIgnoreStart
 
         $property = new StaticReflectionProperty( $token->image, $docComment, $modifiers );
         $property->initValue( $this->_parseOptionalStaticReflectionValue() );
-        
+
         $this->_properties[] = $property;
     }
 
@@ -1011,10 +1016,10 @@ class Parser // @codeCoverageIgnoreStart
      * This method parses a variable amount of constant definitions. A single
      * <b>const</b> can contain various constant definitions, separated by
      * a comma.
-     * 
+     *
      * All found constant definitions will be stored in the parser's property
      * <b>$_constants</b>.
-     * 
+     *
      * @return void
      * @throws \pdepend\reflection\exceptions\ParserException When any
      *         error occured during body parsing.
@@ -1147,13 +1152,13 @@ class Parser // @codeCoverageIgnoreStart
             {
                 $array[$keyOrValue] = $this->_parseStaticScalarOrArray();
             }
-            
+
             $this->_consumeComments();
             if ( $this->_peek() === ParserTokens::T_COMMA )
             {
                 $this->_consumeToken( ParserTokens::T_COMMA );
             }
-            
+
             $this->_consumeComments();
         }
 
@@ -1236,12 +1241,12 @@ class Parser // @codeCoverageIgnoreStart
             case ParserTokens::T_SELF:
             case ParserTokens::T_PARENT:
                 $value = $this->_consumeToken( $this->_peek() )->image;
-                
+
                 $this->_consumeComments();
                 $value .= $this->_consumeToken( ParserTokens::T_DOUBLE_COLON )->image;
                 $this->_consumeComments();
                 $value .= $this->_parseIdentifierToken()->image;
-               
+
                 return $this->_evaluateConstantExpression( $value );
 
             case ParserTokens::T_STRING:
@@ -1325,7 +1330,7 @@ class Parser // @codeCoverageIgnoreStart
                     continue;
                 }
                 $this->_constants[$name] = $this->_constants[$match[1]];
-                
+
                 $evaluated = true;
             }
 

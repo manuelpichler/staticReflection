@@ -71,6 +71,8 @@ abstract class ReflectionQuery
      */
     private $_context = null;
 
+    private $_aliasMap = array();
+
     /**
      * Constructs a new query instance.
      *
@@ -80,6 +82,11 @@ abstract class ReflectionQuery
     public function __construct( ParserContext $context )
     {
         $this->_context = $context;
+    }
+
+    public function getAliasMap()
+    {
+        return $this->_aliasMap;
     }
 
     /**
@@ -93,6 +100,8 @@ abstract class ReflectionQuery
     protected function parseFile( $pathName )
     {
         $parser = new Parser( $this->_context );
-        return $parser->parseFile( $pathName );
+        $res = $parser->parseFile( $pathName );
+        $this->_aliasMap = $parser->getAliasMap();
+        return $res;
     }
 }
