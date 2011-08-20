@@ -121,12 +121,9 @@ class ParserTest extends \pdepend\reflection\BaseTest
     }
 
     /**
+     * testParserHandlesCommentInParentClassName
+     * 
      * @return void
-     * @covers \pdepend\reflection\parser\Parser
-     * @covers \pdepend\reflection\parser\ParserTokens
-     * @group reflection
-     * @group reflection::parser
-     * @group unittest
      */
     public function testParserHandlesCommentInParentClassName()
     {
