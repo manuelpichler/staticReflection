@@ -71,6 +71,11 @@ abstract class ReflectionQuery
      */
     private $_context = null;
 
+    /**
+     * Mapping between class name aliases and the full qualified class names.
+     *
+     * @var array(string=>string)
+     */
     private $_aliasMap = array();
 
     /**
@@ -84,6 +89,12 @@ abstract class ReflectionQuery
         $this->_context = $context;
     }
 
+    /**  
+     * Simple getter method for the internal used alias map with class name
+     * aliases and the full qualified class name.
+     * 
+     * @return array( string=>string)
+     */
     public function getAliasMap()
     {
         return $this->_aliasMap;

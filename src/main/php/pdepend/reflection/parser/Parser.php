@@ -192,6 +192,12 @@ class Parser // @codeCoverageIgnoreStart
         return $this->_parse( $source );
     }
 
+    /**
+     * Simple getter method for the internal used alias map with class name
+     * aliases and the full qualified class name.
+     *
+     * @return array(string=>string)
+     */
     public function getAliasMap()
     {
         return $this->_aliasMap;
